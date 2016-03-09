@@ -1,19 +1,16 @@
 @CHARSET "UTF-8";
 
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+}
+
 body {
-	font-size: small;
-}
-
-header {
-	background-color: lightgray;
-}
-
-footer {
-	background-color: black;
-	color: white;
-}
-
-.container {
-	width: 500px;
-	margin: 0px auto;
+	background-color: #e9e9e9;
 }
