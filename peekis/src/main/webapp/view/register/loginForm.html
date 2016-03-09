@@ -39,6 +39,10 @@
 <link rel="stylesheet" href="../../css/btn-orange.css">
 
 
+<!-- header, footer -->
+<link rel="stylesheet" style="text/css" href="../../css/header.css" />
+<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
+
 <style type="text/css">
 
 /* body {
@@ -237,8 +241,7 @@ opacity:0.85;
 <body>
 
 	<!-- 헤더 -->
-
-	
+	<div id="header"></div>
 
 	<!-- body content -->
 	<div class="top-content">
@@ -429,7 +432,13 @@ opacity:0.85;
 
 	<!-- Footer -->
 	
+	<div id="footer"></div>
 	
+	
+<script>
+		$("#header").load("../header/header.html");
+		$("#footer").load("../footer/footer.html");
+</script>	
 	
 
 </body>
