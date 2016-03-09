@@ -1,0 +1,154 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.col-md-2, .col-md-4 {
+	padding: 0;
+	margin: 0;
+}
+
+.element {
+	position: relative;
+	height: 60px;
+}
+
+body{
+	background: rgb(242,132,53);
+	background: -moz-linear-gradient(left, rgba(242,132,53,1) 0%, rgba(241,85,38,1) 100%);
+	background: -webkit-linear-gradient(left, rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
+	background: linear-gradient(to right, rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f28435', endColorstr='#f15526',GradientType=1 );
+}
+
+.main {
+	color: #ffffff;
+	text-align: center;
+	min-height: 800px;
+	padding: 140px 0 100px 0;
+}
+
+.main h1 {
+	font-size: 80px;
+	font-weight: 700;
+}
+
+.main h2 {
+	font-weight: 300;
+	font-size: 18px;
+	padding-bottom: 40px;
+}
+
+.main small {
+	font-size: 80px;
+	color: #000;
+	font-weight: bold;
+}
+
+ul.countdown {
+	margin: 0;
+	padding: 0;
+}
+
+ul.countdown span {
+	font-size: 40px;
+	text-align: center;
+	display: inline-block;
+}
+
+ul.countdown li {
+	border-right: 1px solid #ffffff;
+	font-weight: bold;
+	font-size: 18px;
+	display: inline-block;
+	padding: 0px 40px 0px 40px;
+}
+
+ul.countdown li:last-child {
+	border-right: none;
+}
+
+ul.countdown li h3 {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.main .form-control {
+	border: none;
+	border-radius: 0px;
+	box-shadow: none;
+	height: 50px;
+	margin-top: 60px;
+	transition: all 0.4s ease-in-out;
+}
+
+.main input[type="submit"] {
+	background: #7AD03A;
+	color: #ffffff;
+	transition: all 0.3s ease;
+}
+
+.main input[type="submit"]:hover {
+	background: #417F12;
+}
+
+@media only screen and (max-width: 767px) {
+	.main, .features, .team, .contact {
+		padding: 40px 0;
+	}
+	.main input[type="submit"] {
+		margin-top: 0;
+	}
+	.main h1, .main small {
+		font-size: 60px;
+	}
+	.main h2 {
+		font-size: 13px;
+	}
+	ul.countdown li h3 {
+		font-size: 12px;
+	}
+	.main {
+		min-height: 580px;
+	}
+}
+
+@media only screen and (max-width: 629px) {
+	ul.countdown li {
+		font-size: 14px;
+		padding: 0 10px;
+	}
+	ul.countdown span {
+		font-size: 20px;
+	}
+}
+
+@media only screen and ( max-width: 360px ) {
+	.main {
+		min-height: 520px;
+	}
+	ul.countdown {
+		margin-bottom: 30px;
+	}
+	ul.countdown li {
+		border-right: 0px;
+		font-weight: bold;
+		font-size: 18px;
+		display: inline-block;
+		padding: 15px;
+	}
+	.main .form-control {
+		margin: 0px;
+	}
+}
+
+@media only screen and ( max-width: 320px ) {
+	ul.countdown li {
+		font-weight: bold;
+		font-size: 18px;
+		display: inline-block;
+		margin: 0;
+		padding: 4px;
+	}
+}
