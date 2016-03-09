@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+.btn-orange {
+   color: #ffffff;
+   background: rgb(242,132,53);
+   background: -moz-linear-gradient(top,  rgba(242,132,53,1) 0%, rgba(241,85,38,1) 100%);
+   background: -webkit-linear-gradient(top,  rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
+   background: linear-gradient(to bottom,  rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f28435', endColorstr='#f15526',GradientType=0 );
+   border-color: #F15526;
+}
+
+.btn-orange:hover, .btn-orange:focus, .btn-orange:active, .btn-orange.active, .open .dropdown-toggle.btn-orange {
+	color: #ffffff;
+	background-color: #F15525;
+	border-color: #F15526;
+}
+
+.btn-orange:active, .btn-orange.active, .open .dropdown-toggle.btn-orange {
+	background-image: none;
+}
+
+.btn-orange.disabled, .btn-orange[disabled], fieldset[disabled] .btn-orange, .btn-orange.disabled:hover, .btn-orange[disabled]:hover, fieldset[disabled] .btn-orange:hover, .btn-orange.disabled:focus, .btn-orange[disabled]:focus, fieldset[disabled] .btn-orange:focus, .btn-orange.disabled:active, .btn-orange[disabled]:active, fieldset[disabled] .btn-orange:active, .btn-orange.disabled.active, .btn-orange[disabled].active, fieldset[disabled] .btn-orange.active {
+	background-color: #F28435;
+	border-color: #F15526;
+}
+
+.btn-orange .badge {
+	color: #F28435;
+	background-color: #ffffff;
+}
