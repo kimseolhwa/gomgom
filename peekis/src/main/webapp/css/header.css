@@ -6,18 +6,6 @@
 		margin : 0px;
 		padding : 0px;
 	}
-	/*헤더 푸터 전체 사이즈 조절*/
-	nav {
-		min-width : 1024px;
-	}
-	footer {
-		min-width : 1024px;
-		width : 100%;
-		position: absolute;
-		bottom: 0px;
-		margin : 0px;
-		padding : 0px;
-	}
 	
 	/* 프로필이미지 사이즈  */
 	li .navbar-text{
