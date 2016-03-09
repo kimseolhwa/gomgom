@@ -45,11 +45,6 @@
 
 <style type="text/css">
 
-/* body {
-background-color: #e9e9e9;
-}
- */
-
 /* 모달 토글 */
 
 .container-fluid {
@@ -68,7 +63,7 @@ border: 8px solid #3f96cf !important;
 
 }
 
-/* 모달 이미지 설정 */
+/* 모달 설정 */
 
 .modal-body {
     position:relative; /* This avoids image to go off the container */
@@ -122,6 +117,56 @@ opacity:0.85;
 <script>
 
 	$(document).ready(function() {
+		
+		
+	 /* 가입 데이터 전송 1 */
+// 		   $('#insertTest').on('click', function(){
+//         var data_value = $('#name').val();
+//         var data_value2 = $('#email').val();
+//         var data_value3 = $('#pass').val();
+//         var url = 'ajax/add.do';
+//     $.ajax({
+//             type: "POST",
+//         url: url,
+//         data:{'name':data_value,
+//                        'email': data_value2,
+//                         'pass': data_value3},
+//         success:function(){   
+//      		/* 로그인 데이터 전송 후 팔로우 선택지로 */
+//     		$("#myModal").modal("show");
+     		
+//         }
+//     });
+// });  
+		
+
+ 		/* 가입 데이터 전송 2 */
+	  $('#insertTest').on('click', function(){
+		  data_value = $('#userName').val();
+  	 	  data_value2 = $('#email').val();
+    	  data_value3 = $('#password').val();
+	  });
+		
+	  
+		/* 모달창에서 데이터 전송  */
+		$("#followbtn").on("click",function(){
+			
+			$.ajax({
+          type: "POST",
+      url: "ajax/add.do",
+      data:{'name':data_value,
+                     'email': data_value2,
+                      'password': data_value3
+                      },
+                      
+      success:function(){   
+					alert("전송완료");      		
+    			  }
+ 		 });
+       })
+		
+		
+		
 
 	/* 벨리데이션 체크 */
 	$('#defaultForm').formValidation({
@@ -139,19 +184,11 @@ opacity:0.85;
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            firstName: {
+        	userName: {
 	        	err: 'popover',
                 validators: {
                     notEmpty: {
                         message: 'The first name is required and cannot be empty'
-                    }
-                }
-            },
-            lastName: {
-            	err: 'popover',
-                validators: {
-                    notEmpty: {
-                        message: 'The last name is required and cannot be empty'
                     }
                 }
             },
@@ -209,7 +246,7 @@ opacity:0.85;
     }); */
 
 		
-	/* 모달 */
+	/* 모달- 이미지 체크 토글 */
 		$(".img-check").click(function() {
 			
 			var numItems = $('.check').length;
@@ -281,25 +318,25 @@ opacity:0.85;
 							<form role="form"  method="post" id="defaultForm" 
 								class="registration-form" >
 								<div class="form-group">
-									<label class="sr-only" for="form-first-name">First name</label>
-									<input type="text" name="firstName"
-										placeholder="First name..."
-										class="form-first-name form-control" id="form-first-name">
+									<label class="sr-only" for="form-first-name">User name</label>
+									<input type="text" name="userName"
+										placeholder="User name..."
+										class="form-first-name form-control" id="userName">
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label class="sr-only" for="form-last-name">Last name</label> <input
 										type="text" name="lastName" placeholder="Last name..."
 										class="form-last-name form-control" id="form-last-name">
-								</div>
+								</div> -->
 								<div class="form-group">
 									<label class="sr-only" for="form-email">Email</label> <input
 										type="text" name="email" placeholder="Email..."
-										class="form-email form-control" id="form-email">
+										class="form-email form-control" id="Email">
 								</div>
 								<div class="form-group">
 									<label class="sr-only" for="form-password">password</label> <input
 										type="password" name="password" placeholder="password..."
-										class="form-password form-control" id="form-password">
+										class="form-password form-control" id="password">
 								</div>
 								<div class="form-group">
 									<label class="sr-only" for="form-about-yourself">About
@@ -307,7 +344,7 @@ opacity:0.85;
 									<textarea name="aboutYourself"
 										placeholder="About yourself..."
 										class="form-about-yourself form-control"
-										id="form-about-yourself"></textarea>
+										id="aboutYourself"></textarea>
 								</div>
 								<button type="submit" class="btn btn-orange" id="registIn"
 									data-toggle="modal" >가입하기</button> <!-- data-target="#myModal" -->
@@ -420,7 +457,7 @@ opacity:0.85;
 				<div class="modal-footer">
 
 						 <div class="container-fluid">
-	 	<button  class="btn btn-lg btn-primary" id="followbtn" onclick="location.href='main.html'"><strong>주제를 팔로우 하세요</strong></button>	
+	 	<button  class="btn btn-lg btn-orange" id="followbtn" onclick="location.href='main/main.html'"><strong>주제를 팔로우 하세요</strong></button>	
 	 </div>
 
 				</div>
@@ -434,13 +471,11 @@ opacity:0.85;
 	
 	<div id="footer"></div>
 	
-	
 <script>
 		$("#header").load("../header/header-register.html");
 		$("#footer").load("../footer/footer.html");
 </script>	
 	
-
 </body>
 
 </html>
