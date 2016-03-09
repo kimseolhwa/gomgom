@@ -24,7 +24,7 @@
     <choose>
       <when test="keyword == 'title'">title </when>
       <when test="keyword == 'views'">views </when>
-      <otherwise>bno </otherwise>
+      <otherwise>bno desc</otherwise>
     </choose>
   </select>
 
