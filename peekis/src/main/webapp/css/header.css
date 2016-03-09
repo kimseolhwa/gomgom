@@ -1,0 +1,137 @@
+@CHARSET "UTF-8";
+	/*헤더푸터 제외 칼라*/
+	html,body {
+		background-color: #e9e9e9;
+		min-height : 100%;
+		margin : 0px;
+		padding : 0px;
+	}
+	/*헤더 푸터 전체 사이즈 조절*/
+	nav {
+		min-width : 1024px;
+	}
+	footer {
+		min-width : 1024px;
+		width : 100%;
+		position: absolute;
+		bottom: 0px;
+		margin : 0px;
+		padding : 0px;
+	}
+	
+	/* 프로필이미지 사이즈  */
+	li .navbar-text{
+		margin-bottom: 0px;
+		margin: 0px;
+		padding: 10px;
+	}
+	
+	/*정보수정,로그아웃 드롭박스*/
+	#logout-dp {
+		min-width: 250px;
+		padding: 14px 14px 0;
+		overflow: hidden;
+		background-color: rgba(255, 255, 255, .8);
+	}
+	#logout-dp .bottom {
+		border-top: 1px solid #ddd;
+		clear: both;
+		padding: 14px;
+	}
+	#logout-dp .social-buttons {
+		margin: 12px 0
+	}
+	#logout-dp .social-buttons a {
+		width: 49%;
+	}
+	#logout-dp .form-group {
+		margin-bottom: 10px;
+	}
+	.btn-fb { /*드롭박스 안에 트위터 페이스북*/
+		color: #fff;
+		background-color: #3b5998;
+	}
+	.btn-fb:hover {
+		color: #fff;
+		background-color: #bebebe;
+	}
+	.btn-tw {
+		color: #fff;
+		background-color: #55acee;
+	}
+	.btn-tw:hover {
+		color: #fff;
+		background-color: #bebebe;
+	}
+	#logout{
+		color: rgb(242,132,53); /*로그아웃 글씨 주황색*/
+	}
+	
+	/*header 백그라운드 화이트*/
+	.container-fluid{
+		background-color: white;
+	}
+	/* 로고 주황색 배경  */
+	.navbar-brand{
+		color: #ffffff;
+		   background: rgb(242,132,53);
+		   background: -moz-linear-gradient(top,  rgba(242,132,53,1) 0%, rgba(241,85,38,1) 100%);
+		   background: -webkit-linear-gradient(top,  rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
+		   background: linear-gradient(to bottom,  rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
+		   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f28435', endColorstr='#f15526',GradientType=0 );	
+	}
+	/*드롭다운 네이밍 칼라 -그레이*/
+	#dropdownCo{
+		background-color: #bebebe;
+	}
+	/*searchbar -size*/
+	#searchText[type=text]{
+		width: 80px;
+	    box-sizing: border-box;
+	    border: 2px solid #ccc;
+	    border-radius: 4px;
+	    font-size: 14px;
+	    background-color: white;
+	    -webkit-transition: width 0.4s ease-in-out;
+	    transition: width 0.4s ease-in-out;
+	}
+	#searchText[type=text]:focus {
+    	width: 800px;
+	}
+	#searchSubmit{
+		margin-left: 20px;
+		border-left: 1px solid #bebebe;
+		border-right: 1px solid #bebebe;
+	}
+	#mypage-btn{ /*정보수정 버튼*/
+		width: 100%;
+		color: #666666;
+		font-weight: bold;
+	}
+	#mypage{ /*mypage 글씨 칼라*/
+		color: #bebebe;
+	}
+	
+	@media ( max-width :768px) {
+		#logout-dp {
+			background-color: inherit;
+			color: #fff;
+		}
+		#logout-dp .bottom {
+			background-color: inherit;
+			border-top: 0 none;
+		}
+	}
+	
+	/*
+	#logout-dp .help-block {
+		font-size: 12px
+	}
+	
+	.btn btn-primary btn-block{
+		background-color: gray;
+	}
+	.navbar-text{
+		margin: 0;
+	}
+	*/
