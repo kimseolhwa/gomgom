@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>login-registration</title>
+
+<!-- 부트스트랩 -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  
+  <!-- 제이쿼리 -->
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<!-- 벨리데이션 체크 -->
+    <link rel="stylesheet" href="../../dist/css/formValidation.css"/>
+    <script type="text/javascript" src="../../dist/js/formValidation.js"></script>
+    <script type="text/javascript" src="../../dist/js/framework/bootstrap.js"></script>
+
+<!-- Custom Fonts -->
+<link
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+
+<!-- btn-orange -->
+<link rel="stylesheet" href="../../css/btn-orange.css">
+
+
+<style type="text/css">
+
+/* body {
+background-color: #e9e9e9;
+}
+ */
+
+/* 모달 토글 */
+
+.container-fluid {
+	text-align: center;
+	align: center;
+	border: none;
+}
+
+.check{
+ 
+	display: inline-block!important;
+}
+
+.uncheckedborder {
+border: 8px solid #3f96cf !important;
+
+}
+
+/* 모달 이미지 설정 */
+
+.modal-body {
+    position:relative; /* This avoids image to go off the container */
+    overflow: visible;
+}
+.img-check {
+    width:180px;
+    height: 150px;
+     border: none;
+     border-radius: 5%; 
+     margin: 3px;
+     -webkit-box-shadow:  1px 2px 2px #D9DEDC;
+     padding: 0px;
+}
+
+.img-check:hover{
+opacity:0.85;
+}
+
+.col-md-3{
+ display: inline-block;
+}
+
+ 
+.modal-header>.asd>span {
+/*    display : inline-block;  */
+  border-radius : 8px;
+  background: #A1CC9F;
+  text-align : center;
+  color : white;
+  font-weight : bold;
+  margin-right : 5px;
+  border-style: dashed;
+  border-width: 0.2px;
+  font-size: x-large;
+}
+
+.modal-body>.row>div>div {
+	position : absolute;
+	padding : 5px;
+	margin:12px;
+ 	/* background-color : rgba(0,0,0,0.4); */ 
+	text-align : center;
+ 	border-radius : 3px; 
+	font-weight : bold;
+	z-index:1;
+	color : white;
+}
+
+</style>
+<script>
+
+	$(document).ready(function() {
+
+	/* 벨리데이션 체크 */
+	$('#defaultForm').formValidation({
+			
+	framework: 'bootstrap',	
+			
+        message: 'This value is not valid',
+        
+        err: {
+            container: 'tooltip'
+        },
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            firstName: {
+	        	err: 'popover',
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required and cannot be empty'
+                    }
+                }
+            },
+            lastName: {
+            	err: 'popover',
+                validators: {
+                    notEmpty: {
+                        message: 'The last name is required and cannot be empty'
+                    }
+                }
+            },
+            email: {
+                err: 'popover',
+                validators: {
+                    emailAddress: {
+
+                    },
+                    notEmpty: {
+                        message: 'The email is required and cannot be empty'
+                    }
+                }
+            },
+            password: {
+                err: 'popover',
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required and cannot be empty'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The password must be more than 6 and less than 30 characters long'
+                    }
+                }
+            }
+        }
+    }).on('success.form.fv', function(e) {
+        
+    	$("#myModal").modal("show");
+    	return false; 
+    	
+    });
+    
+	
+    /* .on('err.field.fv', function(e, data) {
+        // $(e.target)  --> The field element
+        // data.fv      --> The FormValidation instance
+        // data.field   --> The field name
+        // data.element --> The field element
+			
+        $('#myModal').modal("hide")
+        data.fv.disableSubmitButtons(false);
+    })
+    .on('success.field.fv', function(e, data) {
+        // e, data parameters are the same as in err.field.fv event handler
+        // Despite that the field is valid, by default, the submit button will be disabled if all the following conditions meet
+        // - The submit button is clicked
+        // - The form is invalid
+        if (data.fv.getInvalidFields().length > 0) {  // There is invalid field
+        	alert(data.fv.getInvalidFields().length)
+            data.fv.disableSubmitButtons(true);
+        }
+    }); */
+
+		
+	/* 모달 */
+		$(".img-check").click(function() {
+			
+			var numItems = $('.check').length;
+
+		    $(this).toggleClass("check");
+		      $(this).toggleClass("uncheckedborder");
+			
+			numItems = $('.check').length; 
+
+			if(numItems >= 5){
+				  $("#followbtn").attr("disabled", false);
+			
+			}else{
+				  $("#followbtn").attr("disabled", true);
+			
+			}
+			
+			if(numItems != 0){
+					 $("#followbtn").html( "<strong>" + numItems + "개의 주제를 팔로우</strong>");
+				  }else{
+					 $("#followbtn").html( "<strong>주제를 팔로우 하세요</strong>");
+				  }
+		});
+    
+	}); 
+	
+</script>
+</head>
+<body>
+
+	<!-- 헤더 -->
+
+	
+
+	<!-- body content -->
+	<div class="top-content">
+
+		<div class="inner-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-7 text">
+						<h1>
+							<strong>PEEKis</strong> 지금 <span style="color: red;">피키즈</span>에
+							가입하세요.
+						</h1>
+						
+						
+						<div class="description">
+							<p>GOMGOM에서 전세계에 있는 친구, 가족, 지인들의 WISH LIST를 확인하실 수 있습니다.</p>
+							<br> 
+							<img src="img/gifts_generic.gif" width="80%"
+								style="padding-left: 20px;">
+						</div>
+						<!--                             <div class="top-big-link"> -->
+						<!--                             	<a class="btn btn-link-1" href="#">Button 1</a> -->
+						<!--                             	<a class="btn btn-link-2" href="#">Button 2</a> -->
+						<!--                             </div> -->
+					</div>
+					<div class="col-sm-5 form-box">
+						<div class="form-top">
+							<div class="form-top-left">
+								<h3><strong>가입하기</strong></h3>
+								<p>Fill in the form below to get instant access:</p>
+							</div>
+							<div class="form-top-right" align="right">
+								<i class="fa fa-pencil"></i>
+							</div>
+						</div>
+						<div class="form-bottom">
+							<form role="form"  method="post" id="defaultForm" 
+								class="registration-form" >
+								<div class="form-group">
+									<label class="sr-only" for="form-first-name">First name</label>
+									<input type="text" name="firstName"
+										placeholder="First name..."
+										class="form-first-name form-control" id="form-first-name">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-last-name">Last name</label> <input
+										type="text" name="lastName" placeholder="Last name..."
+										class="form-last-name form-control" id="form-last-name">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-email">Email</label> <input
+										type="text" name="email" placeholder="Email..."
+										class="form-email form-control" id="form-email">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-password">password</label> <input
+										type="password" name="password" placeholder="password..."
+										class="form-password form-control" id="form-password">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="form-about-yourself">About
+										yourself</label>
+									<textarea name="aboutYourself"
+										placeholder="About yourself..."
+										class="form-about-yourself form-control"
+										id="form-about-yourself"></textarea>
+								</div>
+								<button type="submit" class="btn btn-orange" id="registIn"
+									data-toggle="modal" >가입하기</button> <!-- data-target="#myModal" -->
+<!-- 									<span style="border: 1px solid tomato;  margin-left: 50px;"> 클릭후 이메일 중복될때 확인 창이 나올 곳 </span> -->
+							</form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">자신이 원하는 주제를 팔로우 하세요. <span style="font-size:small; color: tomato;">(5개 이상 선택)</span></h4> <span class="asd"></span>
+				</div>
+
+				<!-- 모달 바디 -->
+				<div class="modal-body">
+				<div class="row"  >
+				
+					<!--선택이미지  -->
+					<div class="col-md-3" >
+						<div>여성</div>
+						<a class="tooltips" href="#" >
+						<img src="img/woman.jpg" alt="..." class="img-thumbnail img-check"  title="여성"></a>
+					
+					</div>
+					
+					<div class="col-md-3">
+						<div>남성</div>
+						<a href="#"><img src="img/man.jpg" alt="..." class="img-thumbnail img-check"></a><!-- <span class="imgn" title="남성"></span> -->
+					</div>
+
+					<div class="col-md-3">
+						<div>KIDS</div>
+						<a class="tooltips" href="#"><img src="img/kids.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>kids</span> --></a>
+					</div>
+					
+					<div class="col-md-3">
+						<div>BABY</div>
+						<a class="tooltips" href="#"><img src="img/baby.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>baby</span> --></a>
+					</div>
+					
+					<div class="col-md-3">
+						<div>ANIMAL</div>
+						<a class="tooltips" href="#"><img src="img/animal.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>animal</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>ACCESSORY</div>
+						<a class="tooltips" href="#"><img src="img/Accessory-Designer-Intro.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>Accessory</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>IT</div>
+						<a class="tooltips" href="#"><img src="img/it.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>IT</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>SPORTS</div>
+						<a class="tooltips" href="#"><img src="img/sports.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>sports</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>COSMETIC</div>
+						<a class="tooltips" href="#"><img src="img/cosmetic.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>cosmetic</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>INSTRUMENT</div>
+						<a class="tooltips" href="#"><img src="img/instruments.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>instrument</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>CAR</div>
+						<a class="tooltips" href="#"><img src="img/car.JPG" alt="..." class="img-thumbnail img-check"><!-- <span>car</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>WATCH</div>
+						<a class="tooltips" href="#"><img src="img/watch.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>watch</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>BAG</div>
+						<a class="tooltips" href="#"><img src="img/bag.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>bag</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>SHOES</div>
+						<a class="tooltips" href="#"><img src="img/shoes.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>shoes</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>BOOK</div>
+						<a class="tooltips" href="#"><img src="img/book.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>book</span> --></a>
+					</div>
+					<div class="col-md-3">
+						<div>FURNITURE</div>
+						<a class="tooltips" href="#"><img src="img/furniture.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>furniture</span> --></a>
+					</div>
+
+</div><!-- div row -->
+				</div>
+
+				<!--  모달 푸터 -->
+
+				<div class="modal-footer">
+
+						 <div class="container-fluid">
+	 	<button  class="btn btn-lg btn-primary" id="followbtn" onclick="location.href='main.html'"><strong>주제를 팔로우 하세요</strong></button>	
+	 </div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+<hr>
+
+	<!-- Footer -->
+	
+	
+	
+
+</body>
+
+</html>
