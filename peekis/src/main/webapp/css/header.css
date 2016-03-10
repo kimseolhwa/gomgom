@@ -1,11 +1,10 @@
 @CHARSET "UTF-8";
-	/*헤더푸터 제외 칼라*/
-	html,body {
-		background-color: #e9e9e9;
-		min-height : 100%;
-		margin : 0px;
-		padding : 0px;
+	header{
+		position: fixed;
+		top : 0px;
+		width: 100%;
 	}
+	
 	/*헤더 푸터 전체 사이즈 조절*/
 	nav {
 		min-width : 1024px;
@@ -25,6 +24,10 @@
 		margin-bottom: 0px;
 		margin: 0px;
 		padding: 10px;
+	}
+	#pImg:hover{ 
+		color: black;
+		opacity: 0.3;
 	}
 	
 	/*정보수정,로그아웃 드롭박스*/

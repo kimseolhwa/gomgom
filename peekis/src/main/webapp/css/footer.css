@@ -1,19 +1,8 @@
 @CHARSET "UTF-8";
-	*{
-		margin: 0px;
-		padding: 0px;
-	}
-	html,body {
-		background-color: #e9e9e9;
-		min-height : 100%;
-		margin : 0px;
-		padding : 0px;
-	}
-	/*헤더 푸터 전체 사이즈 조절*/
-	nav {
-		min-width : 1024px;
-	}
+	/*헤더 전체 */
 	footer {
+		border-top: solid 2px rgb(242,132,53);
+		background-color: #e6e6e6;
 		min-width : 1024px;
 		width : 100%;
 		bottom: 0px;
@@ -23,12 +12,7 @@
 	/* footer */
 	.main-footer{
 		height: 50px;
-		color: #ffffff;
-		   background: rgb(242,132,53);
-		   background: -moz-linear-gradient(top,  rgba(242,132,53,1) 0%, rgba(241,85,38,1) 100%);
-		   background: -webkit-linear-gradient(top,  rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
-		   background: linear-gradient(to bottom,  rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
-		   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f28435', endColorstr='#f15526',GradientType=0 );
+		color: #bebebe;
 	}
 	
 	.footer-inner {
@@ -36,24 +20,26 @@
 		height: 100%;
 		position : relative;
 	}
-	.footLogo a{
+	.footLogo .share{
 		text-decoration: none;
+	}
+	.footLogo a{
 		font-weight: bold;
-		color: white;
+		color: gray;
 		padding: 5px;
 	}
 	.footer-inner .footLogo{
 		position : absolute;
 		left : 5px;
 		width: 20%;
-		margin: 15px;
+		margin: 13px;
 	}
 	
 	/*중간 아이콘*/
 	.footer-inner .footShare{
 		width : 100%;
 		height : 100%;
-		position : absolute;		
+		position : absolute;	
 	}
 
 	.footShare ul{
@@ -61,13 +47,12 @@
 		padding: 0px;
 		list-style: none;
 		width: 20%;
-		
 	}
 	.footShare li a{
 		padding: 5px;
 	}
 	.footShare li a:hover{
-		opacity: 0.3;
+		opacity: 0.5;
 	}
 	.footShare li{ 
 		float: left;
@@ -78,15 +63,16 @@
 	}
 	/*footer-메뉴,Q&A*/
 	.footCont {
-		float : right;
+		position : absolute;
+		right : 0px;
 		height : 100%;
 	}
 	.footCont li a{
 		display: block;
-		line-height : 50px;
+		line-height : 48px;
 		padding : 0px 5px 0px 5px;
 		color: #bebebe;
-		font-size: 14px;
+		font-size: 13px;
 		text-decoration: none;
 	}
 	.footCont li a:hover {
@@ -99,19 +85,7 @@
 		height : 100%;
 	}
 	#footMn{
-		margin-bottom: 0px;
-	}
-	/*푸터 마지막 Peekis2016 
-	.footCopyright{
-		text-align: center;
 		margin: 0px;
-		color: #bebebe;
-		font-size: 15PX;
-		width: 100%;
-		text-align: center;
-		margin-bottom: 0;
-	}*/
-	
-	
+	}
 	
 	
