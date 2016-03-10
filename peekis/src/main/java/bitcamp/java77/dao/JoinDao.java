@@ -2,14 +2,14 @@ package bitcamp.java77.dao;
 
 import java.util.List;
 
-import bitcamp.java77.domain.Board;
+import bitcamp.java77.domain.Join;
 
 public interface JoinDao {
-  int insert(Board board);
+  int insert(Join Join);
   
-  List<Board> selectList();
+  List<Join> selectList();
 
-  int memberJoin(Board board);
+  int memberJoin(Join Join);
   
 }
 
