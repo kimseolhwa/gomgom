@@ -43,7 +43,7 @@
 		  
 		 <div style="width: 100px; height: 100px;"><img alt="" id="profile" src="image/손연재.jpg"></div>
 		
-	  	 <div style="width: 450px; height: 30px; text-align: center;"><h2>aabbccdd</h2></div>
+	  	 <div style="width: 450px; height: 50px; text-align: center;"><h2>gomgom</h2></div>
 	  	 
 		 <div class="userInfo" style="width: 450px; height: 100px;">
 		  <a href="#"><div><i class="fa fa-folder-open-o"></i><br>카테고리<br>000</div></a>
@@ -58,6 +58,14 @@
 
 
 		<div class="container-fluid main">
+				<!-- 로딩 이미지  -->
+				<div class="wrap-loading">
+					<div class="spinner">
+						<div class="right-side"><div class="bar"></div></div>
+						<div class="left-side"><div class="bar"></div></div>
+					</div>
+				</div>
+				
 				<div id="results" style=""></div>
 				
 				<div class="item_container">
@@ -141,7 +149,6 @@
 	         <div class="form-group">
 	         <label class="sr-only"  for="modal-image">image:</label>
 	          <img style="max-width:300px; max-height: 250px; width: auto; height: auto;" id="modal-image" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png"/>
-	          <!-- <button id="addphoto" class="btn btn-primary">사진추가</button>		 -->
 	          <input type="file" id="modal-File" accept="image/*" style="display: none;"/>
 	          </div>
 	          <div class="form-group">
@@ -184,36 +191,36 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">위시리스트 추가하기</h4>
+	        <h4 class="modal-title" id="myModalLabel">위시리스트 수정하기</h4>
 	      </div>
 	      <div class="modal-body">
-	        <form>       
+	        <form action="add.do" method="post" name="eForm" enctype="multipart/form-data">
+	        <input type="hidden"  class="no" id="editmodal-no">      
 	         <div class="form-group">
 	         <label class="sr-only"  for="modal-image">image:</label>
-	          <img style="max-width:300px; max-height: 250px; width: auto; height: auto;" id="modal-image" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png"/>
-	          <!-- <button id="addphoto" class="btn btn-primary">사진추가</button>		 -->
-	          <input type="file" id="modal-File" accept="image/*" style="display: none;"/>
+	          <img style="max-width:300px; max-height: 250px; width: auto; height: auto;" id="editmodal-image" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png"/>
+	          <input type="file" id="editmodal-File" accept="image/*" style="display: none;"/>
 	          </div>
 	          <div class="form-group">
 	            <label for="modal-title" class="sr-only">title:</label>
-	            <input type="text" class="form-control" id="modal-title"  placeholder="제목">
+	            <input type="text" class="form-control" id="editmodal-title"  name="title" placeholder="제목">
 	          </div>
 	          <div class="form-group">
 	            <label for="modal-content" class="sr-only">content:</label>
-	            <textarea class="form-control" id="modal-content"  placeholder="내용"></textarea>
+	            <textarea class="form-control" id="editmodal-content" name="content" placeholder="내용"></textarea>
 	          </div>
 	          <div class="form-group">
 	            <label for="modal-price" class="sr-only">price:</label>
-	            <input type="text" class="form-control" id="modal-price" placeholder="가격">
+	            <input type="text" class="form-control" id="editmodal-price" name="price" placeholder="가격">
 	          </div>
         	
 	          <div class="form-group">
 	            <label for="modal-url" class="sr-only control-label">url:</label>
-	            <input type="text" class="form-control" id="modal-url" placeholder="URL">
+	            <input type="text" class="form-control" id="editmodal-url" name="url" placeholder="URL">
 	          </div>
 	          <div class="form-group">
 	            <label for="modal-tag" class="sr-only control-label">tag:</label>
-	            <input type="text" class="form-control" id="modal-tag" placeholder="#태그입력">
+	            <input type="text" class="form-control" id="editmodal-tag" placeholder="#태그입력">
 	          </div>
 
         	</form>       	
@@ -221,7 +228,7 @@
 	      
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default cancel-btn" data-dismiss="modal">취소</button>
-	        <button type="button" class="btn btn-primary regist-btn" data-dismiss="modal">수정</button>
+	        <button type="button" class="btn btn-orange update-btn" data-dismiss="modal">수정</button>
 	      </div>
 	    </div>
 	  </div>
@@ -240,7 +247,7 @@
 					<h4 class="modal-title" id="myModalLabel">제목 표시 부분</h4>
 				</div>
 				<div class="modal-body">
-					<img src="image/004.jpg" class="img-responsive img-centered" alt="">
+					<img src="image/신발.PNG" class="img-responsive img-centered" alt="">
 					<p>물건 내용을 표시 해주자</p>
 				</div>
 				<div class="modal-footer">
@@ -281,21 +288,21 @@
 	            $container.isotope();
 	        }); 
 			
-			$('.buy').click(function () {
-				alert("dd");
-			});
-				
-		 $.getJSON('/peekis/board/ajax/list.do', function(resultObj) {
-			  for (var board of resultObj.data) {					
+		/* 위시리스트 목록 불러오기  */		
+		 $.getJSON('/peekis/wish/ajax/list.do', function(resultObj) {
+			  for (var wish of resultObj.data) {					
 					var text = "";
-					text += '<div class="item friend ' + board.no + '">';
+					text += '<div class="item friend ' + wish.no + '">';
 					text += '	<div class="product">';
-					text += '		<img src="' + board.attachFile + '" />';
+					text += '		<img src="' + wish.path + '" />';
 					text += '		<div class="mask" data-target="#Modal1" data-toggle="modal">';
 					text += '			<button class="btn btn-default buy"><i class="fa fa-glass"></i></button>';
-					text += '			<h2 class="name">' + board.title + '</h2>';
+					text += '			<h2 class="title">' + wish.title + '</h2>';
 					text += '			<p class="category">카테고리1</p>';
-					text += '			<p class="price">' + board.price + '</p>';
+					text += '			<p class="price">' + wish.price + '</p>';
+					text += '			<input type="hidden"  class="no" value="' + wish.no + '">';
+					text += '			<input type="hidden"  class="content" value="' + wish.content + '">';
+					text += '			<input type="hidden"  class="url" value="' + wish.url + '">';
 					text += '		</div>';
 					text += '	</div>';
 					text += '	<div class="icon">';
@@ -308,13 +315,14 @@
 			  }
 			});  
 		
+		/* 위시리스트 추가하기  */
 		$('#myModal .regist-btn').click(function () {
-			$.post('/peekis/board/ajax/add.do', {
+			$.post('/peekis/wish/ajax/add.do', {
 				title: $('#modal-title').val(),
 				content: $('#modal-content').val(),
 				price: $('#modal-price').val(),
 				url: $('#modal-url').val(),
-				attachFile : $("#modal-image").attr("src")
+				path : $("#modal-image").attr("src")
 				
 			}, function(resultObj) {
 				var ajaxResult = resultObj.ajaxResult;
@@ -326,17 +334,21 @@
 					text += '		<img src="' + $("#modal-image").attr("src") + '" />';
 
 					text += '		<div class="mask" data-target="#Modal1" data-toggle="modal">';
-					text += '			<h2 class="name">' + $("#modal-title").val() + '</h2>';
+					text += '			<button class="btn btn-default buy"><i class="fa fa-glass"></i></button>';
+					text += '			<h2 class="title">' + $("#modal-title").val() + '</h2>';
 					text += '			<p class="category">카테고리1</p>';
 					text += '			<p class="price">' + $("#modal-price").val() + '</p>';
+					text += '			<input type="hidden"  class="no" value="' + 00 + '">';
+					text += '			<input type="hidden"  class="content" value="' + $("#modal-content").val() + '">';
+					text += '			<input type="hidden"  class="url" value="' + $('#modal-url').val() + '">';
 					text += '		</div>';
-
 					text += '	</div>';
 					text += '	<div class="icon">';
 					text += '		<i class="fa fa-pencil"></i>';
 					text += '		<i class="fa fa-trash-o"></i>';
+					text += '	</div>';
 					text += '</div>';
-					text += '</div>';
+					
 					var $items = $(text);
 					$container.prepend( $items ).isotope( 'prepended', $items );
 					
@@ -356,34 +368,77 @@
 			
 		});
 		
-		
+		/* 위시리스트 삭제하기  */
 		$container.on( 'click', '.fa-trash-o', function() {
-			  $container.isotope( 'remove', $(this).parent().parent() ).isotope();
-			  
-			  
+			var wishNo = $(this).parent().parent().find("[type=hidden]").val();
+			$.getJSON('/peekis/wish/ajax/delete.do', {no : wishNo} , function( resultObj ) {
+				var ajaxResult = resultObj.ajaxResult;
+				if (ajaxResult.status == "success") {
+					$container.isotope( 'remove', $("." + wishNo) ).isotope();
+				}
+			});
 		})
 		
-		$('.fa-pencil').click(function () {
+		/* 위시리스트 수정폼 불러오기  */
+		$container.on( 'click', '.fa-pencil', function() {
+			var pro = $(this).parent().parent();
+			$("#editmodal-no").val( pro.find("[class='no']").val());
+			$("#editmodal-image").attr("src", pro.find("img").attr("src"));
+			$("#editmodal-title").val(pro.find("[class='title']").text());			
+			$("#editmodal-content").val(pro.find("[class='content']").val());
+			$("#editmodal-price").val(pro.find("[class='price']").text());
+			$("#editmodal-url").val(pro.find("[class='url']").val());
+			$("#editmodal-tag").val("");
 			$('#editModal').modal();
-		});
-		 
+		})
 		
-		$('#myModal .cancel-btn').click(function () {
+		/* 위시리스트  수정하기  */
+		$('#editModal .update-btn').click(function () {
+			var wNo = $('#editmodal-no').val();
+			var wTitle = $('#editmodal-title').val();
+			var wCont = $('#editmodal-content').val();
+			var wPrice = $('#editmodal-price').val();
+			var wUrl = $('#editmodal-url').val();
+			var wPath = $("#editmodal-image").attr("src");
+			$.post('/peekis/wish/ajax/update.do', {
+				no: wNo,
+				title: wTitle,
+				content: wCont,
+				price: wPrice,
+				url: wUrl,
+				path : wPath
+				
+			}, function(resultObj) {
+				var ajaxResult = resultObj.ajaxResult;
+				if (ajaxResult.status == "success") {
+			        $('.' + wNo).find('.title').text(wTitle);
+					$('.' + wNo).find('.content').val(wCont);
+					$('.' + wNo).find('.price').text(wPrice);
+					$('.' + wNo).find('.url').val(wUrl);
+					$('.' + wNo).find('.path').val(wPath);
+			        alert("게시물 수정에  성공했습니다.");
+			    } else {
+			        alert("게시물 수정에 실패했습니다.");
+			    }
+			}, 'json');
+			
+		});
+		
+		/* 모달관련 스크립트*/
+		$('.cancel-btn').click(function () {
 			resetModal();
 		});
 		
 		$('#addModal a').click(function(){
-			var modalId = $(this).parent().parent().parent().parent().attr('id');
-			modalHide(modalId);
+			modalHide('#addModal');
 		});
 		
 		$('#urlModal input[type=submit]').click(function(){
-			var modalId = $(this).parent().parent().parent().parent().parent().parent().attr('id');
-			modalHide(modalId);
+			modalHide('#urlModal');
 		});
 		
 		function modalHide(modalId){
-			$('#' + modalId).modal('hide');
+			$(modalId).modal('hide');
 		};
 		
 		function resetModal() {
@@ -398,11 +453,12 @@
 			$("#modal-image").attr("src", "http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png");
 		}
 		
-		$('#modal-image').click( function() {		
-			$('#myModal input[type=file]').trigger('click');
+		$('#modal-image, #editmodal-image').click( function() {		
+			$(this).parents().find('[type=file]').trigger('click');
+			console.log($(this).parents());
 		});	
 		
-		$('#modal-File').change(function() {
+		$('.modal-body').find('[type=file]').change(function() {
 			readURL(this);
 		});
 		
@@ -412,7 +468,7 @@
                  var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
                  reader.onload = function (e) {
                  //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-                     $('#modal-image').attr('src', e.target.result);
+                     $(input).prev().attr('src', e.target.result);
                      //이미지 Tag의 SRC속성에 읽어들인 File내용을 지정
                      //(아래 코드에서 읽어들인 dataURL형식)
                  }                   
@@ -422,6 +478,7 @@
          }
 		
 		
+		/* URL 정보 파싱*/
 	    $('#preview').bind('submit', function(e) {
 	      e.preventDefault();
 	      
@@ -507,10 +564,17 @@
 							displayMessage("Sorry, can't scrape anything from that url.", 'error');
 						}
 						
-					}
+					},
+					beforeSend:function(){
+						$('.wrap-loading').css('display','block');
+						$('.spinner').css('display','block');
+				    },complete:function(){
+				    	$('.wrap-loading').css('display','none');
+				    	$('.spinner').css('display','none');
+				    }
 	      });
 	    }
-			
+		
 		function displayMessage(text, type) {
 			$('#results').removeClass('error');
 			if (type == 'error') {
@@ -520,7 +584,8 @@
 			
 			$('#results').prepend(text).hide().fadeIn();
 		}
-	    
+		
+			    
 	  });
 	})(jQuery)
 		

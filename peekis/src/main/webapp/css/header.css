@@ -3,6 +3,7 @@
 		position: fixed;
 		top : 0px;
 		width: 100%;
+		z-index: 100;
 	}
 	
 	/*헤더 푸터 전체 사이즈 조절*/

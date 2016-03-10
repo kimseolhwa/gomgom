@@ -4,9 +4,6 @@ a, a:HOVER{
 	text-decoration: none;
 }
 
-.navbar {
-	margin-bottom: 0px;
-}
 #header{
 	border-bottom: 2px solid;
 	border-bottom-color: #e9e9e9;
@@ -17,6 +14,9 @@ a, a:HOVER{
 
 .main {
 	background-color: #e9e9e9;
+	width: 86%;
+	margin: auto;
+	margin-bottom: 20px;
 }
 .user-profile {
 	background-color: #ffffff;
@@ -50,10 +50,6 @@ a, a:HOVER{
 .userInfo div:HOVER, .icon i:HOVER {
 	color: #f28435;
 	font-weight: bold;
-}
-
-.item_container {
-	margin: 0 5%;
 }
 
 .item {
@@ -188,7 +184,7 @@ a, a:HOVER{
 	height: 35px;
 }
 
-#myModal .modal-dialog, #urlModal .modal-dialog{
+#myModal .modal-dialog, #editModal .modal-dialog, #urlModal .modal-dialog{
 	width: 450px;
 }
 
@@ -208,4 +204,117 @@ a, a:HOVER{
 }
 #addModal .modal-body div:HOVER{
 	background-color: white;
+}
+
+/* 로딩이미지 */
+.wrap-loading{ /*화면 전체를 어둡게 합니다.*/
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background: rgba(0,0,0,0.2); /*not in ie */
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+    z-index: 8999;
+    display: none;
+}
+
+.spinner {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  -webkit-animation: rotate-all 1s linear infinite;
+  z-index: 9000;
+  display: none;
+}
+
+.right-side,
+.left-side {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+}
+
+.left-side {
+  left: 0;
+}
+
+.right-side {
+  right: 0;
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  -moz-border-radius: 200px 0 0 200px;
+  -webkit-border-radius: 200px;
+  border-radius: 200px 0 0 200px;
+  border: 10px solid #666;
+  position: relative;
+}
+.bar:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  display: block;
+  background: #666;
+  position: absolute;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+.right-side .bar {
+  -moz-border-radius: 0 200px 200px 0;
+  -webkit-border-radius: 0;
+  border-radius: 0 200px 200px 0;
+  border-left: none;
+  transform: rotate(-10deg);
+  transform-origin: left center;
+  animation: rotate-right 0.75s linear infinite alternate;
+}
+.right-side .bar:after {
+  bottom: -10px;
+  left: -5px;
+}
+.left-side .bar {
+  border-right: none;
+  transform: rotate(10deg);
+  transform-origin: right center;
+  animation: rotate-left 0.75s linear infinite alternate;
+}
+.left-side .bar:after {
+  bottom: -10px;
+  right: -5px;
+}
+
+@keyframes rotate-left {
+  to {
+    transform: rotate(30deg);
+  }
+  from {
+    transform: rotate(175deg);
+  }
+}
+@keyframes rotate-right {
+  from {
+    transform: rotate(-175deg);
+  }
+  to {
+    transform: rotate(-30deg);
+  }
+}
+@keyframes rotate-all {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }

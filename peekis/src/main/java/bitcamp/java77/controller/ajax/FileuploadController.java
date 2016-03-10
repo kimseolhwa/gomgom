@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java77.domain.AjaxResult;
-import bitcamp.java77.domain.Board;
+import bitcamp.java77.domain.Wish;
 import bitcamp.java77.util.MultipartHelper;
 
 @Controller("ajax.FileuploadController")
@@ -27,7 +27,7 @@ public class FileuploadController {
       
   @RequestMapping(value="add", method=RequestMethod.POST)
   public AjaxResult add(
-      Board board, 
+      Wish wish, 
       @RequestParam("files") MultipartFile[] files) throws Exception {
     ArrayList<String> filenames = new ArrayList<>();
 
