@@ -446,6 +446,18 @@ body {
 	transform: rotate(90deg);
 }
 
+footer {
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.nav-up {
+    top: -40px;
+}
+
+
 @media only screen and ( max-width: 2099px ) {
 	.item_container {
 		width: 1840px;
