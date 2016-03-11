@@ -451,10 +451,11 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+/*     transition: top 0.2s ease-in-out; */
 }
 
 .nav-up {
-    top: -40px;
+    bottom: -50px;
 }
 
 
