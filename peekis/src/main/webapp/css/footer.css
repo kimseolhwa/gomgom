@@ -1,91 +1,68 @@
 @CHARSET "UTF-8";
-	/*헤더 전체 */
-	footer {
-		border-top: solid 2px rgb(242,132,53);
-		background-color: #e6e6e6;
-		min-width : 1024px;
-		width : 100%;
-		bottom: 0px;
-		margin : 0px;
-		padding : 0px;
-	}
-	/* footer */
-	.main-footer{
-		height: 50px;
-		color: #bebebe;
-	}
-	
-	.footer-inner {
-		width: 100%;
-		height: 100%;
-		position : relative;
-	}
-	.footLogo .share{
-		text-decoration: none;
-	}
-	.footLogo a{
-		font-weight: bold;
-		color: gray;
-		padding: 5px;
-	}
-	.footer-inner .footLogo{
-		position : absolute;
-		left : 5px;
-		width: 20%;
-		margin: 13px;
-	}
-	
-	/*중간 아이콘*/
-	.footer-inner .footShare{
-		width : 100%;
-		height : 100%;
-		position : absolute;	
-	}
+footer {
+	width : 100%;
+	height : 50px;
+	border-top : solid 3px rgb(242,132,53);
+	background-color : #e8e8e8;
+}
 
-	.footShare ul{
-		margin: 0px;
-		padding: 0px;
-		list-style: none;
-		width: 20%;
-	}
-	.footShare li a{
-		padding: 5px;
-	}
-	.footShare li a:hover{
-		opacity: 0.5;
-	}
-	.footShare li{ 
-		float: left;
-	}
-	#footIcon{
-		margin-left: 45%;
-		margin-top: 13px;
-	}
-	/*footer-메뉴,Q&A*/
-	.footCont {
-		position : absolute;
-		right : 0px;
-		height : 100%;
-	}
-	.footCont li a{
-		display: block;
-		line-height : 48px;
-		padding : 0px 5px 0px 5px;
-		color: #bebebe;
-		font-size: 13px;
-		text-decoration: none;
-	}
-	.footCont li a:hover {
-		background-color: gray;
-		color: black;
-		opacity: 0.3;
-	}
-	#footMn>li {
-		display : inline-block;
-		height : 100%;
-	}
-	#footMn{
-		margin: 0px;
-	}
+
+.footerWrap {
+	width : 100%;
+	height : 100%;
+	position : relative;
+}
+
+
+.footer-logoBox {
+	width : 300px;
+	height : 100%;
+	line-height : 50px;
+	position : absolute;
+	left : 0px;
+	padding-left : 10px;
+}
+.footer-logoBox a {
+	text-decoration: none;
+	color: gray;
+}
+
+.footer-menuBox {
+	width : 300px;
+	height : 100%;
+	line-height : 50px;
+	position : absolute;
+	right : 0px;
+	text-align : right;
+	padding-right : 10px;
+}
+
+.footer-menuBox a {
+	text-decoration : none;
+	color : #888;
+	font-size : 13px;
+	border-left : 3px solid #d8d8d8;
+	padding-left : 10px;
+}
+
+.footer-shareBox {
+	width : 100%;
+	height : 100%;
+	position : absolute;
+	z-index : 0;
+	text-align : center;
+	line-height : 50px;
+}
+
+.footer-shareBox a {
+	text-decoration : none;
+}
+.footer-shareBox a:hover {
+	text-decoration : none;
+	opacity: 0.7;
+}
+
+
+	
 	
 	
