@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+/*전체페이지 사이즈 설정*/
+* {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+
+html, body {
+	width : 100%;
+	height : 100%;
+}
+
+section {
+	padding-top :100%;
+	min-height : 100%;
+}
