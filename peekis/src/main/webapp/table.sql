@@ -23,7 +23,7 @@ CREATE UNIQUE INDEX `UIX_USER`
 
 -- 위시리스트
 CREATE TABLE `WISH` (
-	`WNO`   INTEGER      NOT NULL auto_increment COMMENT '위시번호', -- 위시번호
+	`WNO`   INTEGER      NOT NULL auto_increment primary key COMMENT '위시번호', -- 위시번호
 	`FPATH` VARCHAR(255) NOT NULL COMMENT '위시사진경로', -- 위시사진경로
 	`TPATH` VARCHAR(255) NULL COMMENT '썸네일사진경로', -- 썸네일사진경로
 	`FNAME` VARCHAR(50)  NULL COMMENT '변경된사진이름', -- 변경된사진이름

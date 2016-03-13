@@ -5,52 +5,45 @@
 
 <mapper namespace="bitcamp.java77.dao.WishDao">
 
-  <resultMap type="wish" id="wishMap">
-    <id 	column="wno" 		property="no"/>
-    <result column="FPATH" 		property="path"/>
-    <result column="CONT" 	property="content"/>
-  </resultMap>
-
+	<resultMap type="wish" id="wishMap">
+		<id 	column="wno" 		property="no"/>
+		<result column="FPATH" 		property="path"/>
+		<result column="CONT" 	property="content"/>
+	</resultMap>
+	
 	<select id="selectList" resultMap="wishMap" parameterType="map">
-    select 
-      wno,
-      fpath,
-      title,
-      cont,
-      price,
-      url,
-      buy,
-      date
-    from wish
-    order by 
-    <choose>
-      <when test="keyword == 'title'">title </when>
-      <when test="keyword == 'price'">price </when>
-      <otherwise>wno desc</otherwise>
-    </choose>
-  </select>
-
+		select wno, fpath, title, cont, price, url, buy, date
+		from wish
+		order by 
+		<choose>
+		 <when test="keyword == 'title'">title </when>
+		 <when test="keyword == 'price'">price </when>
+		 <otherwise>wno desc</otherwise>
+		</choose>
+	</select>
+  
+	<select id="selectNo" resultType="int">
+		select max(wno) from wish
+	</select>
+	
+	<select id="updateForm" resultMap="wishMap" parameterType="int">
+		select wno, fpath, title, cont, price, url, date from wish where wno=#{no}
+	</select>
    
-  <insert id="insert" parameterType="wish">
-    insert into wish(fpath,title,cont,price,url) 
-    values(#{path},#{title},#{content},#{price},#{url})
-  </insert>
+	<insert id="insert" parameterType="wish">
+		insert into wish(fpath,title,cont,price,url) 
+		values(#{path},#{title},#{content},#{price},#{url})
+	</insert>
   
-  <delete id="delete" parameterType="map">
-    delete from wish 
-  	where wno=#{no}
-  </delete>
+	<delete id="delete" parameterType="map">
+		delete from wish where wno=#{no}
+	</delete>
   
-  <update id="update" parameterType="wish">
-    update wish set
-      fpath=#{path},
-      title=#{title},
-      cont=#{content},
-      price=#{price},
-      url=#{url},
-      date=now()  	  
-    where wno=#{no}
-  </update>
+	<update id="update" parameterType="wish">
+		update wish 
+		set fpath=#{path}, title=#{title}, cont=#{content}, price=#{price}, url=#{url}, date=now()  	  
+	    where wno=#{no}
+	</update>
   
 </mapper>
 

@@ -1,14 +1,23 @@
 package bitcamp.java77.controller.ajax;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import bitcamp.java77.dao.WishDao;
 import bitcamp.java77.domain.AjaxResult;
@@ -17,7 +26,7 @@ import bitcamp.java77.domain.Wish;
 @Controller("ajax.WishController")
 @RequestMapping("/wish/ajax/*")
 public class WishController { 
-  
+  static Logger logger = Logger.getLogger(FileuploadController.class);
   public static final String SAVED_DIR = "/attachfile";
   
   @Autowired WishDao wishDao;
@@ -25,30 +34,38 @@ public class WishController {
   
  
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Wish wish/*, MultipartFile file*/) throws Exception {
-    /*
-    if (file.getSize() > 0) {
-      String newFileName = MultipartHelper.generateFilename(file.getOriginalFilename());  
-      File attachfile = new File(servletContext.getRealPath(SAVED_DIR) 
-                                  + "/" + newFileName);
-      file.transferTo(attachfile);
-      wish.setAttachFile(newFileName);
-    }
-    */
-    wishDao.insert(wish);
-    return new AjaxResult("success", null);
+  public AjaxResult add(Wish wish, @RequestParam(value="file", required=false)  MultipartFile mFile) throws Exception {
+
+	  	String oriFileName = mFile.getOriginalFilename();
+		if(oriFileName != null && !oriFileName.equals("")){
+			String realPath = servletContext.getRealPath("/attachfile/");
+			String sdfPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+			String filePath = realPath + sdfPath;
+			File file = new File(filePath);
+			file.mkdirs();
+			
+			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+			String realFileName = UUID.randomUUID().toString()+ext;
+			String saveFullFileName = filePath+"/"+realFileName;
+			mFile.transferTo(new File(saveFullFileName));
+			wish.setPath(sdfPath+realFileName);
+			System.out.println("wish - path: " + wish.getPath());
+		}
+	  
+		wishDao.insert(wish);
+		wish.setNo(wishDao.selectNo());
+		
+    return new AjaxResult("success", wish);
   }
-  
 
   @RequestMapping("list")
   public Object list() throws Exception {
    
     List<Wish> wishs = wishDao.selectList();
-    
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("data", wishs);
-
+    
     return resultMap;
   }
 
@@ -59,6 +76,12 @@ public class WishController {
     } 
 
     return new AjaxResult("success", null);
+  }
+  
+  @RequestMapping(value="update", method=RequestMethod.GET)
+  public AjaxResult updateForm(int no) throws Exception {
+	Wish wish =  wishDao.updateForm(no);
+    return new AjaxResult("success", wish);
   }
   
   @RequestMapping(value="update", method=RequestMethod.POST)
