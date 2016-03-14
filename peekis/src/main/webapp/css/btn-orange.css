@@ -6,7 +6,13 @@
 	border-color: #A7A9AB;
 }
 
-.btn-orange:hover, .btn-orange:focus, .btn-orange:active, .btn-orange.active, .open .dropdown-toggle.btn-orange {
+.btn-orange:hover {
+	color: #fff;
+	background-color: #A7A9AB;
+}
+
+
+.btn-orange:focus, .btn-orange:active, .btn-orange.active, .open .dropdown-toggle.btn-orange {
 	color: #fff;
 	background: rgb(242, 132, 53); background : -moz-linear-gradient( top, rgba( 242, 132, 53, 1) 0%, rgba( 241, 85, 38, 1) 100%); background : -webkit-linear-gradient( top, rgba( 242, 132, 53, 1) 0%, rgba( 241, 85, 38, 1) 100%); background : linear-gradient( to bottom, rgba( 242, 132, 53, 1) 0%, rgba( 241, 85, 38, 1) 100%); filter : progid : DXImageTransform.Microsoft.gradient ( startColorstr = '#f28435', endColorstr = '#f15526', GradientType = 0);
 	border-color: #fff;
