@@ -183,12 +183,66 @@
 // });  
 	 
 
- 		/* 가입 데이터 전송 2 */
-	  $('#registIn').on('click', function(){
+ 		/* 첫 페이지에서 가입 데이터 전송  */
+	/*   $('#registIn').on('click', function(){
+		 var data_value = $('#name').val();
+  	 	  var data_value2 = $('#email').val();
+    	  var data_value3 = $('#password').val();
+    	  
+    	  alert("자 이제 콘트롤러에 들어갈거야")
+    	  
+    	  $.ajax({
+    		  type: "POST",
+    		  dataType:"JSON",
+    	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
+    	 	  data:{'email': data_value2}
+    	  }).done(function() {
+    		  
+    		  alert("중복검사 완료 , done으로 들어왔음")
+    		  alert(data)
+    		  console.log("status : " + status + ", data :  " + data + " a : " + a)
+    		  
+    		  
+    		  
+  		 }).fail(function(status,data) {
+    		  alert("fail")
+  			 console.log(data);
+  		  })
+    	  
+	  }); */
+	  
+	 var nameVal = $('#name').val();
+	 var emailVal = $('#email').val();
+	 var pwdVal = $('#password').val();
+	  
+	  
+	   $('#registIn').on('click', function(){
+			
+		   
 		  data_value = $('#name').val();
   	 	  data_value2 = $('#email').val();
     	  data_value3 = $('#password').val();
-	  });
+    	  
+    	  alert("자 이제 콘트롤러에 들어갈거야")
+    	  
+    	  $.ajax({
+    		  type: "POST",
+    		  dataType:"JSON",
+    	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
+    	 	  data:{'email': data_value2},
+    	 	
+    	  }).done(function(resultObj) {
+  			alert("done");			 
+  			 if(resultObj.ajaxResult.data>0){
+  				 alert("중복되는 값 있음")
+  				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력하세요.");
+  			 }else{
+  				alert("중복되는 값 없음")
+  				$("#myModal").modal("show");
+  			 }
+  		 })
+  		 
+	  }); 
 	  
 		/* 모달창에서 데이터 전송  */
 		$("#followbtn").on("click",function(){
@@ -276,12 +330,13 @@
             }
         }
     }).on('success.form.fv', function(e) {
-        
-    	$("#myModal").modal("show");
+// 	$("#myModal").modal("show");
+	return false; 
+})
+    /* .on('success.form.fv', function(e) {
+//     	$("#myModal").modal("show");
     	return false; 
-    	
-    });
-    
+    }); */
 	
     /* .on('err.field.fv', function(e, data) {
         // $(e.target)  --> The field element
@@ -440,7 +495,7 @@
 								</div>
 								<button type="submit" class="btn btn-orange" id="registIn"
 									data-toggle="modal" >가입하기</button> <!-- data-target="#myModal" -->
-<!-- 									<span style="border: 1px solid tomato;  margin-left: 50px;"> 클릭후 이메일 중복될때 확인 창이 나올 곳 </span> -->
+									<span class="dupEmailCk" style="color: red; padding-left: 30px; " ></span>
 							</form>
 							
 						</div>
