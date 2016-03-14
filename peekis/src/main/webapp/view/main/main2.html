@@ -39,9 +39,10 @@
 				var $container = $('.item_container');
 		          $container.isotope({
 		             itemSelector : '.item',
-		             percentPosition : true
+		             percentPosition : true,
+		             masonry: { columnWidth : 1, rowHeight: 1 }
 		          });
-		          $container.imagesLoaded(function() {
+		          $container.imagesLoaded().progress(function() {
 		        	  $container.isotope();
 		          });
 		          
