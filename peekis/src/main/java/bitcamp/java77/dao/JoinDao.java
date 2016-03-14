@@ -10,6 +10,8 @@ public interface JoinDao {
   List<Join> selectList();
 
   int memberJoin(Join Join);
+
+  int loginCheck(Join join);
   
 }
 
