@@ -29,6 +29,7 @@
 <!-- CSS -->
 <link rel="stylesheet" href="../../css/main.css">
 
+
 <!-- header, footer -->
 <link rel="stylesheet" style="text/css" href="../../css/header.css" />
 <link rel="stylesheet" style="text/css" href="../../css/footer.css" />
@@ -36,6 +37,7 @@
 
 <!-- imagesLoaded -->
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
 
 <script>
 	$(document).ready(
@@ -49,14 +51,6 @@
 		          $container.imagesLoaded().progress(function() {
 		        	  $container.isotope();
 		          });
-		          
-// 		          var $container = $('.item_container');
-// 					$container.imagesLoaded(function() {
-// 						$container.isotope({
-// 							itemSelector : '.item',
-// 							percentPosition : true
-// 						});
-// 					});
 				
 				$.getJSON('/peekis/main/ajax/list.do', function(resultObj) {
 					  for (var wish of resultObj.data) {
@@ -80,10 +74,14 @@
 							var wish = resultObj.ajaxResult.data;
 							console.log(wish);
 							$("#detailmodal-no").html( wish.no );
-							$("#detailmodal-image").attr("src", wish.path );
+							var path = wish.path;
+							if(path.startsWith('http://') == false){
+								path = filePath + path;
+							}
+							$("#detailmodal-image").attr("src", path );
 							$("#detailmodal-title").html( wish.title );			
 							$("#detailmodal-content").html( wish.content );
-							$("#detailmodal-price").html('&#8361;' + wish.price);
+							$("#detailmodal-price").html('&#8361;&nbsp;' + wish.price);
 							$("#detailmodal-url").attr("onclick", "window.open('" + wish.url + "')");
 							$("#detailmodal-tag").html("");
 							$('#detailmodal').modal();
