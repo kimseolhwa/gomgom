@@ -53,6 +53,7 @@
 				$container.imagesLoaded(function() {
 					$container.isotope({
 						itemSelector : '.item',
+// 						isOriginTop: false,
 						percentPosition : true
 					});
 				});
@@ -126,10 +127,10 @@
 
 			<div class="item friend">
 				<div class="product">
-					<img src="../../image/001.jpg" />
+					<img class="productImage" src="../../image/001.jpg" />
 					<div class="mask">
 						<div class="icon">
-							<button class="btn btn-default">
+							<button class="btn btn-orange">
 								<span class="glyphicon glyphicon-send"></span>
 							</button>
 							<button class="btn btn-orange">
@@ -148,6 +149,24 @@
 					<div class="undoheart"></div>
 				</div>
 			</div>
+			
+				<div class="cloneMain" style="display: none;">
+					<div class="item_container">
+						<img class="image" src="./img/hairStyle/hairStyle-4.jpg" width="100%" >
+						<h3 style="color: navy;">
+							<a class="tag" href="#"></a>
+						</h3>
+						<p class="description"></p>
+						<div style="padding-bottom: 0px; margin-bottom: 0px; height: 20px;" >
+							<img class="likeSign" src="img/icon/heart.png" style="width: 20px; float: right;" onclick="likePush(this)">
+							<div style="float: none; "  >
+								<span class="contentControlBtn" onclick="viewComments(this)">COMMENTS</span> 
+								&nbsp;
+								<span class="contentControlBtn" onclick="deleteMainContent(this)">DELETE</span>	
+							</div>
+						</div>
+					</div>
+				</div>
 			
 
 			<div class="item">
