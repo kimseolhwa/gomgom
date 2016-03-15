@@ -43,7 +43,7 @@
 
 
 <!-- header -->
-<link rel="stylesheet" style="text/css" href="../../css/header.css" />
+<link rel="stylesheet" style="text/css" href="../../css/loginHeader.css" />
 
 <!-- footer -->
 <link rel="stylesheet" style="text/css" href="../../css/footer.css" />
@@ -53,6 +53,15 @@
 
 <style type="text/css">
 
+.upfo{
+color: gray;
+}
+
+footer {
+	position: fixed;
+	height: 60px;
+	bottom: 0;
+}
 
 /* 모달 토글 */
 
@@ -143,6 +152,7 @@
   font-size: x-large;
 }
 
+/* 캡션 내용 */
 .modal-body>.row>div>div {
 	position : absolute;
 	padding : 5px;
@@ -311,8 +321,7 @@
                     },
                     notEmpty: {
                         message: 'The email is not correct'
-                    },
-                    equalTo: "#email"
+                    }
                 }
             },
             password: {
@@ -348,7 +357,8 @@
 			alert("done");			 
 			 if(resultObj.ajaxResult.data>0){
 				 alert("중복되는 값 있음")
-				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력하세요.");
+				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력해주세요!!");
+				 
 			 }else{
 				alert("중복되는 값 없음")
 				 $(".dupEmailCk").text("");
@@ -391,7 +401,7 @@
 	/* 모달- 이미지 체크 토글 */
 		$(".img-check").click(function() {
 			
-			var selItems = $(this).parent().prev().text();
+			var selItems = $(this).parent().prev().prev().val();
 
 			
 			if($(this).hasClass("uncheckedborder")){
@@ -445,8 +455,6 @@
 	<!-- body content -->
 <section style="background-color: #e9e9e9;">
 
-<br>
-<br>
 <br>
 <br>
 <br>
@@ -522,7 +530,11 @@
 								</div>
 								<button type="submit" class="btn btn-orange" id="registIn"
 									data-toggle="modal" >가입하기</button> <!-- data-target="#myModal" -->
-									<span class="dupEmailCk" style="color: red; padding-left: 30px; " ></span>
+									<span class="dupEmailCk" style="color: #E84343; padding-left: 10px; " ></span>
+									<br>
+									<br>
+									
+									<p style="color: gray;font-size:x-small;">가입과 동시에 귀하는 <a href="#">쿠키 사용</a>을 포함해 <a href="#">이용약관</a>과 <a href="#">개인정보 취급방침</a>에 동의하는 것입니다. 다른 사람들이 내가 입력한 이메일 또는 이름으로 나를 찾을 수 있습니다.</p>
 							</form>
 							
 						</div>
@@ -532,6 +544,10 @@
 		</div>
 
 	</div>
+<br>
+<div style="border: 0px solid black; ">
+<h4 align="center" style="font-size: small; color:#DCE5E8; "> <a class="upfo" href="#">PeeKIS소개</a> &nbsp;&nbsp;&nbsp; <a class="upfo" href="#">블로그</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">관련기사</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">사업체</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">서비스약관 및 개인보호 보호정책</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">도움말</a> </h4>
+</div>
 
 
 	<!-- Modal -->
@@ -553,72 +569,88 @@
 				
 					<!--선택이미지  -->
 					<div class="col-md-3" >
+						<input type="hidden" value="1">
 						<div>여성</div>
 						<a class="tooltips" href="#" >
-						<img src="img/woman.jpg" alt="..." class="img-thumbnail img-check"  title="여성"></a>
+						<img src="img/woman.jpg" alt="..." class="img-thumbnail img-check"  title="여성" ></a>
 					
 					</div>
 					
 					<div class="col-md-3">
+						<input type="hidden" value="2">
 						<div>남성</div>
 						<a href="#"><img src="img/man.jpg" alt="..." class="img-thumbnail img-check"></a><!-- <span class="imgn" title="남성"></span> -->
 					</div>
 
 					<div class="col-md-3">
+						<input type="hidden" value="3">
 						<div>유·아동</div>
 						<a class="tooltips" href="#"><img src="img/kids.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>kids</span> --></a>
 					</div>
 					
 					<div class="col-md-3">
+						<input type="hidden" value="4">
 						<div>여행</div>
 						<a class="tooltips" href="#"><img src="img/trip.png" alt="..." class="img-thumbnail img-check"><!-- <span>baby</span> --></a>
 					</div>
 					
 					<div class="col-md-3">
+						<input type="hidden" value="5">
 						<div>동물</div>
 						<a class="tooltips" href="#"><img src="img/animal.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>animal</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="6">
 						<div>악세서리</div>
 						<a class="tooltips" href="#"><img src="img/Accessory-Designer-Intro.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>Accessory</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="7">
 						<div>IT</div>
 						<a class="tooltips" href="#"><img src="img/it.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>IT</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="8">
 						<div>스포츠</div>
 						<a class="tooltips" href="#"><img src="img/sports.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>sports</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="9">
 						<div>코스메틱</div>
 						<a class="tooltips" href="#"><img src="img/cosmetic.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>cosmetic</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="10">
 						<div>악기</div>
 						<a class="tooltips" href="#"><img src="img/instruments.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>instrument</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="11">
 						<div>자동차</div>
 						<a class="tooltips" href="#"><img src="img/car.JPG" alt="..." class="img-thumbnail img-check"><!-- <span>car</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="12">
 						<div>음식</div>
 						<a class="tooltips" href="#"><img src="img/food.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>watch</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="13">
 						<div>가방</div>
 						<a class="tooltips" href="#"><img src="img/bag.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>bag</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="14">
 						<div>신발</div>
 						<a class="tooltips" href="#"><img src="img/shoes.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>shoes</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="15">
 						<div>책</div>
 						<a class="tooltips" href="#"><img src="img/book.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>book</span> --></a>
 					</div>
 					<div class="col-md-3">
+						<input type="hidden" value="16">
 						<div>가구</div>
 						<a class="tooltips" href="#"><img src="img/furniture.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>furniture</span> --></a>
 					</div>
@@ -637,11 +669,18 @@
 			</div>
 		</div>
 	</div>
+	
+
+
 </section>
 
 
+
+
 	<!-- Footer -->
-	<footer id="footer"></footer>
+	<footer id="footer">
+
+	</footer>
 	
 
 <script>
