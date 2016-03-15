@@ -216,33 +216,33 @@
 	 var pwdVal = $('#password').val();
 	  
 	  
-	   $('#registIn').on('click', function(){
+// 	   $('#registIn').on('submit', function(){
 			
 		   
-		  data_value = $('#name').val();
-  	 	  data_value2 = $('#email').val();
-    	  data_value3 = $('#password').val();
+// 		  data_value = $('#name').val();
+//   	 	  data_value2 = $('#email').val();
+//     	  data_value3 = $('#password').val();
     	  
-    	  alert("자 이제 콘트롤러에 들어갈거야")
+//     	  alert("자 이제 콘트롤러에 들어갈거야")
     	  
-    	  $.ajax({
-    		  type: "POST",
-    		  dataType:"JSON",
-    	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
-    	 	  data:{'email': data_value2},
+//     	  $.ajax({
+//     		  type: "POST",
+//     		  dataType:"JSON",
+//     	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
+//     	 	  data:{'email': data_value2},
     	 	
-    	  }).done(function(resultObj) {
-  			alert("done");			 
-  			 if(resultObj.ajaxResult.data>0){
-  				 alert("중복되는 값 있음")
-  				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력하세요.");
-  			 }else{
-  				alert("중복되는 값 없음")
-  				$("#myModal").modal("show");
-  			 }
-  		 })
+//     	  }).done(function(resultObj) {
+//   			alert("done");			 
+//   			 if(resultObj.ajaxResult.data>0){
+//   				 alert("중복되는 값 있음")
+//   				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력하세요.");
+//   			 }else{
+//   				alert("중복되는 값 없음")
+//   				$("#myModal").modal("show");
+//   			 }
+//   		 })
   		 
-	  }); 
+// 	  }); 
 	  
 		/* 모달창에서 데이터 전송  */
 		$("#followbtn").on("click",function(){
@@ -255,15 +255,15 @@
     			url: "http://localhost:8008/peekis/join/ajax/join.do",
      			data:{'name':data_value,
                       'email': data_value2,
-                      'pwd': data_value3
-//                       'selList': selList
+                      'pwd': data_value3,
+                     'selList': selList
                       }
  		 }).done(function(status) {
  			 console.log(status);
  			alert("전송 성공");			 
  		 }).fail(function(status) {
  			 console.log(status);
- 		    alert( "전송 실패라고 뜨긴하지만 데이터가 들어가는 상황"  + ", 반환된 인자값 : " + status);
+ 			alert("전송 실패");			 
  		  })
 		});
 		
@@ -329,10 +329,37 @@
                 }
             }
         }
-    }).on('success.form.fv', function(e) {
-// 	$("#myModal").modal("show");
-	return false; 
-})
+    }).on('success.form.fv', function(){
+		
+		   
+		  data_value = $('#name').val();
+	 	  data_value2 = $('#email').val();
+  	  	 data_value3 = $('#password').val();
+  	  
+  	  alert("자 이제 콘트롤러에 들어갈거야")
+  	  
+  	  $.ajax({
+  		  type: "POST",
+  		  dataType:"JSON",
+  	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
+  	 	  data:{'email': data_value2},
+  	 	
+  	  }).done(function(resultObj) {
+			alert("done");			 
+			 if(resultObj.ajaxResult.data>0){
+				 alert("중복되는 값 있음")
+				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력하세요.");
+			 }else{
+				alert("중복되는 값 없음")
+				 $(".dupEmailCk").text("");
+				$("#myModal").modal("show");
+				
+			 }
+		 })
+		 
+		 return false;
+	  }); 
+    
     /* .on('success.form.fv', function(e) {
 //     	$("#myModal").modal("show");
     	return false; 
@@ -463,7 +490,7 @@
 									<label class="sr-only" for="form-first-name">User name</label>
 									<input type="text" name="name"
 										placeholder="User name..."
-										class="form-first-name form-control" id="name">
+										class="form-first-name form-control" id="name" required>
 								</div>
 								<!-- <div class="form-group">
 									<label class="sr-only" for="form-last-name">Last name</label> <input
@@ -473,7 +500,7 @@
 								<div class="form-group">
 									<label class="sr-only" for="form-email">Email</label> <input
 										type="text" name="email" placeholder="Email..."
-										class="form-email form-control" id="email">
+										class="form-email form-control" id="email" required>
 								</div>
 								<!-- <div class="form-group">
 									<label class="sr-only" for="form-email">Email confirm</label> <input
@@ -618,7 +645,7 @@
 	
 
 <script>
-		$("#header").load("../header/header.html");
+		$("#header").load("../header/loginHeader.html");
 		$("#footer").load("../footer/footer.html");
 </script>	
 	
