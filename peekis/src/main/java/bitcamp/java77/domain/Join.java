@@ -2,146 +2,138 @@ package bitcamp.java77.domain;
 
 import java.io.Serializable;
 
-public class Join  implements Serializable {
-  private static final long serialVersionUID = 1L;
+public class Join implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-  protected int       no;
-  protected String    title;
-  protected String    content;
-  protected int       price;
-  protected String    url;
-  protected String    attachFile; // 컬럼명 = afile
-  
-// user 
-  protected int uNo;
-  protected String name;
-  protected String pwd;
-  protected String email;
-  
-  
-  // loginuser
-  protected int loginCheckCnt;
-  
+	protected int no;
+	protected String title;
+	protected String content;
+	protected int price;
+	protected String url;
+	protected String attachFile; // 컬럼명 = afile
 
-  //tag
-  protected String selList;
-  
-  
-// user table getter ,setter
-  
+	// user
+	protected int uNo;
+	protected String name;
+	protected String pwd;
+	protected String email;
 
+	// loginuser
+	protected int loginCheckCnt;
 
+	// tag
+	protected String selList;
 
-public int getuNo() {
-	return uNo;
-}
+	
+	
+	
+	// user table getter ,setter
+	public int getLoginCheckCnt() {
+		return loginCheckCnt;
+	}
 
+	public void setLoginCheckCnt(int loginCheckCnt) {
+		this.loginCheckCnt = loginCheckCnt;
+	}
 
-public void setuNo(int uNo) {
-	this.uNo = uNo;
-}
+	public String getSelList() {
+		return selList;
+	}
 
+	public void setSelList(String selList) {
+		this.selList = selList;
+	}
 
-public String getName() {
-	return name;
-}
+	public int getuNo() {
+		return uNo;
+	}
 
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
+	}
 
-public void setName(String name) {
-	this.name = name;
-}
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 
-public String getPwd() {
-	return pwd;
-}
+	public String getPwd() {
+		return pwd;
+	}
 
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
 
-public void setPwd(String pwd) {
-	this.pwd = pwd;
-}
+	public String getEmail() {
+		return email;
+	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-public String getEmail() {
-	return email;
-}
+	// 생성자
+	public Join() {
+	}
 
+	// getter, setter
+	public int getNo() {
+		return no;
+	}
 
-public void setEmail(String email) {
-	this.email = email;
-}
+	public void setNo(int no) {
+		this.no = no;
+	}
 
+	public String getTitle() {
+		return title;
+	}
 
-//  생성자
-  public Join() {}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
- 
-// getter, setter  
-  public int getNo() {
-    return no;
-  }
+	public String getContent() {
+		return content;
+	}
 
-  public void setNo(int no) {
-    this.no = no;
-  }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-  public String getTitle() {
-    return title;
-  }
+	public int getPrice() {
+		return price;
+	}
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
-  public String getContent() {
-    return content;
-  }
+	public String getUrl() {
+		return url;
+	}
 
-  public void setContent(String content) {
-    this.content = content;
-  }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
+	public String getAttachFile() {
+		return attachFile;
+	}
 
-public int getPrice() {
-	return price;
-}
+	public void setAttachFile(String attachFile) {
+		this.attachFile = attachFile;
+	}
 
+	// override
+	@Override
+	public String toString() {
+		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", price=" + price + ", url=" + url
+				+ ", attachFile=" + attachFile + "]";
+	}
 
-public void setPrice(int price) {
-	this.price = price;
-}
-
-
-public String getUrl() {
-	return url;
-}
-
-
-public void setUrl(String url) {
-	this.url = url;
-}
-
-
-public String getAttachFile() {
-	return attachFile;
-}
-
-
-public void setAttachFile(String attachFile) {
-	this.attachFile = attachFile;
-}
-
-
-
-//  override
-@Override
-public String toString() {
-	return "Board [no=" + no + ", title=" + title + ", content=" + content + ", price=" + price + ", url=" + url
-			+ ", attachFile=" + attachFile + "]";
-}
-
-
-
-  
-  
 }
