@@ -25,12 +25,12 @@ body{
 .main {
 	color: #ffffff;
 	text-align: center;
-	min-height: 800px;
+	min-height: 768px;
 	padding: 140px 0 100px 0;
 }
 
 .main h1 {
-	font-size: 80px;
+	font-size: 120px;
 	font-weight: 700;
 }
 
@@ -41,7 +41,7 @@ body{
 }
 
 .main small {
-	font-size: 80px;
+	font-size: 120px;
 	color: #000;
 	font-weight: bold;
 }
