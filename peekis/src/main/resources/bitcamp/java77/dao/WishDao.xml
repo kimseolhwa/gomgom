@@ -26,8 +26,8 @@
 		select max(wno) from wish
 	</select>
 	
-	<select id="updateForm" resultMap="wishMap" parameterType="int">
-		select wno, fpath, title, cont, price, url, date from wish where wno=#{no}
+	<select id="selectOne" resultMap="wishMap" parameterType="int">
+		select wno, fpath, title, cont, price, url, buy, date from wish where wno=#{no}
 	</select>
    
 	<insert id="insert" parameterType="wish">
@@ -42,6 +42,12 @@
 	<update id="update" parameterType="wish">
 		update wish 
 		set fpath=#{path}, title=#{title}, cont=#{content}, price=#{price}, url=#{url}, date=now()  	  
+	    where wno=#{no}
+	</update>
+	
+	<update id="updateBuy" parameterType="wish">
+		update wish 
+		set buy=#{buy}
 	    where wno=#{no}
 	</update>
   

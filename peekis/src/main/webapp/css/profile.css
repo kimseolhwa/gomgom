@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+a, a:HOVER{
+	text-decoration: none;
+}
+
+.user-profile {
+	width: 100%;
+	background-color: #ffffff;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	padding-top: 10px;
+}
+
+.user-profile>div{
+	margin: 15px auto;	
+}
+
+#profile {
+	width: 100px;
+	height: 100px;
+	-webkit-border-radius: 50px 50px 50px 50px;
+	border-radius: 50px 50px 50px 50px;
+}
+
+.userInfo div{
+	float: left;
+	margin: 5px;
+	height: 80px;
+	width: 80px;
+	text-align: center;
+	font-size: 15px;
+	color: black;
+}
+
+.userInfo i{
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.userInfo div:HOVER, .icon i:HOVER{
+	color: #f28435;
+	font-weight: bold;
+}

@@ -2,55 +2,27 @@
 
 a, a:HOVER{
 	text-decoration: none;
+	cursor: pointer;
 }
 
-.container-fluid {
-	width: 100%;
-}
-
-.main {
-	background-color: #e9e9e9;
-	width: 83%;
-	margin: auto;
-	margin-bottom: 20px;
-}
-.user-profile {
-	background-color: #ffffff;
-	margin-bottom: 20px;
-}
-.user-profile>div{
-	margin: 15px auto;	
-}
-
-#profile {
-	width: 100px;
-	height: 100px;
-	-webkit-border-radius: 50px 50px 50px 50px;
-	border-radius: 50px 50px 50px 50px;
-}
-
-.userInfo div{
-	float: left;
-	margin: 5px;
-	height: 80px;
-	width: 80px;
-	text-align: center;
-	font-size: 15px;
-	color: black;
-}
-
-.userInfo i{
-	font-size: 20px;
-	margin-bottom: 10px;
-}
-
-.userInfo div:HOVER, .icon i:HOVER {
+.userInfo a:nth-child(2) div {
 	color: #f28435;
 	font-weight: bold;
 }
+.main {
+	background-color: #e9e9e9;
+	width: 90%;
+	margin: auto;
+	margin-bottom: 20px;
+}
+
+.item_container  {
+	margin: 0 auto;
+	width: 100%;
+}
 
 .item {
-	width: 250px;
+	width: 235px;
 	margin: 10px;
 	background-color: white;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(0, 0, 0, 0.1), 0 3px 1px rgba(0, 0, 0, 0.05);
@@ -58,7 +30,7 @@ a, a:HOVER{
 }
 
 .addItem {
-	width: 250px; 
+	width: 235px; 
 	height: 150px;
 	border: 3px solid gray;
 	text-align: center; 
@@ -75,26 +47,9 @@ a, a:HOVER{
 }
 
 .product img {
-	width: 250px;
+	width: 235px;
 	border-bottom: 1px solid rgb(200, 200, 200);
 	border-radius: 5px 5px 0px 0px;
-}
-
-.product .buy {
-	width: 35px;
-	height: 35px;
-	transform: translateY(-30px);
-	opacity: 0;
-	transition: all 0.2s ease-in-out;
-	color: #000;
-	margin: 10px;
-	padding: 0;
-	float: right;
-}
-
-.buy i {
-	font-size: 20px;
-	font-weight: bold;
 }
 
 .mask {
@@ -102,7 +57,7 @@ a, a:HOVER{
 	opacity: 0;
 	background-color: rgba(0, 0, 0, 0.7);
 	transition: all 0.4s ease-in-out;
-	width: 250px;
+	width: 235px;
 	height: 100%;
 	position: absolute;
 	top: 0;
@@ -115,15 +70,36 @@ a, a:HOVER{
 	opacity: 1;
 }
 
-.icon {
+.wish-menu {
 	padding: 5px;
 	font-size: 20px;
 	height: 35px;
 	text-align: right;
 }
 
-.icon i{
-	margin-right: 8px;
+.wish-menu i {
+	margin-right: 10px;
+	line-height: 25px;
+}
+
+.wish-menu i:HOVER {
+	color: #f28435;
+	cursor: pointer;
+}
+
+.icon {
+	position: absolute;
+	float: right;
+	top: 0;
+	margin: 20px;
+}
+
+.buy {
+	float: left;
+	margin-left: 15px;
+}
+.buy-check {
+	color: red;
 }
 
 /* 모달 css*/
@@ -272,3 +248,4 @@ a, a:HOVER{
     transform: rotate(-360deg);
   }
 }
+

@@ -13,10 +13,11 @@ public interface WishDao {
   
   int delete(int no);
   
-  Wish updateForm(int no);
+  Wish selectOne(int no);
   
   int update(Wish wish);
 
+  int updateBuy(Wish wish);
 }
 
 

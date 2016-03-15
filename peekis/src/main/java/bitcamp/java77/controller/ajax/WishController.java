@@ -34,7 +34,7 @@ public class WishController {
   
  
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Wish wish, @RequestParam(value="file", required=false)  MultipartFile mFile) throws Exception {
+  public AjaxResult add(Wish wish, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
 
 	  	String oriFileName = mFile.getOriginalFilename();
 		if(oriFileName != null && !oriFileName.equals("")){
@@ -69,7 +69,7 @@ public class WishController {
     return resultMap;
   }
 
-  @RequestMapping("delete.do")
+  @RequestMapping("delete")
   public AjaxResult delete(int no) throws Exception {
     if (wishDao.delete(no) <= 0) {
       return new AjaxResult("failure", null);
@@ -80,7 +80,7 @@ public class WishController {
   
   @RequestMapping(value="update", method=RequestMethod.GET)
   public AjaxResult updateForm(int no) throws Exception {
-	Wish wish =  wishDao.updateForm(no);
+	Wish wish =  wishDao.selectOne(no);
     return new AjaxResult("success", wish);
   }
   
@@ -103,5 +103,21 @@ public class WishController {
     } 
     
     return new AjaxResult("success", null);
+  }
+  
+   @RequestMapping("buyCheck")
+  public AjaxResult buyCheck(int no) throws Exception {
+    Wish wish =  wishDao.selectOne(no);
+    
+    if( wish.getBuy() == 'Y' ){
+    	wish.setBuy('N');
+    }else if( wish.getBuy() == 'N' ) {
+    	wish.setBuy('Y');
+    }else {
+    	return new AjaxResult("fail", null);
+    }
+    int result = wishDao.updateBuy(wish);
+    System.out.println("dao결과 : " + result);
+    return new AjaxResult("success", wish.getNo());
   }
 }
