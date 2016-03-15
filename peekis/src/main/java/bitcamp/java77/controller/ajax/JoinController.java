@@ -1,5 +1,6 @@
 package bitcamp.java77.controller.ajax;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,15 +31,29 @@ public class JoinController {
   @RequestMapping(value="join", method=RequestMethod.POST)
   public AjaxResult join(Join Join,HttpSession session) throws Exception {
 	  
-	  System.out.println("컨트롤러 호출" +  Join.getName());
+	  System.out.println("컨트롤러 호출 : " +  Join.getSelList());
 	  
-	  // db에 등록 
+	  
+	  // user table 에 등록 
 	  JoinDao.memberJoin(Join);
 	  
 	  // 등록된 유저의 번호를 가져옴
 	  int joinUserNo = JoinDao.selectNo();
 	  
 	  System.out.println("등록된 유저의 유저번호  : " + joinUserNo);
+	  
+	  
+	  //Join.getSelList를 # 구분자로 파싱해서 유저엔태그 테이블에 등록된 유저번호와 함께 등록하
+	   String[] tagList =  Join.getSelList().split("#");
+	   
+	   //넘어온 태그번호 확인
+	  for(String i : tagList){
+		  System.out.println(i);
+	  }
+	  
+	  
+	  
+	  
 	  
 	  
 	  // 등록된 유저의 이메일을 세션에 등록
