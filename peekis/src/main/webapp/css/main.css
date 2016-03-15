@@ -458,30 +458,6 @@ footer {
     bottom: -50px;
 }
 
-@media (max-width: 700px)
-#demoTop {
-    left: 89%;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-}
-@media (max-width: 700px)
-#demoTop {
-    left: 89%;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-}
-@media (max-width: 979px)
-#demoTop {
-    left: 89%;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
-    -o-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-}
 #demoTop {
     background: #ffffff;
     position: fixed;

@@ -58,7 +58,7 @@
 // 						});
 // 					});
 				
-				$.getJSON('/peekis/wish/ajax/list.do', function(resultObj) {
+				$.getJSON('/peekis/main/ajax/list.do', function(resultObj) {
 					  for (var wish of resultObj.data) {
 						  var cloneContent = $(".cloneMainContents > div").clone();
 							cloneContent.addClass(wish.no+"");
@@ -72,6 +72,23 @@
 							$container.append( $items ).isotope( 'appended', $items );
 					  }
 				});  
+				
+				$container.on( 'click', '.detail', function() {
+					var wishNo = $(this).closest(".item").find('[type=hidden]').val();
+					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo} , 
+						function( resultObj ) {
+							var wish = resultObj.ajaxResult.data;
+							console.log(wish);
+							$("#detailmodal-no").html( wish.no );
+							$("#detailmodal-image").attr("src", wish.path );
+							$("#detailmodal-title").html( wish.title );			
+							$("#detailmodal-content").html( wish.content );
+							$("#detailmodal-price").html('&#8361;' + wish.price);
+							$("#detailmodal-url").attr("onclick", "window.open('" + wish.url + "')");
+							$("#detailmodal-tag").html("");
+							$('#detailmodal').modal();
+						});
+				})
 				
 				$('.heart').click(
 						function() {
@@ -185,9 +202,9 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- Modal -->
-		<div class="item-modal modal fade" id="Modal1" tabindex="-1"
+		
+		<!-- DetailModal -->
+		<div class="item-modal modal fade" id="detailmodal" tabindex="-1"
 			role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -203,20 +220,21 @@
 						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
 					</div>
 					<div class="modal-body">
+					<input type="hidden" class="no" id="detailmodal-no">
 						<div class="item-image">
-							<img src="../../image/1111.jpg" alt="">
+							<img src="../../image/1111.jpg" alt="" id="detailmodal-image">
 						</div>
 
 						<div class="item-content">
-							<span class="item-title">제목</span> <br /> <span
-								class="item-subtitle">설명은 두줄 정도 표시해 줘야지 안 그런가? 최대 40자 까지도
-								표시 되겠는데?</span> <br>
+							<div class="item-title" id="detailmodal-title">titel:</div>
+							<br />
+							<div class="item-subtitle" id="detailmodal-content" >content:</div>
 							<div class="item-costi-box">
-								<div class="price">&#8361; 9,999,999</div>
+								<div class="price" id="detailmodal-price">&#8361; price:</div>
 							</div>
 							<br />
 							<div class="item-button-box">
-								<button class="btn btn-default">
+								<button class="btn btn-default" id="detailmodal-url">
 									<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
 								</button>
 								<button class="btn btn-default">담아가기</button>
