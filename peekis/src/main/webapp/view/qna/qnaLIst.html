@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PeeKiS qnaRegist</title>
+	
+	<!-- header.css -->
+	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
+	
+	<!-- jQuery -->
+	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
+	<!-- 부트스트랩 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	
+<style type="text/css">
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	html,body {
+		background-color: white;
+		width : 100%;
+		height : 100%;
+		margin : 0px;
+		padding : 0px;
+	}
+	#list{
+		margin-bottom: 50px;
+		border-bottom: solid 2px rgb(242,132,53);
+	}
+	#name, #email, #title[type=text], select {
+	    width: 100%;
+	    padding: 10px 15px;
+	    margin: 15px 0 15px;;
+	    display: inline-block;
+	    border: none;
+	    box-sizing: border-box;
+	    border-bottom: 2px solid #bebebe;
+	}
+	
+	#Btn[type=submit] {
+	    background-color: #bebebe;
+	    color: white;
+	    padding: 8px 10px;
+	    margin: 8px 0;
+	    border: none;
+	    border-radius: 4px;
+	    cursor: pointer;
+	}
+	
+	#Btn[type=submit]:hover {
+	    background-color: #333333;
+	}
+	
+	#qnaList{
+		padding-top: 5%;
+	 	padding-left: 20%;
+	 	padding-right: 20%;
+	 	padding-bottom: 9%;
+	 	display: block;
+	 	clear: both;
+	 	/*min-height : 100%;*/
+	}
+	textarea {
+	    width: 100%;
+	    height: 150px;
+	    padding: 12px 20px;
+	    box-sizing: border-box;
+	    border: 2px solid #ccc;
+	    border-radius: 4px;
+	    background-color: #f8f8f8;
+	    font-size: 16px;
+	    resize: none;
+	}
+
+</style>
+</head>
+<body>
+	<header id="header"></header>
+	
+	<section id="qnaList">
+		<form action="#">
+		
+	    	
+	    <div align="center" width="80%">
+	
+			<div id="list" align="left" width="90%">
+				<h2>상담내역조회</h2>
+			</div>
+		
+			<table align="center" border="0" width="800px" height="100px" fontsize="2">
+				<tr>
+						<td width="80%" align="right">
+						<input id="Btn" type="submit" value="1:1문의" name="listBtn" >
+						</td>
+				</tr>
+			</table>
+			<table align="center" border="0" width="800px" height="350px" fontsize="2">
+				<tr>
+					<th width="25%" colspan="1">아이디</th>
+					<th width="25%" colspan="1">아이디</th>
+					<th width="25%" colspan="1">아이디</th>
+					<th width="25%" colspan="1">아이디</th>
+				</tr>
+				<tr>
+					<th >이름</th>
+					<td >
+						<input type="text" size="70px" class="form-control" id="name" placeholder="name">
+					</td>
+				</tr>
+				<tr>
+					<th >제목</th>
+					<td>
+						<input type="text"  size="70px" class="form-control" id="title" placeholder="title">
+					</td>
+				</tr>
+				<tr>
+					<th >내용</th>
+					<td>
+					    	<textarea type="text" id="content" name="content"></textarea>
+					</td>
+				</tr>
+				
+			</table>
+		</div>
+		</form>
+	</section>
+	
+	<footer id="footer"></footer>
+	
+	<script>
+		$("#header").load("../header/header.html");
+		$("#footer").load("../footer/footer.html");
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PeeKiS login</title>
+	
+	<!-- header.css -->
+	<link rel="stylesheet" style="text/css" href="../../css/loginHeader.css" /><!-- 로그인페이지 헤더 css -->
+	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
+	
+	<!-- jQuery -->
+	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
+	<!-- 부트스트랩 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	
+<style type="text/css">
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	html,body {
+		background-color: white;
+		width : 100%;
+		height : 100%;
+		margin : 0px;
+		padding : 0px;
+	}
+	#list{
+		margin-bottom: 50px;
+		border-bottom: solid 2px rgb(242,132,53);
+	}
+	
+	#qnaList{
+		padding-top: 5%;
+	 	padding-left: 20%;
+	 	padding-right: 20%;
+	 	padding-bottom: 9%;
+	 	display: block;
+	 	clear: both;
+	 	/*min-height : 100%;*/
+	}
+
+
+</style>
+</head>
+<body>
+	<header id="header"></header>
+	
+	<section id="qnaList">
+		<form action="#">
+		
+	    	
+	    <div align="center" width="80%">
+	
+			<div id="list" align="left" width="90%">
+				<h2>로그인페이지입니다</h2>
+			</div>
+		
+			<table align="center" border="0" width="800px" height="100px" fontsize="2">
+				
+				
+			</table>
+		</div>
+		</form>
+	</section>
+	
+	<footer id="footer"></footer>
+	
+	<script>
+		$("#header").load("../header/loginHeader.html");
+		$("#footer").load("../footer/footer.html");
+	</script>
+	
+</body>
+</html>
