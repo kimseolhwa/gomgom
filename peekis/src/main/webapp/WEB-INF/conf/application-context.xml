@@ -80,6 +80,8 @@
   
   <!-- AOP 애노테이션 처리자 등록 -->
   <aop:aspectj-autoproxy/>
+  
+  
 </beans>
 
 
