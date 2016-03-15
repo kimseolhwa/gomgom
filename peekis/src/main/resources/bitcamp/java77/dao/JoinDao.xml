@@ -34,15 +34,36 @@
   </select>
    
   <insert id="insert" parameterType="join">
+  
     insert into board(title,cont,price,url,afile) 
     values(#{title},#{content},#{price},#{url},#{attachFile})
   </insert>
 
+	<!-- <insert id="insertBoard" parameterType="boardVO" >
+		<selectKey keyProperty="no" order="BEFORE" resultType="int">
+			select seq_t77_mini_board_no.nextVal
+			from dual
+		</selectKey>
+		insert into t77_mini_board(
+		no, writer, title, content
+		) values (
+		#{no},
+		#{writer}, #{title}, #{content}
+		)
+	</insert> -->
 
-  <insert id="memberJoin" parameterType="join">
+
+
+  <insert id="memberJoin" parameterType="join" >
+  
     insert into user(NAME,PWD,EMAIL) 
     values(#{name},#{pwd},#{email})
   </insert>
+  
+  
+  <select id="selectNo" resultType="int">
+		select max(uno) from user
+	</select>
   
 </mapper>
 
