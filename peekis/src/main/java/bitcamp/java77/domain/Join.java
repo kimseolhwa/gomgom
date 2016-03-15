@@ -18,8 +18,13 @@ public class Join  implements Serializable {
   protected String pwd;
   protected String email;
   
+  
   // loginuser
   protected int loginCheckCnt;
+  
+
+  //tag
+  protected String selList;
   
   
 // user table getter ,setter

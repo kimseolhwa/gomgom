@@ -35,7 +35,13 @@ public class JoinController {
 	  // db에 등록 
 	  JoinDao.memberJoin(Join);
 	  
-	  // 세션에 등록
+	  // 등록된 유저의 번호를 가져옴
+	  int joinUserNo = JoinDao.selectNo();
+	  
+	  System.out.println("등록된 유저의 유저번호  : " + joinUserNo);
+	  
+	  
+	  // 등록된 유저의 이메일을 세션에 등록
 	  session.setAttribute("admin", Join.getEmail());
 	  
 	  
