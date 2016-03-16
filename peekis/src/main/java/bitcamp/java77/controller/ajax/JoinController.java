@@ -1,6 +1,5 @@
 package bitcamp.java77.controller.ajax;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,15 +42,24 @@ public class JoinController {
 	  
 	  
 	  //Join.getSelList를 # 구분자로 파싱해서 유저엔태그 테이블에 등록된 유저번호와 함께 등록하
-	   String[] tagList =  Join.getSelList().split("#");
+	  
+	  String tagStr =  Join.getSelList().replaceFirst("#", "");
+	  tagStr = tagStr.trim();
+	  
+	  String[] tagList =  tagStr.split("#");
 	   
 	   //넘어온 태그번호 확인
-	  for(String i : tagList){
-		  System.out.println(i);
+	  for(int i = 0 ; i< tagList.length;i++){
+		  System.out.print((i+1)+" 번째 태그번호 : " + tagList[i] + "\n");
 	  }
 	  
+	  Join.setUtNo(joinUserNo);
 	  
 	  
+	  for(int i = 0 ; i< tagList.length;i++){
+		Join.settNo(Integer.parseInt(tagList[i]));  
+		JoinDao.registTag(Join);
+	  }  
 	  
 	  
 	  
