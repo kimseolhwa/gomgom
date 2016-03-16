@@ -17,6 +17,8 @@ public interface JoinDao {
 
   int registTag(Join join);
 
+  int EmailPwCheck(Join join);
+
   
 }
 
