@@ -59,11 +59,21 @@
     insert into user(NAME,PWD,EMAIL) 
     values(#{name},#{pwd},#{email})
   </insert>
+
   
   
   <select id="selectNo" resultType="int">
 		select max(uno) from user
 	</select>
+  
+  
+  
+  <insert id="registTag" parameterType="join" >
+  
+    insert into USER_TAG(UNO,TNO) 
+    values(#{utNo},#{tNo})
+  </insert>
+  
   
 </mapper>
 
