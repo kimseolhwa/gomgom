@@ -1,3 +1,82 @@
+
+    
+<script type="text/javascript">
+
+$("#login").on("click",function(){
+	
+	var email = $("#inputEmail3").val();
+	var pwd = $("#inputPassword3").val();
+	
+	// 체크박스 체크 유무 
+	 if($('#rememberMe').is(':checked')){
+		var ckBox = $("#rememberMe").val();   
+	 }else{
+		 ckBox = null;	
+	 }
+	
+	
+	if(email==""){
+		alert(" 이메일을 입력하세요.  \n 'The email is required and cannot be empty'")
+		return false;
+	}else if(pwd==""){
+		alert(" Password를 입력하세요. \n 'The password is required and cannot be empty'")
+		return false;
+	}else{
+		
+	   //데이터전송	
+		$.ajax({
+       		type: "POST",
+       		dataType:"JSON",
+   			url: "http://localhost:8008/peekis/join/ajax/login.do",
+    			data:{
+                     'email': email,
+                     'pwd': pwd,
+                    'ckBox': ckBox
+                     }
+   			
+		 }).done(function(resultObj) {
+					
+			 
+			if(resultObj.ajaxResult.status=="가입된 이메일이 아닙니다."){
+				alert(resultObj.ajaxResult.status)
+				$("#message").text(resultObj.ajaxResult.status)
+				
+				
+			}else if(resultObj.ajaxResult.status=="패스워드가 일치하지 않습니다."){
+				alert(resultObj.ajaxResult.status)
+				$("#message").text(resultObj.ajaxResult.status)
+				
+			}else if(resultObj.ajaxResult.status=="로그인되면 된다."){
+				
+				alert("로그인 성공")
+				
+				// 페이지 이동
+				  location.href ="../main/main2.html";
+			}
+			 
+			
+		 }).fail(function(resultObj) {
+			 console.log(resultObj.ajaxResult.status);
+			alert("전송 실패");			 
+		  })
+	}
+	
+	
+	//로그인 성공 ( 이메일과 비번일치 )
+	
+	
+	//로그인 실패 ( 이멜 or 비번 하나만 일치 or 둘다 불일치->가입창으로)
+	
+	// 	입력된 이메일과 일치하는 계정이 없습니다. 계정을 가입하세요.
+	//  입력된 비밀번호가 올바르지 않습니다.
+	
+})
+
+
+
+
+</script>
+
 <!-- header 헤더 -->
 <div class="headerWrap">
 			<!-- Brand and toggle get grouped for better mobile display -->
@@ -20,32 +99,35 @@
 							<li>
 								<div class="row">
 									<div class="col-md-12">
-										<form class="form-horizontal">
+									
+										<form class="form-horizontal" id="defaultForm" name="defaultForm">
+										  <br>
 										  <div class="form-group">
+										  
 										    <div class="col-sm-10" align="center">
-										      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+										     <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
 										    </div>
 										  </div>
 										  <div class="form-group">
 										    <div class="col-sm-10" align="left">
-										      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+										     <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="password">
 										    </div>
 										  </div>
 										  <div class="form-group">
+										  
+										  <!-- 이메일이랑 아이디 유효성 체크 메세지  -->
+										  <div align="center"><span id="message" style="color: red; text-align: center;margin-right: 20%;" ></span></div>
 										    <div class="col-sm-offset-2 col-sm-10">
 										      <div class="checkbox">
 										        <label>
-										          <input type="checkbox"> Remember me
+										          <input type="checkbox" id="rememberMe" value="1"> Remember me
 										        </label>
 										      </div>
 										    </div>
 										  </div>
-										   <!--<div class="form-group">
-										     <div class="col-sm-offset-2 col-sm-10">
-										      <button type="submit" class="btn btn-default">Sign in</button>
-										    </div>  EMAIL PASSWORD 로그인버튼
-										  </div>-->
 										</form>
+										
+										
 										<p align="center"></p>
 										<form class="form" role="form" method="post" action="login"
 											accept-charset="UTF-8" id="login-nav">
@@ -56,8 +138,8 @@
 											</div>
 										</form>
 									</div>
-									<div class="bottom text-center">
-										<a id="login" href="#register.html"><b>LOGIN</b></a>
+									<div class="bottom text-center" style="cursor: pointer;" id="login">
+										<b>LOGIN</b>
 									</div>
 								</div>
 							</li>
