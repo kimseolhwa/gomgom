@@ -14,6 +14,9 @@ public interface JoinDao {
   int loginCheck(Join join);
 
   int selectNo();
+
+  int registTag(Join join);
+
   
 }
 
