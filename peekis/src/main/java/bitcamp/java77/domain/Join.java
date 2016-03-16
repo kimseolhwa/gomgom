@@ -24,12 +24,36 @@ public class Join implements Serializable {
 	// tag
 	protected String selList;
 
+	// user_tag
+	
+	protected int utNo;
+	protected int tNo;
+	
 	
 	
 	
 	// user table getter ,setter
+	
+	
+	
 	public int getLoginCheckCnt() {
 		return loginCheckCnt;
+	}
+
+	public int getUtNo() {
+		return utNo;
+	}
+
+	public void setUtNo(int utNo) {
+		this.utNo = utNo;
+	}
+
+	public int gettNo() {
+		return tNo;
+	}
+
+	public void settNo(int tNo) {
+		this.tNo = tNo;
 	}
 
 	public void setLoginCheckCnt(int loginCheckCnt) {
