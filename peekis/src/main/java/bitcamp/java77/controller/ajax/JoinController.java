@@ -29,6 +29,9 @@ public class JoinController {
   @RequestMapping(value="join", method=RequestMethod.POST)
   public AjaxResult join(Join Join,HttpSession session) throws Exception {
 	  
+	  
+	  // 유저테이블에서 UNO 컬럼을 자동증가로 수정하고 
+
 	  System.out.println("컨트롤러 호출 : " +  Join.getSelList());
 	  
 	  
@@ -77,7 +80,6 @@ public class JoinController {
 	  System.out.println("로그인 체크 컨트롤러 호출, 이메일값 : " +  Join.getEmail());
 	  
 	  // db에서 조회
-	    
 	  int checkedEmailCnt  =  JoinDao.loginCheck(Join);
 	  System.out.println(" 로긴체크하면서 다오에서 넘어온 값 : " +  checkedEmailCnt);
 
@@ -89,6 +91,44 @@ public class JoinController {
 		  // 이메징 중복 없을 때 
 		  return new AjaxResult("ok", checkedEmailCnt);
 	  }
+	  
+  }
+
+  @RequestMapping(value="login", method=RequestMethod.POST)
+  public AjaxResult login(Join Join, HttpSession session) throws Exception {
+	  
+	  	System.out.println("로그인 컨트롤러 호출 : " + Join.getEmail());
+	  	
+	  	//이메일을 먼저 체크 
+	  	int checkedEmailCnt  =  JoinDao.loginCheck(Join);
+	  	System.out.println(" 이메일체크하면서 다오에서 넘어온 값 : " +  checkedEmailCnt);
+	  	
+	  	
+		  if(checkedEmailCnt>0){
+			  // 체크된 이메일이 있을 때 이메일을 가지고 패스워드와 동시에 일치하는지  
+			  int checkedLoginCnt = JoinDao.EmailPwCheck(Join);	
+			  System.out.println("이메일과 패스워드가 일치하는 값 : " + checkedLoginCnt);
+			  
+			  if(checkedLoginCnt>0){
+				  // 이메일과 패스워드가 둘다 일치한다.
+				  
+				  // 등록된 유저의 이메일을 세션에 등록
+				  session.setAttribute("admin", Join.getEmail());
+
+				  
+				  return new AjaxResult("로그인되면 된다.", checkedLoginCnt);
+				  
+			  }else{
+				  // 패스워드가 일치하지 않는다.
+				  
+				  
+				  return new AjaxResult("패스워드가 일치하지 않습니다.", checkedLoginCnt);
+			  }
+			  
+		  }else{
+			  // 체크된 이메일이 없을때 
+			  return new AjaxResult("가입된 이메일이 아닙니다.", checkedEmailCnt);
+		  }
 	  
   }
   
