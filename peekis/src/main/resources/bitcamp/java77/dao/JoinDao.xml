@@ -11,10 +11,19 @@
     <result column="afile" 		property="attachFile"/>
   </resultMap>
 
+
+<!-- 가입폼에서 가입하기 눌렀을때 이메일 중복되는지 -->
 	<select id="loginCheck" parameterType="join" resultType="int">
 		select  COUNT(*)  from user where email = #{email}
 	</select>
 
+
+<!-- 헤더에서 로그인하기 눌렀을때 이메일과 패스워드 일치되는지 -->
+	<select id="EmailPwCheck" parameterType="join" resultType="int">
+		select  COUNT(*)  from user where email = #{email} and pwd=#{pwd}
+	</select>
+	
+	
 
 	<select id="selectList" resultMap="joinMap" parameterType="map">
     select 
@@ -38,20 +47,6 @@
     insert into board(title,cont,price,url,afile) 
     values(#{title},#{content},#{price},#{url},#{attachFile})
   </insert>
-
-	<!-- <insert id="insertBoard" parameterType="boardVO" >
-		<selectKey keyProperty="no" order="BEFORE" resultType="int">
-			select seq_t77_mini_board_no.nextVal
-			from dual
-		</selectKey>
-		insert into t77_mini_board(
-		no, writer, title, content
-		) values (
-		#{no},
-		#{writer}, #{title}, #{content}
-		)
-	</insert> -->
-
 
 
 <!-- 회원가입 디비 저장 -->
