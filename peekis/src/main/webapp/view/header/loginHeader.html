@@ -17,9 +17,13 @@ $("#login").on("click",function(){
 	
 	if(email==""){
 		alert(" 이메일을 입력하세요.  \n 'The email is required and cannot be empty'")
+				$("#message").text("Email을 입력하세요.")
+				$("#inputEmail3").focus();
 		return false;
 	}else if(pwd==""){
 		alert(" Password를 입력하세요. \n 'The password is required and cannot be empty'")
+				$("#message").text("Password를 입력하세요.")
+				$("#inputPassword3").focus();
 		return false;
 	}else{
 		
@@ -40,25 +44,27 @@ $("#login").on("click",function(){
 			if(resultObj.ajaxResult.status=="가입된 이메일이 아닙니다."){
 				alert(resultObj.ajaxResult.status)
 				$("#message").text(resultObj.ajaxResult.status)
-				
+				$("#inputEmail3").focus();
 				
 			}else if(resultObj.ajaxResult.status=="패스워드가 일치하지 않습니다."){
 				alert(resultObj.ajaxResult.status)
 				$("#message").text(resultObj.ajaxResult.status)
+				$("#inputPassword3").focus();
 				
 			}else if(resultObj.ajaxResult.status=="로그인되면 된다."){
 				
-				alert("로그인 성공")
+				alert("Login success")
+				$("#message").text("")
 				
 				// 페이지 이동
 				  location.href ="../main/main2.html";
 			}
-			 
-			
 		 }).fail(function(resultObj) {
 			 console.log(resultObj.ajaxResult.status);
-			alert("전송 실패");			 
+			alert("로그인 실패 ㅜㅜ");			 
 		  })
+			 
+		return false;
 	}
 	
 	
