@@ -38,6 +38,8 @@ body{
 	font-weight: 300;
 	font-size: 18px;
 	padding-bottom: 40px;
+	color: black;
+	
 }
 
 .main small {
@@ -74,23 +76,92 @@ ul.countdown li h3 {
 	font-weight: 300;
 }
 
-.main .form-control {
+.button-wrap {
+	margin-bottom: 3em;
+}
+
+.button {
+	background: none;
 	border: none;
-	border-radius: 0px;
-	box-shadow: none;
-	height: 50px;
-	margin-top: 60px;
-	transition: all 0.4s ease-in-out;
+	width: 400px;
+	height: 105px;
+	outline: none;
+	position: relative;
+	margin: 1em;
+	padding: 0;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	-webkit-tap-highlight-color: transparent; /* For some Androids */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-.main input[type="submit"] {
-	background: #7AD03A;
-	color: #ffffff;
-	transition: all 0.3s ease;
+.button--round {
+	width: 150px;
+	height: 150px;
 }
 
-.main input[type="submit"]:hover {
-	background: #417F12;
+.button__text {
+	display: block;
+	padding: 10px;
+	text-align: center;
+	position: relative;
+	z-index: 100;
+	font-size: 1.5em;
+	color: #fff;
+	font-weight: bold;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.morph-shape {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.button--line .morph-shape svg {
+	fill: none;
+	stroke: #fff;
+	stroke-width: 4px;
+	stroke-linecap: round;
+}
+
+.button--line:nth-child(2) .morph-shape svg {
+	fill: #938edc;
+}
+
+.button--fill .morph-shape svg {
+	fill: #44474D;
+}
+
+.button--fill:nth-child(4) .morph-shape svg {
+	fill: #202020;
+}
+
+.button--round .morph-shape svg {
+	stroke-width: 7px;
+}
+
+/* Example for effect */
+
+.button--anim-1 .button__text {
+	-webkit-transition: -webkit-transform 0.15s;
+	transition: transform 0.15s;
+}
+
+.button--anim-1:active .button__text {
+	-webkit-transform: translate3d(0, -5px, 0);
+	transform: translate3d(0, -5px, 0);
 }
 
 @media only screen and (max-width: 767px) {

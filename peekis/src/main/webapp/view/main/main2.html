@@ -10,6 +10,7 @@
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="../../js/jquery.number.js"></script>
 
 <!-- bootstrap -->
 <link rel="stylesheet"
@@ -66,7 +67,6 @@
 							$container.append( $items ).isotope( 'appended', $items );
 					  }
 				});  
-				
 				$container.on( 'click', '.detail', function() {
 					var wishNo = $(this).closest(".item").find('[type=hidden]').val();
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo} , 
@@ -81,12 +81,13 @@
 							$("#detailmodal-image").attr("src", path );
 							$("#detailmodal-title").html( wish.title );			
 							$("#detailmodal-content").html( wish.content );
-							$("#detailmodal-price").html('&#8361;&nbsp;' + wish.price);
+							$("#detailmodal-price").html('&#8361;&nbsp;' + $.number(wish.price));
 							$("#detailmodal-url").attr("onclick", "window.open('" + wish.url + "')");
 							$("#detailmodal-tag").html("");
 							$('#detailmodal').modal();
 						});
 				})
+				
 				
 				$('.heart').click(
 						function() {
@@ -113,6 +114,7 @@
 				$(function() {
 					$('[data-toggle="popover"]').popover()
 				})
+				
 
 				$(".btn-pref .btn").click(
 						function() {
@@ -153,7 +155,9 @@
 				    }
 				    
 				    lastScrollTop = st;
+				    
 				}
+				
 			});
 </script>
 </head>
@@ -200,7 +204,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- DetailModal -->
 		<div class="item-modal modal fade" id="detailmodal" tabindex="-1"
 			role="dialog" aria-hidden="true">
@@ -218,7 +222,7 @@
 						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
 					</div>
 					<div class="modal-body">
-					<input type="hidden" class="no" id="detailmodal-no">
+						<input type="hidden" class="no" id="detailmodal-no">
 						<div class="item-image">
 							<img src="../../image/1111.jpg" alt="" id="detailmodal-image">
 						</div>
@@ -226,7 +230,7 @@
 						<div class="item-content">
 							<div class="item-title" id="detailmodal-title">titel:</div>
 							<br />
-							<div class="item-subtitle" id="detailmodal-content" >content:</div>
+							<div class="item-subtitle" id="detailmodal-content">content:</div>
 							<div class="item-costi-box">
 								<div class="price" id="detailmodal-price">&#8361; price:</div>
 							</div>
