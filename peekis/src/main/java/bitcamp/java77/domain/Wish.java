@@ -14,6 +14,7 @@ public class Wish  implements Serializable {
   protected String    url;
   protected char	  buy;
   protected Date	  date;
+  protected String	  tag;
   
   
    
@@ -113,11 +114,22 @@ public class Wish  implements Serializable {
 		this.date = date;
 	}
 	
+	
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
 	@Override
 	public String toString() {
 		return "Wish [no=" + no + ", path=" + path + ", title=" + title + ", content=" + content + ", price=" + price
-				+ ", url=" + url + ", buy=" + buy + ", date=" + date + "]";
+				+ ", url=" + url + ", buy=" + buy + ", date=" + date + ", tag=" + tag + "]";
 	}
+	
+	
 
 
   

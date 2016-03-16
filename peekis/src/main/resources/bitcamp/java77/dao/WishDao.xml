@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<select id="selectList" resultMap="wishMap" parameterType="map">
-		select wno, fpath, title, cont, price, url, buy, date
+		select wno, fpath, title, cont, price, url, buy, date, tag
 		from wish
 		order by 
 		<choose>
@@ -20,6 +20,7 @@
 		 <when test="keyword == 'price'">price </when>
 		 <otherwise>wno desc</otherwise>
 		</choose>
+		limit #{startIndex}, #{length}
 	</select>
   
 	<select id="selectNo" resultType="int">
@@ -27,12 +28,12 @@
 	</select>
 	
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
-		select wno, fpath, title, cont, price, url, buy, date from wish where wno=#{no}
+		select wno, fpath, title, cont, price, url, buy, date, tag from wish where wno=#{no}
 	</select>
    
 	<insert id="insert" parameterType="wish">
-		insert into wish(fpath,title,cont,price,url) 
-		values(#{path},#{title},#{content},#{price},#{url})
+		insert into wish(fpath,title,cont,price,url,tag) 
+		values(#{path},#{title},#{content},#{price},#{url},#{tag})
 	</insert>
   
 	<delete id="delete" parameterType="map">
@@ -41,7 +42,7 @@
   
 	<update id="update" parameterType="wish">
 		update wish 
-		set fpath=#{path}, title=#{title}, cont=#{content}, price=#{price}, url=#{url}, date=now()  	  
+		set fpath=#{path}, title=#{title}, cont=#{content}, price=#{price}, url=#{url}, tag=#{tag}, date=now()  	  
 	    where wno=#{no}
 	</update>
 	

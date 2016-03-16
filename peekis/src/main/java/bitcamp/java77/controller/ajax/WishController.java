@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import bitcamp.java77.dao.WishDao;
 import bitcamp.java77.domain.AjaxResult;
@@ -35,7 +33,7 @@ public class WishController {
  
   @RequestMapping(value="add", method=RequestMethod.POST)
   public AjaxResult add(Wish wish, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
-
+ 	
 	  	String oriFileName = mFile.getOriginalFilename();
 		if(oriFileName != null && !oriFileName.equals("")){
 			String realPath = servletContext.getRealPath("/attachfile/");
@@ -49,19 +47,23 @@ public class WishController {
 			String saveFullFileName = filePath+"/"+realFileName;
 			mFile.transferTo(new File(saveFullFileName));
 			wish.setPath(sdfPath+realFileName);
-			System.out.println("wish - path: " + wish.getPath());
 		}
-	  
+		wish.setTag(wish.getTag().replaceAll(",", "#"));
 		wishDao.insert(wish);
 		wish.setNo(wishDao.selectNo());
-		
     return new AjaxResult("success", wish);
   }
 
   @RequestMapping("list")
-  public Object list() throws Exception {
-   
-    List<Wish> wishs = wishDao.selectList();
+  public Object list(@RequestParam(defaultValue="1") int pageNo) throws Exception {
+	 
+	int pageSize = 5;
+	HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("startIndex", (pageNo - 1) * pageSize);
+    paramMap.put("length", pageSize);
+    System.out.println("pageNo : " + pageNo);
+    List<Wish> wishs = wishDao.selectList(paramMap);
+    
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("data", wishs);
@@ -116,8 +118,7 @@ public class WishController {
     }else {
     	return new AjaxResult("fail", null);
     }
-    int result = wishDao.updateBuy(wish);
-    System.out.println("dao결과 : " + result);
+    wishDao.updateBuy(wish);
     return new AjaxResult("success", wish.getNo());
   }
 }
