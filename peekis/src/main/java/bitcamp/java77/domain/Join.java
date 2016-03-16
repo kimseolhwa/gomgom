@@ -25,17 +25,17 @@ public class Join implements Serializable {
 	protected String selList;
 
 	// user_tag
-	
 	protected int utNo;
 	protected int tNo;
+	
+	
+	//헤더에서 로그인 체큽막스
+	protected String ckBox;
 	
 	
 	
 	
 	// user table getter ,setter
-	
-	
-	
 	public int getLoginCheckCnt() {
 		return loginCheckCnt;
 	}
