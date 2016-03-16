@@ -273,7 +273,11 @@ footer {
                       }
  		 }).done(function(status) {
  			 console.log(status);
- 			alert("전송 성공");			 
+ 			alert("전송 성공");
+ 			
+ 			// 페이지 이동
+			  location.href ="../main/main2.html";
+ 			
  		 }).fail(function(status) {
  			 console.log(status);
  			alert("전송 실패");			 
