@@ -20,6 +20,7 @@ body{
 	background: -webkit-linear-gradient(left, rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
 	background: linear-gradient(to right, rgba(242,132,53,1) 0%,rgba(241,85,38,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f28435', endColorstr='#f15526',GradientType=1 );
+	overflow: hidden;
 }
 
 .main {
@@ -193,6 +194,9 @@ ul.countdown li h3 {
 	ul.countdown span {
 		font-size: 20px;
 	}
+	.button {
+		width: 250px;
+	}
 }
 
 @media only screen and ( max-width: 360px ) {
@@ -212,6 +216,9 @@ ul.countdown li h3 {
 	.main .form-control {
 		margin: 0px;
 	}
+	.button {
+		width: 250px;
+	}
 }
 
 @media only screen and ( max-width: 320px ) {
@@ -221,5 +228,8 @@ ul.countdown li h3 {
 		display: inline-block;
 		margin: 0;
 		padding: 4px;
+	}
+	.button {
+		width: 250px;
 	}
 }

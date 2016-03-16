@@ -13,10 +13,8 @@
 <script src="../../js/jquery.number.js"></script>
 
 <!-- bootstrap -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
@@ -41,8 +39,23 @@
 <script type="text/javascript" src="../../js/common.js"></script>
 
 <script>
-	$(document).ready(
-			function() {
+	$(document).ready(function() {
+		
+		
+				$('.heart').click(function() {
+							$(this).toggleClass('hover').show()
+									.fadeToggle(1000), $('.undoheart').hide()
+									.fadeToggle(1000);
+						});
+
+				$('.undoheart').click(
+						function() {
+							$(this).toggleClass('hover').show()
+									.fadeToggle(1000), $('.heart').hide()
+									.fadeToggle(1000);
+						});
+				
+				
 				var $container = $('.item_container');
 		          $container.isotope({
 		             itemSelector : '.item',
@@ -86,23 +99,7 @@
 							$("#detailmodal-tag").html("");
 							$('#detailmodal').modal();
 						});
-				})
-				
-				
-				$('.heart').click(
-						function() {
-							$(this).toggleClass('hover').show()
-									.fadeToggle(1000), $('.undoheart').hide()
-									.fadeToggle(1000);
-						});
-
-				$('.undoheart').click(
-						function() {
-							$(this).toggleClass('hover').show()
-									.fadeToggle(1000), $('.heart').hide()
-									.fadeToggle(1000);
-						});
-
+				});
 
 				$('#filters').on('click', 'button', function() {
 					var filterValue = $(this).attr('data-filter');
@@ -110,11 +107,6 @@
 						filter : filterValue
 					});
 				});
-
-				$(function() {
-					$('[data-toggle="popover"]').popover()
-				})
-				
 
 				$(".btn-pref .btn").click(
 						function() {
@@ -153,11 +145,8 @@
 				            $('footer').removeClass('nav-up').addClass('nav-down');
 				        }
 				    }
-				    
 				    lastScrollTop = st;
-				    
 				}
-				
 			});
 </script>
 </head>
@@ -182,12 +171,12 @@
 						value="00">
 					<div class="mask">
 						<div class="icon">
-							<button class="btn btn-default">
+							<button class="btn btn-orange">
 								<span class="glyphicon glyphicon-send"></span>
 							</button>
-							<button class="btn btn-orange">
+							<a href="#capymodal" data-toggle="modal"><button class="btn btn-orange">
 								<span class="glyphicon glyphicon-retweet"></span>
-							</button>
+							</button></a>
 							<a href="#Modal1" data-toggle="modal"><button
 									class="detail btn btn-orange">상세보기</button></a>
 						</div>
@@ -206,8 +195,7 @@
 		</div>
 
 		<!-- DetailModal -->
-		<div class="item-modal modal fade" id="detailmodal" tabindex="-1"
-			role="dialog" aria-hidden="true">
+		<div class="item-modal modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -239,7 +227,7 @@
 								<button class="btn btn-default" id="detailmodal-url">
 									<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
 								</button>
-								<button class="btn btn-default">담아가기</button>
+								<a href="#capymodal" data-toggle="modal"><button class="btn btn-default">담아가기</button></a>
 								<button class="btn btn-default">좋아요</button>
 							</div>
 							<br />
@@ -305,8 +293,34 @@
 			</div>
 		</div>
 
+		<!-- CapyModal -->
+		<div class="item-modal modal fade" id="capymodal" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<div class="modal-pro">
+							<a href="#ProModal1" data-toggle="modal"> <img
+								src="../../image/pro1.jpg" class="img-circle">
+								<div class="modal-user_id">아이디는여덟자임</div>
+							</a> <span class="glyphicon glyphicon-folder-open"></span>
+							<div class="modal-user_wish">폴더이름여덟자임</div>
+							<p>팔로우</p>
+						</div>
+						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" class="no" id="detailmodal-no">
+						<div class="item-image">
+							<img src="../../image/1111.jpg" alt="" id="detailmodal-image">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-		<div class="portfolio-modal modal fade" id="ProModal1" role="dialog"
+
+	<div class="portfolio-modal modal fade" id="ProModal1" role="dialog"
 			aria-hidden="true">
 			<div class="modal-content">
 				<div class="close-modal" data-dismiss="modal">
