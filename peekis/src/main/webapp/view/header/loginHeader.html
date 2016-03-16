@@ -1,4 +1,9 @@
+<style>
+#loginBtn:HOVER{
+ border-bottom: 1px solid orange;
+}
 
+</style>
     
 <script type="text/javascript">
 
@@ -67,14 +72,6 @@ $("#login").on("click",function(){
 		return false;
 	}
 	
-	
-	//로그인 성공 ( 이메일과 비번일치 )
-	
-	
-	//로그인 실패 ( 이멜 or 비번 하나만 일치 or 둘다 불일치->가입창으로)
-	
-	// 	입력된 이메일과 일치하는 계정이 없습니다. 계정을 가입하세요.
-	//  입력된 비밀번호가 올바르지 않습니다.
 	
 })
 
@@ -145,7 +142,7 @@ $("#login").on("click",function(){
 										</form>
 									</div>
 									<div class="bottom text-center" style="cursor: pointer;" id="login">
-										<b>LOGIN</b>
+										<b id="loginBtn">LOGIN</b>
 									</div>
 								</div>
 							</li>
