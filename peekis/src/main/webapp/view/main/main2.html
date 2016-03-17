@@ -15,12 +15,10 @@
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <!-- Isotope -->
-<script
-	src="http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
 
 <!-- btn-orange -->
 <link rel="stylesheet" href="../../css/btn-orange.css">
@@ -66,7 +64,7 @@
 		        	  $container.isotope();
 		          });
 				
-				$.getJSON('/peekis/main/ajax/list.do', function(resultObj) {
+		 		 $.getJSON('/peekis/wish/ajax/list.do', function(resultObj) {
 					  for (var wish of resultObj.data) {
 						  var cloneContent = $(".cloneMainContents > div").clone();
 							cloneContent.addClass(wish.no+"");
@@ -75,11 +73,47 @@
 							if(path.startsWith('http://') == false){
 								path = filePath + path;
 							}
+							if(wish.buy == 'Y'){
+								cloneContent.find('.buy').addClass('buy-check');
+							}
 							cloneContent.find('img:first').attr("src", path);
 							$items = $(cloneContent);
-							$container.append( $items ).isotope( 'appended', $items );
+							$container.append( $items ).isotope( 'appended', $items );			
 					  }
-				});  
+				});
+				
+		        
+		        $(window).scroll(function(){
+		        	var scrollHeight = $(window).scrollTop() + $(window).height();
+		        	var documentHeight = $(document).height();
+		        	if(scrollHeight >= documentHeight -100){
+		        		console.log("스크롤 이벤트 발생");
+		        		var pageNo = Number($('#pageNo').text()) +1;
+		        		nextPage(pageNo);
+		        	}
+		        });
+		          
+		        function nextPage(pageNo){
+		        	 $.getJSON('/peekis/wish/ajax/list.do',{pageNo : pageNo},function(resultObj) {
+		   			  for (var wish of resultObj.data){
+		   					$('#pageNo').text(pageNo);
+		   				  var cloneContent = $(".cloneMainContents > div").clone();
+		   					cloneContent.addClass(wish.no+"");
+		   					cloneContent.find('.no').val(wish.no);
+		   					var path = wish.path;
+		   					if(path.startsWith('http://') == false){
+		   						path = filePath + path;
+		   					}
+		   					if(wish.buy == 'Y'){
+		   						cloneContent.find('.buy').addClass('buy-check');
+		   					}
+		   					cloneContent.find('img:first').attr("src", path);
+		   					$items = $(cloneContent);
+		   					$container.append( $items ).isotope( 'appended', $items );			
+		   			  }
+		   		});
+		        }
+		        
 				$container.on( 'click', '.detail', function() {
 					var wishNo = $(this).closest(".item").find('[type=hidden]').val();
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo} , 
@@ -155,36 +189,36 @@
 
 	<div class="filter">
 		<div id="filters" class="btn-group">
-			<button class="button is-checked btn btn-orange" data-filter="*">모두
-				보기</button>
+			<button class="button is-checked btn btn-orange" data-filter="*">모두 보기</button>
 			<button class="button btn btn-orange" data-filter=".friend">친구</button>
 		</div>
 	</div>
 
 	<div class="main">
-		<div class="item_container"></div>
+		<div class="item_container">
+			<div id="pageNo" style="display: none;">1</div>
+		</div>
 
 		<div class="cloneMainContents" style="display: none;">
 			<div class="item">
 				<div class="product">
-					<img src="../../image/005.jpg" /> <input type="hidden" class="no"
-						value="00">
+					<img src="../../image/005.jpg" /> <input type="hidden" class="no" value="00">
 					<div class="mask">
 						<div class="icon">
 							<button class="btn btn-orange">
 								<span class="glyphicon glyphicon-send"></span>
 							</button>
-							<a href="#capymodal" data-toggle="modal"><button class="btn btn-orange">
-								<span class="glyphicon glyphicon-retweet"></span>
+							<a href="#capymodal" data-toggle="modal">
+							<button class="btn btn-orange">
+									<span class="glyphicon glyphicon-retweet"></span>
 							</button></a>
-							<a href="#Modal1" data-toggle="modal"><button
-									class="detail btn btn-orange">상세보기</button></a>
+							<a href="#Modal1" data-toggle="modal">
+							<button class="detail btn btn-orange">상세보기</button></a>
 						</div>
 					</div>
 				</div>
 				<div class="pro">
-					<a href="#ProModal1" data-toggle="modal"> <img
-						src="../../image/pro1.jpg" class="img-circle">
+					<a href="#ProModal1" data-toggle="modal"> <img src="../../image/pro1.jpg" class="img-circle">
 						<div class="user_id">아이디는여덟자임</div>
 					</a> <span class="glyphicon glyphicon-folder-open"></span>
 					<div class="user_wish">폴더이름여덟자임</div>
@@ -200,8 +234,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<div class="modal-pro">
-							<a href="#ProModal1" data-toggle="modal"> <img
-								src="../../image/pro1.jpg" class="img-circle">
+							<a href="#ProModal1" data-toggle="modal"> <img src="../../image/pro1.jpg" class="img-circle">
 								<div class="modal-user_id">아이디는여덟자임</div>
 							</a> <span class="glyphicon glyphicon-folder-open"></span>
 							<div class="modal-user_wish">폴더이름여덟자임</div>
@@ -232,23 +265,19 @@
 							</div>
 							<br />
 							<div>
-								<div class="btn-pref btn-group btn-group-justified btn-group-lg"
-									role="group" aria-label="...">
+								<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
 									<div class="btn-group" role="group">
-										<button id="comment" class="btn btn-orange" href="#tab1"
-											data-toggle="tab">
+										<button id="comment" class="btn btn-orange" href="#tab1" data-toggle="tab">
 											<div class="hidden-xs">댓글 0</div>
 										</button>
 									</div>
 									<div class="btn-group" role="group">
-										<button id="send" class="btn btn-default" href="#tab2"
-											data-toggle="tab">
+										<button id="send" class="btn btn-default" href="#tab2" data-toggle="tab">
 											<div class="hidden-xs">담아가기 0</div>
 										</button>
 									</div>
 									<div class="btn-group" role="group">
-										<button id="like" class="btn btn-default" href="#tab3"
-											data-toggle="tab">
+										<button id="like" class="btn btn-default" href="#tab3" data-toggle="tab">
 											<div class="hidden-xs">좋아요 0</div>
 										</button>
 									</div>
@@ -276,9 +305,7 @@
 										<img src="../../image/pro1.jpg" class="img-circle">
 										<div class="col-lg-10">
 											<div class="input-group">
-												<input type="text" class="form-control"
-													placeholder="댓글을 입력해주세요"> <span
-													class="input-group-btn">
+												<input type="text" class="form-control" placeholder="댓글을 입력해주세요"> <span class="input-group-btn">
 													<button class="btn btn-default" type="button">입력</button>
 												</span>
 											</div>
@@ -299,8 +326,7 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<div class="modal-pro">
-							<a href="#ProModal1" data-toggle="modal"> <img
-								src="../../image/pro1.jpg" class="img-circle">
+							<a href="#ProModal1" data-toggle="modal"> <img src="../../image/pro1.jpg" class="img-circle">
 								<div class="modal-user_id">아이디는여덟자임</div>
 							</a> <span class="glyphicon glyphicon-folder-open"></span>
 							<div class="modal-user_wish">폴더이름여덟자임</div>
@@ -320,40 +346,36 @@
 	</div>
 
 
-	<div class="portfolio-modal modal fade" id="ProModal1" role="dialog"
-			aria-hidden="true">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
+	<div class="portfolio-modal modal fade" id="ProModal1" role="dialog" aria-hidden="true">
+		<div class="modal-content">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr">
+					<div class="rl"></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<h2>프로필e</h2>
+				<hr class="star-primary">
+				<img src="../../image/pro1.jpg" class="img-rounded" alt="">
+
+				<div class="modal-item">
+					<div class="modal-product">
+						<img src="../../image/006.jpg" />
 					</div>
 				</div>
-				<div class="modal-body">
-					<h2>프로필e</h2>
-					<hr class="star-primary">
-					<img src="../../image/pro1.jpg" class="img-rounded" alt="">
 
-					<div class="modal-item">
-						<div class="modal-product">
-							<img src="../../image/006.jpg" />
-						</div>
-					</div>
-
-					<div class="modal-item2">
-						<div class="modal-product">
-							<img src="../../image/002.jpg" />
-						</div>
+				<div class="modal-item2">
+					<div class="modal-product">
+						<img src="../../image/002.jpg" />
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
+
 	<footer class="nav-down" id="footer"></footer>
 
-	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop"
-		data-original-title="Going Up?"><a href="#"
-		style="display: block; padding: 5px;">Δ</a></span>
+	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
 	<script>
 		$("#header").load("../header/header.html");
