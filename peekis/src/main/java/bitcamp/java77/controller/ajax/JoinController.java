@@ -16,7 +16,7 @@ import bitcamp.java77.domain.AjaxResult;
 import bitcamp.java77.domain.Join;
 
 @Controller("ajax.JoinController")
-@RequestMapping("/join/ajax/*")
+@RequestMapping("/auth/ajax/*")
 public class JoinController { 
   
   public static final String SAVED_DIR = "/attachfile";

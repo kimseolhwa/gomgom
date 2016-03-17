@@ -28,8 +28,8 @@ public class AuthFilter implements Filter {
 	  Join loginUser = (Join)request.getSession().getAttribute("loginUser");
 	  
 	  // 서블릿 경로가 /auth/* 아닌데 로그인하지 않았다면,
-	  if (!request.getServletPath().startsWith("/view/register") && loginUser == null) {
-	    response.sendRedirect(request.getContextPath() + "/view/register/joinForm.html");
+	  if (!request.getServletPath().startsWith("/auth") && loginUser == null) {
+	    response.sendRedirect(request.getContextPath() + "/auth/joinForm.html");
 	    return;
 	  }
 	  
