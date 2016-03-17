@@ -164,6 +164,19 @@ public class JoinController {
     }
     return resultMap;
   }
-
+  
+  
+  @RequestMapping("userInfo")
+  public AjaxResult userInfo(HttpSession session) throws Exception {
+	  
+	 System.out.println("콘트롤러 호출");
+	 
+	  Join join = (Join) session.getAttribute("loginUser");
+	 
+	  System.out.println("세션 이메일 확인 : "+join.getEmail());
+	  System.out.println("세션 이름 확인 : " +join.getName());
+	 
+	  return new AjaxResult("success", join);
+  }
   
 }
