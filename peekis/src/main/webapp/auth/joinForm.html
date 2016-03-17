@@ -265,7 +265,7 @@ footer {
 			$.ajax({
         		type: "POST",
         		dataType:"JSON",
-    			url: "http://localhost:8008/peekis/auth/ajax/join.do",
+    			url: contextRoot + "/auth/ajax/join.do",
      			data:{'name':data_value,
                       'email': data_value2,
                       'pwd': data_value3,
@@ -276,7 +276,7 @@ footer {
  			alert("전송 성공");
  			
  			// 페이지 이동
-			  location.href ="http://localhost:8008/peekis/view/main/main2.html";
+			  location.href = contextRoot + "/view/main/main2.html";
  			
  		 }).fail(function(status) {
  			 console.log(status);
@@ -357,7 +357,7 @@ footer {
   	  $.ajax({
   		  type: "POST",
   		  dataType:"JSON",
-  	 	  url : 'http://localhost:8008/peekis/auth/ajax/loginCk.do',
+  	 	  url : contextRoot + "/auth/ajax/loginCk.do",
   	 	  data:{'email': data_value2},
   	 	
   	  }).done(function(resultObj) {
