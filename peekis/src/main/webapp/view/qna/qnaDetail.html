@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>PeeKiS qnaDetail</title>
+	
+	<!-- header.css -->
+	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
+	
+	<!-- jQuery -->
+	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	
+	<!-- 부트스트랩 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	
+<style type="text/css">
+	*{
+		margin: 0px;
+		padding: 0px;
+	}
+	html,body {
+		background-color: white;
+		width : 100%;
+		height : 100%;
+		margin : 0px;
+		padding : 0px;
+	}
+	#list{
+		margin-bottom: 50px;
+		border-bottom: solid 2px rgb(242,132,53);
+	}
+	#name, #email, #title[type=text], select {
+	    width: 100%;
+	    padding: 10px 15px;
+	    margin: 15px 0 15px;;
+	    display: inline-block;
+	    border: none;
+	    box-sizing: border-box;
+	    border-bottom: 2px solid #bebebe;
+	}
+	
+	#Btn[type=submit] {
+	    background-color: #bebebe;
+	    color: white;
+	    padding: 4px 17px;
+	    margin: 8px 0;
+	    border: none;
+	    border-radius: 4px;
+	    cursor: pointer;
+	}
+	
+	#Btn[type=submit]:hover {
+	    background-color: #333333;
+	}
+	
+	#qnaList{
+		padding-top: 5%;
+	 	padding-left: 20%;
+	 	padding-right: 20%;
+	 	padding-bottom: 9%;
+	 	display: block;
+	 	clear: both;
+	 	/*min-height : 100%;*/
+	}
+	/*TABLE CSS*/
+	table {
+	    border-collapse: collapse;
+	    width: 100%;
+		fontsize: 10px;
+		border-top: 2px solid #ccc;
+		border-bottom: 2px solid #ccc;
+		margin-bottom: 10px;
+	}
+	
+	th, td {
+	    padding: 0px;
+	    text-align: justify;
+	    border-bottom: 1px solid #ddd;
+		height: 40px;
+		text-decoration: none;
+	}
+	#co-text{
+		height: 200px;
+	}
+	
+	/*댓글 css*/
+	textarea {
+	    width: 100%;
+	    height: 150px;
+	    padding: 12px 20px;
+	    box-sizing: border-box;
+	    border: 2px solid #ccc;
+	    border-radius: 4px;
+	    background-color: #f8f8f8;
+	    font-size: 16px;
+	    resize: none;
+	    margin-top: 0.5%;
+	}
+
+
+</style>
+</head>
+<body>
+	<header id="header"></header>
+	
+	<section id="qnaList">
+		<form action="#">
+		
+	    	
+	    <div align="center" width="80%">
+	
+			<div id="list" align="left" width="90%">
+				<h2>Q&A</h2>
+			</div>
+			<div>
+				<h3>1:1문의조회</h3>
+			</div>
+			<hr size="11" width="100%">
+			
+				<div align="right">
+					<input id="Btn" type="submit" value="삭제" name="DetailBtn" >
+					<input id="Btn" type="submit" value="목록" name="DetailBtn" >
+				</div>
+			<table>
+				  <tr>
+				    <th colspan="2">제목</th>
+				    <th colspan="3">tester님의 문의입니다</th>
+				  </tr>
+				  <tr>
+				    <th colspan="2">작성자</th>
+				    <th colspan="3">000님</th>
+				  </tr>
+				  <tr>
+				    <th colspan="2">등록시간</th>
+				    <th colspan="3">2016-00-00</th>
+				  </tr>
+				  <tr class="content">
+				    <td id="co-text" colspan="5" width="200px" height="222px">문의글 내용입니다 박상현은 왜?그런지 문의합니다 박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다
+				    박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다
+				    박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다박상현은 왜?그런지 문의합니다
+				    </td>
+				  </tr>
+			</table>
+			<table>
+			 	  <tr>
+				    <th colspan="5">관리자답변</th>
+				  </tr>
+					<tr>
+					    <td id="co-text" colspan="5">문의글 답변입니다	박상현은 빠가잼이기때문입니다 뭐 그런 당현한걸 물으시나요		 등록시간 2016-00-00
+					<tr>
+					<th width="20%">댓글</th>
+					<td>
+					    <textarea type="text" id="content" name="content">관리자만 사용가능</textarea>
+					</td>
+				</tr>
+			</table>
+			
+				<div align="right">
+					<input id="Btn" type="submit" value="submit" name="DetailBtn" >
+				</div>
+			</div>	
+		</form>
+	</section>
+	
+	<footer id="footer"></footer>
+	
+	<script>
+		$("#header").load("../header/header.html");
+		$("#footer").load("../footer/footer.html");
+	</script>
+	
+</body>
+</html>

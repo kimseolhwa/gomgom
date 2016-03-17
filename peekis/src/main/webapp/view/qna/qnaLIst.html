@@ -48,7 +48,7 @@
 	#Btn[type=submit] {
 	    background-color: #bebebe;
 	    color: white;
-	    padding: 8px 10px;
+	    padding: 4px 17px;
 	    margin: 8px 0;
 	    border: none;
 	    border-radius: 4px;
@@ -79,6 +79,53 @@
 	    font-size: 16px;
 	    resize: none;
 	}
+	/*TABLE CSS*/
+	table {
+	    border-collapse: collapse;
+	    width: 100%;
+		fontsize: 2px;
+		border-top: 2px solid #ccc;
+		border-bottom: 2px solid #ccc;
+	}
+	
+	th, td {
+	    padding: 0px;
+	    text-align: center;
+	    border-bottom: 1px solid #ddd;
+		height: 40px;
+		text-decoration: none;
+	}
+	
+	.colSize:hover{
+		background-color:#f5f5f5;
+		text-decoration: none;
+	}
+	
+	/*페이징css*/
+	ul.pagination {
+	    display: inline-block;
+	    padding: 0;
+	    margin: 0;
+	    margin-top: 7%;
+	}
+	
+	ul.pagination li {display: inline;}
+	
+	ul.pagination li a {
+	    color: black;
+	    float: left;
+	    padding: 8px 16px;
+	    text-decoration: none;
+	    border-radius: 5px;
+	}
+	
+	ul.pagination li a.active {
+	    background-color: #c8c8c8;
+	    color: white;
+	    border-radius: 5px;
+	}
+	
+	ul.pagination li a:hover:not(.active) {background-color: rgb(242,132,53);}
 
 </style>
 </head>
@@ -90,45 +137,56 @@
 		
 	    	
 	    <div align="center" width="80%">
-	
+			
 			<div id="list" align="left" width="90%">
-				<h2>상담내역조회</h2>
+				<h2>Q&A</h2>
+			</div>
+			<div>
+				<h3>1:1상담내역</h3>
+			</div>
+			<hr size="11" width="100%">
+			
+			<div align="right">
+				<input id="Btn" type="submit" value="1:1문의" name="listBtn" >
 			</div>
 		
-			<table align="center" border="0" width="800px" height="100px" fontsize="2">
-				<tr>
-						<td width="80%" align="right">
-						<input id="Btn" type="submit" value="1:1문의" name="listBtn" >
-						</td>
-				</tr>
+			<table>
+				  <tr>
+				    <th colspan="1">번호</th>
+				    <th colspan="1">삼당유형</th>
+				    <th colspan="1">제목</th>
+				    <th colspan="1">등록시간</th>
+				    <th colspan="1">상태</th>
+				  </tr>
+				  <tr class="colSize">
+				    <td>1</td>
+				    <td>시스템문의</td>
+				    <td><a href="#">tester님의 문의입니다</a></td>
+				    <td>2016-00-00</td>
+				    <td>미답변</td>
+				  </tr>
+				  <tr class="colSize">
+				    <td>2</td>
+				    <td>시스템문의</td>
+				    <td><a href="#">tester님의 재문의입니다</a></td>
+				    <td>2016-00-00</td>
+				    <td>답변완료</td>
+				  </tr>
+				  <tr class="colSize">
+				    <td>3</td>
+				    <td>기타문의</td>
+				    <td><a href="#" >이거요</a></td>
+				    <td>2016-00-00</td>
+				    <td>답변완료</td>
+				  </tr>
+			
 			</table>
-			<table align="center" border="0" width="800px" height="350px" fontsize="2">
-				<tr>
-					<th width="25%" colspan="1">아이디</th>
-					<th width="25%" colspan="1">아이디</th>
-					<th width="25%" colspan="1">아이디</th>
-					<th width="25%" colspan="1">아이디</th>
-				</tr>
-				<tr>
-					<th >이름</th>
-					<td >
-						<input type="text" size="70px" class="form-control" id="name" placeholder="name">
-					</td>
-				</tr>
-				<tr>
-					<th >제목</th>
-					<td>
-						<input type="text"  size="70px" class="form-control" id="title" placeholder="title">
-					</td>
-				</tr>
-				<tr>
-					<th >내용</th>
-					<td>
-					    	<textarea type="text" id="content" name="content"></textarea>
-					</td>
-				</tr>
-				
-			</table>
+			<ul class="pagination">
+			  <li><a href="#">«</a></li>
+			  <li><a class="active" href="#">1</a></li>
+			  <li><a href="#">2</a></li>
+			  <li><a href="#">»</a></li>
+			</ul>
 		</div>
 		</form>
 	</section>
