@@ -11,13 +11,13 @@
 		<result column="CONT" property="content" />
 	</resultMap>
 	
-	<resultMap type="comment" id="commentMap">
-		<id column="cono" property="commentNo" />
-		<result column="wno" property="wishNo" />
-		<result column="uno" property="userNo" />
-		<result column="cont" property="content" />
-		<result column="date" property="regDate" />
-	</resultMap>
+<!-- 	<resultMap type="comment" id="commentMap"> -->
+<!-- 		<id column="cono" property="commentNo" /> -->
+<!-- 		<result column="wno" property="wishNo" /> -->
+<!-- 		<result column="uno" property="userNo" /> -->
+<!-- 		<result column="cont" property="content" /> -->
+<!-- 		<result column="date" property="regDate" /> -->
+<!-- 	</resultMap> -->
 	
 	<!-- 위시부분 -->
 	<select id="selectList" resultMap="wishMap" parameterType="map">
