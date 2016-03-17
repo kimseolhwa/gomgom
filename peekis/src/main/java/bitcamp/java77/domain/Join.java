@@ -17,6 +17,8 @@ public class Join implements Serializable {
 	protected String name;
 	protected String pwd;
 	protected String email;
+	protected String tPho;  // 유저 썸네일 포토
+	protected String pho;   // 유저  포토
 
 	// loginuser
 	protected int loginCheckCnt;
@@ -33,9 +35,32 @@ public class Join implements Serializable {
 	protected String ckBox;
 	
 	
-	
-	
 	// user table getter ,setter
+	
+	public String getCkBox() {
+		return ckBox;
+	}
+
+	public void setCkBox(String ckBox) {
+		this.ckBox = ckBox;
+	}
+
+	public String gettPho() {
+		return tPho;
+	}
+
+	public void settPho(String tPho) {
+		this.tPho = tPho;
+	}
+
+	public String getPho() {
+		return pho;
+	}
+
+	public void setPho(String pho) {
+		this.pho = pho;
+	}
+	
 	public int getLoginCheckCnt() {
 		return loginCheckCnt;
 	}
