@@ -18,5 +18,7 @@ insert into category (name, uno) values ('(default)', 4);
 select * from wish;
 select * from category;
 select * from user;
+select * from `LIKE`;
 select min(cno) from category where uno='2'
 delete from wish where cno='1';
+delete from `LIKE` where lno<='22';

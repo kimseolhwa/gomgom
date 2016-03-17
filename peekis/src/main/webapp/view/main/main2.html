@@ -39,18 +39,37 @@
 <script>
 	$(document).ready(function() {
 		
-		
-				$('.heart').click(function() {
-							$(this).toggleClass('hover').show()
-									.fadeToggle(1000), $('.undoheart').hide()
-									.fadeToggle(1000);
+				/* 좋아요 토글 이벤트 */
+				$(document).on("click", ".heart", function(){
+							console.log("좋아요 이벤트 발생");
+							var wishNo = $(this).closest(".item").find('.no').val();
+							var uNo = $("#UserNo").text();
+				        	$.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
+				        		var result = resultObj.ajaxResult;
+				        		console.log(result);
+				    			if(result.status == 'success'){
+					        		$('.' + wishNo).find('.heart').toggleClass('hover').show().fadeToggle(1000), 
+					        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
+				    			}else{
+				    				alert('좋아요 추가에 실패하였습니다.');
+				    			}
+				    		});
 						});
 
-				$('.undoheart').click(
-						function() {
-							$(this).toggleClass('hover').show()
-									.fadeToggle(1000), $('.heart').hide()
-									.fadeToggle(1000);
+				$(document).on("click", ".undoheart", function(){
+							console.log("좋아요 취소이벤트 발생");
+							var wishNo = $(this).closest(".item").find('.no').val();
+							var uNo = $("#UserNo").text();
+				        	$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
+				        		var result = resultObj.ajaxResult;
+				        		console.log(result);
+				    			if(result.status == 'success'){
+					        		$('.' + wishNo).find('.undoheart').toggleClass('hover').show().fadeToggle(1000), 
+					        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
+				    			}else{
+				    				alert('좋아요 삭제에 실패하였습니다.');
+				    			}
+				    		});
 						});
 				
 				
@@ -63,26 +82,10 @@
 		          $container.imagesLoaded().progress(function() {
 		        	  $container.isotope();
 		          });
-				
-		 		 $.getJSON('/peekis/wish/ajax/list.do', function(resultObj) {
-					  for (var wish of resultObj.data) {
-						  var cloneContent = $(".cloneMainContents > div").clone();
-							cloneContent.addClass(wish.no+"");
-							cloneContent.find('.no').val(wish.no);
-							var path = wish.path;
-							if(path.startsWith('http://') == false){
-								path = filePath + path;
-							}
-							if(wish.buy == 'Y'){
-								cloneContent.find('.buy').addClass('buy-check');
-							}
-							cloneContent.find('img:first').attr("src", path);
-							$items = $(cloneContent);
-							$container.append( $items ).isotope( 'appended', $items );			
-					  }
-				});
-				
-		        
+		          
+		        /* 리스트 불러오기 */
+				nextPage(1);
+
 		        $(window).scroll(function(){
 		        	var scrollHeight = $(window).scrollTop() + $(window).height();
 		        	var documentHeight = $(document).height();
@@ -94,26 +97,34 @@
 		        });
 		          
 		        function nextPage(pageNo){
-		        	 $.getJSON('/peekis/wish/ajax/list.do',{pageNo : pageNo},function(resultObj) {
-		   			  for (var wish of resultObj.data){
-		   					$('#pageNo').text(pageNo);
-		   				  var cloneContent = $(".cloneMainContents > div").clone();
-		   					cloneContent.addClass(wish.no+"");
-		   					cloneContent.find('.no').val(wish.no);
-		   					var path = wish.path;
-		   					if(path.startsWith('http://') == false){
-		   						path = filePath + path;
-		   					}
-		   					if(wish.buy == 'Y'){
-		   						cloneContent.find('.buy').addClass('buy-check');
-		   					}
-		   					cloneContent.find('img:first').attr("src", path);
-		   					$items = $(cloneContent);
-		   					$container.append( $items ).isotope( 'appended', $items );			
-		   			  }
-		   		});
+		        	 $.getJSON('/peekis/main/ajax/list.do',{pageNo : pageNo}, function(resultObj) {
+		        		  $("#UserNo").text(resultObj.userNo);
+		        		  console.log(resultObj);
+			   			  for (var wish of resultObj.data){
+			   				  $('#pageNo').text(pageNo);
+			   				  var cloneContent = $(".cloneMainContents > div").clone();
+			   					cloneContent.addClass(wish.no+"");
+			   					cloneContent.find('.no').val(wish.no);
+			   					cloneContent.find('.uno').val(wish.uno);
+			   					var path = wish.path;
+			   					if(path.startsWith('http://') == false){
+			   						path = filePath + path;
+			   					}
+			   					if(wish.buy == 'Y'){
+			   						cloneContent.find('.buy').addClass('buy-check');
+			   					}
+			   					cloneContent.find('img:first').attr("src", path);
+			   					$items = $(cloneContent);
+			   					$container.append( $items ).isotope( 'appended', $items );			
+		   			  	}
+			   			for (var like of resultObj.like){
+			   				$("." + like).find(".undoheart").css("display","block");
+			   				$("." + like).find(".heart").css("display","none");
+			   			}
+		   			});
 		        }
 		        
+		        /* 상세정보 가져오기 */
 				$container.on( 'click', '.detail', function() {
 					var wishNo = $(this).closest(".item").find('[type=hidden]').val();
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo} , 
@@ -197,12 +208,15 @@
 	<div class="main">
 		<div class="item_container">
 			<div id="pageNo" style="display: none;">1</div>
+			<div id="UserNo" style="display: none;">0</div>
 		</div>
 
 		<div class="cloneMainContents" style="display: none;">
 			<div class="item">
 				<div class="product">
-					<img src="../../image/005.jpg" /> <input type="hidden" class="no" value="00">
+					<img src="../../image/005.jpg" />
+					<input type="hidden" class="no" value="00">
+					<input type="hidden" class="uno" value="00">
 					<div class="mask">
 						<div class="icon">
 							<button class="btn btn-orange">

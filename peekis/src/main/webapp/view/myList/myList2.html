@@ -267,7 +267,7 @@
 			
           /* 구매여부 토글 */
           $(document).on("click", ".buy", function(){
-        	var wishNo = $(this).closest(".item").find('[type=hidden]').val();
+        	var wishNo = $(this).closest(".item").find('.no').val();
         	$.getJSON('/peekis/wish/ajax/buyCheck.do', {no : wishNo}, function(resultObj) {
         		var result = resultObj.ajaxResult;
         		console.log(result);
@@ -283,27 +283,8 @@
           
           
 		/* 위시리스트 목록 불러오기  */		
-		 $.getJSON('/peekis/wish/ajax/list.do', function(resultObj) {
-			$("#UserNo").val(resultObj.userNo);
-			alert($("#UserNo").val());
-			  for (var wish of resultObj.data) {
-				  var cloneContent = $(".cloneMainContents > div").clone();
-					cloneContent.addClass(wish.no+"");
-					cloneContent.find('.no').val(wish.no);
-					var path = wish.path;
-					if(path.startsWith('http://') == false){
-						path = filePath + path;
-					}
-					if(wish.buy == 'Y'){
-						cloneContent.find('.buy').addClass('buy-check');
-					}
-					cloneContent.find('img:first').attr("src", path);
-					$items = $(cloneContent);
-					$container.append( $items ).isotope( 'appended', $items );			
-			  }
-		});
-		
-        
+		nextPage(1);
+          
         $(window).scroll(function(){
         	var scrollHeight = $(window).scrollTop() + $(window).height();
         	var documentHeight = $(document).height();
@@ -316,9 +297,10 @@
           
         function nextPage(pageNo){
         	 $.getJSON('/peekis/wish/ajax/list.do',{pageNo : pageNo},function(resultObj) {
-   			  for (var wish of resultObj.data){
-   					$('#pageNo').text(pageNo);
-   				  var cloneContent = $(".cloneMainContents > div").clone();
+        		 $("#UserNo").text(resultObj.userNo);
+        		 for (var wish of resultObj.data){
+  					$('#pageNo').text(pageNo);
+   					var cloneContent = $(".cloneMainContents > div").clone();
    					cloneContent.addClass(wish.no+"");
    					cloneContent.find('.no').val(wish.no);
    					var path = wish.path;
@@ -375,7 +357,7 @@
 		
 		/* 위시리스트 삭제하기  */
 		$container.on( 'click', '.fa-trash-o', function() {
-			var wishNo = $(this).closest(".item").find('[type=hidden]').val();
+			var wishNo = $(this).closest(".item").find('.no').val();
 			$.getJSON('/peekis/wish/ajax/delete.do', {no : wishNo} , function( resultObj ) {
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
@@ -387,7 +369,7 @@
 		/* 위시리스트 수정폼 불러오기  */
 		$container.on( 'click', '.fa-pencil', function() {
 			var item = $(this).closest(".item");
-			var wishNo = $(this).closest(".item").find('[type=hidden]').val();
+			var wishNo = $(this).closest(".item").find('.no').val();
 			$.getJSON('/peekis/wish/ajax/update.do', {no : wishNo} , 
 				function( resultObj ) {
 					var wish = resultObj.ajaxResult.data;

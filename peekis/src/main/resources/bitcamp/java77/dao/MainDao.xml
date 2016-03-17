@@ -21,7 +21,7 @@
 	
 	<!-- 위시부분 -->
 	<select id="selectList" resultMap="wishMap" parameterType="map">
-		select wno, fpath, title, cont, price, url, buy, date
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
 		  from wish
 		 order by
 		<choose>
@@ -50,10 +50,25 @@
 	</select>
 
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
-		select wno, fpath, title, cont, price, url, date
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno
 		  from wish where wno=#{no}
 	</select>
+	
+	<!-- 좋아요 -->
+	<insert id="addLike" parameterType="map">
+		insert into `like`(wno, uno) 
+		values(#{wno}, #{uno})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="map">
+		delete from `like` where wno=#{wno} and uno=#{uno}
+	</delete>
 
+	<select id="selectlikeList" resultType="int" parameterType="int">
+		select wno
+		  from `like` where uno=#{uno}
+	</select>
+	
 	<!-- 담아가기 -->
 <!-- 	<update id="copyItem" parameterType="int"> -->
 <!-- 		update wish AS A Inner JOIN wish AS B -->
@@ -62,14 +77,7 @@
 <!-- 		 where A.wno=#{no} = B.wno=#{no}; -->
 <!-- 	</update> -->
 	
-	<!-- 좋아요 -->
-<!-- 	<update id="like" parameterType="likeMap"> -->
-<!-- 		update like -->
-<!-- 		   set recom_cnt = recom_cnt+1 -->
-<!-- 		 where no = #{no}  -->
-<!-- 	</update> -->
-	
-	
+
 	<!-- 댓글 -->
 <!-- 	<insert id="insertComment" parameterType="comment"> -->
 <!-- 		insert into comment(wno, uno, cont) -->

@@ -12,5 +12,11 @@ public interface MainDao
 
 	public List<Wish> selectList(HashMap<String,Object> paramMap);
 	
+	public List<Integer> selectlikeList(int uno);
+	
 	public Wish selectOne(int no);
+	
+	public int addLike(HashMap<String,Integer> paramMap);
+	
+	public int deleteLike(HashMap<String,Integer> paramMap);
 }
