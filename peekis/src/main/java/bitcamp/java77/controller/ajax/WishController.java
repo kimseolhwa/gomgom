@@ -49,6 +49,7 @@ public class WishController {
 			wish.setPath(sdfPath+realFileName);
 		}
 		wish.setTag(wish.getTag().replaceAll(",", "#"));
+		System.out.println("태그 확인 : " + wish.getTag());
 		wishDao.insert(wish);
 		wish.setNo(wishDao.selectNo());
     return new AjaxResult("success", wish);
