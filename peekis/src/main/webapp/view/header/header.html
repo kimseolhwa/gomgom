@@ -1,22 +1,39 @@
-<!-- 벨리데이션 체크 -->
-<link rel="stylesheet" href="../../dist/css/formValidation.css"/>
-<script type="text/javascript" src="../../dist/js/formValidation.js"></script>
-<script type="text/javascript" src="../../dist/js/framework/bootstrap.js"></script>
+
+<!-- contextRoot -->
+<script type="text/javascript" src="../../js/common.js"></script>
 
 <script type="text/javascript">
 
-//사용자 정보를 가져와서 폼으로 불러들인다.
-// $("#mypage-btn").on("click",function(){
-	
-//  	$.getJSON('', function(resultObj) {
- 			
-//  	})	
-	
-// });
+// 정보수정 클릭하면 사용자 정보를 가져와서 폼으로 불러들인다.
+$("#mypage-btn").on("click",function(){
+	 	
+		$.getJSON('/peekis/auth/ajax/userInfo.do', function(resultObj) {
+			var userInfo = resultObj.ajaxResult.data;
+			console.log(userInfo)
+			
+			// 사용자 이름
+			$("#updateUserName").val(userInfo.name)			
+			
+			// 이메일 주소
+			$("#updateUserEmail").val(userInfo.email)
+			
+			
+			
+			
+ 		})	
+});
 
 
 
-//로딩이미지
+// 저장을 클릭해서 업데이트 
+
+
+
+
+
+
+
+// 사진변경 로딩이미지
 $('#viewLoading').hide();
 
 // 사진변경 클릭 -> 아바타이미지 사진 변경
@@ -39,16 +56,13 @@ $("#my-file-selector").change(function(){
     	e.preventDefault();
 		$("#avatarImg").attr("src",e.target.result)
 		
-		$('#viewLoading').fadeOut(1000);
+		$('#viewLoading').fadeOut(900);
     }
     
 });
 
 
-//벨리데이션 체크 
-
-
-
+//벨리데이션체크
 
 
 </script>
@@ -194,7 +208,7 @@ $("#my-file-selector").change(function(){
           <div class="form-group">
             <label class="col-lg-3 control-label">사용자 이름</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Jane">
+              <input class="form-control" type="text" value="Jane" id="updateUserName">
             </div>
           </div>
           
@@ -213,24 +227,39 @@ $("#my-file-selector").change(function(){
           <div class="form-group">
             <label class="col-lg-3 control-label">이메일 주소</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="janesemail@gmail.com">
+              <input class="form-control" type="text" value="janesemail@gmail.com" id="updateUserEmail">
             </div>
           </div>
           
           <hr>
-          
+		   
           <div class="form-group">
-            <label class="col-md-3 control-label">새 비밀번호</label>
-            <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+		   <a data-toggle="collapse" data-target="#demo" class="col-md-3 control-label" style="cursor: pointer;">비밀번호 변경</a>
+            <div class="col-md-8" >
+            	<h6 style="color: red;">비밀번호를 변경하세요.</h6>
             </div>
           </div>
+          
+		<div id="demo" class="collapse">
           <div class="form-group">
-            <label class="col-md-3 control-label">비밀번호 확인</label>
+            <label class="col-md-3 control-label">현재 비밀번호</label>
             <div class="col-md-8">
               <input class="form-control" type="password" value="">
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">새 비밀번호</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">새 비밀번호 확인</label>
+            <div class="col-md-8">
+              <input class="form-control" type="password" value="">
+            </div>
+          </div>
+         </div>
           
         </form>
       </div>
