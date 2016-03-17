@@ -31,6 +31,19 @@
 		</choose>
 		limit #{startIndex}, #{length}
 	</select>
+	
+<!-- 	<select id="searchList" resultMap="wishMap" parameterType="map"> -->
+<!-- 		select wno, fpath, title, cont, price, url, buy, date -->
+<!-- 		  from wish -->
+<!-- 		 where ${title} like '%${cont}%' -->
+<!-- 		 order by -->
+<!-- 		<choose> -->
+<!-- 			<when test="keyword == 'title'">title </when> -->
+<!-- 			<when test="keyword == 'price'">price </when> -->
+<!-- 			<otherwise>wno desc</otherwise> -->
+<!-- 		</choose> -->
+<!-- 		limit #{startIndex}, #{length} -->
+<!-- 	</select> -->
 
 	<select id="selectNo" resultType="int">
 		select max(wno) from wish
