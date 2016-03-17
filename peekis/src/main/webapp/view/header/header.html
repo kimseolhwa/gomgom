@@ -1,7 +1,6 @@
 <script type="text/javascript">
 
-// 정보수정
-// 사용자 정보를 가져와서 폼으로 불러들인다.
+//사용자 정보를 가져와서 폼으로 불러들인다.
 // $("#mypage-btn").on("click",function(){
 	
 //  	$.getJSON('', function(resultObj) {
@@ -9,10 +8,19 @@
 //  	})	
 	
 // });
+
+
+
+
+//로딩이미지
 $('#viewLoading').hide();
 
 // 사진변경 클릭 -> 아바타이미지 사진 변경
 $("#my-file-selector").change(function(){
+	
+	//로딩이미지
+	$('#viewLoading').fadeIn(50);
+	$('#viewLoading').css('position', 'absolute');
 	
 	
 	var file = this.files[0];
@@ -24,36 +32,11 @@ $("#my-file-selector").change(function(){
     reader.readAsDataURL(file);
     
     reader.onload = function(e){
-//     	e.preventDefault();
+    	e.preventDefault();
 		$("#avatarImg").attr("src",e.target.result)
 		
-		
-		
+		$('#viewLoading').fadeOut(1000);
     }
-    
-    reader.onloadstart = function(e){
-    	// 로딩이미지의 위치 및 크기조절	
-		$('#viewLoading').css('position', 'absolute');
-		$('#viewLoading').css('left', $('.personal-info').offset().left);
-		$('#viewLoading').css('top', $('.personal-info').offset().top);
-		$('#viewLoading').css('width', $('.personal-info').css('width'));
-		$('#viewLoading').css('height', $('.personal-info').css('height'));
-		
-		$('#viewLoading').show();
-		$('#viewLoading').fadeIn(500);
-		
-    }
-
-	reader.onloadend = function(e){
-		 
-	    $('#viewLoading').hide();
-		$('#viewLoading').fadeIn(500);
-		
-    }
-    
-    
-   
-    
     
 });
 
@@ -67,12 +50,12 @@ $("#my-file-selector").change(function(){
 /* 로딩이미지 박스  */
 	div#viewLoading {
 		text-align: center;
-		padding-top: 70px;
-		background: #FFFFF0;
+		padding-top:-20px;
 		filter: alpha(opacity=60);
 		opacity: alpha*0.6;
+		padding-left:50%;
+		z-index: 2;
 	}
-
 
 </style>
 
@@ -91,7 +74,7 @@ $("#my-file-selector").change(function(){
 <div class="headerWrap">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="header-logoBox ">
-				<a class="navbar-brand" href="#" style="color: white;" title=>PeekiS</a>
+				<a class="navbar-brand" href="../main/main2.html" style="color: white;" title="" >PeekiS</a>
 			</div>
 
 
