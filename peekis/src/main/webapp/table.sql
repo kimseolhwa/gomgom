@@ -1,12 +1,14 @@
+
+
 -- 유저
 CREATE TABLE `USER` (
-	`UNO`   INTEGER      NOT NULL COMMENT '유저번호', -- 유저번호
-	`NAME`  VARCHAR(50)  NOT NULL COMMENT '유저이름', -- 유저이름
-	`PWD`   VARCHAR(20)  NOT NULL COMMENT '유저암호', -- 유저암호
-	`EMAIL` VARCHAR(40)  NOT NULL COMMENT '유저이메일', -- 유저이메일
-	`PHO`   VARCHAR(255) NULL     COMMENT '유저사진' -- 유저사진
-)
-COMMENT '유저';
+	`UNO`   INTEGER     NOT NULL, -- 유저번호
+	`NAME`  VARCHAR(50) NOT NULL, -- 유저이름
+	`PWD`   VARCHAR(20) NOT NULL, -- 유저암호
+	`EMAIL` VARCHAR(40) NOT NULL, -- 유저이메일
+	`TPHO`  VARCHAR(255)   NULL,     -- 유저썸네일
+	`PHO`   VARCHAR(255)   NULL      -- 유저사진
+);
 
 -- 유저
 ALTER TABLE `USER`
@@ -21,23 +23,23 @@ CREATE UNIQUE INDEX `UIX_USER`
 		`EMAIL` ASC -- 유저이메일
 	);
 
+ALTER TABLE `USER`
+	MODIFY COLUMN `UNO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 위시리스트
 CREATE TABLE `WISH` (
-	`WNO`   INTEGER      NOT NULL auto_increment primary key COMMENT '위시번호', -- 위시번호
-	`FPATH` VARCHAR(255) NOT NULL COMMENT '위시사진경로', -- 위시사진경로
-	`TPATH` VARCHAR(255) NULL COMMENT '썸네일사진경로', -- 썸네일사진경로
-	`TITLE` VARCHAR(255) NOT NULL COMMENT '위시제목', -- 위시제목
-	`CONT`  VARCHAR(255) NULL     COMMENT '위시내용', -- 위시내용
-	`PRICE` INTEGER      NULL     COMMENT '위시가격', -- 위시가격
-	`URL`   VARCHAR(255) NULL     COMMENT '위시URL', -- 위시URL
-	`BUY`   CHAR(1)      NOT NULL DEFAULT 'N' COMMENT '구매여부', -- 구매여부
-	`DATE`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '작성시간', -- 작성시간
-	`CNO`   INTEGER      NULL COMMENT '카테고리번호', -- 카테고리번호
-	`TAG`   VARCHAR(255) NULL COMMENT '태그' -- 태그
-)
-COMMENT '위시리스트';
-select * from wish;
-insert into wish(fpath,title,cont,price,url,tag) select w1.FPATH, w1.TITLE, w1.CONT, w1.PRICE, w1.URL, w1.tag from wish w1;
+	`WNO`   INTEGER      NOT NULL, -- 위시번호
+	`FPATH` VARCHAR(255) NOT NULL, -- 위시사진경로
+	`TPATH` VARCHAR(255) NOT NULL, -- 썸네일사진경로
+	`TITLE` VARCHAR(255) NOT NULL, -- 위시제목
+	`CONT`  VARCHAR(255) NULL,     -- 위시내용
+	`PRICE` INTEGER      NULL,     -- 위시가격
+	`URL`   VARCHAR(255) NULL,     -- 위시URL
+	`BUY`   CHAR(1)      NOT NULL, -- 구매여부
+	`TAG`   VARCHAR(255) NULL,     -- 태그
+	`DATE`  DATE         NOT NULL, -- 작성시간
+	`CNO`   INTEGER      NOT NULL  -- 카테고리번호
+);
 
 -- 위시리스트
 ALTER TABLE `WISH`
@@ -46,15 +48,17 @@ ALTER TABLE `WISH`
 			`WNO` -- 위시번호
 		);
 
+ALTER TABLE `WISH`
+	MODIFY COLUMN `WNO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 게시판
 CREATE TABLE `BOARD` (
-	`BNO`   INTEGER      NOT NULL COMMENT '게시글번호', -- 게시글번호
-	`TITLE` VARCHAR(255) NOT NULL COMMENT '게시글 제목', -- 게시글 제목
-	`CONT`  VARCHAR(255) NOT NULL COMMENT '게시글 내용', -- 게시글 내용
-	`DATE`  DATE         NOT NULL COMMENT '게시글 작성시간', -- 게시글 작성시간
-	`UNO`   INTEGER      NOT NULL COMMENT '유저번호' -- 유저번호
-)
-COMMENT '게시판';
+	`BNO`   INTEGER      NOT NULL, -- 게시글번호
+	`TITLE` VARCHAR(255) NOT NULL, -- 게시글 제목
+	`CONT`  VARCHAR(255) NOT NULL, -- 게시글 내용
+	`DATE`  DATE         NOT NULL, -- 게시글 작성시간
+	`UNO`   INTEGER      NOT NULL  -- 유저번호
+);
 
 -- 게시판
 ALTER TABLE `BOARD`
@@ -63,12 +67,14 @@ ALTER TABLE `BOARD`
 			`BNO` -- 게시글번호
 		);
 
+ALTER TABLE `BOARD`
+	MODIFY COLUMN `BNO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 팔로워팔로잉
 CREATE TABLE `FOLLOWER` (
-	`UNO`  INTEGER NOT NULL COMMENT 'toUser', -- toUser
-	`UNO2` INTEGER NOT NULL COMMENT 'fromUser' -- fromUser
-)
-COMMENT '팔로워팔로잉';
+	`UNO`  INTEGER NOT NULL, -- toUser
+	`UNO2` INTEGER NOT NULL  -- fromUser
+);
 
 -- 팔로워팔로잉
 ALTER TABLE `FOLLOWER`
@@ -80,11 +86,10 @@ ALTER TABLE `FOLLOWER`
 
 -- 좋아요
 CREATE TABLE `LIKE` (
-	`LNO` INTEGER NOT NULL COMMENT '좋아요번호', -- 좋아요번호
-	`WNO` INTEGER NOT NULL COMMENT '위시번호', -- 위시번호
-	`UNO` INTEGER NOT NULL COMMENT '유저번호' -- 유저번호
-)
-COMMENT '좋아요';
+	`LNO` INTEGER NOT NULL, -- 좋아요번호
+	`WNO` INTEGER NOT NULL, -- 위시번호
+	`UNO` INTEGER NOT NULL  -- 유저번호
+);
 
 -- 좋아요
 ALTER TABLE `LIKE`
@@ -100,15 +105,17 @@ CREATE UNIQUE INDEX `UIX_LIKE`
 		`UNO` ASC  -- 유저번호
 	);
 
+ALTER TABLE `LIKE`
+	MODIFY COLUMN `LNO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 댓글
 CREATE TABLE `COMMENT` (
-	`CONO` INTEGER      NOT NULL COMMENT '댓글번호', -- 댓글번호
-	`WNO`  INTEGER      NOT NULL COMMENT '위시번호', -- 위시번호
-	`UNO`  INTEGER      NOT NULL COMMENT '유저번호', -- 유저번호
-	`CONT` VARCHAR(255) NOT NULL COMMENT '댓글내용', -- 댓글내용
-	`DATE` DATE         NOT NULL COMMENT '댓글작성시간' -- 댓글작성시간
-)
-COMMENT '댓글';
+	`CONO` INTEGER      NOT NULL, -- 댓글번호
+	`WNO`  INTEGER      NOT NULL, -- 위시번호
+	`UNO`  INTEGER      NOT NULL, -- 유저번호
+	`CONT` VARCHAR(255) NOT NULL, -- 댓글내용
+	`DATE` DATE         NOT NULL  -- 댓글작성시간
+);
 
 -- 댓글
 ALTER TABLE `COMMENT`
@@ -117,13 +124,15 @@ ALTER TABLE `COMMENT`
 			`CONO` -- 댓글번호
 		);
 
+ALTER TABLE `COMMENT`
+	MODIFY COLUMN `CONO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 카테고리
 CREATE TABLE `CATEGORY` (
-	`CNO`  INTEGER     NOT NULL COMMENT '카테고리번호', -- 카테고리번호
-	`NAME` VARCHAR(50) NOT NULL COMMENT '위시폴더명', -- 위시폴더명
-	`UNO`  INTEGER     NOT NULL COMMENT '유저번호' -- 유저번호
-)
-COMMENT '카테고리';
+	`CNO`  INTEGER     NOT NULL, -- 카테고리번호
+	`NAME` VARCHAR(50) NOT NULL, -- 위시폴더명
+	`UNO`  INTEGER     NOT NULL  -- 유저번호
+);
 
 -- 카테고리
 ALTER TABLE `CATEGORY`
@@ -132,13 +141,15 @@ ALTER TABLE `CATEGORY`
 			`CNO` -- 카테고리번호
 		);
 
+ALTER TABLE `CATEGORY`
+	MODIFY COLUMN `CNO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 담아가기
 CREATE TABLE `SEND` (
-	`SNO` INTEGER NOT NULL COMMENT '담아가기 번호', -- 담아가기 번호
-	`UNO` INTEGER NOT NULL COMMENT '유저번호', -- 유저번호
-	`WNO` INTEGER NOT NULL COMMENT '위시번호' -- 위시번호
-)
-COMMENT '담아가기';
+	`SNO` INTEGER NOT NULL, -- 담아가기 번호
+	`UNO` INTEGER NOT NULL, -- 유저번호
+	`WNO` INTEGER NOT NULL  -- 위시번호
+);
 
 -- 담아가기
 ALTER TABLE `SEND`
@@ -154,12 +165,15 @@ CREATE UNIQUE INDEX `UIX_SEND`
 		`WNO` ASC  -- 위시번호
 	);
 
+ALTER TABLE `SEND`
+	MODIFY COLUMN `SNO` INTEGER NOT NULL AUTO_INCREMENT;
+
 -- 태그
 CREATE TABLE `TAG` (
-	`TNO`  INTEGER     NOT NULL COMMENT '태그번호', -- 태그번호
-	`NAME` VARCHAR(50) NOT NULL COMMENT '위시태그이름' -- 위시태그이름
-)
-COMMENT '태그';
+	`TNO`    INTEGER      NOT NULL, -- 태그번호
+	`NAME`   VARCHAR(50)  NOT NULL, -- 위시태그이름
+	`TFPATH` VARCHAR(255) NULL      -- 파일경로
+);
 
 -- 태그
 ALTER TABLE `TAG`
@@ -170,31 +184,15 @@ ALTER TABLE `TAG`
 
 -- 유저&태그
 CREATE TABLE `USER_TAG` (
-	`UNO` INTEGER NOT NULL COMMENT '유저번호', -- 유저번호
-	`TNO` INTEGER NOT NULL COMMENT '태그번호' -- 태그번호
-)
-COMMENT '유저&태그';
+	`UNO` INTEGER NOT NULL, -- 유저번호
+	`TNO` INTEGER NOT NULL  -- 태그번호
+);
 
 -- 유저&태그
 ALTER TABLE `USER_TAG`
 	ADD CONSTRAINT `PK_USER_TAG` -- 유저&태그 기본키
 		PRIMARY KEY (
 			`UNO`, -- 유저번호
-			`TNO`  -- 태그번호
-		);
-
--- 위시리스트태그
-CREATE TABLE `TABLE` (
-	`WNO` INTEGER NOT NULL COMMENT '위시번호', -- 위시번호
-	`TNO` INTEGER NOT NULL COMMENT '태그번호' -- 태그번호
-)
-COMMENT '위시리스트태그';
-
--- 위시리스트태그
-ALTER TABLE `TABLE`
-	ADD CONSTRAINT `PK_TABLE` -- 위시리스트태그 기본키
-		PRIMARY KEY (
-			`WNO`, -- 위시번호
 			`TNO`  -- 태그번호
 		);
 
@@ -327,23 +325,55 @@ ALTER TABLE `USER_TAG`
 		REFERENCES `TAG` ( -- 태그
 			`TNO` -- 태그번호
 		);
+		
+		
+		
+--태그 테이블에 기본 태그 인서트
 
--- 위시리스트태그
-ALTER TABLE `TABLE`
-	ADD CONSTRAINT `FK_WISH_TO_TABLE` -- 위시리스트 -> 위시리스트태그
-		FOREIGN KEY (
-			`WNO` -- 위시번호
-		)
-		REFERENCES `WISH` ( -- 위시리스트
-			`WNO` -- 위시번호
-		);
+--여성
+insert into tag (tno,name,tfpath ) values (1,"여성","/peekis/view/register/img/woman.jpg");
 
--- 위시리스트태그
-ALTER TABLE `TABLE`
-	ADD CONSTRAINT `FK_TAG_TO_TABLE` -- 태그 -> 위시리스트태그
-		FOREIGN KEY (
-			`TNO` -- 태그번호
-		)
-		REFERENCES `TAG` ( -- 태그
-			`TNO` -- 태그번호
-		);
+--남성
+insert into tag (tno,name,tfpath ) values (2,"남성","/peekis/view/register/img/man.jpg");
+
+--아동
+insert into tag (tno,name,tfpath ) values (3,"아동","/peekis/view/register/img/kids.jpg");
+
+--여행
+insert into tag (tno,name,tfpath ) values (4,"여행","/peekis/view/register/img/trip.png");
+
+--동물
+insert into tag (tno,name,tfpath ) values (5,"동물","/peekis/view/register/img/animal.jpg");
+
+--악세서리
+insert into tag (tno,name,tfpath ) values (6,"악세서리","/peekis/view/register/img/Accessory-Designer-Intro.jpg");
+
+--IT
+insert into tag (tno,name,tfpath ) values (7,"IT","/peekis/view/register/img/it.jpg");
+
+--스포츠
+insert into tag (tno,name,tfpath ) values (8,"스포츠","/peekis/view/register/img/sports.jpg");
+
+--코스메틱
+insert into tag (tno,name,tfpath ) values (9,"코스메틱","/peekis/view/register/img/cosmetic.jpg");
+
+--악기
+insert into tag (tno,name,tfpath ) values (10,"악기","/peekis/view/register/img/instruments.jpg");
+
+--자동차
+insert into tag (tno,name,tfpath ) values (11,"자동차","/peekis/view/register/img/car.JPG");
+
+--음식
+insert into tag (tno,name,tfpath ) values (12,"음식","/peekis/view/register/img/food.jpg");
+
+--가방
+insert into tag (tno,name,tfpath ) values (13,"가방","/peekis/view/register/img/bag.jpg");
+
+--신발
+insert into tag (tno,name,tfpath ) values (14,"신발","/peekis/view/register/img/shoes.jpg");
+
+--책
+insert into tag (tno,name,tfpath ) values (15,"책","/peekis/view/register/img/book.jpg");
+
+--가구
+insert into tag (tno,name,tfpath ) values (16,"가구","/peekis/view/register/img/furniture.jpg");		
