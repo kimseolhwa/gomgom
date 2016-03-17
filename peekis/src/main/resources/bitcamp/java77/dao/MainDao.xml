@@ -9,7 +9,7 @@
 		<id column="wno" property="no" />
 		<result column="FPATH" property="path" />
 		<result column="CONT" property="content" />
-	</resultMap>
+	</resultMap> 
 	
 <!-- 	<resultMap type="comment" id="commentMap"> -->
 <!-- 		<id column="cono" property="commentNo" /> -->
