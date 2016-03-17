@@ -36,7 +36,7 @@ $("#login").on("click",function(){
 		$.ajax({
        		type: "POST",
        		dataType:"JSON",
-   			url: "http://localhost:8008/peekis/join/ajax/login.do",
+   			url: "http://localhost:8008/peekis/auth/ajax/login.do",
     			data:{
                      'email': email,
                      'pwd': pwd,
@@ -62,7 +62,7 @@ $("#login").on("click",function(){
 				$("#message").text("")
 				
 				// 페이지 이동
-				  location.href ="../main/main2.html";
+				  location.href ="http://localhost:8008/peekis/view/main/main2.html";
 			}
 		 }).fail(function(resultObj) {
 			 console.log(resultObj.ajaxResult.status);
