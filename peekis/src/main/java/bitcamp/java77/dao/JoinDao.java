@@ -5,11 +5,11 @@ import java.util.List;
 import bitcamp.java77.domain.Join;
 
 public interface JoinDao {
-  int insert(Join Join);
+  int insert(Join join);
   
   List<Join> selectList();
 
-  int memberJoin(Join Join);
+  int memberJoin(Join join);
 
   int loginCheck(Join join);
 

@@ -21,32 +21,31 @@ public class JoinController {
   
   public static final String SAVED_DIR = "/attachfile";
   
-  @Autowired JoinDao JoinDao;
+  @Autowired JoinDao joinDao;
   @Autowired ServletContext servletContext;
   
  
 //  회원가입
   @RequestMapping(value="join", method=RequestMethod.POST)
-  public AjaxResult join(Join Join,HttpSession session) throws Exception {
+  public AjaxResult join(Join join,HttpSession session) throws Exception {
 	  
 	  
 	  // 유저테이블에서 UNO 컬럼을 자동증가로 수정하고 
 
-	  System.out.println("컨트롤러 호출 : " +  Join.getSelList());
+	  System.out.println("컨트롤러 호출 : " +  join.getSelList());
 	  
 	  
 	  // user table 에 등록 
-	  JoinDao.memberJoin(Join);
+	  joinDao.memberJoin(join);
 	  
 	  // 등록된 유저의 번호를 가져옴
-	  int joinUserNo = JoinDao.selectNo();
-	  
+	  int joinUserNo = joinDao.selectNo();
 	  System.out.println("등록된 유저의 유저번호  : " + joinUserNo);
 	  
 	  
 	  //Join.getSelList를 # 구분자로 파싱해서 유저엔태그 테이블에 등록된 유저번호와 함께 등록하
 	  
-	  String tagStr =  Join.getSelList().replaceFirst("#", "");
+	  String tagStr =  join.getSelList().replaceFirst("#", "");
 	  tagStr = tagStr.trim();
 	  
 	  String[] tagList =  tagStr.split("#");
@@ -56,18 +55,18 @@ public class JoinController {
 		  System.out.print((i+1)+" 번째 태그번호 : " + tagList[i] + "\n");
 	  }
 	  
-	  Join.setUtNo(joinUserNo);
+	  join.setUtNo(joinUserNo);
 	  
 	  
 	  for(int i = 0 ; i< tagList.length;i++){
-		Join.settNo(Integer.parseInt(tagList[i]));  
-		JoinDao.registTag(Join);
+		  join.settNo(Integer.parseInt(tagList[i]));  
+		  joinDao.registTag(join);
 	  }  
 	  
 	  
 	  
 	  // 등록된 유저의 이메일을 세션에 등록
-	  session.setAttribute("admin", Join.getEmail());
+	  session.setAttribute("loginUser", join);
 	  
 	  
 	return new AjaxResult("success", null);
@@ -75,12 +74,12 @@ public class JoinController {
 
   
   @RequestMapping(value="loginCk", method=RequestMethod.POST)
-  public AjaxResult join(Join Join) throws Exception {
+  public AjaxResult join(Join join) throws Exception {
 	  
-	  System.out.println("로그인 체크 컨트롤러 호출, 이메일값 : " +  Join.getEmail());
+	  System.out.println("로그인 체크 컨트롤러 호출, 이메일값 : " +  join.getEmail());
 	  
 	  // db에서 조회
-	  int checkedEmailCnt  =  JoinDao.loginCheck(Join);
+	  int checkedEmailCnt  =  joinDao.loginCheck(join);
 	  System.out.println(" 로긴체크하면서 다오에서 넘어온 값 : " +  checkedEmailCnt);
 
 	
@@ -88,40 +87,38 @@ public class JoinController {
 		  // 이메일 중복될 때 
 		  return new AjaxResult("중복이메일있음", checkedEmailCnt);
 	  }else{
-		  // 이메징 중복 없을 때 
+		  // 이메일 중복 없을 때 
 		  return new AjaxResult("ok", checkedEmailCnt);
 	  }
 	  
   }
 
   @RequestMapping(value="login", method=RequestMethod.POST)
-  public AjaxResult login(Join Join, HttpSession session) throws Exception {
+  public AjaxResult login(Join join, HttpSession session) throws Exception {
 	  
-	  	System.out.println("로그인 컨트롤러 호출 : " + Join.getEmail());
+	  	System.out.println("로그인 컨트롤러 호출 : " + join.getEmail());
 	  	
 	  	//이메일을 먼저 체크 
-	  	int checkedEmailCnt  =  JoinDao.loginCheck(Join);
+	  	int checkedEmailCnt  =  joinDao.loginCheck(join);
 	  	System.out.println(" 이메일체크하면서 다오에서 넘어온 값 : " +  checkedEmailCnt);
 	  	
 	  	
 		  if(checkedEmailCnt>0){
 			  // 체크된 이메일이 있을 때 이메일을 가지고 패스워드와 동시에 일치하는지  
-			  int checkedLoginCnt = JoinDao.EmailPwCheck(Join);	
+			  int checkedLoginCnt = joinDao.EmailPwCheck(join);	
 			  System.out.println("이메일과 패스워드가 일치하는 값 : " + checkedLoginCnt);
 			  
 			  if(checkedLoginCnt>0){
 				  // 이메일과 패스워드가 둘다 일치한다.
 				  
 				  // 등록된 유저의 이메일을 세션에 등록
-				  session.setAttribute("admin", Join.getEmail());
+				  session.setAttribute("loginUser", join);
 
 				  
 				  return new AjaxResult("로그인되면 된다.", checkedLoginCnt);
 				  
 			  }else{
 				  // 패스워드가 일치하지 않는다.
-				  
-				  
 				  return new AjaxResult("패스워드가 일치하지 않습니다.", checkedLoginCnt);
 			  }
 			  
@@ -135,7 +132,7 @@ public class JoinController {
   
   
   @RequestMapping(value="add", method=RequestMethod.POST)
-  public AjaxResult add(Join Join) throws Exception {
+  public AjaxResult add(Join join) throws Exception {
 	  
 	  
 	  
@@ -148,7 +145,7 @@ public class JoinController {
       Join.setAttachFile(newFileName);
     }
     */
-    JoinDao.insert(Join);
+	  joinDao.insert(join);
     return new AjaxResult("success", null);
   }
   
@@ -156,14 +153,14 @@ public class JoinController {
   @RequestMapping("list")
   public Object list() throws Exception {
    
-    List<Join> Joins = JoinDao.selectList();
+    List<Join> joins = joinDao.selectList();
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
-    resultMap.put("data", Joins);
+    resultMap.put("data", joins);
     
-    for(int i=0; i < Joins.size(); i++){
-    	System.out.println(Joins.get(i).getTitle());
+    for(int i=0; i < joins.size(); i++){
+    	System.out.println(joins.get(i).getTitle());
     }
     return resultMap;
   }

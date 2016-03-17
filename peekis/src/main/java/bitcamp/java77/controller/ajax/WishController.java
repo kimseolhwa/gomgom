@@ -49,7 +49,6 @@ public class WishController {
 			wish.setPath(sdfPath+realFileName);
 		}
 		wish.setTag(wish.getTag().replaceAll(",", "#"));
-		System.out.println("태그 확인 : " + wish.getTag());
 		wishDao.insert(wish);
 		wish.setNo(wishDao.selectNo());
     return new AjaxResult("success", wish);
@@ -58,7 +57,7 @@ public class WishController {
   @RequestMapping("list")
   public Object list(@RequestParam(defaultValue="1") int pageNo) throws Exception {
 	 
-	int pageSize = 5;
+	int pageSize = 10;
 	HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);

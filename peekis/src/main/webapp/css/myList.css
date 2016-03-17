@@ -113,7 +113,7 @@ a, a:HOVER{
 	margin: 0 auto;
 }
 
-#myModal .modal-dialog, #editModal .modal-dialog, #urlModal .modal-dialog{
+#registModal .modal-dialog, #editModal .modal-dialog, #urlModal .modal-dialog{
 	width: 450px;
 }
 

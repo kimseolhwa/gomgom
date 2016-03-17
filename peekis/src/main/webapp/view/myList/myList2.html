@@ -98,12 +98,12 @@
 	
 		
 	<!-- addModal -->
-	<div class="modal fade  bs-example-modal-sm" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade  bs-example-modal-sm" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-sm">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">위시리스트 추가하기</h4>
+	        <h4 class="modal-title" id="addModalLabel">위시리스트 추가하기</h4>
 	      </div>
 	      <div class="modal-body">
 	      	<a data-toggle="modal" data-target="#urlModal" style="float: left; width: 200px;">
@@ -112,7 +112,7 @@
 	        	<p style="font-size: 17px; line-height: 17px;">URL로 추가하기</p>
 	        	</div>
 	        </a>
-	        <a data-toggle="modal" data-target="#myModal" style="float: left; width: 200px;">
+	        <a data-toggle="modal" data-target="#registModal" style="float: left; width: 200px;">
 	        	<div>
 	        	<p style="font-size: 70px; color: black; padding-top: 15px;"><i class="fa fa-arrow-up"></i></p>
 	        	<p style="font-size: 17px; line-height: 17px;">직접 추가하기</p>
@@ -125,18 +125,18 @@
 	
 	
 	<!-- #urlModal -->
-	<div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="urlModal" tabindex="-1" role="dialog" aria-labelledby="urlModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">위시리스트 추가하기</h4>
+	        <h4 class="modal-title" id="urlModalLabel">위시리스트 추가하기</h4>
 	      </div>
 	      <div class="modal-body">
 				<form id="preview">
 					<div class="row">
 						<input type="text" id="url" name="url" class="text" size=40;>
-						<input type="submit"  class="btn btn-orange" data-toggle="modal" data-target="#myModal" value="물건추가" >
+						<input type="submit"  class="btn btn-orange" data-toggle="modal" data-target="#registModal" value="물건추가" >
 					</div>
 				</form>
 	      </div>
@@ -145,13 +145,13 @@
 	</div>
 		
 	
-	<!-- myModal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<!-- registModal -->
+	<div class="modal fade" id="registModal" tabindex="-1" role="dialog" aria-labelledby="registModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">위시리스트 추가하기</h4>
+	        <h4 class="modal-title" id="registModalLabel">위시리스트 추가하기</h4>
 	      </div>
 	      <div class="modal-body">
 	        <form action="add.do" method="post" id="cForm">       
@@ -195,12 +195,12 @@
 	
 	
 	<!-- editModal -->
-	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">위시리스트 수정하기</h4>
+	        <h4 class="modal-title" id="editModalLabel">위시리스트 수정하기</h4>
 	      </div>
 	      <div class="modal-body">
 	        <form action="add.do" method="post" name="eForm" enctype="multipart/form-data">
@@ -332,7 +332,7 @@
         }
         
 		/* 위시리스트 추가하기  */
-		$('#myModal .regist-btn').click(function () {
+		$('#registModal .regist-btn').click(function () {
 			var form = $("#cForm")[0];
 			var formData = new FormData(form);
 			formData.append("url", $("#modal-url").val());
