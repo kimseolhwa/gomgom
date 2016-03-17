@@ -324,8 +324,8 @@ body {
 }
 
 .item-image img{
-	max-width: 500px;
-	max-height: 500px;
+	max-width: 498px;
+	max-height: 498px;
 	display: block;
 	border-radius: 5px 5px 5px 5px;
 	position:relative;
@@ -344,9 +344,14 @@ body {
 .item-title {
 	font-size: 12pt;
 	font-weight: bold;
-	letter-spacing: -25;
-	color: #000;
-	word-break: break-all;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	line-height: 1.2em;
+	height: 1.2em;
 }
 
 .item-subtitle {
