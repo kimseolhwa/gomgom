@@ -355,10 +355,6 @@ ALTER TABLE `USER_TAG`
 		REFERENCES `TAG` ( -- 태그
 			`TNO` -- 태그번호
 		);
-		
-		
-		
---태그 테이블에 기본 태그 인서트
 
 --여성
 insert into tag (tno,name,tfpath ) values (1,"여성","/peekis/view/register/img/woman.jpg");
