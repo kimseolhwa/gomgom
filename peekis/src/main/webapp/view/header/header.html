@@ -1,20 +1,53 @@
 <script type="text/javascript">
 
 // 정보수정
-$("#mypage-btn").on("click",function(){
+//사용자 정보를 가져와서 폼으로 불러들인다.
+// $("#mypage-btn").on("click",function(){
+	
+//  	$.getJSON('', function(resultObj) {
+ 			
+//  	})	
+	
+// });
 
-	//사용자 정보를 가져와서 폼으로 불러들인다.
+
+// 사진변경 클릭 -> 아바타이미지 사진 변경
+$("#my-file-selector").change(function(){
 	
 	
+	var file = this.files[0];
 	
+	console.log(file)
 	
-	
-	
+    var reader = new FileReader();
+    
+    reader.onload = function(e){
+//     	e.preventDefault();
+		$("#avatarImg").attr("src",e.target.result)
+    }
+    reader.readAsDataURL(file);
+    
 });
 
 
 </script>
+<style>
+.modal-header{
+ background-color: #e9e9e9;
+}
 
+</style>
+
+
+<style type="text/css">
+    @media screen and (min-width: 550px) {
+        .modal-dialog {
+          width: 550px; /* New width for default modal */
+          height: 510px;
+/*           overflow: hidden; */
+        }
+    }
+</style>
 
 <!-- header 헤더 -->
 <div class="headerWrap">
@@ -85,6 +118,7 @@ $("#mypage-btn").on("click",function(){
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-md" role="document">
+    
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true" >x</span></button>
@@ -104,7 +138,7 @@ $("#mypage-btn").on("click",function(){
       </div> -->
       
       <!-- edit form column -->
-      <div class="col-md-12 personal-info">
+      <div class="col-md-12 personal-info" >
         
         <form class="form-horizontal" role="form">
         
@@ -112,11 +146,13 @@ $("#mypage-btn").on("click",function(){
           	<label class="col-lg-3 control-label">사진</label>
 			 <div class="col-lg-2">
 			 <div class="profileImageWrapper" style="height: 75px;" >
-				<img src="../header/img/profileAvatar.jpg" class="img-circle" alt="avatar" style="height: 75px; width: 75px;">
+				<img id="avatarImg"src="../header/img/profileAvatar.jpg" class="img-circle" alt="avatar" style="height: 75px; width: 75px;">
 				</div>
 			 </div>   
-			 <div class="col-lg-6" style="border: 1px solid black; height: 75px;">
-			 	<label class="btn btn-orange" for="my-file-selector"><input id="my-file-selector" type="file" style="display:none;">사진 변경</label>
+			 <div class="col-lg-6" style="height: 75px; padding-left: 15px; padding-top: 20px;">
+			 	<label class="btn btn-orange" for="my-file-selector">
+			 	<input id="my-file-selector" type="file" style="display:none;" accept="image/png, image/jpeg, image/gif" name="input-file-preview">
+			 	<b>사진 변경</b></label>
 			 </div>
 			        
           </div>
@@ -124,7 +160,7 @@ $("#mypage-btn").on("click",function(){
           <hr>
         
           <div class="form-group">
-            <label class="col-lg-3 control-label">User name</label>
+            <label class="col-lg-3 control-label">사용자 이름</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" value="Jane">
             </div>
@@ -134,7 +170,7 @@ $("#mypage-btn").on("click",function(){
           <hr>
           
           <div class="form-group">
-            <label class="col-lg-3 control-label">Email</label>
+            <label class="col-lg-3 control-label">이메일 주소</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" value="janesemail@gmail.com">
             </div>
@@ -143,15 +179,15 @@ $("#mypage-btn").on("click",function(){
           <hr>
           
           <div class="form-group">
-            <label class="col-md-3 control-label">New Password</label>
+            <label class="col-md-3 control-label">새 비밀번호</label>
             <div class="col-md-8">
               <input class="form-control" type="password" value="11111122333">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-3 control-label">Confirm password</label>
+            <label class="col-md-3 control-label">비밀번호 확인</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="11111122333">
+              <input class="form-control" type="password" value="">
             </div>
           </div>
           
