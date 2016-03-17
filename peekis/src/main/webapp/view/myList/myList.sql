@@ -13,5 +13,10 @@ CREATE TABLE `WISH` (
 	`TAG`   VARCHAR(255) NULL COMMENT '태그' -- 태그
 )
 COMMENT '위시리스트';
+insert into wish(fpath,title,cont,price,url,buy,tag,cno,uno) select w1.fpath, w1.title, w1.cont, w1.price, w1.url, w1.buy, w1.tag, w1.cno, w1.uno from wish w1;
+insert into category (name, uno) values ('(default)', 4); 
 select * from wish;
-insert into wish(fpath,title,cont,price,url,tag) select w1.FPATH, w1.TITLE, w1.CONT, w1.PRICE, w1.URL, w1.tag from wish w1;
+select * from category;
+select * from user;
+select min(cno) from category where uno='2'
+delete from wish where cno='1';

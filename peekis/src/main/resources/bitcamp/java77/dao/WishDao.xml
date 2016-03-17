@@ -12,8 +12,9 @@
 	</resultMap>
 	
 	<select id="selectList" resultMap="wishMap" parameterType="map">
-		select wno, fpath, title, cont, price, url, buy, date, tag
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
 		from wish
+		where uno=#{uno}
 		order by 
 		<choose>
 		 <when test="keyword == 'title'">title </when>
@@ -27,13 +28,18 @@
 		select max(wno) from wish
 	</select>
 	
+	<!-- 유저의 디폴트카테고리 번호 반환 -->
+	<select id="selectcNo" resultType="int">
+		select min(cno) from category where uno=#{uno}
+	</select>
+	
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
-		select wno, fpath, title, cont, price, url, buy, date, tag from wish where wno=#{no}
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno from wish where wno=#{no}
 	</select>
    
 	<insert id="insert" parameterType="wish">
-		insert into wish(fpath,title,cont,price,url,tag) 
-		values(#{path},#{title},#{content},#{price},#{url},#{tag})
+		insert into wish(fpath, title, cont, price, url, tag, cno, uno) 
+		values(#{path}, #{title}, #{content}, #{price}, #{url}, #{tag}, #{cno}, #{uno})
 	</insert>
   
 	<delete id="delete" parameterType="map">

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java77.dao.WishDao;
 import bitcamp.java77.domain.AjaxResult;
+import bitcamp.java77.domain.Join;
 import bitcamp.java77.domain.Wish;
 
 @Controller("ajax.WishController")
@@ -32,8 +35,9 @@ public class WishController {
   
  
   @RequestMapping(value="add", method=RequestMethod.POST)
+  @ResponseBody
   public AjaxResult add(Wish wish, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
- 	
+	  	System.out.println("유저번호 : " + wish.getUno());
 	  	String oriFileName = mFile.getOriginalFilename();
 		if(oriFileName != null && !oriFileName.equals("")){
 			String realPath = servletContext.getRealPath("/attachfile/");
@@ -49,24 +53,32 @@ public class WishController {
 			wish.setPath(sdfPath+realFileName);
 		}
 		wish.setTag(wish.getTag().replaceAll(",", "#"));
+		wish.setCno(wishDao.selectcNo(wish.getUno()));
 		wishDao.insert(wish);
 		wish.setNo(wishDao.selectNo());
     return new AjaxResult("success", wish);
   }
 
   @RequestMapping("list")
-  public Object list(@RequestParam(defaultValue="1") int pageNo) throws Exception {
-	 
+  public Object list(@RequestParam(defaultValue="1") int pageNo, HttpServletRequest req) throws Exception {
+	
+	Join join = (Join) req.getSession().getAttribute("loginUser");
+	System.out.println("loginUser : " + join.getuNo());
+	
 	int pageSize = 10;
 	HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
+    paramMap.put("uno", join.getuNo());
     System.out.println("pageNo : " + pageNo);
     List<Wish> wishs = wishDao.selectList(paramMap);
+    
+    
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("data", wishs);
+    resultMap.put("userNo", join.getuNo());
     
     return resultMap;
   }

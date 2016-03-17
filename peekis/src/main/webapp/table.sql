@@ -356,6 +356,19 @@ ALTER TABLE `USER_TAG`
 			`TNO` -- 태그번호
 		);
 
+----------------------------------------------------------
+ALTER TABLE WISH ADD UNO INTEGER;
+ALTER TABLE `WISH`
+	ADD CONSTRAINT `FK_USER_TO_WISH` -- 유저 -> 위시리스트
+		FOREIGN KEY (
+			`UNO` -- 유저번호
+		)
+		REFERENCES `USER` ( -- 유저
+			`UNO` -- 유저번호
+		);
+----------------------------------------------------------
+
+		
 --여성
 insert into tag (tno,name,tfpath ) values (1,"여성","/peekis/view/register/img/woman.jpg");
 

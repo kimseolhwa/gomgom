@@ -15,7 +15,8 @@ public class Wish  implements Serializable {
   protected char	  buy;
   protected Date	  date;
   protected String	  tag;
-  
+  protected int		  cno;
+  protected int		  uno;
   
    
   	public Wish() {}
@@ -121,6 +122,23 @@ public class Wish  implements Serializable {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+	
+	
+	public int getCno() {
+		return cno;
+	}
+
+	public void setCno(int cno) {
+		this.cno = cno;
+	}
+	
+	public int getUno() {
+		return uno;
+	}
+
+	public void setUno(int uno) {
+		this.uno = uno;
 	}
 
 	@Override

@@ -62,6 +62,13 @@
   <select id="selectNo" resultType="int">
 		select max(uno) from user
 	</select>
+	
+  <!-- 로그인 후 유저정보 반환 -->
+  <select id="selectUser" resultType="join">
+		select uno, name, pwd, email 
+		  from user
+		 where email=#{email}
+	</select>
   
   
   <!-- 선택된 태그를 유저엔태그 테이블로 등록   -->
@@ -71,7 +78,11 @@
     values(#{utNo},#{tNo})
   </insert>
   
-  
+<!-- 기본 카테고리 생성 -->
+	<insert id="addCategory" parameterType="join" >
+      insert into CATEGORY(NAME, UNO)
+      values(#{cName},#{uNo})
+  	</insert>
 </mapper>
 
 

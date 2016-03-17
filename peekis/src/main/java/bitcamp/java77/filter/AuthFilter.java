@@ -29,7 +29,6 @@ public class AuthFilter implements Filter {
 	  
 	  // 서블릿 경로가 /auth/* 아닌데 로그인하지 않았다면,
 	  if (!request.getServletPath().startsWith("/auth") && loginUser == null) {
-	    response.sendRedirect(request.getContextPath() + "/auth/joinForm.html");
 	    return;
 	  }
 	  

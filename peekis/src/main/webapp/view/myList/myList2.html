@@ -58,6 +58,8 @@
 				
 				<div class="item_container">
 					<div id="pageNo" style="display: none;">1</div>
+					<div id="UserNo" style="display: none;">0</div>
+					
 					<div class="item add-item">
 						<a data-toggle="modal" data-target="#addModal">
 						<div class="addItem">
@@ -282,6 +284,8 @@
           
 		/* 위시리스트 목록 불러오기  */		
 		 $.getJSON('/peekis/wish/ajax/list.do', function(resultObj) {
+			$("#UserNo").val(resultObj.userNo);
+			alert($("#UserNo").val());
 			  for (var wish of resultObj.data) {
 				  var cloneContent = $(".cloneMainContents > div").clone();
 					cloneContent.addClass(wish.no+"");
@@ -336,6 +340,7 @@
 			var form = $("#cForm")[0];
 			var formData = new FormData(form);
 			formData.append("url", $("#modal-url").val());
+			formData.append("uno", $("#UserNo").val());
 			$.ajax({
 				url: '/peekis/wish/ajax/add.do', 
 				processData: false,
@@ -344,7 +349,7 @@
 				type: 'POST',
 			    dataType :'json',
 			    success: function(resultObj) {
-					var wish = resultObj.wish;
+					var wish = resultObj.data;
 					var cloneContent = $(".cloneMainContents > div").clone();
 					cloneContent.addClass(wish.no+"");
 					cloneContent.find('.no').val(wish.no);

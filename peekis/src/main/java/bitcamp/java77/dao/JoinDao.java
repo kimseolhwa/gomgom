@@ -19,7 +19,9 @@ public interface JoinDao {
 
   int EmailPwCheck(Join join);
 
+  int addCategory(Join join);
   
+  Join selectUser(Join join);
 }
 
 

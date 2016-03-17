@@ -10,6 +10,8 @@ public interface WishDao {
   
   int selectNo();
   
+  int selectcNo(int uno);
+  
   List<Wish> selectList(HashMap<String,Object> paramMap);
   
   int delete(int no);
