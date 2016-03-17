@@ -40,6 +40,7 @@ public class JoinController {
 	  
 	  // 등록된 유저의 번호를 가져옴
 	  int joinUserNo = joinDao.selectNo();
+	  join.setuNo(joinUserNo);
 	  System.out.println("등록된 유저의 유저번호  : " + joinUserNo);
 	  
 	  
@@ -63,7 +64,9 @@ public class JoinController {
 		  joinDao.registTag(join);
 	  }  
 	  
-	  
+	  join.setcName("(default)");
+	  joinDao.addCategory(join);
+	  //join.setcNo(cNo);
 	  
 	  // 등록된 유저의 이메일을 세션에 등록
 	  session.setAttribute("loginUser", join);
@@ -112,6 +115,7 @@ public class JoinController {
 				  // 이메일과 패스워드가 둘다 일치한다.
 				  
 				  // 등록된 유저의 이메일을 세션에 등록
+				  join = joinDao.selectUser(join);
 				  session.setAttribute("loginUser", join);
 
 				  
@@ -164,7 +168,6 @@ public class JoinController {
     }
     return resultMap;
   }
-  
   
   @RequestMapping("userInfo")
   public AjaxResult userInfo(HttpSession session) throws Exception {

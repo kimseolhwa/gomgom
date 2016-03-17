@@ -19,7 +19,7 @@ public class Join implements Serializable {
 	protected String email;
 	protected String tPho;  // 유저 썸네일 포토
 	protected String pho;   // 유저  포토
-
+	
 	// loginuser
 	protected int loginCheckCnt;
 
@@ -33,9 +33,30 @@ public class Join implements Serializable {
 	
 	//헤더에서 로그인 체큽막스
 	protected String ckBox;
+	//====================================================
+	//카테고리
+	protected String cName;
+	protected int cNo;
 	
+		
+	public String getcName() {
+		return cName;
+	}
+
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+
+	public int getcNo() {
+		return cNo;
+	}
+
+	public void setcNo(int cNo) {
+		this.cNo = cNo;
+	}
+	//====================================================
+
 	
-	// user table getter ,setter
 	
 	public String getCkBox() {
 		return ckBox;
@@ -61,6 +82,8 @@ public class Join implements Serializable {
 		this.pho = pho;
 	}
 	
+	
+	// user table getter ,setter
 	public int getLoginCheckCnt() {
 		return loginCheckCnt;
 	}
