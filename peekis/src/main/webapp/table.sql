@@ -36,8 +36,8 @@ CREATE TABLE `USER` (
 	`NAME`  VARCHAR(50) NOT NULL, -- 유저이름
 	`PWD`   VARCHAR(20) NOT NULL, -- 유저암호
 	`EMAIL` VARCHAR(40) NOT NULL, -- 유저이메일
-	`TPHO`  VARCHAR(255)   NULL,     -- 유저썸네일
-	`PHO`   VARCHAR(255)   NULL      -- 유저사진
+	`TPHO`  VARCHAR(255)   NULL,  -- 유저썸네일
+	`PHO`   VARCHAR(255)   NULL   -- 유저사진
 );
 
 -- 유저
@@ -60,14 +60,14 @@ ALTER TABLE `USER`
 CREATE TABLE `WISH` (
 	`WNO`   INTEGER      NOT NULL, -- 위시번호
 	`FPATH` VARCHAR(255) NOT NULL, -- 위시사진경로
-	`TPATH` VARCHAR(255) NOT NULL, -- 썸네일사진경로
-	`TITLE` VARCHAR(255) NOT NULL, -- 위시제목
+	`TPATH` VARCHAR(255) NULL,	   -- 썸네일사진경로
+	`TITLE` VARCHAR(255) NULL,	   -- 위시제목
 	`CONT`  VARCHAR(255) NULL,     -- 위시내용
 	`PRICE` INTEGER      NULL,     -- 위시가격
 	`URL`   VARCHAR(255) NULL,     -- 위시URL
-	`BUY`   CHAR(1)      NOT NULL, -- 구매여부
+	`BUY`   CHAR(1)      NOT NULL DEFAULT 'N', -- 구매여부
 	`TAG`   VARCHAR(255) NULL,     -- 태그
-	`DATE`  DATE         NOT NULL, -- 작성시간
+	`DATE`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP on update current_timestamp, -- 작성시간
 	`CNO`   INTEGER      NOT NULL  -- 카테고리번호
 );
 
@@ -86,7 +86,7 @@ CREATE TABLE `BOARD` (
 	`BNO`   INTEGER      NOT NULL, -- 게시글번호
 	`TITLE` VARCHAR(255) NOT NULL, -- 게시글 제목
 	`CONT`  VARCHAR(255) NOT NULL, -- 게시글 내용
-	`DATE`  DATE         NOT NULL, -- 게시글 작성시간
+	`DATE`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP on update current_timestamp, -- 게시글 작성시간
 	`UNO`   INTEGER      NOT NULL  -- 유저번호
 );
 
@@ -144,7 +144,7 @@ CREATE TABLE `COMMENT` (
 	`WNO`  INTEGER      NOT NULL, -- 위시번호
 	`UNO`  INTEGER      NOT NULL, -- 유저번호
 	`CONT` VARCHAR(255) NOT NULL, -- 댓글내용
-	`DATE` DATE         NOT NULL  -- 댓글작성시간
+	`DATE` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP on update current_timestamp  -- 댓글작성시간
 );
 
 -- 댓글
