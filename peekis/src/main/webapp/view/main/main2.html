@@ -40,10 +40,10 @@
 	$(document).ready(function() {
 		
 				/* 좋아요 토글 이벤트 */
-				$(document).on("click", ".heart", function(){
-							console.log("좋아요 이벤트 발생");
-							var wishNo = $(this).closest(".item").find('.no').val();
-							var uNo = $("#UserNo").text();
+				$(document).on('click', '.heart', function(){
+							console.log('좋아요 이벤트 발생');
+							var wishNo = $(this).closest('.item').find('.no').val();
+							var uNo = $('#UserNo').text();
 				        	$.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
 				        		var result = resultObj.ajaxResult;
 				        		console.log(result);
@@ -56,10 +56,10 @@
 				    		});
 						});
 
-				$(document).on("click", ".undoheart", function(){
-							console.log("좋아요 취소이벤트 발생");
-							var wishNo = $(this).closest(".item").find('.no').val();
-							var uNo = $("#UserNo").text();
+				$(document).on('click', '.undoheart', function(){
+							console.log('좋아요 취소이벤트 발생');
+							var wishNo = $(this).closest('.item').find('.no').val();
+							var uNo = $('#UserNo').text();
 				        	$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
 				        		var result = resultObj.ajaxResult;
 				        		console.log(result);
@@ -90,7 +90,7 @@
 		        	var scrollHeight = $(window).scrollTop() + $(window).height();
 		        	var documentHeight = $(document).height();
 		        	if(scrollHeight >= documentHeight -100){
-		        		console.log("스크롤 이벤트 발생");
+		        		console.log('스크롤 이벤트 발생');
 		        		var pageNo = Number($('#pageNo').text()) +1;
 		        		nextPage(pageNo);
 		        	}
@@ -98,12 +98,12 @@
 		          
 		        function nextPage(pageNo){
 		        	 $.getJSON('/peekis/main/ajax/list.do',{pageNo : pageNo}, function(resultObj) {
-		        		  $("#UserNo").text(resultObj.userNo);
+		        		  $('#UserNo').text(resultObj.userNo);
 		        		  console.log(resultObj);
 			   			  for (var wish of resultObj.data){
 			   				  $('#pageNo').text(pageNo);
-			   				  var cloneContent = $(".cloneMainContents > div").clone();
-			   					cloneContent.addClass(wish.no+"");
+			   				  var cloneContent = $('.cloneMainContents > div').clone();
+			   					cloneContent.addClass(wish.no+'');
 			   					cloneContent.find('.no').val(wish.no);
 			   					cloneContent.find('.uno').val(wish.uno);
 			   					var path = wish.path;
@@ -113,20 +113,20 @@
 			   					if(wish.buy == 'Y'){
 			   						cloneContent.find('.buy').addClass('buy-check');
 			   					}
-			   					cloneContent.find('img:first').attr("src", path);
+			   					cloneContent.find('img:first').attr('src', path);
 			   					$items = $(cloneContent);
 			   					$container.append( $items ).isotope( 'appended', $items );			
 		   			  	}
 			   			for (var like of resultObj.like){
-			   				$("." + like).find(".undoheart").css("display","block");
-			   				$("." + like).find(".heart").css("display","none");
+			   				$('.' + like).find('.undoheart').css('display','block');
+			   				$('.' + like).find('.heart').css('display','none');
 			   			}
 		   			});
 		        }
 		        
 		        /* 상세정보 가져오기 */
 				$container.on( 'click', '.detail', function() {
-					var wishNo = $(this).closest(".item").find('[type=hidden]').val();
+					var wishNo = $(this).closest('.item').find('.no').val();
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo} , 
 						function( resultObj ) {
 							var wish = resultObj.ajaxResult.data;
@@ -145,7 +145,18 @@
 							$('#detailmodal').modal();
 						});
 				});
-
+				
+		        /* 게시글 담아가기 */
+		        $(document).on("click", ".retweet", function(){
+		        	var wishNo = $(this).closest('.item').find('.no').val();
+		        	var uNo = $('#UserNo').text();
+					$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
+						function( resultObj ) {
+							alert("담아가기 성공");
+							console.log(resultObj);
+						});
+		        });
+		        
 				$('#filters').on('click', 'button', function() {
 					var filterValue = $(this).attr('data-filter');
 					$container.isotope({
@@ -222,10 +233,9 @@
 							<button class="btn btn-orange">
 								<span class="glyphicon glyphicon-send"></span>
 							</button>
-							<a href="#capymodal" data-toggle="modal">
-							<button class="btn btn-orange">
+							<button class="btn btn-orange retweet">
 									<span class="glyphicon glyphicon-retweet"></span>
-							</button></a>
+							</button>
 							<a href="#Modal1" data-toggle="modal">
 							<button class="detail btn btn-orange">상세보기</button></a>
 						</div>

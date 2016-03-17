@@ -19,4 +19,8 @@ public interface MainDao
 	public int addLike(HashMap<String,Integer> paramMap);
 	
 	public int deleteLike(HashMap<String,Integer> paramMap);
+	
+	public int send(HashMap<String,Integer> paramMap);
+	
+	public int copyItem(HashMap<String,Integer> paramMap);
 }

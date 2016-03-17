@@ -6,7 +6,7 @@ import java.util.Date;
 public class Wish  implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  protected int       no;
+  protected int       no;		// 게시글 번호
   protected String    path;
   protected String    title;
   protected String    content;
@@ -15,8 +15,8 @@ public class Wish  implements Serializable {
   protected char	  buy;
   protected Date	  date;
   protected String	  tag;
-  protected int		  cno;
-  protected int		  uno;
+  protected int		  cno;		// 카테고리번호
+  protected int		  uno;		// 유저번호
   
    
   	public Wish() {}

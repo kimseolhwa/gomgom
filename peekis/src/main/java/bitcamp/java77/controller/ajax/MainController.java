@@ -72,4 +72,15 @@ public class MainController
 		MainDao.deleteLike(paramMap);
 		return new AjaxResult("success", null);
 	}
+	
+	@RequestMapping("send")
+	public AjaxResult send(int wno, int uno) throws Exception {
+		System.out.println("[담아가기] 위시번호 : " + wno + ", 유저번호 : " + uno);
+		HashMap<String,Integer> paramMap = new HashMap<>();
+		paramMap.put("wno", wno);
+		paramMap.put("uno", uno);
+		MainDao.send(paramMap);
+		MainDao.copyItem(paramMap);
+		return new AjaxResult("success", null);
+	}
 }

@@ -50,7 +50,7 @@
 	</select>
 
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
-		select wno, fpath, title, cont, price, url, buy, tag, date, cno
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
 		  from wish where wno=#{no}
 	</select>
 	
@@ -69,7 +69,21 @@
 		  from `like` where uno=#{uno}
 	</select>
 	
+	
 	<!-- 담아가기 -->
+	<insert id="send" parameterType="map">
+		insert into SEND(wno, uno) 
+		values(#{wno}, #{uno})
+	</insert>
+	
+	<insert id="copyItem" parameterType="int">
+		<selectKey keyProperty="cno" order="BEFORE" resultType="int">
+	      select min(cno) from category where uno=#{uno}
+	    </selectKey>
+		insert into wish( fpath, title, cont, price, url, tag, cno, uno) 
+		select w1.fpath, w1.title, w1.cont, w1.price, w1.url, w1.tag, cno, #{uno} from wish w1 where wno=#{wno}
+	</insert>
+	
 <!-- 	<update id="copyItem" parameterType="int"> -->
 <!-- 		update wish AS A Inner JOIN wish AS B -->
 <!-- 		    on A.wno=#{no} = B.wno=#{no} -->
