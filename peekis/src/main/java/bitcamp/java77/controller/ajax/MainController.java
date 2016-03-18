@@ -41,7 +41,7 @@ public class MainController
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("data", wishs);
-		resultMap.put("userNo", join.getuNo());
+		resultMap.put("loginUser", join);
 		resultMap.put("like", likeList);
 		return resultMap;
 	}

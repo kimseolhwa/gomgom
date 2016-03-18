@@ -297,7 +297,7 @@
           
         function nextPage(pageNo){
         	 $.getJSON('/peekis/wish/ajax/list.do',{pageNo : pageNo},function(resultObj) {
-        		 $("#UserNo").text(resultObj.userNo);
+        		 $("#UserNo").text(resultObj.loginUser.uNo);
         		 for (var wish of resultObj.data){
   					$('#pageNo').text(pageNo);
    					var cloneContent = $(".cloneMainContents > div").clone();
@@ -313,8 +313,13 @@
    					cloneContent.find('img:first').attr("src", path);
    					$items = $(cloneContent);
    					$container.append( $items ).isotope( 'appended', $items );			
-   			  }
-   		});
+   			  	}
+        		if(pageNo == 1){
+        			console.log(resultObj);
+        			$("#dropdown-color").text(resultObj.loginUser.name);
+        		}
+   			});
+        	
         }
         
 		/* 위시리스트 추가하기  */
