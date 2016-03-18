@@ -1,7 +1,11 @@
 package bitcamp.java77.controller.ajax;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -199,8 +203,46 @@ public class JoinController {
 	  System.out.println("넘어온 현재 패스워드 : " + join.getPwd());
 	  System.out.println("넘어온 새 패스워드 : " + join.getNewPwd());
 	  
+	  // 유저사진
 	  String oriFileName = mFile.getOriginalFilename();
-	  System.out.println("oriFileName : "+ oriFileName);
+	  
+	  if(oriFileName != null && !oriFileName.equals("")){
+			
+		    String realPath = servletContext.getRealPath("/attachfile/");
+			String sdfPath = "profileImg/";
+			sdfPath	+= new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+			String filePath = realPath + sdfPath;
+			File file = new File(filePath);
+			file.mkdirs();
+			
+			String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+			String realFileName = UUID.randomUUID().toString()+ext;
+			String saveFullFileName = filePath+"/"+realFileName;
+			mFile.transferTo(new File(saveFullFileName));
+		
+			//파일 경로
+			join.setPho(sdfPath+realFileName);
+		}
+	  	
+	   // 패스워드 변경시 - 유저번호와 현재 패스워드를 확인해서 새로운 패스워드등록
+	  if(join.getPwd() != null){
+			int curPwdCheckCnt  =  joinDao.CurPwdCheck(join);
+		
+		  // 현재 패스워드 일치 	
+		  if(curPwdCheckCnt>0){
+			  // 새로운 패스워드 set
+			  join.setPwd(join.getNewPwd());
+			  
+		  }else{
+			  
+			  return new AjaxResult("패스워드가 일치하지 않습니다.", null);
+		  }
+			
+	  }
+	  
+	  //dao로 업데이트 전송 
+	  joinDao.updateUserInfo(join);
+	  
 	  
 	  return new AjaxResult("success", null);
   }
