@@ -248,7 +248,7 @@ body {
 	animation: fave-heart 1s steps(28);
 }
 
-.heart.hover {
+.heart.toggle {
 	background-position: -1400px 0;
 	transition: background 1s steps(28);
 }
@@ -267,7 +267,7 @@ body {
 	animation: fave-heart 1s steps(17);
 }
 
-.undoheart.hover {
+.undoheart.toggle {
 	background-position: -850px 0;
 	transition: background 1s steps(17);
 }

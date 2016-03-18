@@ -26,7 +26,6 @@
 <!-- CSS -->
 <link rel="stylesheet" href="../../css/main.css">
 
-
 <!-- header, footer -->
 <link rel="stylesheet" style="text/css" href="../../css/header.css" />
 <link rel="stylesheet" style="text/css" href="../../css/footer.css" />
@@ -48,7 +47,10 @@
 				        		var result = resultObj.ajaxResult;
 				        		console.log(result);
 				    			if(result.status == 'success'){
-					        		$('.' + wishNo).find('.heart').toggleClass('hover').show().fadeToggle(1000), 
+					        		$('.' + wishNo).find('.heart').toggleClass('toggle').show().fadeToggle(1000),
+					        		setTimeout(function(){
+					        			$('.' + wishNo).find('.heart').toggleClass('toggle');  
+									   },1000), 
 					        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
 				    			}else{
 				    				alert('좋아요 추가에 실패하였습니다.');
@@ -64,7 +66,10 @@
 				        		var result = resultObj.ajaxResult;
 				        		console.log(result);
 				    			if(result.status == 'success'){
-					        		$('.' + wishNo).find('.undoheart').toggleClass('hover').show().fadeToggle(1000), 
+					        		$('.' + wishNo).find('.undoheart').toggleClass('toggle').show().fadeToggle(1000),
+					        		setTimeout(function(){
+					        			$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
+									   },1000), 
 					        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
 				    			}else{
 				    				alert('좋아요 삭제에 실패하였습니다.');
