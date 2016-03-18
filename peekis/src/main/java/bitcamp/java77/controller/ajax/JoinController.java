@@ -199,12 +199,12 @@ public class JoinController {
 	  System.out.println("넘어온 현재 패스워드 : " + join.getPwd());
 	  System.out.println("넘어온 새 패스워드 : " + join.getNewPwd());
 	  
-	  
 	  String oriFileName = mFile.getOriginalFilename();
 	  System.out.println("oriFileName : "+ oriFileName);
 	  
 	  return new AjaxResult("success", null);
   }
+  
   
   //로그아웃
   @RequestMapping("logout")
@@ -216,7 +216,6 @@ public class JoinController {
 	  
 	  return new AjaxResult("success", null);
   }
-  
   
   
 }
