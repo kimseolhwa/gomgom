@@ -22,6 +22,10 @@ public interface JoinDao {
   int addCategory(Join join);
   
   Join selectUser(Join join);
+
+  int CurPwdCheck(Join join);
+
+  int updateUserInfo(Join join);
 }
 
 
