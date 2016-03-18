@@ -26,6 +26,7 @@
 <!-- CSS -->
 <link rel="stylesheet" href="../../css/main.css">
 
+
 <!-- header, footer -->
 <link rel="stylesheet" style="text/css" href="../../css/header.css" />
 <link rel="stylesheet" style="text/css" href="../../css/footer.css" />
@@ -103,7 +104,7 @@
 		          
 		        function nextPage(pageNo){
 		        	 $.getJSON('/peekis/main/ajax/list.do',{pageNo : pageNo}, function(resultObj) {
-		        		  $('#UserNo').text(resultObj.userNo);
+		        		 $("#UserNo").text(resultObj.loginUser.uNo);
 		        		  console.log(resultObj);
 			   			  for (var wish of resultObj.data){
 			   				  $('#pageNo').text(pageNo);
@@ -126,6 +127,10 @@
 			   				$('.' + like).find('.undoheart').css('display','block');
 			   				$('.' + like).find('.heart').css('display','none');
 			   			}
+			   			if(pageNo == 1){
+		        			console.log(resultObj);
+		        			$("#dropdown-color").text(resultObj.loginUser.name);
+		        		}
 		   			});
 		        }
 		        
