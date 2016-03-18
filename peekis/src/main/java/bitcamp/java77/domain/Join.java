@@ -23,8 +23,6 @@ public class Join implements Serializable {
 	
 	
 	
-	
-	
 	// loginuser
 	protected int loginCheckCnt;
 
@@ -38,6 +36,8 @@ public class Join implements Serializable {
 	
 	//헤더에서 로그인 체큽막스
 	protected String ckBox;
+	
+	
 	//====================================================
 	//카테고리
 	protected String cName;
