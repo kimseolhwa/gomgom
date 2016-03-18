@@ -95,7 +95,6 @@ $("#goLogout").on("click",function(){
 	
 	$.ajax({
 		url: contextRoot + '/auth/ajax/logout.do',
-		success: function(data){alert("Logout");}
 	})
 	
 	location.href = contextRoot + "/auth/joinForm.html";
