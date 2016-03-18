@@ -142,6 +142,7 @@
 							var wish = resultObj.ajaxResult.data;
 							console.log(wish);
 							$("#detailmodal-no").html( wish.no );
+							$("#detailmodal-uno").html( wish.uno );
 							var path = wish.path;
 							if(path.startsWith('http://') == false){
 								path = filePath + path;
@@ -166,6 +167,19 @@
 							console.log(resultObj);
 						});
 		        });
+		        
+		        
+		        /* 팔로우 하기 */
+		         $(document).on("click", ".follow", function(){
+		        	var wishUserNo = $(this).closest('.modal-content').find('.uno').text();
+		        	var uNo = $('#UserNo').text();
+					$.getJSON('/peekis/main/ajax/follower.do', {wishUserNo : wishUserNo, uno : uNo}, 
+						function( resultObj ) {
+							alert("팔로우 성공");
+							console.log(resultObj);
+					});
+		        });
+		        
 		        
 				$('#filters').on('click', 'button', function() {
 					var filterValue = $(this).attr('data-filter');
@@ -272,12 +286,13 @@
 								<div class="modal-user_id">아이디는여덟자임</div>
 							</a> <span class="glyphicon glyphicon-folder-open"></span>
 							<div class="modal-user_wish">폴더이름여덟자임</div>
-							<p>팔로우</p>
+							<p class="follow">팔로우</p>
 						</div>
 						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
 					</div>
 					<div class="modal-body">
 						<input type="hidden" class="no" id="detailmodal-no">
+						<input type="hidden" class="uno" id="detailmodal-uno">
 						<div class="item-image">
 							<img src="../../image/1111.jpg" alt="" id="detailmodal-image">
 						</div>

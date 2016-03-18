@@ -4,7 +4,7 @@
 }
 
 </style>
-<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
 <script type="text/javascript">
 
 $("#login").on("click",function(){
@@ -36,7 +36,7 @@ $("#login").on("click",function(){
 		$.ajax({
        		type: "POST",
        		dataType:"JSON",
-   			url: contextRoot + "/peekis/auth/ajax/login.do",
+   			url: contextRoot + "/auth/ajax/login.do",
     			data:{
                      'email': email,
                      'pwd': pwd,

@@ -53,6 +53,7 @@ public class MainController
 		return new AjaxResult("success", wish);
 	}
 	
+	// 좋아요
 	@RequestMapping("addLike")
 	public AjaxResult addLike(int wno, int uno) throws Exception {
 		System.out.println("[좋아요 추가] 위시번호 : " + wno + ", 유저번호 : " + uno);
@@ -63,6 +64,7 @@ public class MainController
 		return new AjaxResult("success", null);
 	}
 	
+	// 좋아요 취소
 	@RequestMapping("deleteLike")
 	public AjaxResult deleteLike(int wno, int uno) throws Exception {
 		System.out.println("[좋아요 삭제] 위시번호 : " + wno + ", 유저번호 : " + uno);
@@ -73,6 +75,7 @@ public class MainController
 		return new AjaxResult("success", null);
 	}
 	
+	// 담아가기
 	@RequestMapping("send")
 	public AjaxResult send(int wno, int uno) throws Exception {
 		System.out.println("[담아가기] 위시번호 : " + wno + ", 유저번호 : " + uno);
@@ -81,6 +84,16 @@ public class MainController
 		paramMap.put("uno", uno);
 		MainDao.send(paramMap);
 		MainDao.copyItem(paramMap);
+		return new AjaxResult("success", null);
+	}
+	
+	@RequestMapping("follower")
+	public AjaxResult follower(int wishUserNo, int uno) throws Exception {
+		System.out.println("[팔로워] toUser : " + uno + ", fromUser : " + wishUserNo);
+		HashMap<String,Integer> paramMap = new HashMap<>();
+		paramMap.put("toUser", uno);
+		paramMap.put("fromUser", wishUserNo);
+		MainDao.follower(paramMap);
 		return new AjaxResult("success", null);
 	}
 }

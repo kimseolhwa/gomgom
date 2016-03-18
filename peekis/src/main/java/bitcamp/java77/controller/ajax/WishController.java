@@ -38,6 +38,7 @@ public class WishController {
   public AjaxResult add(Wish wish, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
 	  	System.out.println("유저번호 : " + wish.getUno());
 	  	String oriFileName = mFile.getOriginalFilename();
+	  	
 		if(oriFileName != null && !oriFileName.equals("")){
 			String realPath = servletContext.getRealPath("/attachfile/");
 			String sdfPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
@@ -132,4 +133,5 @@ public class WishController {
     wishDao.updateBuy(wish);
     return new AjaxResult("success", wish.getNo());
   }
+   
 }

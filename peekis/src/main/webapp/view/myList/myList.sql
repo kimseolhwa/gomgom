@@ -20,6 +20,7 @@ select * from category;
 select * from user;
 select * from `LIKE`;
 select * from SEND;
+select * from follower;
 select min(cno) from category where uno='2'
 delete from wish where cno='1';
 delete from `LIKE` where lno<='22';

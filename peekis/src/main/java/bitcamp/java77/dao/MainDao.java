@@ -23,4 +23,6 @@ public interface MainDao
 	public int send(HashMap<String,Integer> paramMap);
 	
 	public int copyItem(HashMap<String,Integer> paramMap);
+	
+	public int follower(HashMap<String,Integer> paramMap);
 }
