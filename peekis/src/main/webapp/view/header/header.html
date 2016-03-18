@@ -88,6 +88,23 @@ $("#goUpdate").on("click",function(){
 
 
 //폼 벨리데이션체크 해야함
+
+
+//로그아웃처리
+$("#goLogout").on("click",function(){
+	
+	$.ajax({
+		url: contextRoot + '/auth/ajax/logout.do',
+		success: function(data){
+			alert("logout")
+			location.href = contextRoot + "/auth/joinForm.html";
+		}
+	})
+	
+})
+
+
+
 </script>
 <style>
 .modal-header{
@@ -168,7 +185,7 @@ $("#goUpdate").on("click",function(){
 											</div>
 										</form>
 									</div>
-									<div class="bottom text-center">
+									<div class="bottom text-center" id="goLogout">
 										<a id="logout" href="#register.html"><b>LOGOUT</b></a>
 									</div>
 								</div>
