@@ -206,7 +206,16 @@ public class JoinController {
 	  return new AjaxResult("success", null);
   }
   
-  
+  //로그아웃
+  @RequestMapping("logout")
+  public AjaxResult logout(HttpSession session) throws Exception {
+	  
+	  System.out.println("로그아웃 컨트롤러 호출");
+	  
+	  session.setAttribute("loginUser", "");
+	  
+	  return new AjaxResult("success", null);
+  }
   
   
   
