@@ -21,8 +21,9 @@ $("#mypage-btn").on("click",function(){
 			$("#updateUserEmail").val(userInfo.email)
 			
 			// 사진
-			$("#avatarImg").attr("src",userInfo.Pho)
+			$("#avatarImg").attr("src",filePath + userInfo.pho)
 			
+			console.log(userInfo.pho)
  		})	
 });
 
@@ -82,8 +83,9 @@ $("#goUpdate").on("click",function(){
   	    processData: false,
   	    contentType: false,
   	    type: 'POST',
-  	    success: function(data){alert("전송성공");}
-  	  })	
+  	  })
+  	  
+  	$("#myModal").modal("hide");
   	  
 });
 
