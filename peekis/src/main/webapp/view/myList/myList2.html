@@ -322,7 +322,7 @@
 			var form = $("#cForm")[0];
 			var formData = new FormData(form);
 			formData.append("url", $("#modal-url").val());
-			formData.append("uno", $("#UserNo").val());
+			formData.append("uno", $("#UserNo").text());
 			$.ajax({
 				url: '/peekis/wish/ajax/add.do', 
 				processData: false,
@@ -331,7 +331,8 @@
 				type: 'POST',
 			    dataType :'json',
 			    success: function(resultObj) {
-					var wish = resultObj.data;
+			    	console.log(resultObj);
+					var wish = resultObj.wish;
 					var cloneContent = $(".cloneMainContents > div").clone();
 					cloneContent.addClass(wish.no+"");
 					cloneContent.find('.no').val(wish.no);

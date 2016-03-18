@@ -35,7 +35,6 @@ public class WishController {
   
  
   @RequestMapping(value="add", method=RequestMethod.POST)
-  @ResponseBody
   public AjaxResult add(Wish wish, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
 	  	System.out.println("유저번호 : " + wish.getUno());
 	  	String oriFileName = mFile.getOriginalFilename();
