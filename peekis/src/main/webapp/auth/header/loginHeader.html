@@ -4,7 +4,7 @@
 }
 
 </style>
-    
+<script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript">
 
 $("#login").on("click",function(){
@@ -36,7 +36,7 @@ $("#login").on("click",function(){
 		$.ajax({
        		type: "POST",
        		dataType:"JSON",
-   			url: "http://localhost:8008/peekis/auth/ajax/login.do",
+   			url: contextRoot + "/peekis/auth/ajax/login.do",
     			data:{
                      'email': email,
                      'pwd': pwd,
@@ -62,7 +62,7 @@ $("#login").on("click",function(){
 				$("#message").text("")
 				
 				// 페이지 이동
-				  location.href ="http://localhost:8008/peekis/view/main/main2.html";
+				  location.href = contextRoot + "/view/main/main2.html";
 			}
 		 }).fail(function(resultObj) {
 			 console.log(resultObj.ajaxResult.status);
