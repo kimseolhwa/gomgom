@@ -23,6 +23,8 @@ public class Join implements Serializable {
 	
 	
 	
+	
+	
 
 	// loginuser
 	protected int loginCheckCnt;
