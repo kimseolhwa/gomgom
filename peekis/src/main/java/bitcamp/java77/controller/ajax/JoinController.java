@@ -6,10 +6,14 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import bitcamp.java77.dao.JoinDao;
 import bitcamp.java77.domain.AjaxResult;
@@ -18,7 +22,7 @@ import bitcamp.java77.domain.Join;
 @Controller("ajax.JoinController")
 @RequestMapping("/auth/ajax/*")
 public class JoinController { 
-  
+  static Logger logger = Logger.getLogger(FileuploadController.class);
   public static final String SAVED_DIR = "/attachfile";
   
   @Autowired JoinDao joinDao;
@@ -172,7 +176,7 @@ public class JoinController {
   @RequestMapping("userInfo")
   public AjaxResult userInfo(HttpSession session) throws Exception {
 	  
-	 System.out.println("콘트롤러 호출");
+	 System.out.println("userInfo 콘트롤러 호출");
 	 
 	  Join join = (Join) session.getAttribute("loginUser");
 	 
@@ -181,5 +185,29 @@ public class JoinController {
 	 
 	  return new AjaxResult("success", join);
   }
+
+  @RequestMapping(value="userInfoUpdate", method=RequestMethod.POST)
+  @ResponseBody
+  public AjaxResult userInfoUpdate(Join join, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
+	  
+	  
+	  System.out.println("userInfoUpdate 콘트롤러 호출");
+	  
+	  System.out.println("넘어온유저넘너 : " + join.getuNo());
+	  System.out.println("넘어온이름 : " + join.getName());
+	  System.out.println("넘어온이메일 : " + join.getEmail());
+	  System.out.println("넘어온 현재 패스워드 : " + join.getPwd());
+	  System.out.println("넘어온 새 패스워드 : " + join.getNewPwd());
+	  
+	  
+	  String oriFileName = mFile.getOriginalFilename();
+	  System.out.println("oriFileName : "+ oriFileName);
+	  
+	  return new AjaxResult("success", null);
+  }
+  
+  
+  
+  
   
 }
