@@ -17,23 +17,14 @@ $("#mypage-btn").on("click",function(){
 			// 이메일 주소
 			$("#updateUserEmail").val(userInfo.email)
 			
-			
-			
+			// 사진
+			$("#avatarImg").attr("src",userInfo.email.tPho)
 			
  		})	
 });
 
 
-
-// 저장을 클릭해서 업데이트 
-
-
-
-
-
-
-
-// 사진변경 로딩이미지
+// 사진변경 시 로딩될 때 로딩이미지 
 $('#viewLoading').hide();
 
 // 사진변경 클릭 -> 아바타이미지 사진 변경
@@ -62,9 +53,65 @@ $("#my-file-selector").change(function(){
 });
 
 
-//벨리데이션체크
+
+// 저장을 클릭해서 업데이트 
+
+$(".userInfoUpdate").on("click",function(){
+	
+
+	
+// 	  $("#btn").click(function(){
+//     	  var formData = new FormData();
+//     	  formData.append("test2", $("input[name=test2]").val());
+//     	  formData.append("test3", $("textarea[name=test3]").text());
+//     	  formData.append("test4", $("input[name=test4]")[0].files[0]);
+    	 
+//     	  $.ajax({
+//     	    url: '/saveFileTest.do',
+//     	    data: formData,
+//     	    processData: false,
+//     	    contentType: false,
+//     	    type: 'POST',
+//     	    success: function(data){
+//     	    	alert("EE");
+//     	    }
+//     	  });
+
+// ajax 파일업로드 두번째방법 html 부분
+// <form id="ajaxform" action="/saveFileTest.do" method="post" enctype="multipart/form-data">
+// 		<input type="text" name="test2"/><br/>
+// 		<textarea rows="10" cols="10" name="test3"></textarea><br/>
+// 		<input type="file" name="test4" />
+// 		<input type="button" id="btn" value="전송" />
+// </form>
+
+	var pwd =  	$("#curPwd").val();
+	var newPwd =  	$("#newPwd").val();
+	var pho =  $("#avatarImg").attr("src");
+
+	var formData = new FormData();
+	 formData.append("name",$("#updateUserName").val())
+	 formData.append("email",$("#updateUserEmail").val())
+	 formData.append("email",$("#updateUserEmail").val())
+	
+	
+	$.ajax({
+		type: "POST",
+		dataType:"JSON",
+		url: contextRoot + "/auth/ajax/updateUserInfo.do",
+			data:{
+				'pho':pho,
+                'name': name,
+                'email': email,
+                'pwd': pwd,
+                'newPwd':newPwd
+              }
+	})
+		
+});
 
 
+//폼 벨리데이션체크 해야함
 </script>
 <style>
 .modal-header{
@@ -185,7 +232,7 @@ $("#my-file-selector").change(function(){
       <!-- edit form column -->
       <div class="col-md-12 personal-info" >
         
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" id="userUpdateForm">
         
           <div class="form-group">
           	<label class="col-lg-3 control-label">사진</label>
@@ -244,13 +291,13 @@ $("#my-file-selector").change(function(){
           <div class="form-group">
             <label class="col-md-3 control-label">현재 비밀번호</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="">
+              <input class="form-control" type="password" value="" id="curPwd">
             </div>
           </div>
           <div class="form-group">
             <label class="col-md-3 control-label">새 비밀번호</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="">
+              <input class="form-control" type="password" value="" id="newPwd">
             </div>
           </div>
           <div class="form-group">
@@ -269,7 +316,7 @@ $("#my-file-selector").change(function(){
       
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">저장</button>
+        <button type="button" class="btn btn-primary userInfoUpdate" >저장</button>
       </div>
     </div>
   </div>
