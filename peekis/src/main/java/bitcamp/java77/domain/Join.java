@@ -23,6 +23,7 @@ public class Join implements Serializable {
 	
 	
 	
+
 	// loginuser
 	protected int loginCheckCnt;
 
@@ -62,6 +63,17 @@ public class Join implements Serializable {
 	//====================================================
 
 	
+	
+	
+	
+	public String getNewPwd() {
+		return newPwd;
+	}
+
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
+	}
+
 
 	
 	
