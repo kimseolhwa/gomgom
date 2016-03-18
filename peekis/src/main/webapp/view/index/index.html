@@ -10,6 +10,7 @@
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="../../js/jquery.rollingCounter.js"></script>
 
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -36,25 +37,23 @@ $(function(){
         loopCount: true,
     });
     
-    var bObj = document.getElementById("btn");
 	
-	bObj.addEventListener("click", function ()
-	{
-		var view = document.getElementById("all");
-		view.innerHTML = parseInt(view.innerHTML) +3;
-		var view = document.getElementById("today");
-		view.innerHTML = parseInt(view.innerHTML) +2;
-		var view = document.getElementById("clear");
-		view.innerHTML = parseInt(view.innerHTML) +1;
-	});
+	$.getJSON(
+			"/peekis/main/ajax/selectAllCnt.do",
+			function(data){
+				$('#all').attr("data-count", data.allCnt.totalCnt);
+				$('#today').attr("data-count", data.todayCnt.todayCnt);
+				$('#goal').attr("data-count", data.goalCnt.goalCnt);
+// 				$('#all').html(data.allCnt.totalCnt);
+// 				$('#today').html(data.todayCnt.todayCnt);
+// 				$('#clear').html(data.goalCnt.goalCnt);
+			}
+	);
+
 	
-	// btn의 클릭 이벤트를 자동으로 발생
-	function autoClick()
-	{
-		setInterval(function () {btn.click();}, 50);
-	}
-	// 함수 호출
-	autoClick();
+	/* ======================= */
+	
+
 });
 </script>
 
@@ -74,11 +73,11 @@ $(function(){
 					</h2>
 
 					<ul class="countdown">
-						<li><span class="all" id="all">0</span>
+						<li><span class="counter" id="all">0</span>
 							<h3>총 욕망</h3></li>
-						<li><span class="today" id="today">0</span>
+						<li><span class="counter" id="today">0</span>
 							<h3>오늘의 욕망</h3></li>
-						<li><span class="clear" id="clear">0</span>
+						<li><span class="counter" id="goal">0</span>
 							<h3>욕망 달성</h3></li>
 					</ul>
 					<br/>
@@ -98,6 +97,19 @@ $(function(){
 		</div>
 	</div>
 		<script src="../../js/classie.js"></script>
+		<script type="text/javascript">
+	    
+		$(".counter").rollingCounter({
+		    animate : true,
+		    attrCount : 'data-count',
+		    delayTime : 20 ,
+		    waitTime : 1 ,
+		    easing : 'easeOutBounce',
+		    duration : 1000
+		});
+		
+		
+		</script>
 		<script>
 			(function() {
 
