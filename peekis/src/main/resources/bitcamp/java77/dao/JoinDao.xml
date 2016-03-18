@@ -32,7 +32,7 @@
 	
 	<!-- 회원 정보수정 -->
 	<update id="updateUserInfo" parameterType="join" >
-	    update user set pho=#{pho}, name=#{name}, email=#{email},pwd=#{pwd} where uno=#{uNo}
+	    update user set pho=#{pho}, name=#{name}, email=#{email} where uno=#{uNo}
 	</update>
 	
 	
@@ -78,7 +78,7 @@
 	
   <!-- 로그인 후 유저정보 반환 -->
   <select id="selectUser" resultType="join">
-		select uno, name, pwd, email 
+		select uno, name, pwd, email, pho 
 		  from user
 		 where email=#{email}
 	</select>
