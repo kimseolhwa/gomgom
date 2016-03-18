@@ -24,6 +24,19 @@
 	</select>
 	
 	
+	
+	<!-- 정보수정 시 현재 패스워드 체크 -->
+	<select id="CurPwdCheck" parameterType="join" resultType="int">
+		select  COUNT(*)  from user where uno = #{uNo} and pwd=#{pwd}
+	</select>
+	
+	<!-- 회원 정보수정 -->
+	<update id="updateUserInfo" parameterType="join" >
+	    update user set pho=#{pho}, name=#{name}, email=#{email},pwd=#{pwd} where uno=#{uNo}
+	</update>
+	
+	
+	
 
 	<select id="selectList" resultMap="joinMap" parameterType="map">
     select 
@@ -56,7 +69,7 @@
     insert into user(NAME,PWD,EMAIL) 
     values(#{name},#{pwd},#{email})
   </insert>
-
+  
   
   <!--  회원가입된 유저 번호 반환 -->
   <select id="selectNo" resultType="int">
