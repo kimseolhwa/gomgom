@@ -11,8 +11,11 @@ $("#mypage-btn").on("click",function(){
 			var userInfo = resultObj.ajaxResult.data;
 			console.log(userInfo)
 			
+			//유저번호 
+			$("#userNo").val(userInfo.uNo)
+			
 			// 사용자 이름
-			$("#updateUserName").val(userInfo.name)			
+			$("#updateName").val(userInfo.name)			
 			
 			// 이메일 주소
 			$("#updateUserEmail").val(userInfo.email)
@@ -56,58 +59,34 @@ $("#my-file-selector").change(function(){
 
 // 저장을 클릭해서 업데이트 
 
-$(".userInfoUpdate").on("click",function(){
-	
+$("#goUpdate").on("click",function(){
 
 	
-// 	  $("#btn").click(function(){
-//     	  var formData = new FormData();
-//     	  formData.append("test2", $("input[name=test2]").val());
-//     	  formData.append("test3", $("textarea[name=test3]").text());
-//     	  formData.append("test4", $("input[name=test4]")[0].files[0]);
-    	 
-//     	  $.ajax({
-//     	    url: '/saveFileTest.do',
-//     	    data: formData,
-//     	    processData: false,
-//     	    contentType: false,
-//     	    type: 'POST',
-//     	    success: function(data){
-//     	    	alert("EE");
-//     	    }
-//     	  });
-
-// ajax 파일업로드 두번째방법 html 부분
-// <form id="ajaxform" action="/saveFileTest.do" method="post" enctype="multipart/form-data">
-// 		<input type="text" name="test2"/><br/>
-// 		<textarea rows="10" cols="10" name="test3"></textarea><br/>
-// 		<input type="file" name="test4" />
-// 		<input type="button" id="btn" value="전송" />
-// </form>
-
-	var pwd =  	$("#curPwd").val();
-	var newPwd =  	$("#newPwd").val();
-	var pho =  $("#avatarImg").attr("src");
-
-	var formData = new FormData();
-	 formData.append("name",$("#updateUserName").val())
-	 formData.append("email",$("#updateUserEmail").val())
-	 formData.append("email",$("#updateUserEmail").val())
-	
-	
-	$.ajax({
-		type: "POST",
-		dataType:"JSON",
-		url: contextRoot + "/auth/ajax/updateUserInfo.do",
-			data:{
-				'pho':pho,
-                'name': name,
-                'email': email,
-                'pwd': pwd,
-                'newPwd':newPwd
-              }
-	})
-		
+	 var formData = new FormData();
+	 
+	 formData.append("uNo", $("#userNo").val())
+	 formData.append("email", $("#updateUserEmail").val())
+	 formData.append("name", $("#updateName").val())
+	 formData.append("pwd", $("#curPwd").val())
+	 formData.append("newPwd", $("#newPwd").val())
+	 formData.append("pho", $("input[id=my-file-selector]")[0].files[0]);
+	 
+	 
+	 var fileInfo = $("input[id=my-file-selector]")[0].files[0]
+	 console.log(fileInfo)
+	 
+	 
+	  $.ajax({
+  	    url: contextRoot + '/auth/ajax/userInfoUpdate.do',
+  	    data: formData,
+  	  	dataType :'json',
+  	    processData: false,
+  	    contentType: false,
+  	    type: 'POST',
+  	    success: function(data){alert("전송성공");}
+  	  })	
+  	  	
+  	  
 });
 
 
@@ -228,12 +207,13 @@ $(".userInfoUpdate").on("click",function(){
           <input type="file" class="form-control">
         </div>
       </div> -->
-      
+
       <!-- edit form column -->
       <div class="col-md-12 personal-info" >
         
-        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data" id="userUpdateForm">
-        
+        <form class="form-horizontal" role="form" action="userInfoUpdate.do" method="post" id="userUpdateForm" >
+		<!-- 유저번호  -->
+			<input type="hidden" value="uno" id="userNo">        
           <div class="form-group">
           	<label class="col-lg-3 control-label">사진</label>
 			 <div class="col-lg-2">
@@ -244,7 +224,7 @@ $(".userInfoUpdate").on("click",function(){
 			 </div>   
 			 <div class="col-lg-6" style="height: 75px; padding-left: 15px; padding-top: 20px;">
 			 	<label class="btn btn-orange" for="my-file-selector">
-			 	<input id="my-file-selector" type="file" style="display:none;" accept="image/png, image/jpeg, image/gif" name="input-file-preview">
+			 	<input id="my-file-selector" type="file" style="display:none;" accept="image/png, image/jpeg, image/gif" name="input-file-preview" id="updateUserFile">
 			 	<b>사진 변경</b></label>
 			 </div>
 			        
@@ -255,7 +235,7 @@ $(".userInfoUpdate").on("click",function(){
           <div class="form-group">
             <label class="col-lg-3 control-label">사용자 이름</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="Jane" id="updateUserName">
+              <input class="form-control" type="text" value="userName" id="updateName">
             </div>
           </div>
           
@@ -274,7 +254,7 @@ $(".userInfoUpdate").on("click",function(){
           <div class="form-group">
             <label class="col-lg-3 control-label">이메일 주소</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="janesemail@gmail.com" id="updateUserEmail">
+              <input class="form-control" type="text" value="" id="updateUserEmail">
             </div>
           </div>
           
@@ -316,7 +296,7 @@ $(".userInfoUpdate").on("click",function(){
       
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary userInfoUpdate" >저장</button>
+        <button type="button" class="btn btn-primary userInfoUpdate" id="goUpdate">저장</button>
       </div>
     </div>
   </div>
