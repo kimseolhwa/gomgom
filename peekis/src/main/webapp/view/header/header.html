@@ -56,7 +56,6 @@ $("#my-file-selector").change(function(){
 });
 
 
-
 // 저장을 클릭해서 업데이트 
 
 $("#goUpdate").on("click",function(){
@@ -75,7 +74,6 @@ $("#goUpdate").on("click",function(){
 	 var fileInfo = $("input[id=my-file-selector]")[0].files[0]
 	 console.log(fileInfo)
 	 
-	 
 	  $.ajax({
   	    url: contextRoot + '/auth/ajax/userInfoUpdate.do',
   	    data: formData,
@@ -85,7 +83,6 @@ $("#goUpdate").on("click",function(){
   	    type: 'POST',
   	    success: function(data){alert("전송성공");}
   	  })	
-  	  	
   	  
 });
 
