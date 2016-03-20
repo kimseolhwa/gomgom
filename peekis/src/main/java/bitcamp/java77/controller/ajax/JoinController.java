@@ -38,7 +38,6 @@ public class JoinController {
 	@RequestMapping(value = "join", method = RequestMethod.POST)
 	public AjaxResult join(Join join, HttpSession session) throws Exception {
 
-		// 유저테이블에서 UNO 컬럼을 자동증가로 수정하고
 
 		System.out.println("컨트롤러 호출 : " + join.getSelList());
 
@@ -115,7 +114,7 @@ public class JoinController {
 			if (checkedLoginCnt > 0) {
 				// 이메일과 패스워드가 둘다 일치한다.
 
-				// 등록된 유저의 이메일을 세션에 등록
+				// 등록된 유저 세션에 등록
 				join = joinDao.selectUser(join);
 				session.setAttribute("loginUser", join);
 
@@ -177,7 +176,7 @@ public class JoinController {
 
 	@RequestMapping(value = "userInfoUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public AjaxResult userInfoUpdate(Join join, @RequestParam(value = "file", required = false) MultipartFile mFile)
+	public AjaxResult userInfoUpdate(Join join, @RequestParam(value = "file", required = false) MultipartFile mFile,HttpSession session)
 			throws Exception {
 
 		System.out.println("userInfoUpdate 콘트롤러 호출");
@@ -212,7 +211,11 @@ public class JoinController {
 
 		// dao로 업데이트 전송 (사진 이름 이메일)
 		joinDao.updateUserInfo(join);
-
+		
+		//전송 후 세션을 재 설정 
+		session.setAttribute("loginUser", session.getId());
+		
+		
 		// 패스워드 변경시 - 유저번호와 현재 패스워드를 확인해서 새로운 패스워드등록
 
 		return new AjaxResult("success", join);
