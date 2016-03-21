@@ -36,6 +36,10 @@
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 <script type="text/javascript" src="../../js/common.js"></script>
 
+<!-- sweetalert -->
+<script src="../../js/sweetalert-dev.js"></script>
+<link rel="stylesheet" style="text/css" href="../../css/sweetalert.css" />
+
 <script>
 	$(document).ready(function() {
 		
@@ -54,7 +58,7 @@
 									   },1000), 
 					        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
 				    			}else{
-				    				alert('좋아요 추가에 실패하였습니다.');
+				    				swal('좋아요 추가에 실패하였습니다.');
 				    			}
 				    		});
 						});
@@ -73,7 +77,7 @@
 									   },1000), 
 					        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
 				    			}else{
-				    				alert('좋아요 삭제에 실패하였습니다.');
+				    				swal('좋아요 삭제에 실패하였습니다.');
 				    			}
 				    		});
 						});
@@ -158,12 +162,12 @@
 				});
 				
 		        /* 게시글 담아가기 */
-		        $(document).on("click", ".retweet", function(){
+		        $(document).on("click", ".plus", function(){
 		        	var wishNo = $(this).closest('.item').find('.no').val();
 		        	var uNo = $('#UserNo').text();
 					$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
 						function( resultObj ) {
-							alert("담아가기 성공");
+							swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
 							console.log(resultObj);
 						});
 		        });
@@ -175,7 +179,7 @@
 		        	var uNo = $('#UserNo').text();
 					$.getJSON('/peekis/main/ajax/follower.do', {wishUserNo : wishUserNo, uno : uNo}, 
 						function( resultObj ) {
-							alert("팔로우 성공");
+							swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
 							console.log(resultObj);
 					});
 		        });
@@ -259,8 +263,8 @@
 							<button class="btn btn-orange">
 								<span class="glyphicon glyphicon-send"></span>
 							</button>
-							<button class="btn btn-orange retweet">
-									<span class="glyphicon glyphicon-retweet"></span>
+							<button class="btn btn-orange plus">
+								<span class="glyphicon glyphicon-plus"></span>
 							</button>
 							<a href="#Modal1" data-toggle="modal">
 							<button class="detail btn btn-orange">상세보기</button></a>
@@ -388,11 +392,18 @@
 							<input type="hidden" class="uno" value="00">
 						</div>
 						<div class="modal-item-content">
-							<div class="modal-item-title" id="">titel:</div>
-							<br />
-							<div class="modal-item-subtitle" id="">content:</div>
-							<div class="modal-item-costi-box">
-								<div class="price" id="">&#8361; price:</div>
+							<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
+							<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어  임블리에서만 만나보실 수 있는 사랑스러움을:</div>
+							<hr class="star-primary">
+							<div class="modal-icon">
+								<a href="#Modal1" data-toggle="modal">
+									<button class="detail btn btn-orange">상세보기</button>
+								</a>
+								<button class="btn btn-orange plus">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+								<div class="heart"></div>
+								<div class="undoheart"></div>
 							</div>
 						</div>
 					</div>

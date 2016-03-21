@@ -178,7 +178,7 @@ body {
 	margin: 20px;
 }
 
-.detail {
+.icon .detail {
 	position: absolute;
 	top: 0;
 	left: 115px;
@@ -371,16 +371,6 @@ body {
 	border-radius: 5px 5px 5px 5px;
 }
 
-.modal-product img{
-	max-width: 530px;
-	height: auto;
-	border-radius: 5px 5px 0 0;
-}
-
-.modal-item-content {
-	background-color: white;
-	border-radius: 0 0 5px 5px;
-}
 
 
 .portfolio-modal .modal-content {
@@ -427,6 +417,70 @@ body {
 	transform: rotate(90deg);
 }
 
+.modal-product img{
+	max-width: 530px;
+	height: auto;
+	border-radius: 5px 5px 0 0;
+}
+
+.modal-item-content {
+	background-color: white;
+	border-radius: 0 0 5px 5px;
+}
+
+
+.modal-item-title {
+	font-size: 16pt;
+	font-weight: bold;
+	overflow: hidden;
+	padding: 5px;
+}
+
+.modal-item-content {
+	font-size: 13pt;
+	padding: 10px;
+	overflow: hidden;
+	text-align: left;
+}
+
+.modal-item-content .heart {
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	left: 90%;
+	top: calc(100% - 50px);
+	transform: translate(-50%, -50%);
+	background: url(../image/heart.png) no-repeat;
+	background-position: 0 0;
+	cursor: pointer;
+	animation: fave-heart 1s steps(28);
+}
+
+.modal-item-content .heart.toggle {
+	background-position: -1400px 0;
+	transition: background 1s steps(28);
+}
+
+.modal-item-content .undoheart {
+	display: none;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	left: 90%;
+	top: calc(100% - 25px);
+	transform: translate(-50%, -50%);
+	background: url(../image/undoheart.png) no-repeat;
+	background-position: 0 0;
+	cursor: pointer;
+	animation: fave-heart 1s steps(17);
+}
+
+.modal-item-content .undoheart.toggle {
+	background-position: -850px 0;
+	transition: background 1s steps(17);
+}
+
+
 
 footer {
     height: 40px;
@@ -451,7 +505,7 @@ footer {
     color: #333333;
     border-radius: 80px;
     left: 95.5%;
-    top: 91%;
+    top: 89%;
     display: block;
     z-index: 1000;
     -webkit-transition: all 0.25s ease-in-out;
