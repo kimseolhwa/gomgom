@@ -11,11 +11,13 @@
 		<result column="CONT" 	property="content"/>
 	</resultMap>
 	
+	<!-- 게시글 불러오기(페이징) -->
 	<select id="selectList" resultMap="wishMap" parameterType="map">
 		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
 		from wish
 		where uno=#{uno}
 		order by 
+		
 		<choose>
 		 <when test="keyword == 'title'">title </when>
 		 <when test="keyword == 'price'">price </when>
@@ -23,35 +25,51 @@
 		</choose>
 		limit #{startIndex}, #{length}
 	</select>
-  
+  	
+  	<!-- 게시글번호 불러오기  -->
 	<select id="selectNo" resultType="int">
 		select max(wno) from wish
 	</select>
+	
+	<!-- 유저별 게시글 총 개수 불러오기  -->
+	<select id="selectWishCnt" resultType="int">
+		select COUNT(*) from wish where uno=#{uno}
+	</select>
+	
+	<!-- 유저별 좋아요 총 개수 불러오기  -->
+	<select id="selectLikeCnt" resultType="int">
+		select COUNT(*) from `like` where uno=#{uno}
+	</select>	
 	
 	<!-- 유저의 디폴트카테고리 번호 반환 -->
 	<select id="selectcNo" resultType="int">
 		select min(cno) from category where uno=#{uno}
 	</select>
 	
+	<!-- 게시글 상세내용 불러오기 -->
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
 		select wno, fpath, title, cont, price, url, buy, tag, date, cno from wish where wno=#{no}
 	</select>
-   
+	
+   	<!-- 게시글 등록하기 -->
 	<insert id="insert" parameterType="wish">
 		insert into wish(fpath, title, cont, price, url, tag, cno, uno) 
 		values(#{path}, #{title}, #{content}, #{price}, #{url}, #{tag}, #{cno}, #{uno})
 	</insert>
-  
+  	
+  	<!-- 게시글 삭제하기 -->
 	<delete id="delete" parameterType="map">
 		delete from wish where wno=#{no}
 	</delete>
   
+  	<!-- 게시글 수정하기 -->
 	<update id="update" parameterType="wish">
 		update wish 
 		set fpath=#{path}, title=#{title}, cont=#{content}, price=#{price}, url=#{url}, tag=#{tag}, date=now()  	  
 	    where wno=#{no}
 	</update>
 	
+	<!-- 구매여부 업데이트하기 -->
 	<update id="updateBuy" parameterType="wish">
 		update wish 
 		set buy=#{buy}

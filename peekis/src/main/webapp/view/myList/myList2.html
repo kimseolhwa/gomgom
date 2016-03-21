@@ -317,6 +317,13 @@
         		if(pageNo == 1){
         			console.log(resultObj);
         			$("#dropdown-color").text(resultObj.loginUser.name);
+        			$("#userName").text(resultObj.loginUser.name);
+        			$("#wishCnt").text(resultObj.wishCnt);
+        			$("#likeCnt").text(resultObj.likeCnt);
+        			if(resultObj.loginUser.pho != null){
+        				$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
+        				$("#profile").attr("src", filePath + resultObj.loginUser.pho);
+        			}
         		}
    			});
         	
@@ -355,6 +362,7 @@
 					$items = $(addText);
 					$container.prepend( $items ).isotope( 'prepended', $items );
 					$container.isotope( 'remove', $('.add-item:last') ).isotope();
+					$("#wishCnt").text( Number($('#wishCnt').text()) +1);
 			    },
 			    complete: resetModal()
 			});
@@ -368,6 +376,7 @@
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
 					$container.isotope( 'remove', $("." + wishNo) ).isotope();
+					$("#wishCnt").text( Number($('#wishCnt').text()) -1);
 				}
 			});
 		})

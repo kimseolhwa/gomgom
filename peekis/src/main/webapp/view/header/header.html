@@ -52,14 +52,6 @@ $("#my-file-selector").change(function(){
 $("#goUpdate").on("click",function(){
 	 var form = $("#userUpdateForm")[0];
 	 var formData = new FormData(form);
-	 /*
-	 formData.append("uNo", $("#userNo").val())
-	 formData.append("email", $("#updateUserEmail").val())
-	 formData.append("name", $("#updateName").val())
-	 formData.append("pwd", $("#curPwd").val())
-	 formData.append("newPwd", $("#newPwd").val())
-	 formData.append("pho", $("input[id=my-file-selector]")[0].files[0]);
-	 */
 	 
 	 var fileInfo = $("input[id=my-file-selector]")[0].files[0]
 	 console.log(fileInfo);
@@ -71,6 +63,16 @@ $("#goUpdate").on("click",function(){
   	    processData: false,
   	    contentType: false,
   	    type: 'POST',
+  	    success: function(resultObj){
+			console.log(resultObj.data);
+			var loginUser =  resultObj.data;
+			$("#dropdown-color").text(loginUser.name);
+			$("#userName").text(loginUser.name);
+			if(loginUser.pho != null){
+				$("#pImg").attr("src", filePath + loginUser.pho);
+				$("#profile").attr("src", filePath + loginUser.pho);
+			}
+  	    }
   	})  	  
   	$("#myModal").modal("hide");
   	  

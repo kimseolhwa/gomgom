@@ -72,12 +72,14 @@ public class WishController {
     paramMap.put("uno", join.getuNo());
     System.out.println("pageNo : " + pageNo);
     List<Wish> wishs = wishDao.selectList(paramMap);
-    
-    
+    int wishCnt = wishDao.selectWishCnt(join.getuNo());
+    int likeCnt = wishDao.selectLikeCnt(join.getuNo());
     
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     resultMap.put("data", wishs);
+    resultMap.put("wishCnt", wishCnt);
+    resultMap.put("likeCnt", likeCnt);
     resultMap.put("loginUser", join);
     
     return resultMap;

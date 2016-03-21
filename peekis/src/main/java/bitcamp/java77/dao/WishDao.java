@@ -21,6 +21,11 @@ public interface WishDao {
   int update(Wish wish);
 
   int updateBuy(Wish wish);
+
+  int selectWishCnt(int uno);
+
+  int selectLikeCnt(int uno);
+
 }
 
 
