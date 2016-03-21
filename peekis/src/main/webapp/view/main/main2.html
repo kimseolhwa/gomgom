@@ -220,9 +220,12 @@
 				    
 				    if (st > lastScrollTop && st > navbarHeight){
 				        $('footer').removeClass('nav-down').addClass('nav-up');
+				        $('#demoTop').show();
+				        
 				    } else {
 				        if(st + $(window).height() < $(document).height()) {
 				            $('footer').removeClass('nav-up').addClass('nav-down');
+				            $('#demoTop').hide();
 				        }
 				    }
 				    lastScrollTop = st;
@@ -331,7 +334,6 @@
 										</button>
 									</div>
 								</div>
-
 								<div class="well">
 									<div class="tab-content">
 										<div class="tab-pane fade in active" id="tab1">
@@ -348,7 +350,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="comment">
 									<div class="comment_pro">
 										<img src="../../image/pro1.jpg" class="img-circle">
@@ -361,7 +362,6 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 					</div>
@@ -369,53 +369,29 @@
 			</div>
 		</div>
 
-		<!-- CapyModal -->
-		<div class="item-modal modal fade" id="capymodal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<div class="modal-pro">
-							<a href="#ProModal1" data-toggle="modal"> <img src="../../image/pro1.jpg" class="img-circle">
-								<div class="modal-user_id">아이디는여덟자임</div>
-							</a> <span class="glyphicon glyphicon-folder-open"></span>
-							<div class="modal-user_wish">폴더이름여덟자임</div>
-							<p>팔로우</p>
-						</div>
-						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
+		<!-- proModal -->
+		<div class="portfolio-modal modal fade" id="ProModal1" role="dialog" aria-hidden="true"  style="display: none;">
+			<div class="modal-content">
+				<div class="close-modal" data-dismiss="modal">
+					<div class="lr">
+						<div class="rl"></div>
 					</div>
-					<div class="modal-body">
-						<input type="hidden" class="no" id="detailmodal-no">
-						<div class="item-image">
-							<img src="../../image/1111.jpg" alt="" id="detailmodal-image">
+				</div>
+				<div class="modal-body">
+					<h2>프로필e</h2>
+					<hr class="star-primary">
+					<img src="../../image/pro1.jpg" class="img-rounded" alt="">
+	
+					<div class="modal-item">
+						<div class="modal-product">
+							<img src="../../image/006.jpg" />
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="portfolio-modal modal fade" id="ProModal1" role="dialog" aria-hidden="true">
-		<div class="modal-content">
-			<div class="close-modal" data-dismiss="modal">
-				<div class="lr">
-					<div class="rl"></div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<h2>프로필e</h2>
-				<hr class="star-primary">
-				<img src="../../image/pro1.jpg" class="img-rounded" alt="">
-
-				<div class="modal-item">
-					<div class="modal-product">
-						<img src="../../image/006.jpg" />
-					</div>
-				</div>
-
-				<div class="modal-item2">
-					<div class="modal-product">
-						<img src="../../image/002.jpg" />
+	
+					<div class="modal-item2">
+						<div class="modal-product">
+							<img src="../../image/002.jpg" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -424,7 +400,8 @@
 
 	<footer class="nav-down" id="footer"></footer>
 
-	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
+	<span data-placement="top" title="" id="demoTop" style="display: none;" >
+	<a href="#" style="display: black; padding: 5px;">Δ</a></span>
 
 	<script>
 		$("#header").load("../header/header.html");

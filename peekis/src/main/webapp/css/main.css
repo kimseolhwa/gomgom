@@ -171,57 +171,6 @@ body {
 	font-size: 9pt;
 }
 
-/* .mask .company { */
-/* 	margin: 20px; */
-/* 	color: rgb(161,242,255); */
-/* 	font-weight: bold; */
-/* 	font-size: 15pt; */
-/* } */
-
-/* .mask .price { */
-/* 	margin: 20px; */
-/* 	color: rgb(242,132,53); */
-/* 	font-weight: bold; */
-/* 	font-size: 17pt; */
-/* } */
-
-/* .comment_pop { */
-/* 	position: absolute; */
-/* 	float: left; */
-/* 	top: calc(100% - 39px); */
-/* 	color: rgb(170, 184, 194); */
-/* 	left: 10px; */
-/* } */
-
-/* .comment_count { */
-/* 	font-size: 6pt; */
-/* 	font-weight: bold; */
-/* 	position: absolute; */
-/* 	top: calc(100% - 44px); */
-/* 	left: 27px; */
-/* 	width: 15px; */
-/* 	height: 15px; */
-/* 	text-align: center; */
-/* 	color: #fff; */
-/* 	border-radius: 50%; */
-/* 	background: rgb(242,132,53); */
-/* } */
-
-/* .send { */
-/* 	position: absolute; */
-/* 	float: right; */
-/* 	top: calc(100% - 39px); */
-/* 	color: rgb(170, 184, 194); */
-/* 	right: 95px; */
-/* } */
-
-/* .retweet { */
-/* 	position: absolute; */
-/* 	float: right; */
-/* 	top: calc(100% - 39px); */
-/* 	color: rgb(170, 184, 194); */
-/* 	right: 55px; */
-/* } */
 .icon {
 	position: absolute;
 	float: right;
