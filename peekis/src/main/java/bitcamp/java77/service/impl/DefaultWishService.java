@@ -10,11 +10,10 @@ import bitcamp.java77.service.WishService;
 @Service
 public class DefaultWishService implements WishService {
   @Autowired WishDao wishDao;
-  
+ 
   public void register(Wish wish) {
 	  wishDao.insert(wish);
   }
-  
 }
 
 

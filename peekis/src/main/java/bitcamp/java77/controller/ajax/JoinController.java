@@ -178,7 +178,7 @@ public class JoinController {
 		joinDao.updateUserInfo(join);
 		
 		//전송 후 세션을 재 설정 
-		session.setAttribute("loginUser", session.getId());
+		session.setAttribute("loginUser", join);
 		
 		
 		// 패스워드 변경시 - 유저번호와 현재 패스워드를 확인해서 새로운 패스워드등록

@@ -4,14 +4,7 @@ import java.io.Serializable;
 
 public class Join implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	protected int no;
-	protected String title;
-	protected String content;
-	protected int price;
-	protected String url;
-	protected String attachFile; // 컬럼명 = afile
-
+	
 	// user
 	protected int uNo;
 	protected String name;
@@ -21,11 +14,6 @@ public class Join implements Serializable {
 	protected String pho;   // 유저  포토
 	protected String newPwd;  // 변경할 패스워드
 	
-	
-	
-	
-	
-
 	// loginuser
 	protected int loginCheckCnt;
 
@@ -65,77 +53,10 @@ public class Join implements Serializable {
 	//====================================================
 
 	
-	
-	
-	
-	public String getNewPwd() {
-		return newPwd;
-	}
-
-	public void setNewPwd(String newPwd) {
-		this.newPwd = newPwd;
-	}
-
+	// 생성자
+	public Join() {	}
 
 	
-	
-	public String getCkBox() {
-		return ckBox;
-	}
-
-
-	public void setCkBox(String ckBox) {
-		this.ckBox = ckBox;
-	}
-
-	public String gettPho() {
-		return tPho;
-	}
-
-	public void settPho(String tPho) {
-		this.tPho = tPho;
-	}
-
-	public String getPho() {
-		return pho;
-	}
-
-	public void setPho(String pho) {
-		this.pho = pho;
-	}
-	
-	public int getLoginCheckCnt() {
-		return loginCheckCnt;
-	}
-
-	public int getUtNo() {
-		return utNo;
-	}
-
-	public void setUtNo(int utNo) {
-		this.utNo = utNo;
-	}
-
-	public int gettNo() {
-		return tNo;
-	}
-
-	public void settNo(int tNo) {
-		this.tNo = tNo;
-	}
-
-	public void setLoginCheckCnt(int loginCheckCnt) {
-		this.loginCheckCnt = loginCheckCnt;
-	}
-
-	public String getSelList() {
-		return selList;
-	}
-
-	public void setSelList(String selList) {
-		this.selList = selList;
-	}
-
 	public int getuNo() {
 		return uNo;
 	}
@@ -168,64 +89,74 @@ public class Join implements Serializable {
 		this.email = email;
 	}
 
-	// 생성자
-	public Join() {
+	public String gettPho() {
+		return tPho;
 	}
 
-	// getter, setter
-	public int getNo() {
-		return no;
+	public void settPho(String tPho) {
+		this.tPho = tPho;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public String getPho() {
+		return pho;
 	}
 
-	public String getTitle() {
-		return title;
+	public void setPho(String pho) {
+		this.pho = pho;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public String getNewPwd() {
+		return newPwd;
 	}
 
-	public String getContent() {
-		return content;
+	public void setNewPwd(String newPwd) {
+		this.newPwd = newPwd;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public int getLoginCheckCnt() {
+		return loginCheckCnt;
 	}
 
-	public int getPrice() {
-		return price;
+	public void setLoginCheckCnt(int loginCheckCnt) {
+		this.loginCheckCnt = loginCheckCnt;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public String getSelList() {
+		return selList;
 	}
 
-	public String getUrl() {
-		return url;
+	public void setSelList(String selList) {
+		this.selList = selList;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public int getUtNo() {
+		return utNo;
 	}
 
-	public String getAttachFile() {
-		return attachFile;
+	public void setUtNo(int utNo) {
+		this.utNo = utNo;
 	}
 
-	public void setAttachFile(String attachFile) {
-		this.attachFile = attachFile;
+	public int gettNo() {
+		return tNo;
 	}
 
-	// override
+	public void settNo(int tNo) {
+		this.tNo = tNo;
+	}
+
+	public String getCkBox() {
+		return ckBox;
+	}
+
+	public void setCkBox(String ckBox) {
+		this.ckBox = ckBox;
+	}
+
 	@Override
 	public String toString() {
-		return "Board [no=" + no + ", title=" + title + ", content=" + content + ", price=" + price + ", url=" + url
-				+ ", attachFile=" + attachFile + "]";
+		return "Join [name=" + name + ", pwd=" + pwd + ", email=" + email + "]";
 	}
+	
 
 }

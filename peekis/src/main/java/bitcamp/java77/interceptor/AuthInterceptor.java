@@ -16,11 +16,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 	    
 	    log.debug("로그인 인터셉터 실행!");
-	    
 	    Join loginUser = (Join)request.getSession().getAttribute("loginUser");
 	    
-	    if (!request.getServletPath().startsWith("/auth") && loginUser == null) {
-	    	System.out.println("인터셉터");
+	   if (!request.getServletPath().startsWith("/auth") && loginUser == null) {
+	    	System.out.println("인터셉터 return false");
 	    	return false; // 다음으로 가는 것을 멈춰라!
 	    }
 	    

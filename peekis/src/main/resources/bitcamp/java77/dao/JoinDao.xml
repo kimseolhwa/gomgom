@@ -5,12 +5,11 @@
 
 <mapper namespace="bitcamp.java77.dao.JoinDao">
 
-	<resultMap type="join" id="joinMap">
-		<id 	column="bno" 	property="no"/>
-		<result column="CONT" 	property="content"/>
-		<result column="afile" 	property="attachFile"/>
-	</resultMap>
-
+  <resultMap type="join" id="joinMap">
+    <id 	column="bno" 		property="no"/>
+    <result column="CONT" 	property="content"/>
+    <result column="afile" 		property="attachFile"/>
+  </resultMap>
 
 	<!-- 가입폼에서 가입하기 눌렀을때 이메일 중복되는지 -->
 	<select id="loginCheck" parameterType="join" resultType="int">
@@ -31,11 +30,11 @@
 	<update id="updateUserInfo" parameterType="join" >
 	    update user set pho=#{pho}, name=#{name}, email=#{email} where uno=#{uNo}
 	</update>
-	
+
 	<!-- 회원가입 디비 저장 -->
 	<insert id="memberJoin" parameterType="join" >
-    insert into user(NAME,PWD,EMAIL) 
-    values(#{name},#{pwd},#{email})
+		insert into user(NAME,PWD,EMAIL) 
+		values(#{name},#{pwd},#{email})
 	</insert>
   
   	<!--  회원가입된 유저 번호 반환 -->
@@ -52,16 +51,15 @@
   
 	<!-- 선택된 태그를 유저엔태그 테이블로 등록   -->
 	<insert id="registTag" parameterType="join" >
-		insert into USER_TAG(UNO,TNO) 
+	    insert into USER_TAG(UNO,TNO) 
 		values(#{utNo},#{tNo})
-  	</insert>
+	</insert>
   
 	<!-- 기본 카테고리 생성 -->
 	<insert id="addCategory" parameterType="join" >
-      insert into CATEGORY(NAME, UNO)
-      values(#{cName},#{uNo})
-  	</insert>
-  	
+		insert into CATEGORY(NAME, UNO)
+		values(#{cName},#{uNo})
+	</insert>
 </mapper>
 
 

@@ -9,63 +9,47 @@ $("#mypage-btn").on("click",function(){
 	 	
 		$.getJSON('/peekis/auth/ajax/userInfo.do', function(resultObj) {
 			var userInfo = resultObj.ajaxResult.data;
-			console.log(userInfo)
-			
+			console.log(userInfo)			
 			//유저번호 
-			$("#userNo").val(userInfo.uNo)
-			
+			$("#userNo").val(userInfo.uNo)			
 			// 사용자 이름
 			$("#updateName").val(userInfo.name)			
-			
 			// 이메일 주소
 			$("#updateUserEmail").val(userInfo.email)
-			
-			// 사진
-			
-			if(userInfo.pho!=null){
-				
-			$("#avatarImg").attr("src",filePath + userInfo.pho)
-			}
-			
+			// 사진			
+			if(userInfo.pho!=null){				
+				$("#avatarImg").attr("src",filePath + userInfo.pho)
+			}			
 			console.log(userInfo.pho)
  		})	
 });
-
 
 // 사진변경 시 로딩될 때 로딩이미지 
 $('#viewLoading').hide();
 
 // 사진변경 클릭 -> 아바타이미지 사진 변경
 $("#my-file-selector").change(function(){
-	
 	//로딩이미지
 	$('#viewLoading').fadeIn(50);
 	$('#viewLoading').css('position', 'absolute');
 	
 	
-	var file = this.files[0];
-	
-	console.log(file)
-	
+	var file = this.files[0];	
+	console.log(file)	
     var reader = new FileReader();
     
-    reader.readAsDataURL(file);
-    
+    reader.readAsDataURL(file);    
     reader.onload = function(e){
     	e.preventDefault();
-		$("#avatarImg").attr("src",e.target.result)
-		
+		$("#avatarImg").attr("src",e.target.result);		
 		$('#viewLoading').fadeOut(900);
     }
     
 });
 
 
-
 // 저장을 클릭해서 업데이트 하면서 새션을 재 등록 해야한다. 
-
 $("#goUpdate").on("click",function(){
-
 	 var form = $("#userUpdateForm")[0];
 	 var formData = new FormData(form);
 	 /*
@@ -78,17 +62,16 @@ $("#goUpdate").on("click",function(){
 	 */
 	 
 	 var fileInfo = $("input[id=my-file-selector]")[0].files[0]
-	 console.log(fileInfo)	 
+	 console.log(fileInfo);
 	 
-	  $.ajax({
+	 $.ajax({
   	    url: contextRoot + '/auth/ajax/userInfoUpdate.do',
   	    data: formData,
   	  	dataType :'json',
   	    processData: false,
   	    contentType: false,
   	    type: 'POST',
-  	  })
-  	  
+  	})  	  
   	$("#myModal").modal("hide");
   	  
 });
@@ -100,8 +83,7 @@ $("#goLogout").on("click",function(){
 	$.ajax({
 		url: contextRoot + '/auth/ajax/logout.do',
 		success: function(data){alert("Logout");}
-	})
-	
+	})	
 	location.href = contextRoot + "/auth/joinForm.html";
 			
 })
@@ -112,14 +94,14 @@ $("#goLogout").on("click",function(){
 }
 
 /* 로딩이미지 박스  */
-	div#viewLoading {
-		text-align: center;
-		padding-top:-20px;
-		filter: alpha(opacity=60);
-		opacity: alpha*0.6;
-		padding-left:50%;
-		z-index: 2;
-	}
+div#viewLoading {
+	text-align: center;
+	padding-top:-20px;
+	filter: alpha(opacity=60);
+	opacity: alpha*0.6;
+	padding-left:50%;
+	z-index: 2;
+}
 
 </style>
 
@@ -129,7 +111,6 @@ $("#goLogout").on("click",function(){
         .modal-dialog {
           width: 550px; /* New width for default modal */
           height: 510px;
-/*           overflow: hidden; */
         }
     }
 </style>
@@ -212,15 +193,6 @@ $("#goLogout").on("click",function(){
       <!-- 모달내용 -->
       <div class="modal-body">
     	<div class="row">
- <!--      left column
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-          <h6>Upload a different photo...</h6>
-          
-          <input type="file" class="form-control">
-        </div>
-      </div> -->
 
       <!-- edit form column -->
       <div class="col-md-12 personal-info" >

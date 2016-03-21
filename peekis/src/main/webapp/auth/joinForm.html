@@ -276,12 +276,17 @@ footer {
 			var numItems = $('.check').length;
 		    $(this).toggleClass("check");
 		    
+
+		    
 		    numItems = $('.check').length; 
+
 		    
 			if(numItems >= 5){
 				  $("#followbtn").attr("disabled", false);
+			
 			}else{
 				  $("#followbtn").attr("disabled", true);
+			
 			}
 			
 			if(numItems != 0){
@@ -289,6 +294,8 @@ footer {
 				  }else{
 					 $("#followbtn").html( "<strong>주제를 팔로우 하세요</strong>");
 				  }
+			
+			
 			
 		});
     
