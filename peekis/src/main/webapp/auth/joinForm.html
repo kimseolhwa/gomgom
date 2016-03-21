@@ -12,35 +12,26 @@
 <title>login-registration</title>
 
 <!-- 부트스트랩 -->
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-  
-  <!-- 제이쿼리 -->
-  
+<!-- 제이쿼리 -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-	<!-- 벨리데이션 체크 -->
-    <link rel="stylesheet" href="../dist/css/formValidation.css"/>
-    <script type="text/javascript" src="../dist/js/formValidation.js"></script>
-    <script type="text/javascript" src="../dist/js/framework/bootstrap.js"></script>
+<!-- 벨리데이션 체크 -->
+<link rel="stylesheet" href="../dist/css/formValidation.css"/>
+<script type="text/javascript" src="../dist/js/formValidation.js"></script>
+<script type="text/javascript" src="../dist/js/framework/bootstrap.js"></script>
 
 <!-- Custom Fonts -->
-<link
-	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
 
 <script type="text/javascript" src="../js/common.js"></script>
 
 <!-- btn-orange -->
 <link rel="stylesheet" href="../css/btn-orange.css">
-
 
 <!-- header -->
 <link rel="stylesheet" style="text/css" href="../css/loginHeader.css" />
@@ -170,98 +161,13 @@ footer {
 <script>
 
 	$(document).ready(function() {
-		
-		
-	 /* 가입 데이터 전송 1 */
-// 		   $('#registIn').on('click', function(){
-//         var data_value = $('#name').val();
-//         var data_value2 = $('#email').val();
-//         var data_value3 = $('#password').val();
-//         var url = 'ajax/join.do';
-//     $.ajax({
-//             type: "POST",
-//         url: url,
-//         data:{'name':data_value,
-//                        'email': data_value2,
-//                         'pwd': data_value3},
-//         success:function(){   
-//      		/* 로그인 데이터 전송 후 팔로우 선택지로 */
-//     		$("#myModal").modal("show");
-     		
-//         }
-//     });
-// });  
-	 
-
- 		/* 첫 페이지에서 가입 데이터 전송  */
-	/*   $('#registIn').on('click', function(){
-		 var data_value = $('#name').val();
-  	 	  var data_value2 = $('#email').val();
-    	  var data_value3 = $('#password').val();
-    	  
-    	  alert("자 이제 콘트롤러에 들어갈거야")
-    	  
-    	  $.ajax({
-    		  type: "POST",
-    		  dataType:"JSON",
-    	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
-    	 	  data:{'email': data_value2}
-    	  }).done(function() {
-    		  
-    		  alert("중복검사 완료 , done으로 들어왔음")
-    		  alert(data)
-    		  console.log("status : " + status + ", data :  " + data + " a : " + a)
-    		  
-    		  
-    		  
-  		 }).fail(function(status,data) {
-    		  alert("fail")
-  			 console.log(data);
-  		  })
-    	  
-	  }); */
-	  
-	
-	  
-// 	   $('#registIn').on('submit', function(){
-			
-		   
-// 		  data_value = $('#name').val();
-//   	 	  data_value2 = $('#email').val();
-//     	  data_value3 = $('#password').val();
-    	  
-//     	  alert("자 이제 콘트롤러에 들어갈거야")
-    	  
-//     	  $.ajax({
-//     		  type: "POST",
-//     		  dataType:"JSON",
-//     	 	  url : 'http://localhost:8008/peekis/join/ajax/loginCk.do',
-//     	 	  data:{'email': data_value2},
-    	 	
-//     	  }).done(function(resultObj) {
-//   			alert("done");			 
-//   			 if(resultObj.ajaxResult.data>0){
-//   				 alert("중복되는 값 있음")
-//   				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력하세요.");
-//   			 }else{
-//   				alert("중복되는 값 없음")
-//   				$("#myModal").modal("show");
-//   			 }
-//   		 })
-  		 
-// 	  }); 
-	  	
-	  	
-	  
 	     var nameVal = $('#name').val();
 		 var emailVal = $('#email').val();
 		 var pwdVal = $('#password').val();
 	  
 		/* 모달창에서 데이터 전송  */
 		$("#followbtn").on("click",function(){
-			
-		alert("name : " + data_value + " email : " + data_value2 +  " password : " + data_value3 +"\n" + "follow list : " + selList)	
-			
+			//alert("name : " + data_value + " email : " + data_value2 +  " password : " + data_value3 +"\n" + "follow list : " + selList)	
 			$.ajax({
         		type: "POST",
         		dataType:"JSON",
@@ -269,29 +175,23 @@ footer {
      			data:{'name':data_value,
                       'email': data_value2,
                       'pwd': data_value3,
-                     'selList': selList
-                      }
- 		 }).done(function(status) {
- 			 console.log(status);
- 			alert("전송 성공");
- 			
- 			// 페이지 이동
-			  location.href = contextRoot + "/view/main/main2.html";
- 			
- 		 }).fail(function(status) {
- 			 console.log(status);
- 			alert("전송 실패");			 
- 		  })
+                     'selList': selList }
+	 		 }).done(function(status) {
+	 			console.log(status);
+	 			// alert("전송 성공");
+	 			// 페이지 이동
+				location.href = contextRoot + "/view/main/main2.html";
+	 		 }).fail(function(status) {
+	 			console.log(status);
+	 			//alert("전송 실패");			 
+	 		  })
 		});
 		
 
 	/* 벨리데이션 체크 */
 	$('#defaultForm').formValidation({
-			
-	framework: 'bootstrap',	
-			
+		framework: 'bootstrap',	
         message: 'This value is not valid',
-        
         err: {
             container: 'tooltip'
         },
@@ -304,38 +204,27 @@ footer {
         	name: {
 	        	err: 'popover',
                 validators: {
-                    notEmpty: {
-                        message: 'The first name is required and cannot be empty'
-                    }
+                    notEmpty: { message: 'The first name is required and cannot be empty' }
                 }
             },
             email: {
                 err: 'popover',
                 validators: {
-                    emailAddress: {
-
-                    },
-                    notEmpty: {
-                        message: 'The email is required and cannot be empty'
-                    }
+                    emailAddress: {},
+                    notEmpty: { message: 'The email is required and cannot be empty' }
                 }
             },
             emailConfirm : {
                 err: 'popover',
                 validators: {
-                    emailAddress: {
-
-                    },
-                    notEmpty: {
-                        message: 'The email is not correct'
-                    }
+                    emailAddress: {},
+                    notEmpty: { message: 'The email is not correct' }
                 }
             },
             password: {
                 err: 'popover',
                 validators: {
-                    notEmpty: {
-                        message: 'The password is required and cannot be empty'
+                    notEmpty: { message: 'The password is required and cannot be empty'
                     },
                     stringLength: {
                         min: 6,
@@ -346,70 +235,35 @@ footer {
             }
         }
     }).on('success.form.fv', function(){
-		
-		   
-		  data_value = $('#name').val();
-	 	  data_value2 = $('#email').val();
+		 data_value = $('#name').val();
+	 	 data_value2 = $('#email').val();
   	  	 data_value3 = $('#password').val();
-  	  
-  	  alert("자 이제 콘트롤러에 들어갈거야")
-  	  
-  	  $.ajax({
-  		  type: "POST",
-  		  dataType:"JSON",
-  	 	  url : contextRoot + "/auth/ajax/loginCk.do",
-  	 	  data:{'email': data_value2},
-  	 	
-  	  }).done(function(resultObj) {
-			alert("done");			 
-			 if(resultObj.ajaxResult.data>0){
-				 alert("중복되는 값 있음")
-				 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력해주세요!!");
-				 
-			 }else{
-				alert("중복되는 값 없음")
-				 $(".dupEmailCk").text("");
-				$("#myModal").modal("show");
-				
-			 }
-		 })
-		 
-		 return false;
+	  	  //alert("자 이제 콘트롤러에 들어갈거야")
+	  	  
+	  	  $.ajax({
+	  		  type: "POST",
+	  		  dataType:"JSON",
+	  	 	  url : contextRoot + "/auth/ajax/loginCk.do",
+	  	 	  data:{'email': data_value2},
+	  	  }).done(function(resultObj) {
+				//alert("done");			 
+				 if(resultObj.ajaxResult.data>0){
+					 //alert("중복되는 값 있음")
+					 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력해주세요!!");
+				 }else{
+					//alert("중복되는 값 없음")
+					$(".dupEmailCk").text("");
+					$("#myModal").modal("show");
+				 }
+			 })
+			 return false;
 	  }); 
-    
-    /* .on('success.form.fv', function(e) {
-//     	$("#myModal").modal("show");
-    	return false; 
-    }); */
-	
-    /* .on('err.field.fv', function(e, data) {
-        // $(e.target)  --> The field element
-        // data.fv      --> The FormValidation instance
-        // data.field   --> The field name
-        // data.element --> The field element
-			
-        $('#myModal').modal("hide")
-        data.fv.disableSubmitButtons(false);
-    })
-    .on('success.field.fv', function(e, data) {
-        // e, data parameters are the same as in err.field.fv event handler
-        // Despite that the field is valid, by default, the submit button will be disabled if all the following conditions meet
-        // - The submit button is clicked
-        // - The form is invalid
-        if (data.fv.getInvalidFields().length > 0) {  // There is invalid field
-        	alert(data.fv.getInvalidFields().length)
-            data.fv.disableSubmitButtons(true);
-        }
-    }); */
 
-	
 	var selList ="" /* 모달창에서 셀렉트된 팔로우이름들 #로 분류 */
   
 	/* 모달- 이미지 체크 토글 */
 		$(".img-check").click(function() {
-			
 			var selItems = $(this).parent().prev().prev().val();
-
 			
 			if($(this).hasClass("uncheckedborder")){
 				$(this).removeClass("uncheckedborder");
@@ -419,22 +273,15 @@ footer {
 				$(this).addClass("uncheckedborder")
 				selList += "#"+ selItems;
 			}
-			
 			var numItems = $('.check').length;
 		    $(this).toggleClass("check");
 		    
-// 		    $(this).toggleClass("uncheckedborder");
-
-		    
 		    numItems = $('.check').length; 
-
 		    
 			if(numItems >= 5){
 				  $("#followbtn").attr("disabled", false);
-			
 			}else{
 				  $("#followbtn").attr("disabled", true);
-			
 			}
 			
 			if(numItems != 0){
@@ -442,9 +289,6 @@ footer {
 				  }else{
 					 $("#followbtn").html( "<strong>주제를 팔로우 하세요</strong>");
 				  }
-			
-			
-// 			$("#selTest").html("<span>" + selList + "</span>")
 			
 		});
     

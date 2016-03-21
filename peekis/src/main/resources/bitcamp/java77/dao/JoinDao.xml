@@ -5,25 +5,22 @@
 
 <mapper namespace="bitcamp.java77.dao.JoinDao">
 
-  <resultMap type="join" id="joinMap">
-    <id 	column="bno" 		property="no"/>
-    <result column="CONT" 	property="content"/>
-    <result column="afile" 		property="attachFile"/>
-  </resultMap>
+	<resultMap type="join" id="joinMap">
+		<id 	column="bno" 	property="no"/>
+		<result column="CONT" 	property="content"/>
+		<result column="afile" 	property="attachFile"/>
+	</resultMap>
 
 
-<!-- 가입폼에서 가입하기 눌렀을때 이메일 중복되는지 -->
+	<!-- 가입폼에서 가입하기 눌렀을때 이메일 중복되는지 -->
 	<select id="loginCheck" parameterType="join" resultType="int">
 		select  COUNT(*)  from user where email = #{email}
 	</select>
 
-
-<!-- 헤더에서 로그인하기 눌렀을때 이메일과 패스워드 일치되는지 -->
+	<!-- 헤더에서 로그인하기 눌렀을때 이메일과 패스워드 일치되는지 -->
 	<select id="EmailPwCheck" parameterType="join" resultType="int">
 		select  COUNT(*)  from user where email = #{email} and pwd=#{pwd}
 	</select>
-	
-	
 	
 	<!-- 정보수정 시 현재 패스워드 체크 -->
 	<select id="CurPwdCheck" parameterType="join" resultType="int">
@@ -35,67 +32,36 @@
 	    update user set pho=#{pho}, name=#{name}, email=#{email} where uno=#{uNo}
 	</update>
 	
-	
-	
-
-	<select id="selectList" resultMap="joinMap" parameterType="map">
-    select 
-      bno,
-      title,
-      cont,
-      price,
-      url,
-      afile 
-    from board
-    order by 
-    <choose>
-      <when test="keyword == 'title'">title </when>
-      <when test="keyword == 'views'">views </when>
-      <otherwise>bno desc</otherwise>
-    </choose>
-  </select>
-   
-  <insert id="insert" parameterType="join">
-  
-    insert into board(title,cont,price,url,afile) 
-    values(#{title},#{content},#{price},#{url},#{attachFile})
-  </insert>
-
-
-<!-- 회원가입 디비 저장 -->
-
-  <insert id="memberJoin" parameterType="join" >
-  
+	<!-- 회원가입 디비 저장 -->
+	<insert id="memberJoin" parameterType="join" >
     insert into user(NAME,PWD,EMAIL) 
     values(#{name},#{pwd},#{email})
-  </insert>
+	</insert>
   
-  
-  <!--  회원가입된 유저 번호 반환 -->
-  <select id="selectNo" resultType="int">
+  	<!--  회원가입된 유저 번호 반환 -->
+  	<select id="selectNo" resultType="int">
 		select max(uno) from user
 	</select>
 	
-  <!-- 로그인 후 유저정보 반환 -->
-  <select id="selectUser" resultType="join">
+  	<!-- 로그인 후 유저정보 반환 -->
+  	<select id="selectUser" resultType="join">
 		select uno, name, pwd, email, pho 
 		  from user
 		 where email=#{email}
 	</select>
   
+	<!-- 선택된 태그를 유저엔태그 테이블로 등록   -->
+	<insert id="registTag" parameterType="join" >
+		insert into USER_TAG(UNO,TNO) 
+		values(#{utNo},#{tNo})
+  	</insert>
   
-  <!-- 선택된 태그를 유저엔태그 테이블로 등록   -->
-  <insert id="registTag" parameterType="join" >
-  
-    insert into USER_TAG(UNO,TNO) 
-    values(#{utNo},#{tNo})
-  </insert>
-  
-<!-- 기본 카테고리 생성 -->
+	<!-- 기본 카테고리 생성 -->
 	<insert id="addCategory" parameterType="join" >
       insert into CATEGORY(NAME, UNO)
       values(#{cName},#{uNo})
   	</insert>
+  	
 </mapper>
 
 

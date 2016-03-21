@@ -3,8 +3,6 @@ package bitcamp.java77.controller.ajax;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -38,7 +36,6 @@ public class JoinController {
 	@RequestMapping(value = "join", method = RequestMethod.POST)
 	public AjaxResult join(Join join, HttpSession session) throws Exception {
 
-
 		System.out.println("컨트롤러 호출 : " + join.getSelList());
 
 		// user table 에 등록
@@ -50,10 +47,8 @@ public class JoinController {
 		System.out.println("등록된 유저의 유저번호  : " + joinUserNo);
 
 		// Join.getSelList를 # 구분자로 파싱해서 유저엔태그 테이블에 등록된 유저번호와 함께 등록하
-
 		String tagStr = join.getSelList().replaceFirst("#", "");
 		tagStr = tagStr.trim();
-
 		String[] tagList = tagStr.split("#");
 
 		// 넘어온 태그번호 확인
@@ -62,22 +57,21 @@ public class JoinController {
 		}
 
 		join.setUtNo(joinUserNo);
-
 		for (int i = 0; i < tagList.length; i++) {
 			join.settNo(Integer.parseInt(tagList[i]));
 			joinDao.registTag(join);
 		}
-
+		// 디폴트 카테고리 생성
 		join.setcName("(default)");
 		joinDao.addCategory(join);
-		// join.setcNo(cNo);
 
-		// 등록된 유저의 이메일을 세션에 등록
+		// 등록된 유저를 세션에 등록
 		session.setAttribute("loginUser", join);
-
+		System.out.println(join.toString());
 		return new AjaxResult("success", null);
 	}
 
+	// 이메일 중복체크
 	@RequestMapping(value = "loginCk", method = RequestMethod.POST)
 	public AjaxResult join(Join join) throws Exception {
 
@@ -96,7 +90,8 @@ public class JoinController {
 		}
 
 	}
-
+	
+	// 로그인
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public AjaxResult login(Join join, HttpSession session) throws Exception {
 
@@ -132,35 +127,6 @@ public class JoinController {
 
 	}
 
-	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public AjaxResult add(Join join) throws Exception {
-
-		/*
-		 * if (file.getSize() > 0) { String newFileName =
-		 * MultipartHelper.generateFilename(file.getOriginalFilename()); File
-		 * attachfile = new File(servletContext.getRealPath(SAVED_DIR) + "/" +
-		 * newFileName); file.transferTo(attachfile);
-		 * Join.setAttachFile(newFileName); }
-		 */
-		joinDao.insert(join);
-		return new AjaxResult("success", null);
-	}
-
-	@RequestMapping("list")
-	public Object list() throws Exception {
-
-		List<Join> joins = joinDao.selectList();
-
-		HashMap<String, Object> resultMap = new HashMap<>();
-		resultMap.put("status", "success");
-		resultMap.put("data", joins);
-
-		for (int i = 0; i < joins.size(); i++) {
-			System.out.println(joins.get(i).getTitle());
-		}
-		return resultMap;
-	}
-
 	@RequestMapping("userInfo")
 	public AjaxResult userInfo(HttpSession session) throws Exception {
 
@@ -180,8 +146,7 @@ public class JoinController {
 			throws Exception {
 
 		System.out.println("userInfoUpdate 콘트롤러 호출");
-
-		System.out.println("넘어온유저넘너 : " + join.getuNo());
+		System.out.println("넘어온유저넘버 : " + join.getuNo());
 		System.out.println("넘어온이름 : " + join.getName());
 		System.out.println("넘어온이메일 : " + join.getEmail());
 		System.out.println("넘어온 현재 패스워드 : " + join.getPwd());
