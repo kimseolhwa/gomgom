@@ -504,7 +504,7 @@ footer {
     left: 95.5%;
     top: 91%;
     display: block;
-    z-index: 99999;
+    z-index: 1000;
     -webkit-transition: all 0.25s ease-in-out;
     -moz-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
