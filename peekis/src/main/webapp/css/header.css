@@ -44,6 +44,11 @@
 		margin: 0px;
 		padding: 10px;
 	}
+	
+	#pImg{
+		border-radius: 40px;
+	}
+	
 	#pImg:hover{ /*이미지*/
 		color: black;
 		opacity: 0.3;
