@@ -192,8 +192,8 @@ public class JoinController {
 
 		System.out.println("로그아웃 컨트롤러 호출");
 
-		session.invalidate();
-
+		session.removeAttribute("loginUser");
+		//session.invalidate();
 		return new AjaxResult("success", null);
 	}
 

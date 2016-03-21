@@ -10,7 +10,7 @@ select count(*)as dCnt from wish where date > CURRENT_DATE();
 select count(*)as gCnt from wish where buy = 'y';
 
 
-insert into wish(fpath,title,cont,price,url,tag, cno) select w1.FPATH, w1.TITLE, w1.CONT, w1.PRICE, w1.URL, w1.tag, w1.cno from wish w1;
+insert into wish(fpath,title,cont,price,url,tag, cno, uno) select w1.FPATH, w1.TITLE, w1.CONT, w1.PRICE, w1.URL, w1.tag, w1.cno, w1.uno from wish w1;
 
 -- 유저
 DROP TABLE IF EXISTS `USER` RESTRICT;

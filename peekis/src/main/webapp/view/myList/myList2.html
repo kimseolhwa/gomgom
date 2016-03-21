@@ -314,17 +314,6 @@
    					$items = $(cloneContent);
    					$container.append( $items ).isotope( 'appended', $items );			
    			  	}
-        		if(pageNo == 1){
-        			console.log(resultObj);
-        			$("#dropdown-color").text(resultObj.loginUser.name);
-        			$("#userName").text(resultObj.loginUser.name);
-        			$("#wishCnt").text(resultObj.wishCnt);
-        			$("#likeCnt").text(resultObj.likeCnt);
-        			if(resultObj.loginUser.pho != null){
-        				$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
-        				$("#profile").attr("src", filePath + resultObj.loginUser.pho);
-        			}
-        		}
    			});
         	
         }

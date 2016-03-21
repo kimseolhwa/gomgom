@@ -6,11 +6,28 @@
 	  	 
 		 <div class="userInfo" style="width: 450px; height: 100px;">
 		  <a href="#"><div><i class="fa fa-folder-open-o"></i><br>카테고리<br>000</div></a>
-		  <a href="#"><div><i class="fa fa-picture-o"></i><br>게시물<br><span id="wishCnt">000<span></div></a>
-		  <a href="#"><div><i class="fa fa-heart-o"></i><br>좋아요<br><span id="likeCnt">000<span></div></a>
+		  <a href="/peekis/view/myList/myList2.html"><div><i class="fa fa-picture-o"></i><br>게시물<br><span id="wishCnt">000<span></div></a>
+		  <a href="/peekis/view/like/like.html"><div><i class="fa fa-heart-o"></i><br>좋아요<br><span id="likeCnt">000<span></div></a>
 		  <a href="#"><div><i class="fa fa-user"></i><br>팔로워<br>000</div></a>
 		  <a href="#"><div><i class="glyphicon glyphicon-sunglasses"></i><br>팔로우<br>000</div></a>	  
 		 </div>
 		  
 
 		</div>
+		
+<script>
+
+
+   	 $.getJSON('/peekis/wish/ajax/userInfo.do', function(resultObj) {
+		console.log(resultObj);
+		$("#wishCnt").text(resultObj.wishCnt);
+		$("#likeCnt").text(resultObj.likeCnt);
+		$("#userName").text(resultObj.loginUser.name);
+		$("#dropdown-color").text(resultObj.loginUser.name);
+		if(resultObj.loginUser.pho != null){
+			$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
+			$("#profile").attr("src", filePath + resultObj.loginUser.pho);
+		}
+	  });
+
+</script>

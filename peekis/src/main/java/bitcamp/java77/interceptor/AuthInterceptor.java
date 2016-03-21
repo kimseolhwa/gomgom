@@ -16,7 +16,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	  public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 	    
 	    log.debug("로그인 인터셉터 실행!");
-	    System.out.println(request.getSession().getAttribute("loginUser"));
+	    //System.out.println(request.getSession().getAttribute("loginUser"));
 	    Join loginUser = (Join)request.getSession().getAttribute("loginUser");
 	   
 	   if (!request.getServletPath().startsWith("/auth") && loginUser == null) {
