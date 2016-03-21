@@ -18,7 +18,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 	    log.debug("로그인 인터셉터 실행!");
 	    System.out.println(request.getSession().getAttribute("loginUser"));
 	    Join loginUser = (Join)request.getSession().getAttribute("loginUser");
-	    
+	   
 	   if (!request.getServletPath().startsWith("/auth") && loginUser == null) {
 	    	System.out.println("인터셉터 return false");
 	    	return false; // 다음으로 가는 것을 멈춰라!

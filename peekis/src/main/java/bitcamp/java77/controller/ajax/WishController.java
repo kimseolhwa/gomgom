@@ -87,10 +87,13 @@ public class WishController {
 
   @RequestMapping("delete")
   public AjaxResult delete(int no) throws Exception {
-    if (wishDao.delete(no) <= 0) {
+   
+	 if (wishDao.delete(no) <= 0) {
       return new AjaxResult("failure", null);
     } 
-
+	
+	wishDao.deleteLike(no);
+	wishDao.deleteSend(no);
     return new AjaxResult("success", null);
   }
   
@@ -121,7 +124,7 @@ public class WishController {
     return new AjaxResult("success", null);
   }
   
-   @RequestMapping("buyCheck")
+  @RequestMapping("buyCheck")
   public AjaxResult buyCheck(int no) throws Exception {
     Wish wish =  wishDao.selectOne(no);
     
