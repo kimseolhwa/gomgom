@@ -225,7 +225,6 @@
 				    } else {
 				        if(st + $(window).height() < $(document).height()) {
 				            $('footer').removeClass('nav-up').addClass('nav-down');
-				            $('#demoTop').hide();
 				        }
 				    }
 				    lastScrollTop = st;
@@ -381,16 +380,20 @@
 					<h2>프로필e</h2>
 					<hr class="star-primary">
 					<img src="../../image/pro1.jpg" class="img-rounded" alt="">
-	
+
 					<div class="modal-item">
 						<div class="modal-product">
-							<img src="../../image/006.jpg" />
+							<img src="../../image/1111.jpg" />
+							<input type="hidden" class="no" value="00">
+							<input type="hidden" class="uno" value="00">
 						</div>
-					</div>
-	
-					<div class="modal-item2">
-						<div class="modal-product">
-							<img src="../../image/002.jpg" />
+						<div class="modal-item-content">
+							<div class="modal-item-title" id="">titel:</div>
+							<br />
+							<div class="modal-item-subtitle" id="">content:</div>
+							<div class="modal-item-costi-box">
+								<div class="price" id="">&#8361; price:</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -400,8 +403,7 @@
 
 	<footer class="nav-down" id="footer"></footer>
 
-	<span data-placement="top" title="" id="demoTop" style="display: none;" >
-	<a href="#" style="display: black; padding: 5px;">Δ</a></span>
+	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?" style="display: none;"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
 	<script>
 		$("#header").load("../header/header.html");
