@@ -95,7 +95,7 @@
 		          
 		        /* 리스트 불러오기 */
 				nextPage(1);
-				modalNextPage(1);
+// 				modalNextPage(1);
 
 		        $(window).scroll(function(){
 		        	var scrollHeight = $(window).scrollTop() + $(window).height();
@@ -144,33 +144,33 @@
 		        }
 		        
 		        /* 개인 리스트 가져오기*/
-		        function modalNextPage(modalPageNo){
-		        	 $.getJSON('/peekis/main/ajax/selectUserList.do',{modalPageNo : modalPageNo}, function(resultObj) {
-		        		 $("#UserNo").text(resultObj.loginUser.uNo);
-		        		  console.log(resultObj);
-			   			  for (var wish of resultObj.data){
-			   				  $('#modalPageNo').text(pageNo);
-			   				  var cloneContent = $('.cloneModalContents > div').clone();
-			   					cloneContent.addClass(wish.no+'');
-			   					cloneContent.find('.no').val(wish.no);
-			   					cloneContent.find('.uno').val(wish.uno);
-			   					var path = wish.path;
-			   					if(path.startsWith('http://') == false){
-			   						path = filePath + path;
-			   					}
-			   					if(wish.buy == 'Y'){
-			   						cloneContent.find('.buy').addClass('buy-check');
-			   					}
-			   					cloneContent.find('img:first').attr('src', path);
-			   					$items = $(cloneContent);
-			   					$container.append( $items ).isotope( 'appended', $items );			
-		   			  	}
-			   			for (var like of resultObj.like){
-			   				$('.' + like).find('.undoheart').css('display','block');
-			   				$('.' + like).find('.heart').css('display','none');
-			   			}
-		   			});
-		        };
+// 		        function modalNextPage(modalPageNo){
+// 		        	 $.getJSON('/peekis/main/ajax/selectUserList.do',{modalPageNo : modalPageNo}, function(resultObj) {
+// 		        		 $("#UserNo").text(resultObj.loginUser.uNo);
+// 		        		  console.log(resultObj);
+// 			   			  for (var wish of resultObj.data){
+// 			   				  $('#modalPageNo').text(pageNo);
+// 			   				  var cloneContent = $('.cloneModalContents > div').clone();
+// 			   					cloneContent.addClass(wish.no+'');
+// 			   					cloneContent.find('.no').val(wish.no);
+// 			   					cloneContent.find('.uno').val(wish.uno);
+// 			   					var path = wish.path;
+// 			   					if(path.startsWith('http://') == false){
+// 			   						path = filePath + path;
+// 			   					}
+// 			   					if(wish.buy == 'Y'){
+// 			   						cloneContent.find('.buy').addClass('buy-check');
+// 			   					}
+// 			   					cloneContent.find('img:first').attr('src', path);
+// 			   					$items = $(cloneContent);
+// 			   					$container.append( $items ).isotope( 'appended', $items );			
+// 		   			  	}
+// 			   			for (var like of resultObj.like){
+// 			   				$('.' + like).find('.undoheart').css('display','block');
+// 			   				$('.' + like).find('.heart').css('display','none');
+// 			   			}
+// 		   			});
+// 		        };
 		        
 		        /* 상세정보 가져오기 */
 				$container.on( 'click', '.detail', function() {
@@ -323,7 +323,8 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<div class="modal-pro">
-							<a href="#ProModal1" data-toggle="modal"> <img src="../../image/pro1.jpg" class="img-circle">
+							<a href="#ProModal" data-toggle="modal">
+							<img src="../../image/pro1.jpg" class="img-circle">
 								<div class="modal-user_id">아이디는여덟자임</div>
 							</a> <span class="glyphicon glyphicon-folder-open"></span>
 							<div class="modal-user_wish">폴더이름여덟자임</div>
