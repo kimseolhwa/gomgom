@@ -17,6 +17,7 @@
 <!-- 		  from wish -->
 		select wish.*, user.name as userName, user.pho as userPho
 		  from wish, user
+		 where wish.uno=user.uno
 		 order by
 		<choose>
 			<when test="keyword == 'title'">title </when>
