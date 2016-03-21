@@ -17,9 +17,31 @@ public class Wish  implements Serializable {
   protected String	  tag;
   protected int		  cno;		// 카테고리번호
   protected int		  uno;		// 유저번호
+  protected String	  userName;
+  protected String    userPho;
   
    
   	public Wish() {}
+  	
+	public String getUserName()
+	{
+		return userName;
+	}
+
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
+
+	public String getUserPho()
+	{
+		return userPho;
+	}
+
+	public void setUserPho(String userPho)
+	{
+		this.userPho = userPho;
+	}
 
 	public int getNo() {
 		return no;

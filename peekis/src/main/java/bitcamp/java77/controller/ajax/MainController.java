@@ -46,6 +46,26 @@ public class MainController
 		return resultMap;
 	}
 	
+	@RequestMapping("selectUserList")
+	public Object selectUserList(@RequestParam(defaultValue="1") int pageNo, HttpServletRequest req) throws Exception {
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		
+		int pageSize = 10;
+		HashMap<String,Object> paramMap = new HashMap<>();
+		paramMap.put("startIndex", (pageNo - 1) * pageSize);
+		paramMap.put("length", pageSize);
+		System.out.println("pageNo : " + pageNo);
+		List<Wish> wishs = MainDao.selectUserList(paramMap);
+		List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("data", wishs);
+		resultMap.put("loginUser", join);
+		resultMap.put("like", likeList);
+		return resultMap;
+	}
+	
 	@RequestMapping("detail")
 	public AjaxResult detail(int no) throws Exception
 	{
