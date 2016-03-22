@@ -102,13 +102,9 @@ public class WishController {
   
   @RequestMapping("delete")
   public AjaxResult delete(int no) throws Exception {
-   
 	 if (wishDao.delete(no) <= 0) {
       return new AjaxResult("failure", null);
     } 
-	
-	wishDao.deleteLike(no);
-	wishDao.deleteSend(no);
     return new AjaxResult("success", null);
   }
   

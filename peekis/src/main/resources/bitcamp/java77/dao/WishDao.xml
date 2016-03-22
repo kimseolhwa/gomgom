@@ -72,7 +72,7 @@
 	
   	<!-- 게시글 담아가기 내역 삭제하기 (담아가기 테이블에서만 삭제됨, 담아가기 한 유저의 테이블에는 게시글이 남아있음) -->
 	<delete id="deleteSend" parameterType="map">
-		delete from `send` where wno=#{no}
+		delete from send where wno=#{no}
 	</delete>
   
   
