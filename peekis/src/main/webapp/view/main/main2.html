@@ -256,11 +256,15 @@
 		        $(document).on("click", ".plus", function(){
 		        	var wishNo = $(this).closest('.item').find('.no').val();
 		        	var uNo = $('#UserNo').text();
-					$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
-						function( resultObj ) {
-							swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
-							console.log(resultObj);
-						});
+		        	if($(this).attr('status') == 'true'){
+		        		alert("이미 담아가기 한 위시리스트입니다!");
+		        	}else{
+						$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
+							function( resultObj ) {
+								swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
+								console.log(resultObj);
+							});
+		        	}
 		        });
 		        
 		        
