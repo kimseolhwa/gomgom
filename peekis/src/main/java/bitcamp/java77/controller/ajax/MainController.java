@@ -133,11 +133,15 @@ public class MainController
 
 			Join join = (Join) req.getSession().getAttribute("loginUser");
 			comment.setuNo(join.getuNo());
-			
 			MainDao.insertComment(comment);
 			
+			HashMap<String,Object> paramCom = new HashMap<>();
 			
-			return new AjaxResult("success", comment);
+			paramCom.put("join", join);
+			paramCom.put("comment", comment);
+			
+				
+			return new AjaxResult("success", paramCom);
 		}
 	
 	
