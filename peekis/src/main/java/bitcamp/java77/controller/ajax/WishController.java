@@ -119,24 +119,28 @@ public class WishController {
   }
   
   @RequestMapping(value="update", method=RequestMethod.POST)
-  public AjaxResult update(Wish wish/*, MultipartFile file*/) throws Exception {
-    /*
-    if (file.getSize() > 0) {
-      String newFileName = MultipartHelper.generateFilename(file.getOriginalFilename());  
-      File attachfile = new File(servletContext.getRealPath(SAVED_DIR) 
-                                  + "/" + newFileName);
-      file.transferTo(attachfile);
-      wish.setAttachFile(newFileName);
-    } else if (wish.getAttachFile().length() == 0) {
-      wish.setAttachFile(null);
-    }
-    */
-    
+  public AjaxResult update(Wish wish, @RequestParam(value="file", required=false) MultipartFile mFile) throws Exception {
+	  System.out.println("유저번호 : " + wish.getUno());
+	  String oriFileName = mFile.getOriginalFilename();
+  	
+	  if(oriFileName != null && !oriFileName.equals("")){
+		  String realPath = servletContext.getRealPath("/attachfile/");
+		  String sdfPath = new SimpleDateFormat("yyyy/MM/dd/").format(new Date());
+		  String filePath = realPath + sdfPath;
+		  File file = new File(filePath);
+		  file.mkdirs();
+			
+		  String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
+		  String realFileName = UUID.randomUUID().toString()+ext;
+		  String saveFullFileName = filePath+"/"+realFileName;
+		  mFile.transferTo(new File(saveFullFileName));
+		  wish.setPath(sdfPath+realFileName);
+		}
     if (wishDao.update(wish) <= 0) {
       return new AjaxResult("failure", null);
     } 
     
-    return new AjaxResult("success", null);
+    return new AjaxResult("success", wish);
   }
   
   @RequestMapping("buyCheck")

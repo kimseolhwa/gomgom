@@ -205,12 +205,12 @@
 	        <h4 class="modal-title" id="editModalLabel">위시리스트 수정하기</h4>
 	      </div>
 	      <div class="modal-body">
-	        <form action="add.do" method="post" name="eForm" enctype="multipart/form-data">
+	        <form method="post" id="eForm" enctype="multipart/form-data">
 	        <input type="hidden"  class="no" id="editmodal-no">      
 	         <div class="form-group">
 	         <label class="sr-only"  for="modal-image">image:</label>
 	          <img style="max-width:200px; max-height: 150px; width: auto; height: auto;" id="editmodal-image" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png"/>
-	          <input type="file" id="editmodal-File" accept="image/*" style="display: none;"/>
+	          <input type="file" name="file" id="editmodal-File" accept="image/*" style="display: none;"/>
 	          </div>
 	          <div class="form-group">
 	            <label for="modal-title" class="sr-only">title:</label>
@@ -391,6 +391,30 @@
 		
 		/* 위시리스트  수정하기  */
 		$('#editModal .update-btn').click(function () {
+			var form = $("#eForm")[0];
+			var formData = new FormData(form);
+			formData.append("uno", $("#UserNo").text());
+			formData.append("no", $("#editmodal-no").val());
+			$.ajax({
+				url: '/peekis/wish/ajax/update.do', 
+				processData: false,
+				contentType: false,
+				data: formData,
+				type: 'POST',
+			    dataType :'json',
+			    success: function(resultObj) {
+			    	var ajaxResult = resultObj.ajaxResult;
+			    	console.log(resultObj);
+					if (ajaxResult.status == "success") {
+				        $("." + ajaxResult.data.no + " .product").find("img").attr("src",  filePath +  ajaxResult.data.path);
+				        alert("게시물 수정에  성공했습니다.");
+				    } else {
+				        alert("게시물 수정에 실패했습니다.");
+				    }
+			    }
+			});
+
+			/*
 			var wNo = $('#editmodal-no').val();
 			var wTitle = $('#editmodal-title').val();
 			var wCont = $('#editmodal-content').val();
@@ -414,7 +438,7 @@
 			    } else {
 			        alert("게시물 수정에 실패했습니다.");
 			    }
-			}, 'json');
+			}, 'json');*/
 			
 		});
 		
@@ -453,8 +477,8 @@
 		$("#modal-image").attr("src", "http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png");
 	}
 	
-	$('#modal-image, #editmodal-image').click( function() {		
-		$('#modal-File').trigger('click');
+	$('#modal-image, #editmodal-image').click( function() {
+		$(this).closest(".form-group").find('[type=file]').trigger('click');
 	});	
 	
 	$('.modal-body').find('[type=file]').change(function() {
