@@ -9,7 +9,7 @@
 
 
 
-/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  */
+/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 페북 로그인 api   */
 
 window.fbAsyncInit = function() {  
 	 FB.init({appId: '579850752195003', status: true, cookie: true,xfbml: true});      
@@ -26,7 +26,12 @@ window.fbAsyncInit = function() {
 	function facebooklogin() {  
 	 FB.login(function(response) {
 	   if (response.status === 'connected') {
-	  getMyProfile();
+	 	 getMyProfile();
+	 	 
+	 	 //로그인이 성공되면 가입처리???
+	 	 
+	   
+	   
 	   } else if (response.status === 'not_authorized') {
 	     // 페이스북에는 로그인 되어있으나, 앱에는 로그인 되어있지 않다.
 	   } else {
@@ -53,11 +58,7 @@ window.fbAsyncInit = function() {
 	 });
 	}
 
-
-
 /*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  */
-
-
 
 $("#login").on("click",function(){
 	
