@@ -262,6 +262,7 @@
 		        	}else{
 						$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
 							function( resultObj ) {
+								$('.' + wishNo).find('.plus').attr('status',true);
 								swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
 								console.log(resultObj);
 							});
