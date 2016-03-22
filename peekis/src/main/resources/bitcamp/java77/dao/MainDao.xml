@@ -91,10 +91,35 @@
 		 where wno=#{wno}
 	</insert>
 	
+	<select id="selectsendList" resultType="int" parameterType="int">
+		select wno
+		  from `SEND`
+		 where uno=#{uno}
+	</select>
+	
+	
 	<!-- 팔로워 -->
 	<insert id="follower" parameterType="map">
 		insert into follower(uno, uno2) 
 		values(#{toUser}, #{fromUser})
 	</insert>
 
+	<select id="followerCheck" resultType="int" parameterType="map">
+		select count(*)
+		  from follower
+		 where uno=#{uno} and uno2=#{wishUserNo}
+	</select>
+	
+	<delete id="unfollower" parameterType="map">
+		delete
+		  from follower
+		 where uno=#{uno} and uno2=#{wishUserNo}
+	</delete>
+	
+	
+	<!-- 코멘트 등록 -->
+	<insert id="insertComment" parameterType="comment">
+		insert into comment (wno, uno,cont) 
+		values(#{wNo}, #{uNo},#{cont})
+	</insert>
 </mapper>
