@@ -9,8 +9,23 @@ select count(*)as dCnt from wish where date > CURRENT_DATE();
 
 select count(*)as gCnt from wish where buy = 'y';
 
+------------------------------------------------------
+--board 컬럼추가 
+ALTER TABLE board ADD `type` int(11)  NOT NULL;
+ALTER TABLE board ADD `ans_flag` char(1) NOT NULL;
 
-insert into wish(fpath,title,cont,price,url,tag, cno, uno) select w1.FPATH, w1.TITLE, w1.CONT, w1.PRICE, w1.URL, w1.tag, w1.cno, w1.uno from wish w1;
+update board
+set type = 4
+where type = 0;
+
+ALTER TABLE `java77db`.`board` 
+CHANGE COLUMN `ans_flag` `ans_flag` CHAR(1) NOT NULL DEFAULT 'n' ;
+
+select * from board;
+
+------------------------------------------------------
+
+insert into wish(fpath,title,cont,price,url,tag, cno) select w1.FPATH, w1.TITLE, w1.CONT, w1.PRICE, w1.URL, w1.tag, w1.cno from wish w1;
 
 -- 유저
 DROP TABLE IF EXISTS `USER` RESTRICT;
@@ -95,6 +110,7 @@ ALTER TABLE `WISH`
 ALTER TABLE `WISH`
 	MODIFY COLUMN `WNO` INTEGER NOT NULL AUTO_INCREMENT;
 
+	
 -- 게시판
 CREATE TABLE `BOARD` (
 	`BNO`   INTEGER      NOT NULL, -- 게시글번호
