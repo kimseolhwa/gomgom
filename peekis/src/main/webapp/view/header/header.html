@@ -11,15 +11,15 @@ $("#mypage-btn").on("click",function(){
 			var userInfo = resultObj.ajaxResult.data;
 			console.log(userInfo)			
 			//유저번호 
-			$("#userNo").val(userInfo.uNo);			
+			$("#userNo").val(userInfo.uNo)			
 			// 사용자 이름
-			$("#updateName").val(userInfo.name);			
+			$("#updateName").val(userInfo.name)			
 			// 이메일 주소
-			$("#updateUserEmail").val(userInfo.email);
-			$("#updateUserEmail").attr("readonly",true);
+			$("#updateUserEmail").val(userInfo.email)
+			$("#updateUserEmail").attr("readonly",true)
 			// 사진			
 			if(userInfo.pho!=null){				
-				$("#avatarImg").attr("src",filePath + userInfo.pho);
+				$("#avatarImg").attr("src",filePath + userInfo.pho)
 			}			
 			console.log(userInfo.pho)
  		})	
@@ -45,7 +45,7 @@ $("#my-file-selector").change(function(){
 		$("#avatarImg").attr("src",e.target.result);		
 		$('#viewLoading').fadeOut(900);
     }
-    
+ 
 });
 
 
@@ -222,9 +222,9 @@ div#viewLoading {
           <hr>
         
           <div class="form-group">
-            <label class="col-lg-3 control-label">사용자 이름</label>
+            <label class="col-lg-3 control-label">이메일 주소</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="userName" id="updateName" name="name">
+              <input class="form-control" type="text" value="" id="updateUserEmail" name="email" disabled="disabled" style="border: none;">
             </div>
           </div>
           
@@ -237,15 +237,15 @@ div#viewLoading {
 					<img src="../header/img/viewLoading.gif" />
 				</div>
           
-          
-          
-          
-          <div class="form-group">
-            <label class="col-lg-3 control-label">이메일 주소</label>
+           <div class="form-group">
+            <label class="col-lg-3 control-label">사용자 이름</label>
             <div class="col-lg-8">
-              <input class="form-control" type="text" value="" id="updateUserEmail" name="email">
+              <input class="form-control" type="text" value="userName" id="updateName" name="name">
             </div>
           </div>
+          
+          
+         
           
           <hr>
 		   
@@ -285,7 +285,7 @@ div#viewLoading {
       
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary userInfoUpdate" id="goUpdate">저장</button>
+        <button type="button" class="btn btn-orange userInfoUpdate" id="goUpdate">저장</button>
       </div>
     </div>
   </div>
