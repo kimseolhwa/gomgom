@@ -137,7 +137,7 @@ public class MainController
 			MainDao.insertComment(comment);
 			
 			
-			return new AjaxResult("success", null);
+			return new AjaxResult("success", comment);
 		}
 	
 	
