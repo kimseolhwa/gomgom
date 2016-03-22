@@ -17,7 +17,11 @@ public interface MainDao
 	
 	public List<Integer> selectlikeList(int uno);
 	
+	public List<Integer> selectsendList(int uno);
+	
 	public Wish selectOne(int no);
+
+	public int followerCheck(HashMap<String,Object> paramMap);
 	
 	public int addLike(HashMap<String,Integer> paramMap);
 	
@@ -28,6 +32,8 @@ public interface MainDao
 	public int copyItem(HashMap<String,Integer> paramMap);
 	
 	public int follower(HashMap<String,Integer> paramMap);
+
+	public int unfollower(HashMap<String, Integer> paramMap);
 
 	public void insertComment(Comment comment);
 }
