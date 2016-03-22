@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,12 +39,14 @@ public class MainController
 	    System.out.println("pageNo : " + pageNo);
 	    List<Wish> wishs = MainDao.selectList(paramMap);
 	    List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
+	    List<Integer> sendList = MainDao.selectsendList(join.getuNo());
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("data", wishs);
 		resultMap.put("loginUser", join);
 		resultMap.put("like", likeList);
+		resultMap.put("send", sendList);
 		return resultMap;
 	}
 	
@@ -68,10 +71,19 @@ public class MainController
 	}
 	
 	@RequestMapping("detail")
-	public AjaxResult detail(int no) throws Exception
+	public Object detail(int no, int uno) throws Exception
 	{
 		Wish wish = MainDao.selectOne(no);
-		return new AjaxResult("success", wish);
+		HashMap<String,Object> paramMap = new HashMap<>();
+		paramMap.put("uno", uno);
+		paramMap.put("wishUserNo", wish.getUno());
+		int followerCheck = MainDao.followerCheck(paramMap);
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("data", wish);
+		resultMap.put("followerCheck", followerCheck);
+		return resultMap;
 	}
 	
 	// 좋아요
@@ -108,6 +120,7 @@ public class MainController
 		return new AjaxResult("success", null);
 	}
 	
+	//팔로우
 	@RequestMapping("follower")
 	public AjaxResult follower(int wishUserNo, int uno) throws Exception {
 		System.out.println("[팔로워] toUser : " + uno + ", fromUser : " + wishUserNo);
@@ -118,11 +131,21 @@ public class MainController
 		return new AjaxResult("success", null);
 	}
 	
+	//언팔로우
+	@RequestMapping("unfollower")
+	public AjaxResult unfollower(int wishUserNo, int uno) throws Exception {
+		System.out.println("[언팔로워] toUser : " + uno + ", fromUser : " + wishUserNo);
+		HashMap<String,Integer> paramMap = new HashMap<>();
+		paramMap.put("toUser", uno);
+		paramMap.put("fromUser", wishUserNo);
+		MainDao.unfollower(paramMap);
+		return new AjaxResult("success", null);
+	}
 	
 	// 코멘트 등록
-		@RequestMapping(value = "addComment", method = RequestMethod.POST)
-		public AjaxResult addComment(Comment comment,HttpServletRequest req) throws Exception {
-			
+	@RequestMapping(value = "addComment", method = RequestMethod.POST)
+	public AjaxResult addComment(Comment comment,HttpServletRequest req) throws Exception {
+		
 //			CREATE TABLE `COMMENT` (
 //				`CONO` INTEGER      NOT NULL, -- 댓글번호 오토
 //				`WNO`  INTEGER      NOT NULL, -- 위시번호
@@ -131,19 +154,16 @@ public class MainController
 //				`DATE` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP on update current_timestamp  -- 댓글작성시간
 //			);
 
-			Join join = (Join) req.getSession().getAttribute("loginUser");
-			comment.setuNo(join.getuNo());
-			MainDao.insertComment(comment);
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		comment.setuNo(join.getuNo());
+		MainDao.insertComment(comment);
+		
+		HashMap<String,Object> paramCom = new HashMap<>();
+		
+		paramCom.put("join", join);
+		paramCom.put("comment", comment);
+		
 			
-			HashMap<String,Object> paramCom = new HashMap<>();
-			
-			paramCom.put("join", join);
-			paramCom.put("comment", comment);
-			
-				
-			return new AjaxResult("success", paramCom);
-		}
-	
-	
-	
+		return new AjaxResult("success", paramCom);
+	}
 }
