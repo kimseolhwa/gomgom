@@ -42,6 +42,19 @@
 
 <script>
 	$(document).ready(function() {
+				
+				/* 댓글 입력 */
+				$("#insertComment").on("click",function(){
+					 var comment = $("#commentText").val()
+					$.ajax({
+						 type: "POST",
+				  		  dataType:"JSON",
+				  	 	  url : contextRoot + "/main/ajax/addComment.do",
+				  	 	  data:{'comment': comment}
+					})
+				})
+				
+		
 		
 				/* 좋아요 토글 이벤트 */
 				$(document).on('click', '.heart', function(){
@@ -422,8 +435,8 @@
 										<img src="../../image/pro1.jpg" class="img-circle">
 										<div class="col-lg-10">
 											<div class="input-group">
-												<input type="text" class="form-control" placeholder="댓글을 입력해주세요"> <span class="input-group-btn">
-													<button class="btn btn-default" type="button">입력</button>
+												<input type="text" class="form-control" placeholder="댓글을 입력해주세요" id="commentText"> <span class="input-group-btn">
+													<button class="btn btn-default" type="button" id="insertComment">입력</button>
 												</span>
 											</div>
 										</div>
