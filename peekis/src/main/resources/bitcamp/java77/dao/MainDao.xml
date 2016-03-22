@@ -96,4 +96,12 @@
 		values(#{toUser}, #{fromUser})
 	</insert>
 
+	
+	<!-- 코멘트 등록 -->
+	<insert id="insertComment" parameterType="comment">
+		insert into comment (wno, uno,cont) 
+		values(#{wNo}, #{uNo},#{cont})
+	</insert>
+	
+
 </mapper>
