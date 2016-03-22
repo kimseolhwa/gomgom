@@ -164,7 +164,7 @@
 			   			}
 			   			
 			   			for (var send of resultObj.send){
-			   				$('.' + like).find('.plus').attr('status',true);
+			   				$('.' + send).find('.plus').attr('status',true);
 			   			}
 			   			
 			   			if(pageNo == 1){
@@ -258,7 +258,7 @@
 		        	var wishNo = $(this).closest('.item').find('.no').val();
 		        	var uNo = $('#UserNo').text();
 		        	if($(this).attr('status') == 'true'){
-		        		alert("이미 담아가기 한 위시리스트입니다!");
+		        		swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
 		        	}else{
 						$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
 							function( resultObj ) {
@@ -283,7 +283,7 @@
 		        	}else if($(".follow").text() == "언팔로우"){
 						$.getJSON('/peekis/main/ajax/unfollower.do', {wishUserNo : wishUserNo, uno : uNo}, 
 							function( resultObj ) {
-								swal("팔로우 삭제!", "친구가 삭제되었습니다!", "success");
+								swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
 								$(".follow").text("팔로우");
 								console.log(resultObj);
 						});
