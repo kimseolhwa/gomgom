@@ -123,7 +123,7 @@
 		          
 		        /* 리스트 불러오기 */
 				nextPage(1);
-// 				modalNextPage(1);
+
 
 		        $(window).scroll(function(){
 		        	var scrollHeight = $(window).scrollTop() + $(window).height();
@@ -132,8 +132,7 @@
 		        		console.log('스크롤 이벤트 발생');
 		        		var pageNo = Number($('#pageNo').text()) +1;
 		        		nextPage(pageNo);
-		        		var modalPageNo = Number($('#modalPageNo').text()) +1;
-		        		modalNextPage(modalPageNo);
+
 		        	}
 		        });
 		        
@@ -181,54 +180,45 @@
 		        }
 		        
 		        /* 개인 리스트 가져오기*/
-		        $(document).on('click', '.user_id', function (){
-					$.getJSON('/peekis/main/ajax/selectUserList.do',
-						function( resultObj ) {
-						$('#proModal').modal();
-						$("#UserNo").text(resultObj.loginUser.uNo);
-		        		  console.log(resultObj);
-			   			  for (var wish of resultObj.data){
-			   				  $('#pageNo').text(pageNo);
-			   				  var cloneContent = $('.cloneModalContents > div').clone();
-			   					cloneContent.addClass(wish.no+'');
-			   					cloneContent.find('.no').val(wish.no);
-			   					cloneContent.find('.uno').val(wish.uno);
-			   					var path = wish.path;
-			   					if(path.startsWith('http://') == false){
-			   						path = filePath + path;
-			   					}
-			   					cloneContent.find('img:first').attr('src', path);
-			   			  };
-					});
-		        });
+		        modalNextPage(1);
 		        
-// 		         $(document).on('click', '.user_id', function (){
-// 		        	 $.getJSON('/peekis/main/ajax/selectUserList.do',{modalPageNo : modalPageNo}, function(resultObj) {
-// 		        		 $("#UserNo").text(resultObj.loginUser.uNo);
-// 		        		  console.log(resultObj);
-// 			   			  for (var wish of resultObj.data){
-// 			   				  $('#proModal').modal();
-// 			   				  $('#modalPageNo').text(modalPageNo);
-// 			   				  var cloneContent = $('.cloneModalContents > div').clone();
-// 			   					cloneContent.addClass(wish.no+'');
-// 			   					cloneContent.find('.no').val(wish.no);
-// 			   					cloneContent.find('.uno').val(wish.uno);
-// 			   					var path = wish.path;
-// 			   					if(path.startsWith('http://') == false){
-// 			   						path = filePath + path;
-// 			   					}
-// 			   					cloneContent.find('img:first').attr('src', path);
-// 			   					cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
-// 			   					cloneContent.find('.user_id').html(wish.userName);
-// 			   					$items = $(cloneContent);
-// 			   					$container.append( $items ).isotope( 'appended', $items );			
-// 		   			  	}
-// 			   			for (var like of resultObj.like){
-// 			   				$('.' + like).find('.undoheart').css('display','block');
-// 			   				$('.' + like).find('.heart').css('display','none');
-// 			   			}
-// 		   			});
-// 		        });
+				        $(window).scroll(function(){
+				        	var scrollHeight = $(window).scrollTop() + $(window).height();
+				        	var documentHeight = $(document).height();
+				        	if(scrollHeight >= documentHeight -100){
+				        		console.log('스크롤 이벤트 발생');
+				        		var modalPageNo = Number($('#modalPageNo').text()) +1;
+				        		modalNextPage(modalPageNo);
+				        	}
+				        });
+				        
+				        function modalNextPage(modalPageNo){
+				        	$(document).on('click', '.user_id', function (){
+				        	 $.getJSON('/peekis/main/ajax/selectUserList.do',{modalPageNo : modalPageNo}, function(resultObj) {
+				        		 $("#UserNo").text(resultObj.loginUser.uNo);
+				        		  console.log(resultObj);
+				        		  $('#proModal').modal();
+					   			  for (var wish of resultObj.data){
+					   				  $('#modalPageNo').text(modalPageNo);
+					   				  var cloneContent = $('.cloneModalContents > div').clone();
+					   					cloneContent.addClass(wish.no+'');
+					   					cloneContent.find('.no').val(wish.no);
+					   					cloneContent.find('.uno').val(wish.uno);
+					   					var path = wish.path;
+					   					if(path.startsWith('http://') == false){
+					   						path = filePath + path;
+					   					}
+					   					cloneContent.find('img:first').attr('src', path);
+				   			  	}
+					   			for (var like of resultObj.like){
+					   				$('.' + like).find('.undoheart').css('display','block');
+					   				$('.' + like).find('.heart').css('display','none');
+					   			}
+				   			});
+				        });
+		         };
+		         
+		         
 		        
 		        /* 상세정보 가져오기 */
 				$container.on( 'click', '.detail', function() {
@@ -388,10 +378,8 @@
 					</div>
 				</div>
 				<div class="pro">
-<!-- 					<a href="#proModal" data-toggle="modal"> -->
 					<img src="../../image/pro1.jpg" class="img-circle userPho">
 						<div class="user_id">아이디는여덟자임</div>
-<!-- 					</a> -->
 					<span class="glyphicon glyphicon-folder-open"></span>
 					<div class="user_wish">폴더이름여덟자임</div>
 					<div class="heart"></div>
@@ -489,53 +477,74 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<!-- proModal -->
-		<div class="portfolio-modal modal fade" id="proModal" role="dialog" aria-hidden="true"  style="display: none;">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
+	<!-- proModal -->
+	<div class="portfolio-modal modal fade" id="proModal" role="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-content">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr">
+					<div class="rl"></div>
+				</div>
+			</div>
+			<div class="modal-body">
+				<h2>프로필e</h2>
+				<hr class="star-primary">
+				<img src="../../image/pro1.jpg" class="img-rounded" alt="">
+
+				<div class="modal-item_container">
+					<div id="modalPageNo" style="display: none;">1</div>
+					<div id="UserNo" style="display: none;">0</div>
+					<div class="modal-item">
+						<div class="modal-product">
+							<img src="../../image/1111.jpg" /> <input type="hidden" class="no" value="00"> <input type="hidden" class="uno" value="00">
+						</div>
+						<div class="modal-item-content">
+							<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
+							<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어 임블리에서만 만나보실 수 있는 사랑스러움을:</div>
+							<hr class="star-primary">
+							<div class="modal-icon">
+								<a href="#Modal1" data-toggle="modal">
+									<button class="detail btn btn-orange">상세보기</button>
+								</a>
+								<button class="btn btn-orange plus">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+								<div class="heart"></div>
+								<div class="undoheart"></div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="modal-body">
-					<h2>프로필e</h2>
-					<hr class="star-primary">
-					<img src="../../image/pro1.jpg" class="img-rounded" alt="">
-					
-					<div class="modal-item_container">
-						<div id="modalPageNo" style="display: none;">1</div>
-						<div id="UserNo" style="display: none;">0</div>
-					</div>
-					
-					<div class="cloneModalContents" style="display: none;">
-						<div class="modal-item">
-							<div class="modal-product">
-								<img src="../../image/1111.jpg" />
-								<input type="hidden" class="no" value="00">
-								<input type="hidden" class="uno" value="00">
-							</div>
-							<div class="modal-item-content">
-								<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
-								<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어  임블리에서만 만나보실 수 있는 사랑스러움을:</div>
-								<hr class="star-primary">
-								<div class="modal-icon">
-									<a href="#Modal1" data-toggle="modal">
-										<button class="detail btn btn-orange">상세보기</button>
-									</a>
-									<button class="btn btn-orange plus">
-										<span class="glyphicon glyphicon-plus"></span>
-									</button>
-									<div class="heart"></div>
-									<div class="undoheart"></div>
-								</div>
+
+				<div class="cloneModalContents" style="display: none;">
+					<div class="modal-item">
+						<div class="modal-product">
+							<img src="../../image/1111.jpg" />
+							<input type="hidden" class="no" value="00">
+							<input type="hidden" class="uno" value="00">
+						</div>
+						<div class="modal-item-content">
+							<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
+							<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어 임블리에서만 만나보실 수 있는 사랑스러움을:</div>
+							<hr class="star-primary">
+							<div class="modal-icon">
+								<button class="detail btn btn-orange">상세보기</button>
+								<button class="btn btn-orange plus">
+									<span class="glyphicon glyphicon-plus"></span>
+								</button>
+								<div class="heart"></div>
+								<div class="undoheart"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
+
+
 
 	<footer class="nav-down" id="footer"></footer>
 
