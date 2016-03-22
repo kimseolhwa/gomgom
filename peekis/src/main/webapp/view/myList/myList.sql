@@ -18,9 +18,19 @@ insert into category (name, uno) values ('(default)', 4);
 select * from wish;
 select * from category;
 select * from user;
-select * from `LIKE`;
+select * from `LIKE` where uno='2';
 select * from SEND;
 select * from follower;
 select min(cno) from category where uno='2'
 delete from wish where cno='1';
 delete from `LIKE` where lno<='22';
+
+select *
+from wish w, `like` l
+where w.wno=l.wno and l.uno='2'
+order by w.wno desc
+
+select wish.*, user.name as userName, user.pho as userPho
+		  from wish, user
+		 where wish.uno=user.uno
+		 order by wno desc

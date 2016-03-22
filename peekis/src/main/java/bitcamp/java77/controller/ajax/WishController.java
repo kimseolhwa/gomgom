@@ -81,6 +81,25 @@ public class WishController {
     return resultMap;
   }
 
+  @RequestMapping("likeList")
+  public Object likeList(int pageNo, HttpServletRequest req) throws Exception {
+	  Join join = (Join)req.getSession().getAttribute("loginUser");
+	  int pageSize = 10;
+	  HashMap<String,Object> paramMap = new HashMap<>();
+	  paramMap.put("startIndex", (pageNo - 1) * pageSize);
+	  paramMap.put("length", pageSize);
+	  paramMap.put("uno", join.getuNo());
+	  System.out.println("pageNo : " + pageNo);
+	  List<Wish> wishs = wishDao.selectLikeList(paramMap);
+	    
+	  HashMap<String,Object> resultMap = new HashMap<>();
+	  resultMap.put("status", "success");
+	  resultMap.put("data", wishs);
+	  resultMap.put("loginUser", join);
+	    
+	  return resultMap;
+  }
+  
   @RequestMapping("delete")
   public AjaxResult delete(int no) throws Exception {
    
@@ -147,5 +166,8 @@ public class WishController {
 	  resultMap.put("loginUser", loginUser);
 	  return resultMap;
   }
+  
+  
+  
   
 }

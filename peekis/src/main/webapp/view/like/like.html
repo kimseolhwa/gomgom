@@ -128,32 +128,55 @@ $(document).ready(function() {
 	});
 	  
 	function nextPage(pageNo){
-		 $.getJSON('/peekis/main/ajax/list.do',{pageNo : pageNo}, function(resultObj) {
-			 $("#UserNo").text(resultObj.loginUser.uNo);
-			  console.log(resultObj);
-				  for (var wish of resultObj.data){
-					  $('#pageNo').text(pageNo);
-					  var cloneContent = $('.cloneMainContents > div').clone();
-						cloneContent.addClass(wish.no+'');
-						cloneContent.find('.no').val(wish.no);
-						cloneContent.find('.uno').val(wish.uno);
-						var path = wish.path;
-						if(path.startsWith('http://') == false){
-							path = filePath + path;
-						}
-						if(wish.buy == 'Y'){
-							cloneContent.find('.buy').addClass('buy-check');
-						}
-						cloneContent.find('img:first').attr('src', path);
-						$items = $(cloneContent);
-						$container.append( $items ).isotope( 'appended', $items );			
+		 $.getJSON('/peekis/wish/ajax/likeList.do',{pageNo : pageNo}, function(resultObj) {
+			$("#UserNo").text(resultObj.loginUser.uNo);
+			$('#pageNo').text(pageNo);
+			console.log(resultObj);
+			for (var wish of resultObj.data){
+ 				  $('#pageNo').text(pageNo);
+ 				  var cloneContent = $('.cloneMainContents > div').clone();
+ 					cloneContent.addClass(wish.no+'');
+ 					cloneContent.find('.no').val(wish.no);
+ 					cloneContent.find('.uno').val(wish.uno);
+ 					var path = wish.path;
+ 					if(path.startsWith('http://') == false){
+ 						path = filePath + path;
+ 					}
+ 					cloneContent.find('img:first').attr('src', path);
+ 					cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
+ 					cloneContent.find('.user_id').html(wish.userName);
+ 					cloneContent.find('.undoheart').css('display','block');
+ 					cloneContent.find('.heart').css('display','none');
+ 					$items = $(cloneContent);
+ 					$container.append( $items ).isotope( 'appended', $items );			
 			  	}
-				for (var like of resultObj.like){
-					$('.' + like).find('.undoheart').css('display','block');
-					$('.' + like).find('.heart').css('display','none');
-				}
-			});
+		});
 	}
+	
+	
+	/* 좋아요 취소 */
+	$(document).on('click', '.undoheart', function(){
+		console.log('좋아요 취소이벤트 발생');
+		var wishNo = $(this).closest('.item').find('.no').val();
+		var uNo = $('#UserNo').text();
+    	$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
+    		var result = resultObj.ajaxResult;
+    		console.log(result);
+			if(result.status == 'success'){
+        		$('.' + wishNo).find('.undoheart').toggleClass('toggle').show().fadeToggle(1000),
+        		setTimeout(function(){
+        			$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
+				   },1000), 
+        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
+        		setTimeout(function(){
+	        		$container.isotope( 'remove', $("." + wishNo) ).isotope();
+					$("#likeCnt").text( Number($('#likeCnt').text()) -1);
+        		},1000);
+			}else{
+				swal('좋아요 삭제에 실패하였습니다.');
+			}
+		});
+	});
 });
 </script>
 </body>

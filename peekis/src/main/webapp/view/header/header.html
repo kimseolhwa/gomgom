@@ -11,14 +11,15 @@ $("#mypage-btn").on("click",function(){
 			var userInfo = resultObj.ajaxResult.data;
 			console.log(userInfo)			
 			//유저번호 
-			$("#userNo").val(userInfo.uNo)			
+			$("#userNo").val(userInfo.uNo);			
 			// 사용자 이름
-			$("#updateName").val(userInfo.name)			
+			$("#updateName").val(userInfo.name);			
 			// 이메일 주소
-			$("#updateUserEmail").val(userInfo.email)
+			$("#updateUserEmail").val(userInfo.email);
+			$("#updateUserEmail").attr("readonly",true);
 			// 사진			
 			if(userInfo.pho!=null){				
-				$("#avatarImg").attr("src",filePath + userInfo.pho)
+				$("#avatarImg").attr("src",filePath + userInfo.pho);
 			}			
 			console.log(userInfo.pho)
  		})	
