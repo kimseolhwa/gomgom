@@ -5,7 +5,59 @@
 
 </style>
 <script type="text/javascript" src="../js/common.js"></script>
-<script type="text/javascript">
+<script>
+
+
+
+/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  */
+
+window.fbAsyncInit = function() {  
+	 FB.init({appId: '579850752195003', status: true, cookie: true,xfbml: true});      
+	};
+	 
+	(function(d){  
+	 var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];  
+	 if (d.getElementById(id)) {return;}  
+	 js = d.createElement('script'); js.id = id; js.async = true;  
+	 js.src = "//connect.facebook.net/en_US/all.js";  
+	 ref.parentNode.insertBefore(js, ref);  
+	}(document)); 
+	 
+	function facebooklogin() {  
+	 FB.login(function(response) {
+	   if (response.status === 'connected') {
+	  getMyProfile();
+	   } else if (response.status === 'not_authorized') {
+	     // 페이스북에는 로그인 되어있으나, 앱에는 로그인 되어있지 않다.
+	   } else {
+	     // 페이스북에 로그인이 되어있지 않아서, 앱에 로그인 되어있는지 불명확하다.
+	   }
+	 } , {scope: "user_about_me,email,user_birthday"} ); //나는 유저의 아이디(이메일)과 생일 정보를 얻어오고 싶다.
+	 
+	} 
+	 
+	function getMyProfile(){
+	 FB.api('/me',function(user){
+	 
+	 var myName= user.name ;
+	 var myEmail = user.email;
+	 var myId = user.id;
+	 
+	 if(myEmail != ""){
+	   //정보를 post로 보내고 submit처리
+	 }
+	 
+	  });
+	 FB.api('/me/picture?type=large',function(data){
+	 var myImg = data.data.url;
+	 });
+	}
+
+
+
+/*$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$  */
+
+
 
 $("#login").on("click",function(){
 	
@@ -135,7 +187,7 @@ $("#login").on("click",function(){
 										<form class="form" role="form" method="post" action="login"
 											accept-charset="UTF-8" id="login-nav">
 											<div class="social-buttons">
-											<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i>
+											<a href="#" class="btn btn-fb" onClick="facebooklogin();"><i class="fa fa-facebook"></i>
 												Facebook</a> <a href="#" class="btn btn-tw"><i
 												class="fa fa-twitter"></i> Twitter</a>
 											</div>
@@ -143,6 +195,7 @@ $("#login").on("click",function(){
 									</div>
 									<div class="bottom text-center" style="cursor: pointer;" id="login">
 										<b id="loginBtn">LOGIN</b>
+										
 									</div>
 								</div>
 							</li>
