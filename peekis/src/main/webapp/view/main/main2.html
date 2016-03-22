@@ -55,9 +55,21 @@
 				  		  dataType:"JSON",
 				  	 	  url : contextRoot + "/main/ajax/addComment.do",
 				  	 	  data:{'cont': comment, 'wNo' : wNo}
+					}).done(function(resultObj) {
+						console.log(resultObj.ajaxResult.data.join.name)	
+						console.log(resultObj.ajaxResult.data.comment.cont)	
+
+							
+   $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
+                       "<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
+                       "<p>"+ resultObj.ajaxResult.data.comment.cont +"</p><br>");
+
+						
 					})
+					
 				})
 				
+
 								
 				/* 좋아요 토글 이벤트 */
 				$(document).on('click', '.heart', function(){
@@ -153,6 +165,7 @@
 			   				$('.' + like).find('.undoheart').css('display','block');
 			   				$('.' + like).find('.heart').css('display','none');
 			   			}
+			   			
 			   			for (var send of resultObj.send){
 			   				$('.' + like).find('.plus').attr('status',true);
 			   			}
