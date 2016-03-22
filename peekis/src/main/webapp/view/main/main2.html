@@ -45,16 +45,19 @@
 				
 				/* 댓글 입력 */
 				$("#insertComment").on("click",function(){
-					 var comment = $("#commentText").val()
+					var wNo = $("#detailmodal-no").text();
+					 var comment = $("#commentText").val();
+					 
+					 console.log("wNo: " , wNo)
+					 
 					$.ajax({
 						 type: "POST",
 				  		  dataType:"JSON",
 				  	 	  url : contextRoot + "/main/ajax/addComment.do",
-				  	 	  data:{'comment': comment}
+				  	 	  data:{'cont': comment, 'wNo' : wNo}
 					})
 				})
 				
-		
 		
 				/* 좋아요 토글 이벤트 */
 				$(document).on('click', '.heart', function(){
