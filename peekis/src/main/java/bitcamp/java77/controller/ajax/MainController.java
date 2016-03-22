@@ -54,7 +54,7 @@ public class MainController
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("startIndex", (modalPageNo - 1) * pageSize);
 		paramMap.put("length", pageSize);
-		System.out.println("pageNo : " + modalPageNo);
+		System.out.println("modalPageNo : " + modalPageNo);
 		List<Wish> wishs = MainDao.selectUserList(paramMap);
 		List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
 		

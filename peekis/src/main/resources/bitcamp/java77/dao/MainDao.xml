@@ -15,9 +15,9 @@
 	<select id="selectList" resultMap="wishMap" parameterType="map">
 <!-- 		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno -->
 <!-- 		  from wish -->
-		select wish.*, user.name as userName, user.pho as userPho
-		  from wish, user
-		 where wish.uno=user.uno
+		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
+		  from wish, user, category
+		 where wish.uno=user.uno=category.uno
 		 order by
 		<choose>
 			<when test="keyword == 'title'">title </when>
@@ -28,9 +28,9 @@
 	</select>
 	
 	<select id="selectUserList" resultMap="wishMap" parameterType="map">
-		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
-		  from wish
-		 where wno=#{no}
+		select wish.*, user.name as userName, user.pho as userPho
+		  from wish, user
+		 where wish.uno=user.uno
 		 order by
 		<choose>
 			<when test="keyword == 'title'">title </when>
@@ -45,9 +45,14 @@
 	</select>
 
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
-		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
-		  from wish
+<!-- 		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno -->
+<!-- 		  from wish -->
+<!-- 		 where wno=#{no} -->
+<!-- 		   and wish.uno=user.uno=category.uno -->
+		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
+		  from wish, user, category
 		 where wno=#{no}
+           and wish.uno=user.uno=category.uno
 	</select>
 	
 	<!-- 좋아요 -->
