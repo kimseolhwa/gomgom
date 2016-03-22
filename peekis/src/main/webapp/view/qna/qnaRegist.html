@@ -35,7 +35,7 @@
 		margin-bottom: 50px;
 		border-bottom: solid 2px rgb(242,132,53);
 	}
-	#name, #email, #title[type=text], select {
+	#id, #email, #title[type=text], select {
 	    width: 100%;
 	    padding: 10px 15px;
 	    margin: 15px 0 15px;;
@@ -45,7 +45,7 @@
 	    border-bottom: 2px solid #bebebe;
 	}
 	
-	#listBtn[type=submit] {
+	#listBtn[type=button] {
 	    background-color: #bebebe;
 	    color: white;
 	    padding: 10px 13px;
@@ -54,11 +54,11 @@
 	    border-radius: 4px;
 	    cursor: pointer;
 	}
-	#listBtn[type=submit]:hover {
+	#listBtn[type=button]:hover {
 	    background-color: #333333;
 	}
 	
-	#Btn[type=submit] {
+	#submitBtn[type=submit] {
 	    background-color: #bebebe;
 	    color: white;
 	    padding: 10px 13px;
@@ -67,7 +67,7 @@
 	    border-radius: 4px;
 	    cursor: pointer;
 	}
-	#Btn[type=submit]:hover {
+	#submitBtn[type=submit]:hover {
 	    background-color: #333333;
 	}
 	
@@ -84,7 +84,7 @@
 	    width: 100%;
 	    height: 150px;
 	    padding: 12px 20px;
-	    box-sizing: border-box;
+	    box-sizing: border- box;
 	    border: 2px solid #ccc;
 	    border-radius: 4px;
 	    background-color: #f8f8f8;
@@ -93,12 +93,47 @@
 	}
 
 </style>
+<script>
+	/*등록데이터 전송*/
+	$(document).ready(function(){
+		
+	/*list버튼 클릭이벤트 목록페이지로 이동*/
+		$("#listBtn").click(function(event){
+			alert("등록안할꺼야");
+			document.location.href="/peekis/view/qna/qnaList.html"; /*페이지 이동*/
+		 });
+		
+		$("#submitBtn").click(function (event){
+			var typeVal = $('#type').val();
+			var titleVal = $('#title').val();
+			var contentVal = $('#content').val();
+			$.ajax({
+				type: "POST",
+				dataType: "JSON",
+				url: "/peekis/auth/qna/ajax/qnaRegist.do",
+				data:{'type': typeVal,
+					'title': titleVal,
+					'content' : contentVal}
+				,success: function() {
+             		document.location.href="/peekis/view/qna/qnaList.html";
+				}
+			},'json');
+			
+			return false;
+		});
+		
+	});
+	
+		
+
+	
+</script>
 </head>
 <body>
 	<header id="header"></header>
 	
 	<section id="qna">
-		<form action="#">
+		<form action="#" onsubmit="return false;">
 	    	
 	    <div align="center" width="80%">
 	
@@ -114,32 +149,19 @@
 				<tr>
 					<th>문의유형</th>
 					<td>
-						<select id="question" name="question" >
-						      <option value="question-sel">상담유형선택</option>
-						      <option value="question-sel">회원</option>
-						      <option value="question-sel">이벤트</option>
-						      <option value="question-sel">시스템문의</option>
-						      <option value="question-+se l">기타문의</option>
+						<select id="type" name="type" >
+						      <option value="0">상담유형선택</option>
+						      <option value="1">회원</option>
+						      <option value="2">이벤트</option>
+						      <option value="3">시스템문의</option>
+						      <option value="4">기타문의</option>
 						</select>
-					</td>
-				</tr>
-			
-				<tr>
-					<th width="10%">아이디</th>
-					<td width="90%">
-						<input type="text" size="70px" class="form-control" id="name" placeholder="name">
-					</td>
-				</tr>
-				<tr>
-					<th width="10%">이름</th>
-					<td width="90%">
-						<input type="text" size="70px" class="form-control" id="name" placeholder="name">
 					</td>
 				</tr>
 				<tr>
 					<th width="20%">제목</th>
 					<td>
-						<input type="text"  size="70px" class="form-control" id="title" placeholder="title">
+						<input type="text"  size="70px" class="form-control" id="title" name="title" placeholder="title">
 					</td>
 				</tr>
 				<tr>
@@ -151,9 +173,8 @@
 				<tr>
 					<th width="20%"></th>
 					<td width="80%" align="right">
-						<input id="listBtn" type="submit" value="List" name="listBtn">
-						<input id="Btn" type="submit" value="Back" name="backBtn" >
-						<input id="Btn" type="submit" value="Submit" name="submitBtn" >
+						<input id="listBtn" type="button" value="List" name="listBtn">
+						<input id="submitBtn" type="submit" value="Submit" name="submitBtn" >
 					</td>
 				</tr>
 			</table>

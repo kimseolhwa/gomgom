@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PeeKiS qnaRegist</title>
+<title>PeeKiS qnaList</title>
 	
 	<!-- header.css -->
 	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
@@ -35,17 +35,7 @@
 		margin-bottom: 50px;
 		border-bottom: solid 2px rgb(242,132,53);
 	}
-	#name, #email, #title[type=text], select {
-	    width: 100%;
-	    padding: 10px 15px;
-	    margin: 15px 0 15px;;
-	    display: inline-block;
-	    border: none;
-	    box-sizing: border-box;
-	    border-bottom: 2px solid #bebebe;
-	}
-	
-	#Btn[type=submit] {
+	#Btn[type=button] {
 	    background-color: #bebebe;
 	    color: white;
 	    padding: 4px 17px;
@@ -55,7 +45,7 @@
 	    cursor: pointer;
 	}
 	
-	#Btn[type=submit]:hover {
+	#Btn[type=button]:hover {
 	    background-color: #333333;
 	}
 	
@@ -67,17 +57,6 @@
 	 	display: block;
 	 	clear: both;
 	 	/*min-height : 100%;*/
-	}
-	textarea {
-	    width: 100%;
-	    height: 150px;
-	    padding: 12px 20px;
-	    box-sizing: border-box;
-	    border: 2px solid #ccc;
-	    border-radius: 4px;
-	    background-color: #f8f8f8;
-	    font-size: 16px;
-	    resize: none;
 	}
 	/*TABLE CSS*/
 	table {
@@ -128,6 +107,53 @@
 	ul.pagination li a:hover:not(.active) {background-color: rgb(242,132,53);}
 
 </style>
+<script>
+	 $(document).ready(function(){
+	
+		 /*1:1문의 버튼클릭이벤트 등록페이지로 이동*/
+		$("#Btn").click(function(event){
+			alert("등록페이지로가자");
+			document.location.href="/peekis/view/qna/qnaRegist.html"; /*페이지 이동*/
+		 });
+	
+		qnaList();		 
+		function qnaList(){
+		 /*글번호bno, 상담유형type, 등록시간date, 상태(미답변, 답변완료)??? 리스트에 가져오기*/
+			$.getJSON("/peekis/auth/qna/ajax/qnaList.do",function(resultObj){ /*서버에서 보내줄때*/
+				var data = resultObj.ajaxResult.data;
+				console.dir(data);
+				
+				var table = $("#listTable");
+				$("tbody").html("");
+				for(var i=0; i<data.length; i++){
+					
+					$("<tr class='colSize'>")
+					.html("<td>" + (data.length-i) + "</td>"
+							+ "<td>" + typeToText(data[i].type) + "</td>"
+							+ "<td>" + data[i].name + "</td>"
+							+ "<td><a href='/peekis/view/qna/qnaDetail.html?n="+data[i].bno+"'>" + data[i].title + "</a></td>"
+							+ "<td>" + 	data[i].date + "</td>"
+							+ "<td>" + 	(data[i].ansFlag=='n'?'미답변' : '답변완료') + "</td>")
+							.appendTo(table);
+				}
+				
+			});
+		}
+				 
+	 /*페이징*/
+	 });
+	 
+	 var typeToText = function(typeNum) {
+		 var typeText = "";
+		 
+		 if (typeNum == 1) typeText = '회원';
+		 else if (typeNum == 2) typeText = '이벤트';
+		 else if (typeNum == 3) typeText = '시스템';
+		 else if (typeNum == 4) typeText = '기타';
+
+		 return typeText;
+	 };
+</script>
 </head>
 <body>
 	<header id="header"></header>
@@ -147,44 +173,26 @@
 			<hr size="11" width="100%">
 			
 			<div align="right">
-				<input id="Btn" type="submit" value="1:1문의" name="listBtn" >
+				<input id="Btn" type="button" value="1:1문의" name="listBtn" >
 			</div>
 		
-			<table>
+			<table id="listTable">
+			<thead>
 				  <tr>
 				    <th colspan="1">번호</th>
 				    <th colspan="1">삼당유형</th>
+				    <th colspan="1">작성자</th>
 				    <th colspan="1">제목</th>
 				    <th colspan="1">등록시간</th>
 				    <th colspan="1">상태</th>
 				  </tr>
-				  <tr class="colSize">
-				    <td>1</td>
-				    <td>시스템문의</td>
-				    <td><a href="#">tester님의 문의입니다</a></td>
-				    <td>2016-00-00</td>
-				    <td>미답변</td>
-				  </tr>
-				  <tr class="colSize">
-				    <td>2</td>
-				    <td>시스템문의</td>
-				    <td><a href="#">tester님의 재문의입니다</a></td>
-				    <td>2016-00-00</td>
-				    <td>답변완료</td>
-				  </tr>
-				  <tr class="colSize">
-				    <td>3</td>
-				    <td>기타문의</td>
-				    <td><a href="#" >이거요</a></td>
-				    <td>2016-00-00</td>
-				    <td>답변완료</td>
-				  </tr>
-			
+			</thead>
+			<tbody></tbody>
 			</table>
+			<!-- 페이징 -->
 			<ul class="pagination">
 			  <li><a href="#">«</a></li>
 			  <li><a class="active" href="#">1</a></li>
-			  <li><a href="#">2</a></li>
 			  <li><a href="#">»</a></li>
 			</ul>
 		</div>

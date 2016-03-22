@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bitcamp.java77.dao.BoardDao">
+	<insert id="insert" parameterType="board">
+		insert into board (
+			tno, mno, btype, btitle, bcontent, breg_date, bmod_date, bview_cnt
+		) values (
+			#{tno}, #{mno}, #{btype}, #{btitle}, #{bcontent}, now(), now(), 0
+		)
+		<selectKey keyProperty="bno" order="AFTER" resultType="int">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertFile" parameterType="fileattach">
+		insert into fileattach (
+			bno, fori_name, freal_name, fpath, fthumb
+		) values (
+			#{bno}, #{foriName}, #{frealName}, #{fpath}, #{fthumb}
+		)
+	</insert>
+	
+	<select id="list" parameterType="boardDto" resultType="board">
+		select b.bno, b.tno, b.mno, b.btitle, bcontent, date_format(b.breg_date, '%y.%m.%d') as bregDate,
+			   date_format(b.bmod_date, '%y.%m.%d') as bmodDate, b.bview_cnt as bviewCnt, 
+			   m.mname as bwriter, m.mpath as bwriterPhotoPath,
+			   (select count(*) from comment where bno = b.bno) as bcommentCnt
+		  from board as b left join member as m
+		  	on b.mno = m.mno
+		 where b.tno = #{tno} and b.btype = #{btype}
+		 order by b.bno desc
+		 limit #{start}, #{howmany}
+	</select>
+	
+	<select id="selectBoardCount" parameterType="boardDto" resultType="int">
+		select count(*) from board where tno = #{tno} and btype = #{btype}
+	</select>
+	
+	<select id="detail" parameterType="boardDto" resultType="board">
+		select b.bno, b.tno, b.mno, b.btitle, b.bcontent, date_format(b.breg_date, '%y.%m.%d') as bregDate,
+			   date_format(b.bmod_date, '%y.%m.%d') as bmodDate, b.bview_cnt as bviewCnt, 
+			   m.mname as bwriter, (select count(*) from comment where bno = b.bno) as bcommentCnt 
+		  from board as b left join member as m
+		  	on b.mno = m.mno
+		 where b.bno = #{bno} and b.btype = #{btype}
+	</select>
+	
+	<select id="fileList" parameterType="boardDto" resultType="fileattach">
+		select fno, bno, fori_name as foriName, freal_name as frealName, fpath, fthumb
+		  from fileattach
+		 where bno = #{bno}
+		 order by fno asc
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from board
+		 where bno = #{bno}
+	</delete>
+	
+	<delete id="deleteFileattach" parameterType="int">
+		delete from fileattach
+		 where bno = #{bno}
+	</delete>
+	
+	<update id="updateViewCnt" parameterType="int">
+		update board
+		   set bview_cnt = bview_cnt + 1
+		 where bno = #{bno}
+	</update>
+	
+</mapper>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="bitcamp.java77.dao.TeamBoardDao">
+
+	<resultMap type="teamboard" id="boardMap">
+		<result column="breg_date" property="bregDate" />
+		<result column="bmod_date" property="bmodDate" />
+		<result column="bview_cnt" property="bviewCnt" />
+	</resultMap>
+	
+	<select id="selectList" resultMap="boardMap">
+		select
+			b.bno,
+			b.btitle,
+			b.bcontent,
+			b.breg_date,
+			b.bmod_date,
+			b.bview_cnt,
+			m.mno,
+			m.mname
+		from board b
+		inner join member m
+			where b.mno = m.mno
+		order by bno desc 
+	</select>
+
+	<insert id="insert" parameterType="board">
+		insert into board
+		(
+			tno,
+			mno,
+			btitle, 
+			bcontent,
+			btype,
+			breg_date
+		)
+		 values
+		 (
+			#{tno},
+			#{mno},
+			#{btitle},
+			#{bcontent},
+			#{btype},
+			  now()
+		  )
+		  <selectKey keyProperty="bno" order="AFTER" resultType="int">
+        	 SELECT LAST_INSERT_ID()
+      		</selectKey>
+ 		 
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from board
+		where bno=#{bno}
+	</delete>
+	
+	<update id="update" parameterType="board">
+		update board set
+			btitle=#{btitle},
+			bcontent=#{bcontent},
+			bmod_date = now()
+		where bno=#{bno}
+	</update>
+	
+	<select id="selectOne" parameterType="int" resultMap="boardMap" >
+		select
+			b.bno,
+			b.btitle,
+			b.bcontent,
+			b.breg_date,
+			b.bview_cnt,
+            m.mno,
+            m.mname
+		from board b
+        inner join member m
+			where b.mno = m.mno
+    	    and bno=#{bno}
+		</select>
+		
+	<select id="selectNo" resultType="int" >
+		select max(bno) from board 
+	</select>
+		
+		<insert id="insert" parameterType="board">
+		insert into board
+		(
+			tno,
+			mno,
+			btitle, 
+			bcontent,
+			btype,
+			breg_date
+		)
+		 values
+		 (
+			#{tno},
+			#{mno},
+			#{btitle},
+			#{bcontent},
+			#{btype},
+			  now()
+		  )
+</mapper>
+ -->
+
+
+<mapper namespace="bitcamp.java77.dao.QnaDao">
+
+	<resultMap type="qna" id="qnaMap">
+		<id 	column="BNO" 		property="bno"/>
+	    <result column="TITLE" 	property="title"/>
+	    <result column="CONT" 	property="content"/>
+	    <result column="DATE" 		property="date"/>
+	    <result column="TYPE" property="type"/>
+	    <result column="ANS_FLAG" property="ansFlag"/>
+	    <result column="NAME" property="name"/>
+	</resultMap>
+
+	<insert id="insertQna" parameterType="qna">
+		insert into board( 
+			type, title, cont, date, uno 
+		)values( 
+			${type}, #{title}, #{content}, now(), #{uNo}
+		)
+	</insert>
+	
+	<select id="listQna" resultMap="qnaMap">
+		select 
+			    bno, title, ans_flag, type,
+			    date_format(date, "%Y %b %e") date, u.name
+		  from board b, user u
+		  where b.uno=u.uno and b.uno=#{uno}
+		order by bno DESC
+	</select>
+	
+	<select id="detailQna" resultMap="qnaMap" parameterType="qna">
+		select 
+				title, type, date_format(date, "%Y %b %e") date, cont
+			from board	 
+		where bno = #{bno}
+	</select>
+	
+	
+	
+</mapper>
