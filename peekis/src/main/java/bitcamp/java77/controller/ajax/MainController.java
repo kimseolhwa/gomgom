@@ -6,14 +6,15 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java77.dao.MainDao;
 import bitcamp.java77.domain.AjaxResult;
+import bitcamp.java77.domain.Comment;
 import bitcamp.java77.domain.Join;
 import bitcamp.java77.domain.Wish;
 
@@ -116,4 +117,29 @@ public class MainController
 		MainDao.follower(paramMap);
 		return new AjaxResult("success", null);
 	}
+	
+	
+	// 코멘트 등록
+		@RequestMapping(value = "addComment", method = RequestMethod.POST)
+		public AjaxResult addComment(Comment comment,HttpServletRequest req) throws Exception {
+			
+//			CREATE TABLE `COMMENT` (
+//				`CONO` INTEGER      NOT NULL, -- 댓글번호 오토
+//				`WNO`  INTEGER      NOT NULL, -- 위시번호
+//				`UNO`  INTEGER      NOT NULL, -- 유저번호
+//				`CONT` VARCHAR(255) NOT NULL, -- 댓글내용
+//				`DATE` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP on update current_timestamp  -- 댓글작성시간
+//			);
+
+			Join join = (Join) req.getSession().getAttribute("loginUser");
+			comment.setuNo(join.getuNo());
+			
+			MainDao.insertComment(comment);
+			
+			
+			return new AjaxResult("success", null);
+		}
+	
+	
+	
 }
