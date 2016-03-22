@@ -90,6 +90,18 @@ $("#goLogout").on("click",function(){
 	location.href = contextRoot + "/auth/joinForm.html";
 			
 })
+
+// 새  패스워드 확인
+function checkPasswordMatch(){
+	var newPwd = $("#newPwd").val();
+	var newPwdCk = $("#newPwdCk").val();
+	 
+	if (newPwd != newPwdCk)
+	        $("#divCheckPasswordMatch").find("h6").text("Passwords do not match!");
+	    else
+	        $("#divCheckPasswordMatch").find("h6").text("");
+}
+
 </script>
 <style>
 .modal-header{
@@ -228,9 +240,7 @@ div#viewLoading {
             </div>
           </div>
           
-          
           <hr>
-          
           
           	<!-- 로딩 이미지 -->
 				<div id="viewLoading">
@@ -243,8 +253,6 @@ div#viewLoading {
               <input class="form-control" type="text" value="userName" id="updateName" name="name">
             </div>
           </div>
-          
-          
          
           
           <hr>
@@ -272,9 +280,16 @@ div#viewLoading {
           <div class="form-group">
             <label class="col-md-3 control-label">새 비밀번호 확인</label>
             <div class="col-md-8">
-              <input class="form-control" type="password" value="">
+              <input class="form-control" type="password" value="" id="newPwdCk" name="newPwdCk"  onkeyup="checkPasswordMatch();">
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label"></label>
+            <div class="col-md-8" id="divCheckPasswordMatch">
+				<h6 style="color: red;"></h6>
+            </div>
+          </div>
+
          </div>
           
         </form>
