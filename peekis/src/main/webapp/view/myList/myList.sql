@@ -22,7 +22,7 @@ select * from `LIKE` where uno='2';
 select * from SEND;
 select * from follower;
 select min(cno) from category where uno='2'
-delete from wish where cno='1';
+delete from follower where uno2='2';
 delete from `LIKE` where lno<='22';
 
 select *
@@ -34,3 +34,4 @@ select wish.*, user.name as userName, user.pho as userPho
 		  from wish, user
 		 where wish.uno=user.uno
 		 order by wno desc
+		 
