@@ -58,12 +58,10 @@
 					}).done(function(resultObj) {
 						console.log(resultObj.ajaxResult.data.join.name)	
 						console.log(resultObj.ajaxResult.data.comment.cont)	
-
 							
-   $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
-                       "<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-                       "<p>"+ resultObj.ajaxResult.data.comment.cont +"</p><br>");
-
+//    $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
+//                        "<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
+//                        "<p>"+ resultObj.ajaxResult.data.comment.cont +"</p><br>");
 						
 					})
 					
@@ -225,7 +223,10 @@
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo} , 
 						function( resultObj ) {
 							var wish = resultObj.data;
+							var cList = resultObj.commentList;
 							console.log(wish);
+// 							console.log("cList : ", cList.length);    리스트가 왔으니 반복문으로 호출해야한다.
+							
 							$("#detailmodal-no").html( wish.no );
 							$("#detailmodal-uno").html( wish.uno );
 							var path = wish.path;
