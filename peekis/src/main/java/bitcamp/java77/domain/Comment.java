@@ -20,11 +20,26 @@ public class Comment implements Serializable {
 	protected int wNo;
 	protected int uNo;
 	protected String cont;
+	protected String userPho;
+	protected String userName;
 	
 	//get,set
 	
+	
 	public int getCoNo() {
 		return coNo;
+	}
+	public String getUserPho() {
+		return userPho;
+	}
+	public void setUserPho(String userPho) {
+		this.userPho = userPho;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public void setCoNo(int coNo) {
 		this.coNo = coNo;
