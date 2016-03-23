@@ -1,7 +1,7 @@
 drop database java77db;
 create database java77db;
 
-select * from wish;
+select * from comment;
 
 select count(*)as allCnt from wish;
 
