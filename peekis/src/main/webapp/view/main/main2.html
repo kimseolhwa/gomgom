@@ -59,9 +59,9 @@
 						console.log(resultObj.ajaxResult.data.join.name)	
 						console.log(resultObj.ajaxResult.data.comment.cont)	
 							
-//    $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
-//                        "<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-//                        "<p>"+ resultObj.ajaxResult.data.comment.cont +"</p><br>");
+  			 $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
+                       "<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
+                       "<span>"+ resultObj.ajaxResult.data.comment.cont +"</span><br>");
 						
 					})
 					
@@ -231,15 +231,14 @@
 							if(cList.length>0){
 								
 							console.log("cList : ", cList);    
+							
 							var html=""
 							
-							for(var i = 0 ; i< cList.length ; i++ ){
-								    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-								    html += "<a>"+ cList[0].userName +"</a>"
-								    html += "<span>"+ cList[0].cont +"</span>"
-							}
+							    html += "<img src="+ filePath + cList[0].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+							    html += "<a>"+ cList[0].userName +"</a>"
+							    html += "<span>"+ cList[0].cont +"</span>"
 							
-							$("#tab1").append(html)
+							$("#tab1").html(html)
 							
 							}
 							
