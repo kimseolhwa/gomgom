@@ -1,6 +1,7 @@
 package bitcamp.java77.controller.ajax;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -74,6 +75,15 @@ public class MainController
 	public Object detail(int no, int uno) throws Exception
 	{
 		Wish wish = MainDao.selectOne(no);
+		
+		// 코멘트 리스트 		
+		List<Comment> comment = MainDao.selectComentList(no);
+		
+//		Iterator<Comment> it = comment.iterator();
+//		while(it.hasNext()){
+//			System.out.println(it.next().getCont());
+//		}
+		
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("uno", uno);
 		paramMap.put("wishUserNo", wish.getUno());
@@ -83,6 +93,9 @@ public class MainController
 		resultMap.put("status", "success");
 		resultMap.put("data", wish);
 		resultMap.put("followerCheck", followerCheck);
+		resultMap.put("commentList", comment);
+		
+		
 		return resultMap;
 	}
 	
