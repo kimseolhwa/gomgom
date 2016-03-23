@@ -113,7 +113,7 @@
 	<delete id="unfollower" parameterType="map">
 		delete
 		  from follower
-		 where uno=#{uno} and uno2=#{wishUserNo}
+		 where uno=#{toUser} and uno2=#{fromUser}
 	</delete>
 	
 	
