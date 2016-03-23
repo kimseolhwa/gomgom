@@ -122,4 +122,13 @@
 		insert into comment (wno, uno,cont) 
 		values(#{wNo}, #{uNo},#{cont})
 	</insert>
+	
+	<!--  코멘트 리스트 -->
+	<select id="selectComentList"  parameterType="int" resultType="comment">
+		select cono,wno,uno,cont
+		  from comment
+		 where wno=#{wNo}
+		 order by cono desc
+	</select>
+	
 </mapper>
