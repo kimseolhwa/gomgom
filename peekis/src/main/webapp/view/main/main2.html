@@ -220,12 +220,28 @@
 				$container.on( 'click', '.detail', function() {
 					var wishNo = $(this).closest('.item').find('.no').val();
 					var uNo = Number($('#UserNo').text());
+					
+					
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo} , 
 						function( resultObj ) {
 							var wish = resultObj.data;
 							var cList = resultObj.commentList;
 							console.log(wish);
-// 							console.log("cList : ", cList.length);    리스트가 왔으니 반복문으로 호출해야한다.
+							
+							if(cList!=null){
+							console.log("cList : ", cList.length);    
+
+							$(this).each(function(index,element){
+								
+								$("#tab1").html("<img src="+ filePath + wish.userPho +"></img")
+								
+							})
+							
+								
+							}
+							
+							
+							
 							
 							$("#detailmodal-no").html( wish.no );
 							$("#detailmodal-uno").html( wish.uno );
