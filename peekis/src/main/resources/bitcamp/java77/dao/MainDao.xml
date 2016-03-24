@@ -128,11 +128,13 @@
 		 where uno=#{toUser} and uno2=#{fromUser}
 	</delete>
 	
-	
 	<!-- 코멘트 등록 -->
 	<insert id="insertComment" parameterType="comment">
 		insert into comment (wno, uno,cont) 
 		values(#{wNo}, #{uNo},#{cont})
+		<selectKey keyProperty="coNo" resultType="int">
+		  select last_insert_id()
+		</selectKey>
 	</insert>
 	
 	<!--  코멘트 리스트 -->
