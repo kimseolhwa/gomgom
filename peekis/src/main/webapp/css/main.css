@@ -275,6 +275,8 @@ body {
 
 .item-modal .modal-dialog {
 	width: 890px !important;
+	background-color: white;
+	z-index: 2000;
 }
 
 .item-modal .modal-body {
