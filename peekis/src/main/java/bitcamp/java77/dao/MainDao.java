@@ -35,7 +35,7 @@ public interface MainDao
 
 	public int unfollower(HashMap<String, Integer> paramMap);
 
-	public void insertComment(Comment comment);
+	public int insertComment(Comment comment);
 
 	public List<Comment> selectComentList(int no);
 
