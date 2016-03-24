@@ -533,7 +533,8 @@ footer {
 	color: gray;
 	font-size: large;
 	cursor: pointer;
-	text-align: center; 
+	vertical-align: middle;
+	text-align: center;
 }
 
 
