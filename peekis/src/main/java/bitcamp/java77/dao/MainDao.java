@@ -40,4 +40,6 @@ public interface MainDao
 	public List<Comment> selectComentList(int no);
 
 	public List<Wish> selectSearchList(HashMap<String, Object> paramMap);
+
+	public void delComment(Comment comment);
 }
