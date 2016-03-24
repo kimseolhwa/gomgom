@@ -1,7 +1,7 @@
 drop database java77db;
 create database java77db;
 
-select * from comment;
+select * from wish;
 
 select count(*)as allCnt from wish;
 
@@ -14,12 +14,17 @@ select count(*)as gCnt from wish where buy = 'y';
 ALTER TABLE board ADD `type` int(11)  NOT NULL;
 ALTER TABLE board ADD `ans_flag` char(1) NOT NULL;
 
+ALTER TABLE board ADD `COM_CONT`  VARCHAR(255) NULL;
+
 update board
 set type = 4
 where type = 0;
 
 ALTER TABLE `java77db`.`board` 
 CHANGE COLUMN `ans_flag` `ans_flag` CHAR(1) NOT NULL DEFAULT 'n' ;
+-----------------------------------------------------
+ALTER TABLE board
+DROP COLUMN COM_CONT;
 
 select * from board;
 
@@ -258,7 +263,7 @@ ALTER TABLE `USER_TAG`
 
 -- 위시리스트
 ALTER TABLE `WISH`
-	ADD CONSTRAINT `FK_CATEGORY_TO_WISH` --1 카테고리 -> 위시리스트 1
+	ADD CONSTRAINT `FK_CATEGORY_TO_WISH` -- 카테고리 -> 위시리스트
 		FOREIGN KEY (
 			`CNO` -- 카테고리번호
 		)
@@ -268,7 +273,7 @@ ALTER TABLE `WISH`
 
 -- 게시판
 ALTER TABLE `BOARD`
-	ADD CONSTRAINT `FK_USER_TO_BOARD` --2 유저 -> 게시판
+	ADD CONSTRAINT `FK_USER_TO_BOARD` -- 유저 -> 게시판
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -278,7 +283,7 @@ ALTER TABLE `BOARD`
 
 -- 팔로워팔로잉
 ALTER TABLE `FOLLOWER`
-	ADD CONSTRAINT `FK_USER_TO_FOLLOWER` --3 유저 -> 팔로워팔로잉
+	ADD CONSTRAINT `FK_USER_TO_FOLLOWER` -- 유저 -> 팔로워팔로잉
 		FOREIGN KEY (
 			`UNO` -- toUser
 		)
@@ -288,7 +293,7 @@ ALTER TABLE `FOLLOWER`
 
 -- 팔로워팔로잉
 ALTER TABLE `FOLLOWER`
-	ADD CONSTRAINT `FK_USER_TO_FOLLOWER2` --4 유저 -> 팔로워팔로잉2
+	ADD CONSTRAINT `FK_USER_TO_FOLLOWER2` -- 유저 -> 팔로워팔로잉2
 		FOREIGN KEY (
 			`UNO2` -- fromUser
 		)
@@ -298,7 +303,7 @@ ALTER TABLE `FOLLOWER`
 
 -- 좋아요
 ALTER TABLE `LIKE`
-	ADD CONSTRAINT `FK_WISH_TO_LIKE` --5 위시리스트 -> 좋아요
+	ADD CONSTRAINT `FK_WISH_TO_LIKE` -- 위시리스트 -> 좋아요
 		FOREIGN KEY (
 			`WNO` -- 위시번호
 		)
@@ -308,7 +313,7 @@ ALTER TABLE `LIKE`
 
 -- 좋아요
 ALTER TABLE `LIKE`
-	ADD CONSTRAINT `FK_USER_TO_LIKE` --6 유저 -> 좋아요
+	ADD CONSTRAINT `FK_USER_TO_LIKE` -- 유저 -> 좋아요
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -318,7 +323,7 @@ ALTER TABLE `LIKE`
 
 -- 댓글
 ALTER TABLE `COMMENT`
-	ADD CONSTRAINT `FK_WISH_TO_COMMENT` --7 위시리스트 -> 댓글
+	ADD CONSTRAINT `FK_WISH_TO_COMMENT` -- 위시리스트 -> 댓글
 		FOREIGN KEY (
 			`WNO` -- 위시번호
 		)
@@ -328,7 +333,7 @@ ALTER TABLE `COMMENT`
 
 -- 댓글
 ALTER TABLE `COMMENT`
-	ADD CONSTRAINT `FK_USER_TO_COMMENT` --8 유저 -> 댓글
+	ADD CONSTRAINT `FK_USER_TO_COMMENT` -- 유저 -> 댓글
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -338,7 +343,7 @@ ALTER TABLE `COMMENT`
 
 -- 카테고리
 ALTER TABLE `CATEGORY`
-	ADD CONSTRAINT `FK_USER_TO_CATEGORY` --9 유저 -> 카테고리
+	ADD CONSTRAINT `FK_USER_TO_CATEGORY` -- 유저 -> 카테고리
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -348,7 +353,7 @@ ALTER TABLE `CATEGORY`
 
 -- 담아가기
 ALTER TABLE `SEND`
-	ADD CONSTRAINT `FK_WISH_TO_SEND` --10 위시리스트 -> 담아가기
+	ADD CONSTRAINT `FK_WISH_TO_SEND` -- 위시리스트 -> 담아가기
 		FOREIGN KEY (
 			`WNO` -- 위시번호
 		)
@@ -358,7 +363,7 @@ ALTER TABLE `SEND`
 
 -- 담아가기
 ALTER TABLE `SEND`
-	ADD CONSTRAINT `FK_USER_TO_SEND` --11 유저 -> 담아가기
+	ADD CONSTRAINT `FK_USER_TO_SEND` -- 유저 -> 담아가기
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -368,7 +373,7 @@ ALTER TABLE `SEND`
 
 -- 유저&태그
 ALTER TABLE `USER_TAG`
-	ADD CONSTRAINT `FK_USER_TO_USER_TAG` --12 유저 -> 유저&태그
+	ADD CONSTRAINT `FK_USER_TO_USER_TAG` -- 유저 -> 유저&태그
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -378,7 +383,7 @@ ALTER TABLE `USER_TAG`
 
 -- 유저&태그
 ALTER TABLE `USER_TAG`
-	ADD CONSTRAINT `FK_TAG_TO_USER_TAG` --13 태그 -> 유저&태그
+	ADD CONSTRAINT `FK_TAG_TO_USER_TAG` -- 태그 -> 유저&태그
 		FOREIGN KEY (
 			`TNO` -- 태그번호
 		)
@@ -389,7 +394,7 @@ ALTER TABLE `USER_TAG`
 ----------------------------------------------------------
 ALTER TABLE WISH ADD UNO INTEGER;
 ALTER TABLE `WISH`
-	ADD CONSTRAINT `FK_USER_TO_WISH` --14 유저 -> 위시리스트
+	ADD CONSTRAINT `FK_USER_TO_WISH` -- 유저 -> 위시리스트
 		FOREIGN KEY (
 			`UNO` -- 유저번호
 		)
@@ -397,23 +402,8 @@ ALTER TABLE `WISH`
 			`UNO` -- 유저번호
 		);
 ----------------------------------------------------------
------------------- 외래키 속성 변경  ---------------------------
------------------------------------------------------------ 5
-ALTER TABLE  `LIKE` DROP FOREIGN KEY  `FK_WISH_TO_LIKE` ;
-ALTER TABLE  `LIKE` ADD CONSTRAINT `FK_WISH_TO_LIKE` FOREIGN KEY (  `WNO` ) REFERENCES  `WISH` (
-`WNO`
-) ON DELETE CASCADE ON UPDATE CASCADE;		
------------------------------------------------------------ 7
-ALTER TABLE  `COMMENT` DROP FOREIGN KEY  `FK_WISH_TO_COMMENT` ;
-ALTER TABLE  `COMMENT` ADD CONSTRAINT `FK_WISH_TO_COMMENT` FOREIGN KEY (  `WNO` ) REFERENCES  `WISH` (
-`WNO`
-) ON DELETE CASCADE ON UPDATE CASCADE;
------------------------------------------------------------ 10
-ALTER TABLE  `SEND` DROP FOREIGN KEY  `FK_WISH_TO_SEND` ;
-ALTER TABLE  `SEND` ADD CONSTRAINT `FK_WISH_TO_SEND` FOREIGN KEY (  `WNO` ) REFERENCES  `WISH` (
-`WNO`
-) ON DELETE CASCADE ON UPDATE CASCADE;
-----------------------------------------------------------
+
+		
 --여성
 insert into tag (tno,name,tfpath ) values (1,"여성","/peekis/view/register/img/woman.jpg");
 
