@@ -79,7 +79,7 @@ public class MainController
 	public Object detail(int no, int uno) throws Exception
 	{
 		Wish wish = MainDao.selectOne(no);
-		
+
 		// 코멘트 리스트 		
 		List<Comment> comment = MainDao.selectComentList(no);
 		
