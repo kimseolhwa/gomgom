@@ -79,7 +79,7 @@ public class MainController
 	public Object detail(int no, int uno) throws Exception
 	{
 		Wish wish = MainDao.selectOne(no);
-
+		
 		// 코멘트 리스트 		
 		List<Comment> comment = MainDao.selectComentList(no);
 		
@@ -184,54 +184,60 @@ public class MainController
 		return new AjaxResult("success", paramCom);
 	}
 	
-	  @RequestMapping("searchList")
-	  public Object searchList(@RequestParam(defaultValue="1") int pageNo, String tag, HttpServletRequest req) throws Exception {
-		  tag = "#"+ tag;
-		  String tags[] = tag.replaceAll(" ", "@#").split("@");
-		  for(String str : tags){
-			  System.out.println(str);
-		  }
-		  Join join = (Join) req.getSession().getAttribute("loginUser");
-		  
-		  int pageSize = 10;
-		  HashMap<String,Object> paramMap = new HashMap<>();
-		  paramMap.put("startIndex", (pageNo - 1) * pageSize);
-		  paramMap.put("length", pageSize);
-		  paramMap.put("tag", "%" + tags[0] + "%");
-		  System.out.println("pageNo : " + pageNo);
-		  List<Wish> wishs = MainDao.selectSearchList(paramMap);
-		  List<Wish> list = new ArrayList<>();
-		  
-		  for(int i = 1; i < tags.length; i++){
-			  if(i%2 == 1){
-				  for(Wish wish : wishs){
-					  if(wish.getTag().contains(tags[i])){
-						  list.add(wish);
-					  }
-				  }
-				  wishs.clear();
-			  }
-			  else if(i%2 == 0){
-				  for(Wish wish : list){
-					  if(wish.getTag().contains(tags[i])){
-						  wishs.add(wish);
-					  }
-				  }
-				  list.clear();
-			  }
-			  
-		  }
+	// 태그검색
+	@RequestMapping("searchList")
+	public Object searchList(@RequestParam(defaultValue="1") int pageNo, String tag, HttpServletRequest req) throws Exception {
+		tag = "#"+ tag;
+		String tags[] = tag.replaceAll(" ", "@#").split("@");
+		/*for(String str : tags){
+			System.out.println(str);
+		}*/
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		HashMap<String,Object> paramMap = new HashMap<>();
+	    paramMap.put("tag", "%" + tags[0] + "%");
+		List<Wish> wishs = MainDao.selectSearchList(paramMap);
+		List<Wish> list = new ArrayList<>();
+		
+		
+		// 두번째 ,세번째...태그 필터
+		for(int i = 1; i < tags.length; i++){
+			if(i%2 == 1){
+				for(Wish wish : wishs){
+					if(wish.getTag().contains(tags[i]))		list.add(wish);
+				}
+				wishs.clear();
+			}
+			else if(i%2 == 0){
+				for(Wish wish : list){
+					if(wish.getTag().contains(tags[i]))		wishs.add(wish);
+				}
+				list.clear();
+			}
+		}
 		  
 		  List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
 		  List<Integer> sendList = MainDao.selectsendList(join.getuNo());
 		  HashMap<String,Object> resultMap = new HashMap<>();
 		  resultMap.put("status", "success");
-		  resultMap.put("data", wishs);
-		  if(tags.length % 2 == 0)	  resultMap.put("data", list);
+		  resultMap.put("data", searchPage(pageNo, tags.length % 2 == 0 ? list : wishs));
 		  resultMap.put("loginUser", join);
 		  resultMap.put("like", likeList);
 		  resultMap.put("send", sendList);
 		  
 		  return resultMap;
 	  }
+	  
+	// 태그검색 페이징
+	private List<Wish> searchPage(int pageNo, List<Wish> list){
+		int startIndex = (pageNo - 1) * 10;
+		int endIndex = startIndex + 10;
+		endIndex = (list.size() <= endIndex  ? list.size() : endIndex);
+		System.out.println("[list size] : " + list.size());
+		System.out.println("[pageNo = " + pageNo + "][startIndex = " + startIndex + "][endIndex = " + endIndex + "]");
+		List<Wish> wishs = new ArrayList<>();
+		for(int i=startIndex; i < endIndex; i++){
+			wishs.add(list.get(i));
+		}
+		return wishs;
+	}
 }
