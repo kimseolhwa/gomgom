@@ -136,6 +136,13 @@
 		  select last_insert_id()
 		</selectKey>
 	</insert>
+
+	<!-- 코멘트 삭제 -->
+	<delete id="delComment" parameterType="comment">
+		delete 
+		from comment
+		where cono = #{coNo}
+	</delete>
 	
 	<!--  코멘트 리스트 -->
 	<select id="selectComentList"  parameterType="int" resultType="comment">
@@ -144,9 +151,6 @@
 		 where comment.wno=#{wNo} and comment.uno=user.uno
 		 order by cono desc
 	</select>
-	
-	
-	
 	
 	<!-- 검색 게시글 불러오기(페이징) -->
 	<select id="selectSearchList" resultMap="wishMap" parameterType="map">
