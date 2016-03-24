@@ -108,9 +108,11 @@
 		             percentPosition : true,
 		             masonry: { columnWidth : 1, rowHeight: 1 }
 		          });
-		          $container.imagesLoaded().progress(function() {
-		        	  $container.isotope();
+		        var sort = function(){
+		          $container.imagesLoaded(function() {
+		          	$container.isotope();
 		          });
+		        }
 		          
 		        /* 리스트 불러오기 */
 		        var getParameter = function(url) {
@@ -155,6 +157,7 @@
 			   					$items = $(cloneContent);
 			   					$container.append( $items ).isotope( 'appended', $items );			
 		   			  	}
+			   			sort();
 			   			for (var like of resultObj.like){
 			   				$('.' + like).find('.undoheart').css('display','block');
 			   				$('.' + like).find('.heart').css('display','none');

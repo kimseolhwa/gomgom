@@ -110,9 +110,11 @@ $(document).ready(function() {
        percentPosition : true,
        masonry: { columnWidth : 1, rowHeight: 1 }
     });
-    $container.imagesLoaded().progress(function() {
-  	  $container.isotope();
-    });
+    var sort = function(){
+  	  $container.imagesLoaded(function() {
+  	  	$container.isotope();
+  	  });
+    }
 	
 	/* 리스트 불러오기 */
 	nextPage(1);
@@ -150,6 +152,7 @@ $(document).ready(function() {
  					$items = $(cloneContent);
  					$container.append( $items ).isotope( 'appended', $items );			
 			  	}
+			sort();
 		});
 	}
 	

@@ -261,9 +261,12 @@
              itemSelector : '.item',
              percentPosition : true
           });
-          $container.imagesLoaded(function() {
-        	  $container.isotope();
-          });
+          
+          var sort = function(){
+        	  $container.imagesLoaded(function() {
+        	  	$container.isotope();
+        	  });
+          }
 			
           /* 구매여부 토글 */
           $(document).on("click", ".buy", function(){
@@ -314,6 +317,7 @@
    					$items = $(cloneContent);
    					$container.append( $items ).isotope( 'appended', $items );			
    			  	}
+        		 sort();
    			});
         	
         }
