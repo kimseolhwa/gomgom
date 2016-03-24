@@ -173,7 +173,9 @@ public class MainController
 
 		Join join = (Join) req.getSession().getAttribute("loginUser");
 		comment.setuNo(join.getuNo());
-		MainDao.insertComment(comment);
+		 MainDao.insertComment(comment);
+		System.out.println("comment.getCoNo() : "  + comment.getCoNo());
+		
 		
 		HashMap<String,Object> paramCom = new HashMap<>();
 		
