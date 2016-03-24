@@ -127,7 +127,7 @@
 	<select id="selectComentList"  parameterType="int" resultType="comment">
 		select cono,comment.wno,comment.uno,cont, user.pho as userPho, user.name as userName
 		  from comment, user
-		 where comment.wno=#{wNo}
+		 where comment.wno=#{wNo} and comment.uno=user.uno
 		 order by cono desc
 	</select>
 	
