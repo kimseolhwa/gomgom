@@ -185,6 +185,16 @@ public class MainController
 			
 		return new AjaxResult("success", paramCom);
 	}
+	// 코멘트 삭제
+	@RequestMapping(value = "delComment", method = RequestMethod.POST)
+	public AjaxResult delComment(Comment comment) throws Exception {
+		
+		System.out.println(comment.getCoNo());
+		
+		MainDao.delComment(comment);
+		
+		return new AjaxResult("success", null);
+	}
 	
 	// 태그검색
 	@RequestMapping("searchList")
