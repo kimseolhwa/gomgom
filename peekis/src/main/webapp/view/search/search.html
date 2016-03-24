@@ -120,13 +120,12 @@
 					return paramText;
 				};
 				var pageParam = getParameter(document.location.href);
+				$("#searchText").val(pageParam);
 				nextPage(1, pageParam);
-		        alert(pageParam);
-
 		        $(window).scroll(function(){
 		        	var scrollHeight = $(window).scrollTop() + $(window).height();
 		        	var documentHeight = $(document).height();
-		        	if(scrollHeight >= documentHeight -100){
+		        	if(scrollHeight >= documentHeight -150){
 		        		console.log('스크롤 이벤트 발생');
 		        		var pageNo = Number($('#pageNo').text()) +1;
 		        		nextPage(pageNo, pageParam);

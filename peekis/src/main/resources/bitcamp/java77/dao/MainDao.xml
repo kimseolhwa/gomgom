@@ -157,7 +157,6 @@
 			<when test="keyword == 'price'">price </when>
 			<otherwise>wno desc</otherwise>
 		</choose>
-		limit #{startIndex}, #{length}
 	</select>
 	
 </mapper>
