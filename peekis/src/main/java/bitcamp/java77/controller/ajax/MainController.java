@@ -55,20 +55,21 @@ public class MainController
 	}
 	
 	@RequestMapping("selectUserList")
-	public Object selectUserList(@RequestParam(defaultValue="1") int modalPageNo, HttpServletRequest req) throws Exception {
+	public Object selectUserList(@RequestParam(defaultValue="1") int modalPageNo, HttpServletRequest req, int uno) throws Exception {
 		Join join = (Join) req.getSession().getAttribute("loginUser");
 		
 		int pageSize = 10;
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("startIndex", (modalPageNo - 1) * pageSize);
 		paramMap.put("length", pageSize);
+		paramMap.put("uno", uno);
 		System.out.println("modalPageNo : " + modalPageNo);
-		List<Wish> wishs = MainDao.selectUserList(paramMap);
+		List<Wish> modalWishs = MainDao.selectUserList(paramMap);
 		List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
 		
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
-		resultMap.put("data", wishs);
+		resultMap.put("data", modalWishs);
 		resultMap.put("loginUser", join);
 		resultMap.put("like", likeList);
 		return resultMap;
