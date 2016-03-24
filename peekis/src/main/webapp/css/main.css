@@ -517,6 +517,28 @@ footer {
 }
 
 
+/* 코멘트 딜리트 버튼 */
+#commentDelBtn:HOVER{
+	color: black;
+	border: 1px solid gray;
+	border-radius:20%;
+	cursor: pointer; 
+}
+
+#commentDelBtn:ACTIVE{
+	background-color: gray;
+}
+
+#commentDelBtn{
+	color: gray;
+	font-size: large;
+	cursor: pointer;
+	text-align: center; 
+}
+
+
+
+
 @media only screen and ( max-width: 2099px ) {
 	.item_container {
 		width: 1840px;
