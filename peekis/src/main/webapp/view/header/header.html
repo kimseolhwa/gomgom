@@ -6,23 +6,22 @@
 
 // 정보수정 클릭하면 사용자 정보를 가져와서 폼으로 불러들인다.
 $("#mypage-btn").on("click",function(){
-	 	
-		$.getJSON('/peekis/auth/ajax/userInfo.do', function(resultObj) {
-			var userInfo = resultObj.ajaxResult.data;
-			console.log(userInfo)			
-			//유저번호 
-			$("#userNo").val(userInfo.uNo)			
-			// 사용자 이름
-			$("#updateName").val(userInfo.name)			
-			// 이메일 주소
-			$("#updateUserEmail").val(userInfo.email)
-			$("#updateUserEmail").attr("readonly",true)
-			// 사진			
-			if(userInfo.pho!=null){				
-				$("#avatarImg").attr("src",filePath + userInfo.pho)
-			}			
-			console.log(userInfo.pho)
- 		})	
+	$.getJSON('/peekis/auth/ajax/userInfo.do', function(resultObj) {
+		var userInfo = resultObj.ajaxResult.data;
+		console.log(userInfo)			
+		//유저번호 
+		$("#userNo").val(userInfo.uNo)			
+		// 사용자 이름
+		$("#updateName").val(userInfo.name)			
+		// 이메일 주소
+		$("#updateUserEmail").val(userInfo.email)
+		$("#updateUserEmail").attr("readonly",true)
+		// 사진			
+		if(userInfo.pho!=null){				
+			$("#avatarImg").attr("src",filePath + userInfo.pho)
+		}
+		console.log(userInfo.pho)
+	})	
 });
 
 // 사진변경 시 로딩될 때 로딩이미지 
@@ -82,13 +81,11 @@ $("#goUpdate").on("click",function(){
 
 //로그아웃처리
 $("#goLogout").on("click",function(){
-	
 	$.ajax({
 		url: contextRoot + '/auth/ajax/logout.do',
 		success: function(data){alert("Logout");}
 	})	
 	location.href = contextRoot + "/auth/joinForm.html";
-			
 })
 
 // 새  패스워드 확인
@@ -102,6 +99,11 @@ function checkPasswordMatch(){
 	        $("#divCheckPasswordMatch").find("h6").text("");
 }
 
+// 검색
+$("#searchBtn").on("click",function(){
+	event.preventDefault();
+	location.href = contextRoot + "/view/search/search.html?" + $("#searchText").val();
+})
 
 </script>
 <style>
@@ -119,16 +121,12 @@ div#viewLoading {
 	z-index: 2;
 }
 
-</style>
-
-
-<style type="text/css">
-    @media screen and (min-width: 550px) {
-        .modal-dialog {
-          width: 550px; /* New width for default modal */
-          height: 510px;
-        }
+@media screen and (min-width: 550px) {
+    .modal-dialog {
+      width: 550px; /* New width for default modal */
+      height: 510px;
     }
+}
 </style>
 
 <!-- header 헤더 -->
@@ -146,7 +144,7 @@ div#viewLoading {
 			        	<div class="form-group">
 			         	 <input id="searchText" type="text" class="form-control" placeholder="Search">
 			        	</div>
-			       		 <button type="submit" class="btn btn-default">Submit</button>
+			       		 <button id="searchBtn" class="btn btn-default search">Submit</button>
 		      		</form>
 				</div>
 				
@@ -168,7 +166,6 @@ div#viewLoading {
 												 <a href="#"><button id="mypage-btn" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">정보수정</button></a>
 										</div>
 										
-										
 										<p align="center"></p>
 										<form class="form" role="form" method="post" action="login"
 											accept-charset="UTF-8" id="login-nav">
@@ -183,7 +180,7 @@ div#viewLoading {
 										</form>
 									</div>
 									<div class="bottom text-center" id="goLogout">
-										<a id="logout" href="#register.html"><b>LOGOUT</b></a>
+										<a id="logout"><b>LOGOUT</b></a>
 									</div>
 								</div>
 							</li>

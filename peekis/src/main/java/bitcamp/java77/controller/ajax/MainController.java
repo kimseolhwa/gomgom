@@ -1,8 +1,11 @@
 package bitcamp.java77.controller.ajax;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -179,4 +182,55 @@ public class MainController
 			
 		return new AjaxResult("success", paramCom);
 	}
+	
+	  @RequestMapping("searchList")
+	  public Object searchList(@RequestParam(defaultValue="1") int pageNo, String tag, HttpServletRequest req) throws Exception {
+		  tag = "#"+ tag;
+		  String tags[] = tag.replaceAll(" ", "@#").split("@");
+		  for(String str : tags){
+			  System.out.println(str);
+		  }
+		  Join join = (Join) req.getSession().getAttribute("loginUser");
+		  
+		  int pageSize = 10;
+		  HashMap<String,Object> paramMap = new HashMap<>();
+		  paramMap.put("startIndex", (pageNo - 1) * pageSize);
+		  paramMap.put("length", pageSize);
+		  paramMap.put("tag", "%" + tags[0] + "%");
+		  System.out.println("pageNo : " + pageNo);
+		  List<Wish> wishs = MainDao.selectSearchList(paramMap);
+		  List<Wish> list = new ArrayList<>();
+		  
+		  for(int i = 1; i < tags.length; i++){
+			  if(i%2 == 1){
+				  for(Wish wish : wishs){
+					  if(wish.getTag().contains(tags[i])){
+						  list.add(wish);
+					  }
+				  }
+				  wishs.clear();
+			  }
+			  else if(i%2 == 0){
+				  for(Wish wish : list){
+					  if(wish.getTag().contains(tags[i])){
+						  wishs.add(wish);
+					  }
+				  }
+				  list.clear();
+			  }
+			  
+		  }
+		  
+		  List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
+		  List<Integer> sendList = MainDao.selectsendList(join.getuNo());
+		  HashMap<String,Object> resultMap = new HashMap<>();
+		  resultMap.put("status", "success");
+		  resultMap.put("data", wishs);
+		  if(tags.length % 2 == 0)	  resultMap.put("data", list);
+		  resultMap.put("loginUser", join);
+		  resultMap.put("like", likeList);
+		  resultMap.put("send", sendList);
+		  
+		  return resultMap;
+	  }
 }

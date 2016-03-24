@@ -61,17 +61,17 @@
 	
 	
   	<!-- 게시글 삭제하기 -->
-	<delete id="delete" parameterType="map">
+	<delete id="delete">
 		delete from wish where wno=#{no}
 	</delete>
 	
   	<!-- 게시글 좋아요 삭제하기 -->
-	<delete id="deleteLike" parameterType="map">
+	<delete id="deleteLike">
 		delete from `like` where wno=#{no}
 	</delete>
 	
   	<!-- 게시글 담아가기 내역 삭제하기 (담아가기 테이블에서만 삭제됨, 담아가기 한 유저의 테이블에는 게시글이 남아있음) -->
-	<delete id="deleteSend" parameterType="map">
+	<delete id="deleteSend">
 		delete from send where wno=#{no}
 	</delete>
   

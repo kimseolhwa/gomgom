@@ -18,7 +18,7 @@ public interface WishDao {
   List<Wish> selectList(HashMap<String,Object> paramMap);
   
   List<Wish> selectLikeList(HashMap<String, Object> paramMap);
-
+  
   int selectWishCnt(int uno);
   
   int selectLikeCnt(int uno);
@@ -37,6 +37,7 @@ public interface WishDao {
   Wish selectOne(int no);
 
   int updateBuy(Wish wish);
+
 
 
 

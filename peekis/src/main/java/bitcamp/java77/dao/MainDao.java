@@ -38,4 +38,6 @@ public interface MainDao
 	public void insertComment(Comment comment);
 
 	public List<Comment> selectComentList(int no);
+
+	public List<Wish> selectSearchList(HashMap<String, Object> paramMap);
 }
