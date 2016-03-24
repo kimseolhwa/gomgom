@@ -43,29 +43,51 @@
 <script>
 	$(document).ready(function() {
 				
+				/* 댓글 삭제 */
+				$('body').on('click', "#commentDelBtn", function(){
+					
+					var coNo = $(this).next("#commentNum").val();
+					console.log("coNo : " , coNo)
+					
+					$.ajax({
+						 type: "POST",
+				  		 dataType:"JSON",
+				  	 	 url : contextRoot + "/main/ajax/delComment.do",
+				  	 	 data:{'coNo': coNo}
+					})
+					// 댓글삭제 UI
+					$(this).parent("#comdelsel").remove()
+				
+				});
+		
+		
 				/* 댓글 입력 */
 				$("#insertComment").on("click",function(){
-					var wNo = $("#detailmodal-no").text();
+					 var wNo = $("#detailmodal-no").text();
 					 var comment = $("#commentText").val();
 					 
 					 console.log("wNo: " , wNo)
 					 
 					$.ajax({
-						 type: "POST",
+						  type: "POST",
 				  		  dataType:"JSON",
 				  	 	  url : contextRoot + "/main/ajax/addComment.do",
 				  	 	  data:{'cont': comment, 'wNo' : wNo}
 					}).done(function(resultObj) {
 						console.log(resultObj.ajaxResult.data.join.name)	
 						console.log(resultObj.ajaxResult.data.comment.cont)	
+						console.log(resultObj.ajaxResult.data.comment.coNo)	
+						
 						if(resultObj.ajaxResult.data.join.pho==null){
-  					  $("#tab1").prepend("<img src=../header/img/profileAvatar.jpg class='img-circle'>" +
+  					  $("#tab1").prepend("<div id='comdelsel'><img src=../header/img/profileAvatar.jpg class='img-circle'>" +
                        "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-                       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span><br>");
+                       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>" +
+                        "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" );
 						}else{
   					  $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
                        "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-                       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span><br>");
+                       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"+
+                       "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" ); 
 						}
 					})
 					
@@ -266,24 +288,28 @@
 							
 								if(uNo==cList[i].uNo){
 									if(cList[i].userPho==null){
-										html += "<img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
+										html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
 									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-									    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span></br>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"
+									    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
 									}else{
-									    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "<div id='comdelsel'><img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
 									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-									    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span></br>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"
+									    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
 									}
 								}
 								else{
 									if(cList[i].userPho==null){
-										html += "<img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
+										html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
 									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-									    html += "&nbsp;<span>"+ cList[i].cont +"</span></br>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span>"
+									    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
 									}else{
-									    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "<div id='comdelsel'><img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
 									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-									    html += "&nbsp;<span>"+ cList[i].cont +"</span></br>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span>"
+									    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
 									}
 								}
 							}
@@ -583,8 +609,6 @@
 								<div class="well">
 									<div class="tab-content">
 										<div class="tab-pane fade in active" id="tab1" style="overflow: auto;">
-											<img src="../../image/pro1.jpg" class="img-circle">
-											<p>댓글 내용 표시</p>
 										</div>
 										<div class="tab-pane fade in" id="tab2">
 											<img src="../../image/pro1.jpg" class="img-circle">
