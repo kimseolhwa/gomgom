@@ -58,11 +58,15 @@
 					}).done(function(resultObj) {
 						console.log(resultObj.ajaxResult.data.join.name)	
 						console.log(resultObj.ajaxResult.data.comment.cont)	
-							
+						if(resultObj.ajaxResult.data.join.pho==null){
+  					  $("#tab1").prepend("<img src=../header/img/profileAvatar.jpg class='img-circle'>" +
+                       "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
+                       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span><br>");
+						}else{
   					  $("#tab1").prepend("<img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
-                       "<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-                       "<span>"+ resultObj.ajaxResult.data.comment.cont +"</span><br>");
-						
+                       "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
+                       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span><br>");
+						}
 					})
 					
 				})
@@ -259,9 +263,29 @@
 							
 							var html=""
 							for(var i=0; i<cList.length;i++){
-							    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-							    html += "<a>"+ cList[i].userName +"</a>"
-							    html += "<span>"+ cList[i].cont +"</span></br>"
+							
+								if(uNo==cList[i].uNo){
+									if(cList[i].userPho==null){
+										html += "<img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span></br>"
+									}else{
+									    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span></br>"
+									}
+								}
+								else{
+									if(cList[i].userPho==null){
+										html += "<img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span></br>"
+									}else{
+									    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
+									    html += "&nbsp;<span>"+ cList[i].cont +"</span></br>"
+									}
+								}
 							}
 							
 							$("#tab1").html(html)
