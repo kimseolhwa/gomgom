@@ -65,7 +65,7 @@
 				$("#insertComment").on("click",function(){
 					 var wNo = $("#detailmodal-no").text();
 					 var comment = $("#commentText").val();
-					 
+					 $("#commentText").val("");
 					 console.log("wNo: " , wNo)
 					 
 					$.ajax({
