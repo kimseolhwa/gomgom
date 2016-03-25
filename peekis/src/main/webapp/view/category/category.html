@@ -48,8 +48,16 @@ $(document).ready(function() {
 				   if (inputValue === "")
 				   {swal.showInputError("제대로 입력해 주세요!");
 				   return false}
-				   swal("폴더 생성!", "만드신 폴더: " + inputValue, "success"); });
-		})
+				   swal("폴더 생성!", "만드신 폴더: " + inputValue, "success") 
+				   
+				  $.ajax({
+				  type: "POST",
+		  		  dataType:"JSON",
+		  	 	  url : contextRoot + "/category/ajax/addCategory.do",
+		  	 	  data:{'name': inputValue}
+				})
+			});
+	  }) 
 
 });
 </script>
@@ -77,7 +85,7 @@ $(document).ready(function() {
 						</div>
 					</a>
 				</div>
-
+			
 			</div>
 		</div>
 
