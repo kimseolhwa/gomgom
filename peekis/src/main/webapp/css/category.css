@@ -32,6 +32,7 @@ a, a:HOVER{
 .c_container  {
 	margin: 0 auto;
 	width: 100%;
+	padding-top: 10px;
 }
 
 .category {
@@ -40,8 +41,10 @@ a, a:HOVER{
 	background-color: white;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(0, 0, 0, 0.1), 0 3px 1px rgba(0, 0, 0, 0.05);
 	border-radius: 5px 5px 5px 5px;
+	
 }
 
+/* 카테고리 추가 버튼 */
 .add-category {
 	width: 235px; 
 	height: 150px;
@@ -53,5 +56,13 @@ a, a:HOVER{
 
 .add-category:HOVER {
 	opacity: 1;
+	cursor: pointer;
 }
+
+.add-category:ACTIVE {
+	background-color: gray;
+}
+
+
+
 
