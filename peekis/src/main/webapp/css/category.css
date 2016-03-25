@@ -71,5 +71,20 @@ a, a:HOVER{
 }
 
 
+.folderImg{
+	position: relative;
+}
+
+.textOverFolder {
+   position: absolute;
+   top: 70px;
+   left: 50px;
+   width: 100px;
+   height:50px;
+   text-align: center;
+   text-shadow: 0.5px 0.5px black;	
+   vertical-align: middle;
+}
+
 
 
