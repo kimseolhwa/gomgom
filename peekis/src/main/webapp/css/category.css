@@ -82,9 +82,12 @@ a, a:HOVER{
    width: 100px;
    height:50px;
    text-align: center;
-   text-shadow: 0.5px 0.5px black;	
    vertical-align: middle;
+   overflow: auto;
 }
-
+.tOverName{
+	font-weight: bold;
+	font-variant: small-caps;
+}
 
 
