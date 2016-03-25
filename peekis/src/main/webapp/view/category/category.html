@@ -54,7 +54,13 @@ $(document).ready(function() {
 				  type: "POST",
 		  		  dataType:"JSON",
 		  	 	  url : contextRoot + "/category/ajax/addCategory.do",
-		  	 	  data:{'name': inputValue}
+		  	 	  data:{'name': inputValue},
+		  	 	  success: function(){
+		  	 		  var html=""
+// 		  	 		  html += "<div><img src='img/folder.jpg'></img></div>"
+		  	 		  
+// 		  	 		  $(".category").find("add-category").prepend(html)
+		  	 	  }
 				})
 			});
 	  }) 
@@ -68,28 +74,29 @@ $(document).ready(function() {
 	<header id="header"></header>
 
 	<section>
+	
 		<div id="user-profile"></div>
 
 
 		<div id="main-content">
-
-			<div class="c_container">
-
-				<div class="category">
-					<a data-toggle="modal" data-target="#addModal">
-						<div class="add-category">
-							<div style="padding: 30px 0 20px 0;">
-								<i class="fa fa-plus-circle fa-3x"></i>
+			<div class="row c_container" >
+				<div class="col-sm-2 category">
+						<a data-toggle="modal" data-target="#addModal">
+							<div class="add-category">
+								<div style="padding: 30px 0 20px 0;">
+									<i class="fa fa-plus-circle fa-3x"></i>
+								</div>
+								<h4 style="margin: 0;">카테고리 추가</h4>
 							</div>
-							<h4 style="margin: 0;">카테고리 추가</h4>
-						</div>
-					</a>
+						</a>
 				</div>
-			
+				<div  class="col-sm-2">
+					<img src="img/folder2.png" class="categoryFolder" />
+				</div>
 			</div>
 		</div>
 
-
+		
 
 
 	</section>
