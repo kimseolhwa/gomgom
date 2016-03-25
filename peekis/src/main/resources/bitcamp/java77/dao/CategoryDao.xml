@@ -5,8 +5,9 @@
 
 <mapper namespace="bitcamp.java77.dao.CategoryDao">
 
-	
-	
-	
+<insert id="addCategory" parameterType="category">
+	insert into user(NAME,uno) 
+		values(#{name},#{uNo})
+</insert>
 	
 </mapper>
