@@ -34,6 +34,7 @@ a, a:HOVER{
 /* 	margin: 0 auto; */
 	width: 100%;
 /* 	padding-top: 10px; */
+    overflow: auto;
 }
 
 .category {
@@ -76,18 +77,22 @@ a, a:HOVER{
 }
 
 .textOverFolder {
+	
    position: absolute;
-   top: 70px;
-   left: 50px;
-   width: 100px;
-   height:50px;
+   top: 40%;
+   left: 25%;
+   width: 140px;
+   height: 70px;
    text-align: center;
    vertical-align: middle;
    overflow: auto;
+   border: 1px solid black;
 }
 .tOverName{
 	font-weight: bold;
 	font-variant: small-caps;
 }
 
-
+.folderImg{
+	  text-align: center;
+}
