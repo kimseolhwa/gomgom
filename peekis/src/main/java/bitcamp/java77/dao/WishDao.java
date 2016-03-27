@@ -3,6 +3,7 @@ package bitcamp.java77.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import bitcamp.java77.domain.Join;
 import bitcamp.java77.domain.Wish;
 
 public interface WishDao {
@@ -23,6 +24,7 @@ public interface WishDao {
   
   int selectLikeCnt(int uno);
   
+  Join selectUserInfo(int fNo);
   
   // Delete
   int delete(int no);
@@ -37,6 +39,7 @@ public interface WishDao {
   Wish selectOne(int no);
 
   int updateBuy(Wish wish);
+
 
 
 

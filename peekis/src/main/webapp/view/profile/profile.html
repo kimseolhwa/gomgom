@@ -16,9 +16,23 @@
 		</div>
 		
 <script>
+	var getParameter = function(url) {
+		var paramText = url.split("?")[1];
+		var params = paramText.split("&");
+		var pageParam = {};
+		for(item of params) {
+			var param = item.split("=");
+			pageParam[param[0]] = param[1];
+		}
+		
+		return pageParam;
+	};
+	var friendNo = 0;
+	if(document.location.href.indexOf("fNo") > 0){
+		friendNo = getParameter(document.location.href).fNo;
+	}
 
-
-   	 $.getJSON('/peekis/wish/ajax/userInfo.do', function(resultObj) {
+	$.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) {
 		console.log(resultObj);
 		$("#wishCnt").text(resultObj.wishCnt);
 		$("#likeCnt").text(resultObj.likeCnt);
@@ -28,6 +42,13 @@
 			$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
 			$("#profile").attr("src", filePath + resultObj.loginUser.pho);
 		}
+		if(resultObj.user != null){
+			$("#userName").text(resultObj.user.name);
+			if(resultObj.user.pho != null){
+				$("#profile").attr("src", filePath + resultObj.user.pho);
+			}
+		}
 	  });
-
+	
+	
 </script>

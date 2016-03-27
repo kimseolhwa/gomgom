@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import bitcamp.java77.dao.JoinDao;
 import bitcamp.java77.dao.WishDao;
 import bitcamp.java77.domain.AjaxResult;
 import bitcamp.java77.domain.Join;
@@ -155,12 +156,23 @@ public class WishController {
   }
    
   @RequestMapping("userInfo")
-  public Object userInfo(HttpServletRequest req) throws Exception {
+  public Object userInfo(int fNo, HttpServletRequest req) throws Exception {
+	  System.out.println("userInfo 컨트롤러 친구번호: " + fNo);
 	  Join loginUser = (Join)req.getSession().getAttribute("loginUser");
-	  int wishCnt = wishDao.selectWishCnt(loginUser.getuNo());
-	  int likeCnt = wishDao.selectLikeCnt(loginUser.getuNo());
-
+	  System.out.println("userInfo 컨트롤러 로그인유저번호: " + loginUser.getuNo());
+	  
 	  HashMap<String,Object> resultMap = new HashMap<>();
+	  int wishCnt = 0;
+	  int likeCnt = 0;
+	  if(fNo == 0){
+		  wishCnt = wishDao.selectWishCnt(loginUser.getuNo());
+		  likeCnt = wishDao.selectLikeCnt(loginUser.getuNo());
+	  }else{
+		  wishCnt = wishDao.selectWishCnt(fNo);
+		  likeCnt = wishDao.selectLikeCnt(fNo);
+		  Join user = wishDao.selectUserInfo(fNo);
+		  resultMap.put("user", user);
+	  }
 	  resultMap.put("wishCnt", wishCnt);
 	  resultMap.put("likeCnt", likeCnt);
 	  resultMap.put("loginUser", loginUser);

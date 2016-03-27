@@ -56,7 +56,14 @@
 	<!-- 유저별 좋아요 총 개수 불러오기  -->
 	<select id="selectLikeCnt" resultType="int">
 		select COUNT(*) from `like` where uno=#{uno}
-	</select>	
+	</select>
+		
+	<!-- 유저별 좋아요 총 개수 불러오기  -->
+	<select id="selectUserInfo" resultType="join">
+		select uno, name, pwd, email, pho 
+		  from user
+		 where uno=#{fNo}
+	</select>
 	
 	
 	
