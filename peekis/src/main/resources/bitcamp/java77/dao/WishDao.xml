@@ -41,9 +41,9 @@
 	
 	<!-- 유저가 '좋아요'한 게시글 불러오기(페이징) -->
 	<select id="selectLikeList" resultMap="wishMap" parameterType="map">
-		select w.wno, w.fpath, w.title, w.cont, w.price, w.url, w.buy, w.tag, w.date, w.cno, w.uno
-		from wish w, `like` l
-		where  w.wno=l.wno and l.uno=#{uno}
+		select w.*, u.name as userName, u.pho as userPho, c.name as categoryName
+		  from wish w, `like` l, user u, category c
+		  where  w.wno=l.wno and l.uno=#{uno} and u.uno=w.uno=c.uno
 		order by w.wno desc
 		limit #{startIndex}, #{length}
 	</select> 

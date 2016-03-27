@@ -83,13 +83,17 @@ public class WishController {
   }
 
   @RequestMapping("likeList")
-  public Object likeList(int pageNo, HttpServletRequest req) throws Exception {
+  public Object likeList(int pageNo, int fNo, HttpServletRequest req) throws Exception {
 	  Join join = (Join)req.getSession().getAttribute("loginUser");
 	  int pageSize = 10;
 	  HashMap<String,Object> paramMap = new HashMap<>();
 	  paramMap.put("startIndex", (pageNo - 1) * pageSize);
 	  paramMap.put("length", pageSize);
-	  paramMap.put("uno", join.getuNo());
+	  if(fNo == 0){
+		  paramMap.put("uno", join.getuNo());		  
+	  }else{
+		  paramMap.put("uno", fNo);		  
+	  }	  
 	  System.out.println("pageNo : " + pageNo);
 	  List<Wish> wishs = wishDao.selectLikeList(paramMap);
 	    

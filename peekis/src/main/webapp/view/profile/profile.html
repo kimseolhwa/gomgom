@@ -6,8 +6,8 @@
 	  	 
 		 <div class="userInfo" style="width: 450px; height: 100px;">
 		  <a href="/peekis/view/category/category.html"><div><i class="fa fa-folder-open-o"></i><br>카테고리<br>000</div></a>
-		  <a href="/peekis/view/myList/myList2.html"><div><i class="fa fa-picture-o"></i><br>게시물<br><span id="wishCnt">000<span></div></a>
-		  <a href="/peekis/view/like/like.html"><div><i class="fa fa-heart-o"></i><br>좋아요<br><span id="likeCnt">000<span></div></a>
+		  <a><div id="wishList"><i class="fa fa-picture-o"></i><br>게시물<br><span id="wishCnt">000<span></div></a>
+		  <a><div id="likeList"><i class="fa fa-heart-o"></i><br>좋아요<br><span id="likeCnt">000<span></div></a>
 		  <a href="#"><div><i class="fa fa-user"></i><br>팔로워<br>000</div></a>
 		  <a href="#"><div><i class="glyphicon glyphicon-sunglasses"></i><br>팔로우<br>000</div></a>	  
 		 </div>
@@ -23,8 +23,7 @@
 		for(item of params) {
 			var param = item.split("=");
 			pageParam[param[0]] = param[1];
-		}
-		
+		}		
 		return pageParam;
 	};
 	var friendNo = 0;
@@ -50,5 +49,18 @@
 		}
 	  });
 	
-	
+	$(document).on('click', '#wishList', function (){    	
+		if(document.location.href.indexOf("fNo") > 0){
+        	location.href = contextRoot + "/view/user/user.html?fNo=" + getParameter(document.location.href).fNo;
+    	}else{
+	       	location.href = contextRoot + "/view/myList/myList2.html";
+    	}
+    });	
+	$(document).on('click', '#likeList', function (){    	
+		if(document.location.href.indexOf("fNo") > 0){
+        	location.href = contextRoot + "/view/like/like.html?fNo=" + getParameter(document.location.href).fNo;
+    	}else{
+	       	location.href = contextRoot + "/view/like/like.html";
+    	}
+    });	
 </script>

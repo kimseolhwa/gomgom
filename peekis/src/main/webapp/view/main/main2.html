@@ -138,9 +138,11 @@
 		             percentPosition : true,
 		             masonry: { columnWidth : 1, rowHeight: 1 }
 		          });
-		          $container.imagesLoaded().progress(function() {
-		        	  $container.isotope();
-		          });
+		        var sort = function(){
+		        	$container.imagesLoaded(function() {
+						$container.isotope();
+		        	});
+		        }
 
 		          
 				var $container2 = $('.modal-item_container');
@@ -190,6 +192,7 @@
 			   					$container.append( $items ).isotope( 'appended', $items );			
 
 		   			  	}
+			   			sort();
 			   			for (var like of resultObj.like){
 			   				$('.' + like).find('.undoheart').css('display','block');
 			   				$('.' + like).find('.heart').css('display','none');
@@ -458,7 +461,12 @@
 		        /* 친구페이지로 넘어가기 */
 		        $(document).on('click', '.user_id', function (){
 		        	var userNo = $(this).closest('.item').find('.uno').val();
-		        	location.href = contextRoot + "/view/user/user.html?fNo=" + userNo;
+		        	var loginUser = $('#UserNo').text();
+		        	if(userNo == loginUser){
+			        	location.href = contextRoot + "/view/myList/myList2.html";
+		        	}else{
+			        	location.href = contextRoot + "/view/user/user.html?fNo=" + userNo;
+		        	}
 		        });
 		        
 		        

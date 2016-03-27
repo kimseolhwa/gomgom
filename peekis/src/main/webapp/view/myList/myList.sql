@@ -17,9 +17,17 @@ insert into category (name, uno) values ('(default)', 4);
 select * from wish;
 select * from category;
 select * from user;
-select * from `LIKE`;
+select * from `LIKE` where uno='2';
 select * from SEND;
 select * from follower;
+
+
+select w.*, u.name as userName, u.pho as userPho, c.name as categoryName
+from wish w, `like` l, user u, category c
+where  w.wno=l.wno and l.uno='2' and u.uno=w.uno=c.uno
+order by w.wno desc
+
+
 
 -----------------------------------------------------------	1	 
 ALTER TABLE  `WISH` DROP FOREIGN KEY  `FK_CATEGORY_TO_WISH` ;

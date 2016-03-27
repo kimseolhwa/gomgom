@@ -61,35 +61,34 @@
 					<div id="UserNo" style="display: none;">0</div>
 				</div>
 		
-				<div class="cloneMainContents" style="display: none;">
-					<div class="item">
-						<div class="product">
-							<img src="../../image/005.jpg" />
-							<input type="hidden" class="no" value="00">
-							<input type="hidden" class="uno" value="00">
-							<div class="mask">
-								<div class="icon">
-									<button class="btn btn-orange">
-										<span class="glyphicon glyphicon-send"></span>
-									</button>
-									<button class="btn btn-orange plus">
-										<span class="glyphicon glyphicon-plus"></span>
-									</button>
-									<a href="#Modal1" data-toggle="modal">
-									<button class="detail btn btn-orange">상세보기</button></a>
-								</div>
-							</div>
-						</div>
-						<div class="pro">
-							<a href="#ProModal1" data-toggle="modal"> <img src="../../image/pro1.jpg" class="img-circle">
-								<div class="user_id">아이디는여덟자임</div>
-							</a> <span class="glyphicon glyphicon-folder-open"></span>
-							<div class="user_wish">폴더이름여덟자임</div>
-							<div class="heart"></div>
-							<div class="undoheart"></div>
+			<div class="cloneMainContents" style="display: none;">
+			<div class="item">
+				<div class="product">
+					<img src="../../image/005.jpg" />
+					<input type="hidden" class="no" value="00">
+					<input type="hidden" class="uno" value="00">
+					<div class="mask">
+						<div class="icon">
+							<button class="btn btn-orange">
+								<span class="glyphicon glyphicon-send"></span>
+							</button>
+							<button class="btn btn-orange plus">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button class="detail btn btn-orange">상세보기</button>
 						</div>
 					</div>
 				</div>
+				<div class="pro">
+					<img src="../../image/pro1.jpg" class="img-circle userPho">
+						<div class="user_id">아이디는여덟자임</div>
+					<span class="glyphicon glyphicon-folder-open"></span>
+					<div class="user_wish">폴더이름여덟자임</div>
+					<div class="heart"></div>
+					<div class="undoheart"></div>
+				</div>
+			</div>
+		</div>
 		</div>
 	</section>
 		
@@ -115,8 +114,18 @@ $(document).ready(function() {
   	  	$container.isotope();
   	  });
     }
-	
+    
+    var getParameter = function(url) {
+		var paramText = url.split("?")[1];
+		var pageParam = paramText.split("=")[1];
+		return pageParam;
+	};
 	/* 리스트 불러오기 */
+	var friendNo = 0;
+    if(document.location.href.indexOf("fNo") > 0){
+		friendNo = getParameter(document.location.href);
+		$('body').off('click', '.undoheart');
+	}
 	nextPage(1);
 	
 	$(window).scroll(function(){
@@ -130,9 +139,8 @@ $(document).ready(function() {
 	});
 	  
 	function nextPage(pageNo){
-		 $.getJSON('/peekis/wish/ajax/likeList.do',{pageNo : pageNo}, function(resultObj) {
+		 $.getJSON('/peekis/wish/ajax/likeList.do',{pageNo : pageNo, fNo: friendNo}, function(resultObj) {
 			$("#UserNo").text(resultObj.loginUser.uNo);
-			$('#pageNo').text(pageNo);
 			console.log(resultObj);
 			for (var wish of resultObj.data){
  				  $('#pageNo').text(pageNo);
@@ -147,6 +155,7 @@ $(document).ready(function() {
  					cloneContent.find('img:first').attr('src', path);
  					cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
  					cloneContent.find('.user_id').html(wish.userName);
+ 					cloneContent.find('.user_wish').html(wish.categoryName);
  					cloneContent.find('.undoheart').css('display','block');
  					cloneContent.find('.heart').css('display','none');
  					$items = $(cloneContent);
@@ -178,8 +187,25 @@ $(document).ready(function() {
 			}else{
 				swal('좋아요 삭제에 실패하였습니다.');
 			}
+			
 		});
 	});
+	/* 좋아요 이벤트 삭제시키기*/
+	if(document.location.href.indexOf("fNo") > 0){
+		$('.undoheart').removeAttr('cursor');
+		$('.undoheart').css('cursor', "none");
+		$('.undoheart').off();
+	}
+	 /* 친구페이지로 넘어가기 */
+    $(document).on('click', '.user_id', function (){
+    	var userNo = $(this).closest('.item').find('.uno').val();
+    	var loginUser = $('#UserNo').text();
+    	if(userNo == loginUser){
+        	location.href = contextRoot + "/view/myList/myList2.html";
+    	}else{
+        	location.href = contextRoot + "/view/user/user.html?fNo=" + userNo;
+    	}
+    });
 });
 </script>
 </body>
