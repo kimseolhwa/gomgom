@@ -41,8 +41,8 @@
 <link rel="stylesheet" style="text/css" href="../../css/sweetalert.css" />
 
 <script>
-	$(document).ready(function() {
-				
+	$(document).ready(function() {	
+	
 				/* 댓글 삭제 */
 				$('body').on('click', "#commentDelBtn", function(){
 					
@@ -59,25 +59,24 @@
 					$(this).parent("#comdelsel").remove()
 				
 				});
-		
-		
+				
 				/* 댓글 입력 */
 				$("#insertComment").on("click",function(){
-					 var wNo = $("#detailmodal-no").text();
-					 var comment = $("#commentText").val();
-					 $("#commentText").val("");
-					 console.log("wNo: " , wNo)
+					var wNo = $("#detailmodal-no").text();
+					var comment = $("#commentText").val();
+					$("#commentText").val(""); 
+					console.log("wNo: " , wNo)
 					 
 					$.ajax({
-						  type: "POST",
+						 type: "POST",
 				  		  dataType:"JSON",
 				  	 	  url : contextRoot + "/main/ajax/addComment.do",
 				  	 	  data:{'cont': comment, 'wNo' : wNo}
 					}).done(function(resultObj) {
 						console.log(resultObj.ajaxResult.data.join.name)	
-						console.log(resultObj.ajaxResult.data.comment.cont)	
-						console.log(resultObj.ajaxResult.data.comment.coNo)	
-						
+						console.log(resultObj.ajaxResult.data.comment.cont)
+						console.log(resultObj.ajaxResult.data.comment.coNo)
+								
 						if(resultObj.ajaxResult.data.join.pho==null){
   					  $("#tab1").prepend("<div id='comdelsel'><img src=../header/img/profileAvatar.jpg class='img-circle'>" +
                        "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
@@ -211,7 +210,7 @@
 		        }
 		        
 		        /* 개인 리스트 가져오기*/
-		        modalNextPage(1);
+		        //modalNextPage(1);
 		        
 				        $('#proModal').scroll(function(){
 				        	var scrollHeight = $('#proModal').scrollTop() + $('#proModal').height();
@@ -454,6 +453,14 @@
 						});
 		        	}
 		        });
+		        
+		        
+		        /* 친구페이지로 넘어가기 */
+		        $(document).on('click', '.user_id', function (){
+		        	var userNo = $(this).closest('.item').find('.uno').val();
+		        	location.href = contextRoot + "/view/user/user.html?fNo=" + userNo;
+		        });
+		        
 		        
 				$('#filters').on('click', 'button', function() {
 					var filterValue = $(this).attr('data-filter');

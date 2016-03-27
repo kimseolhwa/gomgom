@@ -54,6 +54,29 @@ public class MainController
 		return resultMap;
 	}
 	
+	@RequestMapping("friendList")
+	public Object friendList(@RequestParam(defaultValue="1") int pageNo, int fNo, HttpServletRequest req) throws Exception {
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		System.out.println("friendList");
+		int pageSize = 10;
+		HashMap<String,Object> paramMap = new HashMap<>();
+		paramMap.put("startIndex", (pageNo - 1) * pageSize);
+		paramMap.put("length", pageSize);
+		paramMap.put("fNo", fNo);
+		System.out.println("pageNo : " + pageNo);
+		List<Wish> wishs = MainDao.selectFriendList(paramMap);
+		List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
+		List<Integer> sendList = MainDao.selectsendList(join.getuNo());
+		
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("data", wishs);
+		resultMap.put("loginUser", join);
+		resultMap.put("like", likeList);
+		resultMap.put("send", sendList);
+		return resultMap;
+	}
+	/*
 	@RequestMapping("selectUserList")
 	public Object selectUserList(@RequestParam(defaultValue="1") int modalPageNo, HttpServletRequest req, int uno) throws Exception {
 		Join join = (Join) req.getSession().getAttribute("loginUser");
@@ -74,7 +97,7 @@ public class MainController
 		resultMap.put("like", likeList);
 		return resultMap;
 	}
-	
+	*/
 	@RequestMapping("detail")
 	public Object detail(int no, int uno) throws Exception
 	{
@@ -173,7 +196,7 @@ public class MainController
 
 		Join join = (Join) req.getSession().getAttribute("loginUser");
 		comment.setuNo(join.getuNo());
-		 MainDao.insertComment(comment);
+		MainDao.insertComment(comment);
 		System.out.println("comment.getCoNo() : "  + comment.getCoNo());
 		
 		
@@ -185,6 +208,7 @@ public class MainController
 			
 		return new AjaxResult("success", paramCom);
 	}
+	
 	// 코멘트 삭제
 	@RequestMapping(value = "delComment", method = RequestMethod.POST)
 	public AjaxResult delComment(Comment comment) throws Exception {

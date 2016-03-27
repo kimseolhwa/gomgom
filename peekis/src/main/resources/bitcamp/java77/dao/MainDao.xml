@@ -27,6 +27,20 @@
 		limit #{startIndex}, #{length}
 	</select>
 	
+	<!-- 친구페이지 리스트불러오기 -->
+	<select id="selectFriendList" resultMap="wishMap" parameterType="map">
+		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
+		  from wish, user, category
+		 where wish.uno=user.uno=category.uno and wish.uno=#{fNo}
+		 order by
+		<choose>
+			<when test="keyword == 'title'">title </when>
+			<when test="keyword == 'price'">price </when>
+			<otherwise>wno desc</otherwise>
+		</choose>
+		limit #{startIndex}, #{length}
+	</select>
+	
 	<select id="selectUserList" resultMap="wishMap" parameterType="map">
 		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
 		from wish
@@ -128,15 +142,13 @@
 		 where uno=#{toUser} and uno2=#{fromUser}
 	</delete>
 	
+	
 	<!-- 코멘트 등록 -->
 	<insert id="insertComment" parameterType="comment">
 		insert into comment (wno, uno,cont) 
 		values(#{wNo}, #{uNo},#{cont})
-		<selectKey keyProperty="coNo" resultType="int">
-		  select last_insert_id()
-		</selectKey>
 	</insert>
-
+	
 	<!-- 코멘트 삭제 -->
 	<delete id="delComment" parameterType="comment">
 		delete 
@@ -151,6 +163,9 @@
 		 where comment.wno=#{wNo} and comment.uno=user.uno
 		 order by cono desc
 	</select>
+	
+	
+	
 	
 	<!-- 검색 게시글 불러오기(페이징) -->
 	<select id="selectSearchList" resultMap="wishMap" parameterType="map">

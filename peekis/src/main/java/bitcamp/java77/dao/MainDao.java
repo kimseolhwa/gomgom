@@ -13,6 +13,8 @@ public interface MainDao
 
 	public List<Wish> selectList(HashMap<String,Object> paramMap);
 	
+	public List<Wish> selectFriendList(HashMap<String,Object> paramMap);
+	
 	public List<Wish> selectUserList(HashMap<String,Object> paramMap);
 	
 	public List<Integer> selectlikeList(int uno);
@@ -36,10 +38,10 @@ public interface MainDao
 	public int unfollower(HashMap<String, Integer> paramMap);
 
 	public int insertComment(Comment comment);
+	
+	public void delComment(Comment comment);
 
 	public List<Comment> selectComentList(int no);
 
 	public List<Wish> selectSearchList(HashMap<String, Object> paramMap);
-
-	public void delComment(Comment comment);
 }
