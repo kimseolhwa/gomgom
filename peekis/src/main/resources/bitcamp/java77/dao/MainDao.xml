@@ -33,6 +33,7 @@
 		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
 		  from wish, user, category
 		 where wish.uno=user.uno=category.uno and wish.uno=#{fNo}
+		 group by wish.wno
 		 order by
 		<choose>
 			<when test="keyword == 'title'">title </when>
@@ -81,6 +82,7 @@
 		  from wish, user, category
 		 where wno=#{no}
            and wish.uno=user.uno=category.uno
+         group by wish.wno
 	</select>
 	
 	<!-- 좋아요 -->
@@ -173,6 +175,7 @@
 		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
 		  from wish, user, category
 		 where wish.uno=user.uno=category.uno and wish.tag like #{tag}
+		 group by wish.wno
          order by
 		<choose>
 			<when test="keyword == 'title'">title </when>
