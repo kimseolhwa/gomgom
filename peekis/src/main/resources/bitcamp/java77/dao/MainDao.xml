@@ -90,6 +90,9 @@
 	<insert id="addLike" parameterType="map">
 		insert into `like`(wno, uno) 
 		values(#{wno}, #{uno})
+		<selectKey keyProperty="lno" order="AFTER" resultType="int">
+	      select count(*) as numOflNo from `like` where wno=#{wno}
+	    </selectKey>
 	</insert>
 	
 	<delete id="deleteLike" parameterType="map">
