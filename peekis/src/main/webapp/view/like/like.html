@@ -85,7 +85,7 @@
 					<span class="glyphicon glyphicon-folder-open"></span>
 					<div class="user_wish">폴더이름여덟자임</div>
 					<div class="heart"></div>
-					<div class="undoheart"></div>
+					<div class="undoheart" style="cursor:auto;"></div>
 				</div>
 			</div>
 		</div>
@@ -101,9 +101,9 @@
 	$("#user-profile").load("../profile/profile.html");
 </script>
 <script>
-$(document).ready(function() {
-	
-	var $container = $('.item_container');
+var $container = $('.item_container');
+
+$(document).ready(function() {	
     $container.isotope({
        itemSelector : '.item',
        percentPosition : true,
@@ -120,6 +120,7 @@ $(document).ready(function() {
 		var pageParam = paramText.split("=")[1];
 		return pageParam;
 	};
+	
 	/* 리스트 불러오기 */
 	var friendNo = 0;
     if(document.location.href.indexOf("fNo") > 0){
@@ -162,41 +163,14 @@ $(document).ready(function() {
  					$container.append( $items ).isotope( 'appended', $items );			
 			  	}
 			sort();
-		});
-	}
-	
-	
-	/* 좋아요 취소 */
-	$(document).on('click', '.undoheart', function(){
-		console.log('좋아요 취소이벤트 발생');
-		var wishNo = $(this).closest('.item').find('.no').val();
-		var uNo = $('#UserNo').text();
-    	$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
-    		var result = resultObj.ajaxResult;
-    		console.log(result);
-			if(result.status == 'success'){
-        		$('.' + wishNo).find('.undoheart').toggleClass('toggle').show().fadeToggle(1000),
-        		setTimeout(function(){
-        			$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
-				   },1000), 
-        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
-        		setTimeout(function(){
-	        		$container.isotope( 'remove', $("." + wishNo) ).isotope();
-					$("#likeCnt").text( Number($('#likeCnt').text()) -1);
-        		},1000);
-			}else{
-				swal('좋아요 삭제에 실패하였습니다.');
+			if(document.location.href.indexOf("fNo") > 0){
+				$('.undoheart').attr("disabled", true);
 			}
-			
 		});
-	});
-	/* 좋아요 이벤트 삭제시키기*/
-	if(document.location.href.indexOf("fNo") > 0){
-		$('.undoheart').removeAttr('cursor');
-		$('.undoheart').css('cursor', "none");
-		$('.undoheart').off();
 	}
-	 /* 친구페이지로 넘어가기 */
+
+	
+	/* 친구페이지로 넘어가기 */
     $(document).on('click', '.user_id', function (){
     	var userNo = $(this).closest('.item').find('.uno').val();
     	var loginUser = $('#UserNo').text();
@@ -207,6 +181,38 @@ $(document).ready(function() {
     	}
     });
 });
+
+$(window).load(function(){
+	if(document.location.href.indexOf("fNo") < 0){
+		$('.undoheart').css("cursor","pointer");
+		/* 좋아요 취소 */
+		$(document).on('click', '.undoheart', function(){
+			console.log('좋아요 취소이벤트 발생');
+			var wishNo = $(this).closest('.item').find('.no').val();
+			var uNo = $('#UserNo').text();
+	    	$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
+	    		var result = resultObj.ajaxResult;
+	    		console.log(result);
+				if(result.status == 'success'){
+	        		$('.' + wishNo).find('.undoheart').toggleClass('toggle').show().fadeToggle(1000),
+	        		setTimeout(function(){
+	        			$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
+					   },1000), 
+	        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
+	        		setTimeout(function(){
+		        		$container.isotope( 'remove', $("." + wishNo) ).isotope();
+						$("#likeCnt").text( Number($('#likeCnt').text()) -1);
+	        		},1000);
+				}else{
+					swal('좋아요 삭제에 실패하였습니다.');
+				}
+				
+			});
+	    	
+		});
+	}
+})
 </script>
+
 </body>
 </html>

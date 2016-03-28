@@ -109,6 +109,18 @@ $(document).ready(function() {
 		$container.isotope();
 		});
 	}
+	
+	var getParameter = function(url) {
+		var paramText = url.split("?")[1];
+		var params = paramText.split("&");
+		var pageParam = {};
+		for(item of params) {
+			var param = item.split("=");
+			pageParam[param[0]] = param[1];
+		}		
+		return pageParam;
+	};
+	
 	var friendNo = getParameter(document.location.href).fNo;
 	$("#friendNo").text(friendNo);
     
