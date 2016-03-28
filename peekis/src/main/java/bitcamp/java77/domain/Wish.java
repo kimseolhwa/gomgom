@@ -22,6 +22,10 @@ public class Wish implements Serializable
 	protected String userPho;
 	protected String categoryName;
 
+	
+	//좋아요 
+	protected int numOflNo; // 좋아요개수
+	
 	public Wish()
 	{
 	}
