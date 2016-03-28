@@ -112,7 +112,7 @@
 	
 		 /*1:1문의 버튼클릭이벤트 등록페이지로 이동*/
 		$("#Btn").click(function(event){
-			alert("등록페이지로가자");
+			/* alert("등록페이지로가자"); */
 			document.location.href="/peekis/view/qna/qnaRegist.html"; /*페이지 이동*/
 		 });
 	
@@ -140,7 +140,6 @@
 			});
 		}
 				 
-	 /*페이징*/
 	 });
 	 
 	 var typeToText = function(typeNum) {
@@ -148,11 +147,15 @@
 		 
 		 if (typeNum == 1) typeText = '회원';
 		 else if (typeNum == 2) typeText = '이벤트';
-		 else if (typeNum == 3) typeText = '시스템';
-		 else if (typeNum == 4) typeText = '기타';
+		 else if (typeNum == 3) typeText = '시스템문의';
+		 else if (typeNum == 4) typeText = '기타문의';
 
 		 return typeText;
 	 };
+	 
+	 
+	 
+	 /*페이징*/
 </script>
 </head>
 <body>

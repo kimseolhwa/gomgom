@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import bitcamp.java77.dao.QnaDao;
+import bitcamp.java77.domain.Join;
 import bitcamp.java77.domain.Qna;
 import bitcamp.java77.service.QnaService;
 
@@ -22,15 +23,33 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public List<Qna> listQna(int uno) {
+	public List<Qna> listQna(Join user) {
 		// TODO Auto-generated method stub
-		return dao.listQna(uno);
+		return dao.listQna(user);
 	}
 	
 	@Override
 	public Qna qnaDetail(Qna qna) {
 		// TODO Auto-generated method stub
 		return dao.detailQna(qna);
+	}
+
+	@Override
+	public void delete(int bno) {
+		// TODO Auto-generated method stub
+		dao.deleteQna(bno);
+	}
+
+	@Override
+	public void ComRegist(Qna qna) {  //답변(댓글)등록
+		// TODO Auto-generated method stub
+		dao.ComRegist(qna);
+	}
+
+	@Override
+	public Qna ComDetail(Qna qna) {
+		// TODO Auto-generated method stub
+		return dao.ComDetail(qna);
 	}
 
 

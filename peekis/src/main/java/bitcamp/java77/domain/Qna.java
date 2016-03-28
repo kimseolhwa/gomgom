@@ -14,8 +14,16 @@ public class Qna implements Serializable {
 	private char ansFlag;
 	private int uNo;
 	private String name;
+	private String comCont;
 	
 	
+	
+	public String getComCont() {
+		return comCont;
+	}
+	public void setComCont(String comCont) {
+		this.comCont = comCont;
+	}
 	public String getName() {
 		return name;
 	}

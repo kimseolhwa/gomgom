@@ -198,6 +198,7 @@
 	    <result column="TYPE" property="type"/>
 	    <result column="ANS_FLAG" property="ansFlag"/>
 	    <result column="NAME" property="name"/>
+	    <result column="COM_CONT" property="comCont"/>
 	</resultMap>
 
 	<insert id="insertQna" parameterType="qna">
@@ -208,22 +209,44 @@
 		)
 	</insert>
 	
-	<select id="listQna" resultMap="qnaMap">
+	<select id="listQna" resultMap="qnaMap" parameterType="join">
 		select 
 			    bno, title, ans_flag, type,
 			    date_format(date, "%Y %b %e") date, u.name
 		  from board b, user u
-		  where b.uno=u.uno and b.uno=#{uno}
+		  where b.uno=u.uno 
+		  <if test="uNo != 0">
+		 and b.uno=#{uNo}
+		  </if>
 		order by bno DESC
 	</select>
 	
 	<select id="detailQna" resultMap="qnaMap" parameterType="qna">
 		select 
-				title, type, date_format(date, "%Y %b %e") date, cont
+				title, type, date_format(date, "%Y %b %e") date, cont, com_cont
 			from board	 
 		where bno = #{bno}
 	</select>
 	
+	<delete id="deleteQna" parameterType="int">
+		delete from board
+		where bno=#{bno}
+	</delete>
+	
+	
+	<!-- 답변(댓글) -->
+	<update id="ComRegist" parameterType="qna" >
+		update board set
+			com_cont = #{comCont},
+			ans_flag = 'y'
+		where bno=#{bno}
+	</update>
+	
+	<select id="ComDetail" resultMap="qnaMap" parameterType="qna">
+		select *
+			from board
+		where bno = #{bno}
+	</select>
 	
 	
 </mapper>
