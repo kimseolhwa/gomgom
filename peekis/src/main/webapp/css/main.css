@@ -537,25 +537,16 @@ footer {
 	text-align: center;
 }
 
+
 #likeAmountLoc{
 	text-align: center;
 	padding-top: 35%;
 }
 #likeAmount{
-	color: gray;
-	text-shadow: white;
-	font-size: xx-small;
-}
-#likeAmountLoc2{
-	text-align: center;
-	padding-top: 35%;
-}
-#likeAmount2{
 	color: white;
 	text-shadow: white;
 	font-size: xx-small;
 }
-
 
 
 @media only screen and ( max-width: 2099px ) {
