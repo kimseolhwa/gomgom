@@ -105,6 +105,45 @@ $("#searchBtn").on("click",function(){
 	location.href = contextRoot + "/view/search/search.html?" + $("#searchText").val();
 })
 
+//헤더, 로그아웃 박스 
+searchBarResize();
+ function searchBarResize() {
+     if(document.body.clientWidth > 768) {
+         $("#searchBar").css("margin-left", 20);
+         $("#rightBar").css("margin-right", -30);
+         $("#searchText[type=text]").before().css("width", document.body.clientWidth - 440); 
+         $("#searchText[type=text]").removeAttr("style");
+         $(".navbar-brand").css({"width": 100, "color":"white", "font-size":18, "text-align":"center", "margin-left":-16, "margin-top":-1});
+     } else {
+         $("#searchBar").removeAttr("style");
+         $("#rightBar").removeAttr("style");
+         $(".navbar-brand").removeAttr("style");
+         $(".navbar-brand").css({"width": 100, "color":"white", "font-size":18, "text-align":"center", "margin-left":-1, "margin-top":-1});
+     }  
+ }
+ $(window).resize(searchBarResize);
+ 
+ $("#searchText[type=text]").before().focus(function() {
+    if(document.body.clientWidth > 768) {
+       $("#searchText[type=text]").before().css("width", document.body.clientWidth - 440); 
+    }
+ });
+ $("#searchText[type=text]").before().focusout(function() {
+    if(document.body.clientWidth > 768) {
+       $("#searchText[type=text]").removeAttr("style");
+    }
+ });
+
+// 헤더 위시추가버튼
+$(window).scroll(function() {
+	var scTop = $(window).scrollTop();
+	if(scTop > 50) {
+		$(".wishAddBox").css("display", "block");
+	}else {
+		$(".wishAddBox").css("display", "none");
+	}
+});
+
 </script>
 <style>
 #goLogout{
@@ -134,65 +173,82 @@ div#viewLoading {
 </style>
 
 <!-- header 헤더 -->
-<div class="headerWrap">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="header-logoBox ">
-				<a class="navbar-brand" href="../main/main2.html" style="color: white;" title="" >PeekiS</a>
-			</div>
+  <div id="header">
+    <nav class="navbar navbar-default" role="navigation" style="border-radius: 0;">
+      <div class="container-fluid" style="width: 100%;">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" 
+              data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
+          </button>
+       	<div class="header-logoBox ">
+			<a class="navbar-brand" href="../main/main2.html" style="color: white;" title="" >
+				<img id="logoJpg" src="../header/img/peekis.jpg" width="100px" height="98%"/></a>
+		</div>
+        </div>
 
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form id="searchBar" class="navbar-form navbar-left">
+            <div class="form-group" style="display: inline;">
+              <div class="input-group" id="header-searchBarBox">
+                <input id="searchText" type="text" class="form-control">
+                <a href="#" class="input-group-addon"> 
+                  <span class="glyphicon glyphicon-search"></span>
+                </a>
+              </div>
+            </div>
+          </form>
+          
+          <!-- 정보수정 로그아웃박스 -->
+          <ul id="rightBar" class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                 style="background-color: rgba(224, 224, 224, 0.71); text-align:right">
+                 <img id="pImg" src="../header/img/people.png" width="18px" height="18px"/>
+                 <b id="dropdown-color" style="color: white;" >&nbsp;&nbsp;</b>
+                 <span class="caret"></span>
+              </a>
+              <ul id="logout-dp" class="dropdown-menu">
+                <li>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <a href="../myList/myList2.html">
+                          <button id="mypage-btn" type="submit"
+                            class="btn btn-default" data-toggle="modal"
+                            data-target="#myModal">MYPAGE</button>
+                        </a>
+                      </div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"><!-- 서치바 부트스트랩사용 class-->
-				<div id="header-searchBarBox"><!-- 써치바 div -->
-					<form id="searchSubmit" class="navbar-form navbar-left" role="search">
-			        	<div class="form-group">
-			         	 <input id="searchText" type="text" class="form-control" placeholder="Search">
-			        	</div>
-			       		 <button id="searchBtn" class="btn btn-default search">Submit</button>
-		      		</form>
-				</div>
-				
-				<div class="header-logoutBox"><!-- 로그아웃 div -->
-				<ul class="nav navbar-nav navbar-right" style="padding-right: 0;">
-					<li><p class="navbar-text" style="color: white;">
-						<a href="#">
-						<img id="pImg" src="../header/img/people.png" width="30px" height="30px"/>
-						</a></p>
-					</li>
-					<li class="dropdown">
-					<a href="#" id="dropdownCo" class="dropdown-toggle" data-toggle="dropdown">
-					<b id="dropdown-color" style="color: white;">TESTER</b><span class="caret"></span></a>
-						<ul id="logout-dp" class="dropdown-menu">
-							<li>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-												 <a href="#"><button id="mypage-btn" type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModal">정보수정</button></a>
-										</div>
-										
-										<p align="center"></p>
-										<form class="form" role="form" method="post" action="login"
-											accept-charset="UTF-8" id="login-nav">
-												<div class="help-block text-right">
-													<a id="mypage" href="../myList/myList2.html">MYPAGE</a>
-												</div>
-											<div class="social-buttons">
-											<a href="#" class="btn btn-fb"><i class="fa fa-facebook"></i>
-												Facebook</a> <a href="#" class="btn btn-tw"><i
-												class="fa fa-twitter"></i> Twitter</a>
-											</div>
-										</form>
-									</div>
-									<div class="bottom text-center" id="goLogout">
-										<a id="logout"><b>LOGOUT</b></a>
-									</div>
-								</div>
-							</li>
-						</ul></li>
-				</ul>
-				</div>
-			</div>
-</div>
+                      <p align="center"></p>
+                      <form class="form" role="form" method="post" action="login"
+                        accept-charset="UTF-8" id="login-nav">
+                        <div class="help-block text-right">
+                          <a id="mypage" href="#" data-toggle="modal" data-target="#myModal">정보수정</a>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="bottom text-center" id="goLogout">
+                      <a id="logout"><b>LOGOUT</b></a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+    </nav>
+   	<!-- 헤더 위시추가 버튼 -->
+	<div class="wishAddBox">
+		<button id="wishAddBtn"><img  src="../header/img/shapes.png" width="25px" height="25px"/>
+	</div>
+  </div>
+  
 
 
 <!-- 정보수정 모달창 -->
