@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bitcamp.java77.dao.CategoryDao;
+import bitcamp.java77.domain.AjaxResult;
 import bitcamp.java77.domain.Category;
 import bitcamp.java77.domain.Join;
 
@@ -21,7 +22,7 @@ public class CategoryController
 	ServletContext servletContext;
     
 	@RequestMapping("addCategory")
-	public void addCategory(Category category, HttpSession session) throws Exception {
+	public AjaxResult addCategory(Category category, HttpSession session) throws Exception {
 		
 		System.out.println("category.getName() : " + category.getName());
 		Join join = (Join)session.getAttribute("loginUser");
@@ -29,7 +30,7 @@ public class CategoryController
 		category.setuNo(join.getuNo());
 		// DAO 호출 
 		CategoryDao.addCategory(category);
-		
+		return new AjaxResult("success", category);
 	}
 	
 }
