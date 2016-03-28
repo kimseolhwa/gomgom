@@ -56,10 +56,12 @@ $(document).ready(function() {
 		  	 	  url : contextRoot + "/category/ajax/addCategory.do",
 		  	 	  data:{'name': inputValue},
 		  	 	  success: function(){
-		  	 		  var html=""
-// 		  	 		  html += "<div><img src='img/folder.jpg'></img></div>"
+		  	 		  var html="";
+		  	 		  html += "<div  class='col-md-2 folderImg'><img src='img/folder2.png' class='categoryFolder' /><div class='textOverFolder'>" +
+		  	 		           "<h4 class='tOverName'>청바지</h4>" +
+							   "</div></div>";
 		  	 		  
-// 		  	 		  $(".category").find("add-category").prepend(html)
+// 		  	 		  $(".c_container").find(".category").append(html)
 		  	 	  }
 				})
 			});
@@ -77,7 +79,6 @@ $(document).ready(function() {
 	
 		<div id="user-profile"></div>
 
-
 		<div id="main-content">
 			<div class="row c_container" >
 				<div class="col-md-2 category">
@@ -89,24 +90,6 @@ $(document).ready(function() {
 								<h4 style="margin: 0;">카테고리 추가</h4>
 							</div>
 						</a>
-				</div>
-				<div  class="col-md-2 folderImg">
-					<img src="img/folder2.png" class="categoryFolder" />
-					<div class="textOverFolder">
-						<h4 class="tOverName">청바지</h4>
-					</div>
-				</div>
-				<div  class="col-md-2 folderImg">
-					<img src="img/folder2.png" class="categoryFolder" />
-					<div class="textOverFolder">
-						<h4 class="tOverName">청바지</h4>
-					</div>
-				</div>
-				<div  class="col-md-2 folderImg">
-					<img src="img/folder2.png" class="categoryFolder" />
-					<div class="textOverFolder">
-						<h4 class="tOverName">청바지</h4>
-					</div>
 				</div>
 				<div  class="col-md-2 folderImg">
 					<img src="img/folder2.png" class="categoryFolder" />
