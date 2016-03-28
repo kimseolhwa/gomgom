@@ -44,8 +44,8 @@ public class MainController
 	    List<Wish> wishs = MainDao.selectList(paramMap);
 	    List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
 	    List<Integer> sendList = MainDao.selectsendList(join.getuNo());
-
-		HashMap<String, Object> resultMap = new HashMap<>();
+	    
+	    HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("data", wishs);
 		resultMap.put("loginUser", join);
