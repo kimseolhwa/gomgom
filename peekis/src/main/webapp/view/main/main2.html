@@ -185,7 +185,11 @@
 			   						cloneContent.find('.buy').addClass('buy-check');
 			   					}
 			   					cloneContent.find('img:first').attr('src', path);
+			   					if(wish.userPho==null){
+			   					cloneContent.find('.userPho').attr('src', '../header/img/profileAvatar.jpg');
+			   					}else{
 			   					cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
+			   					} 
 			   					cloneContent.find('.user_id').html(wish.userName);
 			   					cloneContent.find('.user_wish').html(wish.categoryName);
 			   					$items = $(cloneContent);
