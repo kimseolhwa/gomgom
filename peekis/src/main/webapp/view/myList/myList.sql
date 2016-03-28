@@ -22,11 +22,11 @@ select * from SEND;
 select * from follower;
 
 
-select w.*, u.name as userName, u.pho as userPho, c.name as categoryName
-from wish w, `like` l, user u, category c
-where  w.wno=l.wno and l.uno='2' and u.uno=w.uno=c.uno
-order by w.wno desc
-
+select DISTINCT wish.*, user.name as userName, user.pho as userPho, category.name as categoryName, 
+						(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo
+		  from wish, user, category, `like`
+		 where wish.uno=user.uno=category.uno
+		 group by wish.wno
 
 
 -----------------------------------------------------------	1	 
