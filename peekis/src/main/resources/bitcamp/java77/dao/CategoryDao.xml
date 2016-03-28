@@ -10,11 +10,11 @@
 		values(#{name},#{uNo})
 </insert>
 
-<select id="selectCategoryList" resultType="int">
-	select category.*, wish.FPATH
+<select id="categoryList" resultType="category" parameterType="category">
+	select category.cno, category.name as categoryName, category.uno , wish.*
 	  from category, wish
 	 where category.uno=wish.uno=#{uno}
-	 group by wish.wno
+	 group by category.cno
 </select>
 	
 </mapper>

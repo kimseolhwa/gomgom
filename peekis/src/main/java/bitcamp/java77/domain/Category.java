@@ -29,9 +29,5 @@ public class Category implements Serializable {
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
 	}
-	
-	
-	
-	
 
 }

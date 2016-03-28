@@ -1,16 +1,22 @@
 package bitcamp.java77.controller.ajax;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java77.dao.CategoryDao;
 import bitcamp.java77.domain.AjaxResult;
 import bitcamp.java77.domain.Category;
 import bitcamp.java77.domain.Join;
+import bitcamp.java77.domain.Wish;
 
 @Controller("ajax.CategoryController")
 @RequestMapping("/category/ajax/*")
@@ -33,4 +39,21 @@ public class CategoryController
 		return new AjaxResult("success", category);
 	}
 	
+	@RequestMapping("categoryList")
+	public Object categoryList(HttpServletRequest req) throws Exception
+	{
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		System.out.println("loginUser : " + join.getuNo());
+
+		HashMap<String, Object> paramMap = new HashMap<>();
+		paramMap.put("uno", join.getuNo());
+		List<Wish> categorys = CategoryDao.categoryList(paramMap);
+
+		HashMap<String, Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("data", categorys);
+		resultMap.put("loginUser", join);
+
+		return resultMap;
+	}
 }

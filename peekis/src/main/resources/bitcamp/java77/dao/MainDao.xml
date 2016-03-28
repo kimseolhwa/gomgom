@@ -18,7 +18,7 @@
 		select DISTINCT wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
 		  from wish, user, category
 		 where wish.uno=user.uno=category.uno
-		 group by wno
+		 group by wish.wno
 		 order by
 		<choose>
 			<when test="keyword == 'title'">title </when>
