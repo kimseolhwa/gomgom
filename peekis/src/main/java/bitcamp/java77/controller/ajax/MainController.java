@@ -133,8 +133,8 @@ public class MainController
 		HashMap<String,Integer> paramMap = new HashMap<>();
 	    paramMap.put("wno", wno);
 	    paramMap.put("uno", uno);
-	    MainDao.addLike(paramMap);
-		return new AjaxResult("success", null);
+	    int numOflNo =  MainDao.addLike(paramMap);
+		return new AjaxResult("success", numOflNo);
 	}
 	
 	// 좋아요 취소
