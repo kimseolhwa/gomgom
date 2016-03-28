@@ -55,7 +55,6 @@ footer {
 }
 
 /* 모달 토글 */
-
 .container-fluid {
 	text-align: center;
 	align: center;
@@ -64,12 +63,10 @@ footer {
 
 
 /* 이미지 클릭(팔로우) */
-
 .check{
 	display : inline-block; !important;
 	
 }
-
  .uncheckedborder {
 /* 	border: 5px solid rgb(242,132,53) !important; */
     -webkit-filter: grayscale(0.1%) !important;
@@ -77,7 +74,6 @@ footer {
 	border-width: 2px 1px 6px 1px !important;
 	border-top-color: #F0F0F0 !important;
 }  
-
 /*  .uncheckedborder {
    -webkit-filter: checkImg 0.5s forwards !important;
 }
@@ -276,10 +272,7 @@ footer {
 			var numItems = $('.check').length;
 		    $(this).toggleClass("check");
 		    
-
-		    
 		    numItems = $('.check').length; 
-
 		    
 			if(numItems >= 5){
 				  $("#followbtn").attr("disabled", false);
@@ -294,13 +287,9 @@ footer {
 				  }else{
 					 $("#followbtn").html( "<strong>주제를 팔로우 하세요</strong>");
 				  }
-			
-			
-			
 		});
     
 	}); 
-	
 </script>
 </head>
 <body>
@@ -321,21 +310,15 @@ footer {
 				<div class="row">
 					<div class="col-sm-7 text">
 						<h1 style="text-shadow: 1px 1px 1px;">
-							<strong>PEEKis</strong> 지금 <span style="color: red;">피키즈</span>에
+							<strong>PEEKIS</strong> 지금 <span style="color: red;">피키즈</span>에
 							가입하세요.
 						</h1>
-						
-						
 						<div class="description">
-							<h5> PEEKis에서 전 세계에 있는 친구, 가족, 지인들의 WISH LIST를 확인하실 수 있습니다.</h5>
+							<h5> &nbsp; PEEKIS에서 전 세계에 있는 친구, 가족, 지인들의 WISH LIST를 확인하실 수 있습니다.</h5>
 							<br> 
-							<img src="img/gifts_generic.gif" width="80%"
+							&nbsp;<img src="img/gifts_generic.gif" width="80%"
 								style="padding-left: 20px;">
 						</div>
-						<!--                             <div class="top-big-link"> -->
-						<!--                             	<a class="btn btn-link-1" href="#">Button 1</a> -->
-						<!--                             	<a class="btn btn-link-2" href="#">Button 2</a> -->
-						<!--                             </div> -->
 					</div>
 					<div class="col-sm-5 form-box">
 						<div class="form-top">
@@ -356,21 +339,11 @@ footer {
 										placeholder="User name..."
 										class="form-first-name form-control" id="name" required>
 								</div>
-								<!-- <div class="form-group">
-									<label class="sr-only" for="form-last-name">Last name</label> <input
-										type="text" name="lastName" placeholder="Last name..."
-										class="form-last-name form-control" id="form-last-name">
-								</div> -->
 								<div class="form-group">
 									<label class="sr-only" for="form-email">Email</label> <input
 										type="text" name="email" placeholder="Email..."
 										class="form-email form-control" id="email" required>
 								</div>
-								<!-- <div class="form-group">
-									<label class="sr-only" for="form-email">Email confirm</label> <input
-										type="text" name="emailConfirm" placeholder="Re-enter Email..."
-										class="form-email form-control" id="emailConfirm">
-								</div> -->
 								<div class="form-group">
 									<label class="sr-only" for="form-password">password</label> <input
 										type="password" name="password" placeholder="password..."
@@ -389,22 +362,18 @@ footer {
 									<span class="dupEmailCk" style="color: #E84343; padding-left: 10px; " ></span>
 									<br>
 									<br>
-									
 									<p style="color: gray;font-size:x-small;">가입과 동시에 귀하는 <a href="#">쿠키 사용</a>을 포함해 <a href="#">이용약관</a>과 <a href="#">개인정보 취급방침</a>에 동의하는 것입니다. 다른 사람들이 내가 입력한 이메일 또는 이름으로 나를 찾을 수 있습니다.</p>
 							</form>
-							
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
 <br>
-<div style="border: 0px solid black; ">
-<h4 align="center" style="font-size: small; color:#DCE5E8; "> <a class="upfo" href="#">PeeKIS소개</a> &nbsp;&nbsp;&nbsp; <a class="upfo" href="#">블로그</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">관련기사</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">사업체</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">서비스약관 및 개인보호 보호정책</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">도움말</a> </h4>
+<div style="border: 0px solid black;" id="jonFormBottom">
+<h4 align="center" style="font-size: small; color:#DCE5E8; "> <a class="upfo" href="#">PEEKIS소개</a> &nbsp;&nbsp;&nbsp; <a class="upfo" href="#">블로그</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">관련기사</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">사업체</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">서비스약관 및 개인보호 보호정책</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">도움말</a> </h4>
 </div>
-
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
@@ -429,27 +398,22 @@ footer {
 						<div>여성</div>
 						<a class="tooltips" href="#" >
 						<img src="img/woman.jpg" alt="..." class="img-thumbnail img-check"  title="여성" ></a>
-					
 					</div>
-					
 					<div class="col-md-3">
 						<input type="hidden" value="2">
 						<div>남성</div>
 						<a href="#"><img src="img/man.jpg" alt="..." class="img-thumbnail img-check"></a><!-- <span class="imgn" title="남성"></span> -->
 					</div>
-
 					<div class="col-md-3">
 						<input type="hidden" value="3">
 						<div>유·아동</div>
 						<a class="tooltips" href="#"><img src="img/kids.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>kids</span> --></a>
 					</div>
-					
 					<div class="col-md-3">
 						<input type="hidden" value="4">
 						<div>여행</div>
 						<a class="tooltips" href="#"><img src="img/trip.png" alt="..." class="img-thumbnail img-check"><!-- <span>baby</span> --></a>
 					</div>
-					
 					<div class="col-md-3">
 						<input type="hidden" value="5">
 						<div>동물</div>
@@ -510,34 +474,22 @@ footer {
 						<div>가구</div>
 						<a class="tooltips" href="#"><img src="img/furniture.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>furniture</span> --></a>
 					</div>
-
-</div><!-- div row -->
+				   </div><!-- div row -->
 				</div>
 				
 				<!--  모달 푸터 -->
 				<div class="modal-footer">
-
 						 <div class="container-fluid">
-	 	<button  class="btn btn-lg btn-orange" id="followbtn" ><strong>주제를 팔로우 하세요</strong></button><span id="selTest"></span>	
-	 </div>
-
+	 						<button  class="btn btn-lg btn-orange" id="followbtn" ><strong>주제를 팔로우 하세요</strong></button><span id="selTest"></span>	
+						 </div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-
-
 </section>
 
-
-
-
 	<!-- Footer -->
-	<footer id="footer">
-
-	</footer>
-	
+	<footer id="footer"></footer>
 
 <script>
 		$("#header").load("header/loginHeader.html");
