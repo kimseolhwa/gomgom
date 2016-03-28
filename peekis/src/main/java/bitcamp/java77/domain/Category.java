@@ -8,8 +8,9 @@ public class Category implements Serializable {
 	protected int cNo; // 카테고리 번호 
 	protected String name;  // 카테고리 명 
 	protected int uNo; // 유저 번호 
+	protected String path; // 카테고리에 나올 사진
 	
-	
+
 	//getter,setter
 	public int getcNo() {
 		return cNo;
@@ -28,6 +29,14 @@ public class Category implements Serializable {
 	}
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
+	}
+	public String getFpath()
+	{
+		return path;
+	}
+	public void setFpath(String fpath)
+	{
+		this.path = path;
 	}
 
 }

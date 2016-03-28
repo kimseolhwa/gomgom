@@ -11,7 +11,7 @@
 </insert>
 
 <select id="categoryList" resultType="category" parameterType="category">
-	select category.cno, category.name as categoryName, category.uno , wish.*
+	select category.cno, category.name, category.uno , wish.*
 	  from category, wish
 	 where category.uno=wish.uno=#{uno}
 	 group by category.cno
