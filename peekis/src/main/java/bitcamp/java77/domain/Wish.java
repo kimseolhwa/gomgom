@@ -30,6 +30,14 @@ public class Wish implements Serializable
 	{
 	}
 
+	public int getNumOflNo() {
+		return numOflNo;
+	}
+
+	public void setNumOflNo(int numOflNo) {
+		this.numOflNo = numOflNo;
+	}
+
 	public String getUserName()
 	{
 		return userName;
