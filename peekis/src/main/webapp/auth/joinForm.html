@@ -245,7 +245,7 @@ footer {
 				//alert("done");			 
 				 if(resultObj.ajaxResult.data>0){
 					 //alert("중복되는 값 있음")
-					 $(".dupEmailCk").text("중복되는 EMAIL 입니다. EMAIL을 다시 입력해주세요!!");
+					 $(".dupEmailCk").text("회원님은 이미 PEEKIS에 계정이 있습니다.");
 				 }else{
 					//alert("중복되는 값 없음")
 					$(".dupEmailCk").text("");
@@ -359,7 +359,7 @@ footer {
 								</div>
 								<button type="submit" class="btn btn-orange" id="registIn"
 									data-toggle="modal" >가입하기</button> <!-- data-target="#myModal" -->
-									<span class="dupEmailCk" style="color: #E84343; padding-left: 10px; " ></span>
+									<span class="dupEmailCk" style="color: #E84343; padding-left: 10px;text-decoration: underline; " ></span>
 									<br>
 									<br>
 									<p style="color: gray;font-size:x-small;">가입과 동시에 귀하는 <a href="#">쿠키 사용</a>을 포함해 <a href="#">이용약관</a>과 <a href="#">개인정보 취급방침</a>에 동의하는 것입니다. 다른 사람들이 내가 입력한 이메일 또는 이름으로 나를 찾을 수 있습니다.</p>
