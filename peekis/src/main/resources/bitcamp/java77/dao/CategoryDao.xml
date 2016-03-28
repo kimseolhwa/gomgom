@@ -9,5 +9,12 @@
 	insert into CATEGORY(NAME,uno) 
 		values(#{name},#{uNo})
 </insert>
+
+<select id="selectCategoryList" resultType="int">
+	select category.*, wish.FPATH
+	  from category, wish
+	 where category.uno=wish.uno=#{uno}
+	 group by wish.wno
+</select>
 	
 </mapper>
