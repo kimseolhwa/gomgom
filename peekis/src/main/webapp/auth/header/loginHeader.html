@@ -27,10 +27,6 @@ window.fbAsyncInit = function() {
 	 FB.login(function(response) {
 	   if (response.status === 'connected') {
 	 	 getMyProfile();
-	 	 
-	 	 //로그인이 성공되면 가입처리???
-	 	 
-	   
 	   
 	   } else if (response.status === 'not_authorized') {
 	     // 페이스북에는 로그인 되어있으나, 앱에는 로그인 되어있지 않다.
@@ -123,13 +119,7 @@ $("#login").on("click",function(){
 			 
 		return false;
 	}
-	
-	
 })
-
-
-
-
 </script>
 
 <!-- header 헤더 -->
@@ -171,7 +161,7 @@ $("#login").on("click",function(){
 										  <div class="form-group">
 										  
 										  <!-- 이메일이랑 아이디 유효성 체크 메세지  -->
-										  <div align="center"><span id="message" style="color: red; text-align: center;margin-right: 20%;" ></span></div>
+										  <div align="center"><span id="message" style="color: red; text-align: center;margin-right: 20%; text-decoration: underline;" ></span></div>
 										    <div class="col-sm-offset-2 col-sm-10">
 										      <div class="checkbox">
 										        <label>
