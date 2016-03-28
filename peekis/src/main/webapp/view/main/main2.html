@@ -97,6 +97,10 @@
 							console.log('좋아요 이벤트 발생');
 							var wishNo = $(this).closest('.item').find('.no').val();
 							var uNo = $('#UserNo').text();
+						    var	numOfLikeval =	$(this).find("#likeAmount").text();
+						    var numOfLike = $(this).next("div").find("#likeAmount")
+						    
+						    
 				        	$.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
 				        		var result = resultObj.ajaxResult;
 				        		console.log(result);
@@ -106,6 +110,9 @@
 					        			$('.' + wishNo).find('.heart').toggleClass('toggle');  
 									   },1000), 
 					        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
+					        		
+					        		numOfLike.text(Number(numOfLikeval)+1);
+					        		
 				    			}else{
 				    				swal('좋아요 추가에 실패하였습니다.');
 				    			}
@@ -116,6 +123,9 @@
 							console.log('좋아요 취소이벤트 발생');
 							var wishNo = $(this).closest('.item').find('.no').val();
 							var uNo = $('#UserNo').text();
+							var numOfLikeval = $(this).find("#likeAmount").text();
+							var numOfLike = $(this).prev("div").find("#likeAmount");
+							
 				        	$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
 				        		var result = resultObj.ajaxResult;
 				        		console.log(result);
@@ -125,6 +135,10 @@
 					        			$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
 									   },1000), 
 					        		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
+					        		
+					        		numOfLike.text(Number(numOfLikeval)-1);
+					        		
+					        		
 				    			}else{
 				    				swal('좋아요 삭제에 실패하였습니다.');
 				    			}
@@ -192,6 +206,11 @@
 			   					} 
 			   					cloneContent.find('.user_id').html(wish.userName);
 			   					cloneContent.find('.user_wish').html(wish.categoryName);
+			   					
+			   					//라이크 개수
+			   					cloneContent.find('#likeAmount').text(wish.numOflNo);
+			   					
+			   					
 			   					$items = $(cloneContent);
 			   					$container.append( $items ).isotope( 'appended', $items );			
 
@@ -564,8 +583,12 @@
 						<div class="user_id">아이디는여덟자임</div>
 					<span class="glyphicon glyphicon-folder-open"></span>
 					<div class="user_wish">폴더이름여덟자임</div>
-					<div class="heart"></div>
-					<div class="undoheart"></div>
+					<div class="heart">
+						<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
+					</div>
+					<div class="undoheart">
+						<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
+					</div>
 				</div>
 			</div>
 		</div>
