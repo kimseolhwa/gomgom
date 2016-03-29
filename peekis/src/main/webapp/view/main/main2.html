@@ -302,11 +302,9 @@
 						function( resultObj ) {
 							var wish = resultObj.data;
 							var cList = resultObj.commentList;
-							console.log(wish);
+							console.log("resultObj.sessionUser : " ,resultObj.sessionUser);
 							
 							if(cList.length>0){
-								
-							console.log("cList : ", cList);    
 							
 							var html=""
 							for(var i=0; i<cList.length;i++){
@@ -348,8 +346,20 @@
 							var path = wish.path;
 							if(path.startsWith('http://') == false){
 								path = filePath + path;
-							}							
-							$("#detailmodal-pro").attr('src', filePath + wish.userPho);
+							}
+							
+							if(wish.userPho==null){
+								$(".detailmodal-pro").attr('src','../header/img/profileAvatar.jpg');
+							}else{
+								$(".detailmodal-pro").attr('src', filePath + wish.userPho);
+							}
+							
+							if(resultObj.sessionUser.pho==null){
+								$(".comInputUserPho").attr('src','../header/img/profileAvatar.jpg');
+							}else{
+								$(".comInputUserPho").attr('src', filePath + resultObj.sessionUser.pho);
+							}
+							
 							$(".modal-user_id").html(wish.userName);	
 							$(".modal-user_wish").html(wish.categoryName);	
 							
@@ -664,7 +674,7 @@
 								</div>
 								<div class="comment">
 									<div class="comment_pro">
-										<img src="../../image/pro1.jpg" class="img-circle">
+										<img src="../../image/pro1.jpg" class="img-circle comInputUserPho">
 										<div class="col-lg-10">
 											<div class="input-group">
 												<input type="text" class="form-control" placeholder="댓글을 입력해주세요" id="commentText"> <span class="input-group-btn">
