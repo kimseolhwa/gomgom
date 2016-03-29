@@ -59,12 +59,12 @@
 	
 	<!-- 유저별 팔로워 총 개수 불러오기  -->
 	<select id="selectFollowerCnt" resultType="int">
-		select COUNT(*) from follower where uno=#{uno}
+		select COUNT(*) from follower where uno2=#{uno}
 	</select>
 	
 	<!-- 유저별 팔로우 총 개수 불러오기  -->
 	<select id="selectFollowCnt" resultType="int">
-		select COUNT(*) from follower where uno2=#{uno}
+		select COUNT(*) from follower where uno=#{uno}
 	</select>
 		
 	<!-- 유저정보 불러오기  -->

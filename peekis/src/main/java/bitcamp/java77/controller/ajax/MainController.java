@@ -100,7 +100,7 @@ public class MainController
 	*/
 	@RequestMapping("detail")
 	public Object detail(int no, int uno) throws Exception
-	{
+	{	System.out.println(uno);
 		Wish wish = MainDao.selectOne(no);
 		
 		// 코멘트 리스트 		
