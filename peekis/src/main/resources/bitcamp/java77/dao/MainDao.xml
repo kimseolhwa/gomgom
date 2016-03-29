@@ -145,6 +145,14 @@
 		 where wno=#{no} 
 		   and `like`.uno=user.uno
 	</select>
+
+	<!--  상세페이지 - 담아가기 설정한 유저 정보 조회-->
+	<select id="selectSendList"  parameterType="int" resultType="like">
+		select user.pho,user.name
+		  from `SEND`,user
+		 where wno=#{no} 
+		   and `SEND`.uno=user.uno
+	</select>
 	
 	<!-- 팔로워 -->
 	<insert id="follower" parameterType="map">

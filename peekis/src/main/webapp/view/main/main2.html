@@ -144,13 +144,11 @@
 					        		
 					        		numOfLike.text(Number(numOfLikeval)-1);
 					        		
-					        		
 				    			}else{
 				    				swal('좋아요 삭제에 실패하였습니다.');
 				    			}
 				    		});
 						});
-				
 				
 				var $container = $('.item_container');
 		          $container.isotope({
@@ -163,8 +161,6 @@
 						$container.isotope();
 		        	});
 		        }
-
-		          
 				var $container2 = $('.modal-item_container');
 		          $container2.imagesLoaded( function() {
 		        	  $container2.isotope({
@@ -215,7 +211,6 @@
 			   					
 			   					//라이크 개수
 			   					cloneContent.find('#likeAmount').text(wish.numOflNo);
-			   					
 			   					
 			   					$items = $(cloneContent);
 			   					$container.append( $items ).isotope( 'appended', $items );			
@@ -307,8 +302,9 @@
 							var wish = resultObj.data;
 							var cList = resultObj.commentList;
 							var likeList = resultObj.likeList;
-// 							console.log("resultObj.likeList : " ,resultObj.likeList);
-							
+							var sendList = resultObj.sendList;
+							console.log("resultObj.sendList : " ,resultObj.sendList);
+
 							//코멘트 리스트
 							if(cList.length>0){
 							
@@ -346,6 +342,27 @@
 							$("#tab1").html(html)
 							 
 							}
+							
+							//담아가기한 사람 리스트 
+							if(sendList.length>0){
+								
+								$("#sendLength").text(sendList.length);
+								
+								var html="";
+								for(var i=0; i<sendList.length;i++){
+								  if(sendList[i].pho==null){
+									html += "<span id='likeUser'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
+								    html += "&nbsp;<a>"+ sendList[i].name +"</a></span>&nbsp;&nbsp;"
+								    html += "<input type='hidden' value="+ sendList[i].uNo + " id='likeUserNo'/>"
+								  }else{
+									html += "<span id='likeUser'><img src="+ filePath + sendList[i].pho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+								    html += "&nbsp;<a>"+ sendList[i].name +"</a></span>&nbsp;&nbsp;"
+								    html += "<input type='hidden' value="+ sendList[i].uNo + " id='likeUserNo'/>"
+									}
+								}
+								$("#tab2").html(html)
+							}
+							
 							
 							//좋아요한 사람 리스트 							
 							if(likeList.length>0){
@@ -418,11 +435,8 @@
 							var wish = resultObj.data;
 							var cList = resultObj.commentList;
 // 							console.log(wish);
-							
 							if(cList.length>0){
-								
 // 							console.log("cList : ", cList);    
-							
 							var html=""
 							for(var i=0; i<cList.length;i++){
 							    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
@@ -674,7 +688,7 @@
 									</div>
 									<div class="btn-group" role="group">
 										<button id="send" class="btn btn-default" href="#tab2" data-toggle="tab">
-											<div class="hidden-xs">담아가기 0</div>
+											<div class="hidden-xs">담아가기&nbsp;<span id="sendLength">0</span></div>
 										</button>
 									</div>
 									<div class="btn-group" role="group">

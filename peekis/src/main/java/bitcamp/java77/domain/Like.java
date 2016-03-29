@@ -14,7 +14,7 @@ public class Like implements Serializable {
 	protected String name;
 	protected int numOfLno;
 	
-	
+	protected int sNo;	//담아가기 번호
 	
 	public Like() {
 

@@ -108,6 +108,8 @@ public class MainController
 		Like like = MainDao.selectLikeOne(no);
 		// 좋아요 누른 유저 리스트 
 		List<Like> likeList = MainDao.selectLikeList(no);
+		// 담아가기 한 유저 리스트 
+		List<Like> sendList = MainDao.selectSendList(no);
 		
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("uno", uno);
@@ -122,6 +124,7 @@ public class MainController
 		resultMap.put("sessionUser", join);
 		resultMap.put("like", like);
 		resultMap.put("likeList", likeList);
+		resultMap.put("sendList", sendList);
 		
 		
 		return resultMap;

@@ -52,4 +52,6 @@ public interface MainDao
 	public Like selectLikeOne(int no);
 
 	public List<Like> selectLikeList(int no);
+
+	public List<Like> selectSendList(int no);
 }
