@@ -130,6 +130,13 @@
 		 where uno=#{uno}
 	</select>
 	
+
+	<select id="selectLikeOne" resultType="Like" parameterType="int">
+		select count(*) as numOfLno
+		  from `like`
+		 where wno=#{no}
+	</select>
+	
 	
 	<!-- 팔로워 -->
 	<insert id="follower" parameterType="map">
