@@ -301,7 +301,7 @@
 						function( resultObj ) {
 							var wish = resultObj.data;
 							var cList = resultObj.commentList;
-							console.log("resultObj.sessionUser : " ,resultObj.sessionUser);
+							console.log("resultObj.like : " ,resultObj.like.numOfLno);
 							
 							if(cList.length>0){
 							
@@ -342,6 +342,9 @@
 							
 							//댓글 개수
 							$("#commentLength").text(cList.length);
+							
+							//좋아요 개수 
+							$("#likeLength").text(resultObj.like.numOfLno);
 							
 							$("#detailmodal-no").html( wish.no );
 							$("#detailmodal-uno").html( wish.uno );
@@ -653,7 +656,7 @@
 									</div>
 									<div class="btn-group" role="group">
 										<button id="like" class="btn btn-default" href="#tab3" data-toggle="tab">
-											<div class="hidden-xs">좋아요 0</div>
+											<div class="hidden-xs">좋아요&nbsp;<span id="likeLength">0</span></div>
 										</button>
 									</div>
 								</div>
