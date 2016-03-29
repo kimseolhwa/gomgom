@@ -106,10 +106,8 @@ public class MainController
 		// 코멘트 리스트 		
 		List<Comment> comment = MainDao.selectComentList(no);
 		
-//		Iterator<Comment> it = comment.iterator();
-//		while(it.hasNext()){
-//			System.out.println(it.next().getCont());
-//		}
+		//세션 유저 정보 조회 
+		Join join = MainDao.selectSessionUserInfo(uno);
 		
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("uno", uno);
@@ -121,6 +119,7 @@ public class MainController
 		resultMap.put("data", wish);
 		resultMap.put("followerCheck", followerCheck);
 		resultMap.put("commentList", comment);
+		resultMap.put("sessionUser", join);
 		
 		
 		return resultMap;
