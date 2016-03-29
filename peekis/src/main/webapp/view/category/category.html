@@ -47,6 +47,12 @@ $(document).ready(function() {
        percentPosition : true
     });
     
+    $container.find('.category').each( function( i, gridItem ) {
+    	  var draggie = new Draggabilly( gridItem );
+    	  // bind drag events to Packery
+    	  $container.packery( 'bindDraggabillyEvents', draggie );
+    });
+    
     var sort = function(){
   	  $container.imagesLoaded(function() {
   	  	$container.packery();
@@ -106,13 +112,17 @@ $(document).ready(function() {
 // 		 sort();
 // 		});
 	 
-	 $.getJSON('/peekis/category/ajax/categoryList.do',function(resultObj) {
+	 $.getJSON('/peekis/category/ajax/categoryList.do', function(resultObj) {
 		 $("#UserNo").text(resultObj.loginUser.uNo);
 			 console.log(resultObj)
 		 for (var category of resultObj.data){
 			 var cloneContent = $(".cloneCategory > div").clone();
 				cloneContent.addClass(category.cNo+"");
 				cloneContent.find('.categoryName').html(category.name);
+				cloneContent.find('.path1').attr('src', category.path1);
+				cloneContent.find('.path2').attr('src', category.path2);
+				cloneContent.find('.path3').attr('src', category.path3);
+				cloneContent.find('.path4').attr('src', category.path4);
 				$items = $(cloneContent);
 				$container.append( $items ).packery( 'appended', $items );			
 		  	}
@@ -133,13 +143,6 @@ $(document).ready(function() {
 
 		<div id="main-content">
 			<div class="row c_container" >
-				
-<!-- 				<div  class="col-md-2 folderImg"> -->
-<!-- 					<img src="img/folder2.png" class="categoryFolder" /> -->
-<!-- 					<div class="textOverFolder"> -->
-<!-- 						<h4 class="tOverName">청바지</h4> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
 			</div>
 
 			<div class="addCategory">
@@ -157,10 +160,10 @@ $(document).ready(function() {
 					<div class="categoryName">이름은 여기 표시</div>
 					<input type="hidden" class="no" value="00">
 					<div class="categoryImg">
-						<img src="../../image/no_image(450X450).png" class="img-rounded" />
-						<img src="../../image/no_image(450X450).png" class="img-rounded">
-						<img src="../../image/no_image(450X450).png" class="img-rounded">
-						<img src="../../image/no_image(450X450).png" class="img-rounded">
+						<img src="../../image/no_image(450X450).png" class="img-rounded path1">
+						<img src="../../image/no_image(450X450).png" class="img-rounded path2">
+						<img src="../../image/no_image(450X450).png" class="img-rounded path3">
+						<img src="../../image/no_image(450X450).png" class="img-rounded path4">
 					</div>
 					<button class="btn btn-orange">수정</button>
 				</div>

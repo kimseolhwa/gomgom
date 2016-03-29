@@ -11,10 +11,28 @@
 </insert>
 
 <select id="categoryList" resultType="category" parameterType="category">
-	select category.cno, category.name, category.uno , wish.*
+	select category.cno, category.name, category.uno , wish.*, (select wish.fpath 
+															  from wish
+															 where cno=1
+															 ORDER BY RAND()
+															 LIMIT 1) as path1, (select wish.fpath 
+															  from wish
+															 where cno=1
+															 ORDER BY RAND()
+															 LIMIT 1) as path2,
+															 (select wish.fpath 
+															  from wish
+															 where cno=1
+															 ORDER BY RAND()
+															 LIMIT 1) as path3,
+															 (select wish.fpath 
+															  from wish
+															 where cno=1
+															 ORDER BY RAND()
+															 LIMIT 1) as path4
 	  from category, wish
 	 where category.uno=wish.uno=#{uno}
 	 group by category.cno
 </select>
-	
+
 </mapper>
