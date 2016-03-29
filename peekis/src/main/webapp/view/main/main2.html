@@ -43,7 +43,7 @@
 <script>
 	$(document).ready(function() {	
 	
-				/* 댓글 삭제 */
+				/* 댓글 삭제 - ajax로 가져온 html을 click이벤트 */
 				$('body').on('click', "#commentDelBtn", function(){
 					
 					var coNo = $(this).next("#commentNum").val();
@@ -364,7 +364,6 @@
 								$("#tab3").html(html)
 						}
 							
-							
 							//댓글 개수
 							$("#commentLength").text(cList.length);
 							
@@ -389,8 +388,6 @@
 							}else{
 								$(".comInputUserPho").attr('src', filePath + resultObj.sessionUser.pho);
 							}
-							
-							
 							
 							$(".modal-user_id").html(wish.userName);	
 							$(".modal-user_wish").html(wish.categoryName);	
@@ -640,7 +637,8 @@
 							<div class="modal-user_id">아이디는여덟자임</div>
 							<span class="glyphicon glyphicon-folder-open"></span>
 							<div class="modal-user_wish">폴더이름여덟자임</div>
-							<p class="follow">팔로우</p>
+<!-- 							<p class="follow">팔로우</p> -->
+						    <button class="btn btn-orange follow" id="detailFollowBtn">팔로우</button>
 						</div>
 						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
 					</div>
