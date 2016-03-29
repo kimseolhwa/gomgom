@@ -132,6 +132,7 @@
 			if(resultObj.ajaxResult.status == 'success'){
 				console.log(resultObj);
 				$('.'+ fno).remove();
+				$("#fCnt2").text(Number($("#fCnt2").text())-1);
 			}
 		});
     });
@@ -146,11 +147,13 @@
 	
 	/* 팔로우 버튼에 이벤트추가 */
 	$(document).on('mouseenter', '.follow-btn', function (){
-		$(this).text('언팔로잉');
+		if($(this).text() == '팔로잉')	$(this).text('언팔로잉');
+		else $(this).text('팔로잉');
     });
 	
 	$(document).on('mouseleave', '.follow-btn', function (){
-		$(this).text('팔로잉');
+		if($(this).text() == '팔로잉')	$(this).text('언팔로잉');
+		else $(this).text('팔로잉');
     });
 	
 	
@@ -165,6 +168,9 @@
 				cloneContent.addClass(user.uNo+"");
 				if(user.pho != null){
 					cloneContent.find('.userImage').attr("src", filePath + user.pho);
+				}
+				if(user.fSts == 0){
+					cloneContent.find('.follow-btn').text('언팔로잉');
 				}
 				cloneContent.find('.userId').text(user.name);
 				cloneContent.find('.f-UserNo').text(user.uNo);

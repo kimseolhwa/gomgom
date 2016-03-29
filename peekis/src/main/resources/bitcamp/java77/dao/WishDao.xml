@@ -84,7 +84,7 @@
 	
 	<!-- 유저의 팔로워 리스트 불러오기  -->
 	<select id="selectFollowerList" resultType="join" parameterType="int">
-		select u.*
+		select u.*, (select count(*) from follower f2 where f2.uno=#{uno} and f2.uno2=f.uno) as fSts
 		from follower f, user u
 		where f.uno2=#{uno} and u.uno=f.uno
 		order by u.uno desc

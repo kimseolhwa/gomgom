@@ -55,13 +55,13 @@ public class Join implements Serializable {
 	
 	//====================================================
 	// 팔로우 유무 'Y'or'N'
-	protected char fSts;	
+	protected int fSts;	
 	
-	public char getfSts() {
+	public int getfSts() {
 		return fSts;
 	}
 	
-	public void setfSts(char fSts) {
+	public void setfSts(int fSts) {
 		this.fSts = fSts;
 	}
 	//====================================================

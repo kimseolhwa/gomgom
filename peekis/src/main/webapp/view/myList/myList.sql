@@ -21,7 +21,7 @@ select * from `LIKE` where uno='2';
 select * from SEND;
 select * from follower;
 
-select u.*
+select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=f.uno) as sts
 from follower f, user u
 where f.uno2='2' and u.uno=f.uno
 order by u.uno desc
