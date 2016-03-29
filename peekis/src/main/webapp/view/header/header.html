@@ -5,7 +5,7 @@
 <script type="text/javascript">
 
 // 정보수정 클릭하면 사용자 정보를 가져와서 폼으로 불러들인다.
-$("#mypage-btn").on("click",function(){
+$("#mypage").on("click",function(){
 	$.getJSON('/peekis/auth/ajax/userInfo.do', function(resultObj) {
 		var userInfo = resultObj.ajaxResult.data;
 		console.log(userInfo)			
