@@ -48,6 +48,7 @@
 					
 					var coNo = $(this).next("#commentNum").val();
 					console.log("coNo : " , coNo)
+					var commentLength = $("#commentLength").text();
 					
 					$.ajax({
 						 type: "POST",
@@ -57,7 +58,8 @@
 					})
 					// 댓글삭제 UI
 					$(this).parent("#comdelsel").remove()
-				
+					$("#commentLength").text(Number(commentLength)-1)
+					
 				});
 				
 				/* 댓글 입력 */
@@ -66,7 +68,9 @@
 					var comment = $("#commentText").val();
 					$("#commentText").val(""); 
 					console.log("wNo: " , wNo)
-					 
+					var commentLength = $("#commentLength").text();
+					
+					console.log("commentLength : " ,commentLength)
 					$.ajax({
 						 type: "POST",
 				  		  dataType:"JSON",
@@ -88,6 +92,8 @@
                        "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"+
                        "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" ); 
 						}
+						
+						$("#commentLength").text(Number(commentLength)+1)
 					})
 					
 				})
