@@ -50,4 +50,6 @@ public interface MainDao
 	public Join selectSessionUserInfo(int uno);
 
 	public Like selectLikeOne(int no);
+
+	public List<Like> selectLikeList(int no);
 }

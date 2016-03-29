@@ -8,14 +8,38 @@ public class Like implements Serializable {
 	protected int lNo;
 	protected int uNo;
 	protected int wNo;
-
+	
+//	상세페이지 도메인
+	protected String pho; 
+	protected String name;
 	protected int numOfLno;
+	
 	
 	
 	public Like() {
 
 	}
 	
+	public String getPho() {
+		return pho;
+	}
+
+	public void setPho(String pho) {
+		this.pho = pho;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
 	public int getNumOfLno() {
 		return numOfLno;
 	}

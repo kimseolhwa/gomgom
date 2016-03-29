@@ -131,12 +131,20 @@
 	</select>
 	
 
+	<!-- 좋아요 숫자 카운트 조회 -->
 	<select id="selectLikeOne" resultType="Like" parameterType="int">
 		select count(*) as numOfLno
 		  from `like`
 		 where wno=#{no}
 	</select>
 	
+	<!--  상세페이지 - 좋아요 설정한 유저 정보 조회-->
+	<select id="selectLikeList"  parameterType="int" resultType="like">
+		select user.pho,user.name
+		  from `like`,user
+		 where wno=#{no} 
+		   and `like`.uno=user.uno
+	</select>
 	
 	<!-- 팔로워 -->
 	<insert id="follower" parameterType="map">
@@ -184,8 +192,6 @@
 		  from user
 		 where uno=#{uno}
 	</select>
-	
-	
 	
 	
 	<!-- 검색 게시글 불러오기(페이징) -->

@@ -97,18 +97,17 @@ public class MainController
 	*/
 	@RequestMapping("detail")
 	public Object detail(int no, int uno) throws Exception
-	{	System.out.println(uno);
-		Wish wish = MainDao.selectOne(no);
+	{	
 		
+		Wish wish = MainDao.selectOne(no);
 		// 코멘트 리스트 		
 		List<Comment> comment = MainDao.selectComentList(no);
-		
 		//세션 유저 정보 조회 
 		Join join = MainDao.selectSessionUserInfo(uno);
-		
 		// 좋아요 정보 
 		Like like = MainDao.selectLikeOne(no);
-		
+		// 좋아요 누른 유저 리스트 
+		List<Like> likeList = MainDao.selectLikeList(no);
 		
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("uno", uno);
@@ -122,6 +121,7 @@ public class MainController
 		resultMap.put("commentList", comment);
 		resultMap.put("sessionUser", join);
 		resultMap.put("like", like);
+		resultMap.put("likeList", likeList);
 		
 		
 		return resultMap;
