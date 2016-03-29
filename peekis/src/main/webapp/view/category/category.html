@@ -28,11 +28,14 @@
 <link rel="stylesheet" style="text/css" href="../../css/profile.css" />
 <link rel="stylesheet" style="text/css" href="../../css/category.css" />
 
-<!-- Packery -->
-<script src="https://npmcdn.com/packery@2.0.0/dist/packery.pkgd.min.js"></script>
+<!-- Isotope -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
 
 <!-- imagesLoaded -->
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+
+<link rel="stylesheet" href="https://npmcdn.com/flickity@1.2/dist/flickity.css" media="screen">
+<script src="https://npmcdn.com/flickity@1.2/dist/flickity.pkgd.js"></script>
 
 <!-- alert -->
 <script src="../../js/sweetalert-dev.js"></script>
@@ -42,23 +45,10 @@
 $(document).ready(function() {
 	
 	var $container = $('.c_container');
-    $container.packery({
-       itemSelector : '.category',
-       percentPosition : true
+    $container.flickity({
+       cellAlign: 'left',
+       contain: true
     });
-    
-    $container.find('.category').each( function( i, gridItem ) {
-    	  var draggie = new Draggabilly( gridItem );
-    	  // bind drag events to Packery
-    	  $container.packery( 'bindDraggabillyEvents', draggie );
-    });
-    
-    var sort = function(){
-  	  $container.imagesLoaded(function() {
-  	  	$container.packery();
-  	  });
-    }
-	
 	
 	$('.add-category').click(function () {
 		swal({title: "폴더 만들기",
@@ -88,30 +78,12 @@ $(document).ready(function() {
 					cloneContent.addClass(category.cNo+"");
 					cloneContent.find('.categoryName').html(resultObj.category.name);
 					$items = $(cloneContent);
-   					$container.append( $items ).packery( 'appended', $items );	
+   					$container.append( $items ).flickity( 'append', $items );	
 		  	 	  }
 				})
 			});
 	  });
 	
-// 	 $.getJSON('/peekis/category/ajax/categoryList.do',function(resultObj) {
-// 		 $("#UserNo").text(resultObj.loginUser.uNo);
-// 			 console.log(resultObj)
-// 		 for (var wish of resultObj.data){
-// 			 var cloneContent = $(".cloneCategory > div").clone();
-// 				cloneContent.addClass(wish.cno+"");
-// 				var path = wish.path;
-// 				if(path.startsWith('http://') == false){
-// 					path = filePath + path;
-// 				}
-// 				cloneContent.find('img:first').attr('src', path);
-// 				cloneContent.find('.categoryName').html(wish.categoryName);
-// 				$items = $(cloneContent);
-// 				$container.append( $items ).packery( 'appended', $items );			
-// 		  	}
-// 		 sort();
-// 		});
-	 
 	 $.getJSON('/peekis/category/ajax/categoryList.do', function(resultObj) {
 		 $("#UserNo").text(resultObj.loginUser.uNo);
 			 console.log(resultObj)
@@ -124,9 +96,65 @@ $(document).ready(function() {
 				cloneContent.find('.path3').attr('src', category.path3);
 				cloneContent.find('.path4').attr('src', category.path4);
 				$items = $(cloneContent);
-				$container.append( $items ).packery( 'appended', $items );			
+				$container.append( $items ).flickity( 'append', $items );			
 		  	}
-		 sort();
+		});
+	 
+	 var $container2 = $('.item_container');
+     $container2.isotope({
+        itemSelector : '.item',
+        percentPosition : true
+     });
+     
+     var sort = function(){
+   	  $container2.imagesLoaded(function() {
+   	  	$container2.isotope();
+   	  });
+     }
+	 
+	 nextPage(1);
+     
+     $(window).scroll(function(){
+     	var scrollHeight = $(window).scrollTop() + $(window).height();
+     	var documentHeight = $(document).height();
+     	if(scrollHeight >= documentHeight -100){
+     		console.log("스크롤 이벤트 발생");
+     		var pageNo = Number($('#pageNo').text()) +1;
+     		nextPage(pageNo);
+     	}
+     });
+       
+     function nextPage(pageNo){
+ 		$(document).on('click', '.category', function (){
+    		console.log($(this).text())
+     	 $.getJSON('/peekis/category/ajax/categoryWishList.do',{pageNo : pageNo},function(resultObj) {
+     		 for (var wish of resultObj.data){
+     			console.log(resultObj)
+					$('#pageNo').text(pageNo);
+					var cloneContent = $(".cloneMainContents > div").clone();
+					cloneContent.addClass(wish.no+"");
+					cloneContent.find('.no').val(wish.no);
+					var path = wish.path;
+					if(path.startsWith('http://') == false){
+						path = filePath + path;
+					}
+					if(wish.buy == 'Y'){
+						cloneContent.find('.buy').addClass('buy-check');
+					}
+					cloneContent.find('img:first').attr("src", path);
+					$items2 = $(cloneContent);
+					$container2.append( $items ).isotope( 'appended', $items2 );			
+			  	}
+     		 sort();
+			});
+     	 })
+     }
+     
+     $('#filters').on('click', 'button', function() {
+			var filterValue = $(this).attr('data-filter');
+			$container.isotope({
+				filter : filterValue
+			});
 		});
 	 
 });
@@ -138,38 +166,61 @@ $(document).ready(function() {
 	<header id="header"></header>
 
 	<section>
-	
+
 		<div id="user-profile"></div>
 
 		<div id="main-content">
-			<div class="row c_container" >
-			</div>
-
-			<div class="addCategory">
-				<div class="add-category">
-					<div style="padding: 30px 0 20px 0;">
-						<i class="fa fa-plus-circle fa-3x"></i>
+			<div class="c_container carousel">
+				<div class="addCategory">
+					<div class="add-category">
+						<div style="padding: 30px 0 20px 0;">
+							<i class="fa fa-plus-circle fa-3x"></i>
+						</div>
+						<h4 style="margin: 0;">카테고리 추가</h4>
 					</div>
-					<h4 style="margin: 0;">카테고리 추가</h4>
 				</div>
 			</div>
-
 
 			<div class="cloneCategory" style="display: none;">
 				<div class="category">
 					<div class="categoryName">이름은 여기 표시</div>
 					<input type="hidden" class="no" value="00">
 					<div class="categoryImg">
-						<img src="../../image/no_image(450X450).png" class="img-rounded path1">
-						<img src="../../image/no_image(450X450).png" class="img-rounded path2">
-						<img src="../../image/no_image(450X450).png" class="img-rounded path3">
-						<img src="../../image/no_image(450X450).png" class="img-rounded path4">
+						<img src="../../image/no_image(450X450).png" class="img-rounded path1"> <img src="../../image/no_image(450X450).png" class="img-rounded path2"> <img src="../../image/no_image(450X450).png" class="img-rounded path3"> <img src="../../image/no_image(450X450).png" class="img-rounded path4">
 					</div>
 					<button class="btn btn-orange">수정</button>
 				</div>
 			</div>
+
+			<div class="filter">
+				<div id="filters" class="btn-group">
+					<button class="button is-checked btn btn-orange" data-filter="*">모두 보기</button>
+					<button class="button btn btn-orange" data-filter=".friend">친구</button>
+				</div>
+			</div>
+
+			<div class="item_container">
+				<div id="pageNo" style="display: none;">1</div>
+				<div id="UserNo" style="display: none;">0</div>
+			</div>
+
+			<div class="cloneMainContents" style="display: none;">
+				<div class="item">
+					<div class="product">
+						<img src="../../image/no_image(235x400).png" /> <input type="hidden" class="no" value="00">
+						<div class="mask">
+							<div class="icon">
+								<a href="#Modal1" data-toggle="modal"><button class="detail btn btn-orange">상세보기</button></a>
+							</div>
+						</div>
+					</div>
+					<div class="wish-menu">
+						<i class="fa fa-bookmark buy"></i> <i class="fa fa-pencil"></i> <i class="fa fa-trash-o"></i>
+					</div>
+				</div>
+			</div>
 		</div>
-		
+
 	</section>
 
 	<footer id="footer"></footer>

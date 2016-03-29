@@ -34,5 +34,17 @@
 	 where category.uno=wish.uno=#{uno}
 	 group by category.cno
 </select>
+<resultMap type="wish" id="wishMap">
+		<id 	column="wno" 		property="no"/>
+		<result column="FPATH" 		property="path"/>
+		<result column="CONT" 	property="content"/>
+	</resultMap>
+
+	<select id="categoryWishList" resultMap="wishMap" parameterType="map">
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
+		from wish
+		where cno=1
+		order by wno desc
+	</select>
 
 </mapper>

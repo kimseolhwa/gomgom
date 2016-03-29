@@ -9,6 +9,7 @@ a, a:HOVER{
 	color: #f28435;
 	font-weight: bold;
 }
+
 .main {
 	background-color: #e9e9e9;
 	width: 90%;
@@ -19,6 +20,7 @@ a, a:HOVER{
 .item_container  {
 	margin: 0 auto;
 	width: 100%;
+	margin-top: 30px;
 }
 
 .item {
@@ -223,6 +225,69 @@ a, a:HOVER{
   bottom: -10px;
   right: -5px;
 }
+
+
+.c_container  {
+	width: 100%;
+	height: 300px;
+    border: 1px solid blak;
+    background-color: #d8d8d8;
+   	-webkit-box-shadow:inset 0 1px 1px 0 #828282;
+	box-shadow:inset 0 1px 1px 0 #828282;
+	
+}
+.flickity-viewport {
+	margin-left: 30px;
+}
+.flickity-prev-next-button previous {
+	left: 20px;
+}
+
+.category {
+	width: 235px;
+	margin: 10px;
+	background-color: white;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15), 0 2px 1px rgba(0, 0, 0, 0.1), 0 3px 1px rgba(0, 0, 0, 0.05);
+	border-radius: 5px 5px 5px 5px;
+	text-align: center;
+	
+}
+
+.categoryImg img {
+	width: 110px;
+	height: 110px;
+	border: 1px solid black;
+	margin: 2px;
+}
+
+/* 카테고리 추가 버튼 */
+.add-category {
+	width: 235px; 
+	height: 150px;
+	background-color: white;
+	border: 3px solid gray;
+	text-align: center; 
+	border-radius: 5px 5px 5px 5px;
+	opacity: 0.7;
+}
+
+.add-category:HOVER {
+	opacity: 1;
+	cursor: pointer;
+}
+
+.add-category:ACTIVE {
+	background-color: gray;
+}
+
+.user-profile {
+	margin: 0px;
+	height: 320px;
+
+}
+
+
+
 
 @keyframes rotate-left {
   to {

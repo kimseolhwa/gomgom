@@ -65,6 +65,4 @@ public class Category implements Serializable {
 	{
 		this.path4 = path4;
 	}
-	
-
 }
