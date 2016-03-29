@@ -1,16 +1,12 @@
 package bitcamp.java77.controller.ajax;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +17,7 @@ import bitcamp.java77.dao.MainDao;
 import bitcamp.java77.domain.AjaxResult;
 import bitcamp.java77.domain.Comment;
 import bitcamp.java77.domain.Join;
+import bitcamp.java77.domain.Like;
 import bitcamp.java77.domain.Wish;
 
 @Controller("ajax.MainController")
@@ -109,6 +106,10 @@ public class MainController
 		//세션 유저 정보 조회 
 		Join join = MainDao.selectSessionUserInfo(uno);
 		
+		// 좋아요 정보 
+		Like like = MainDao.selectLikeOne(no);
+		
+		
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("uno", uno);
 		paramMap.put("wishUserNo", wish.getUno());
@@ -120,6 +121,7 @@ public class MainController
 		resultMap.put("followerCheck", followerCheck);
 		resultMap.put("commentList", comment);
 		resultMap.put("sessionUser", join);
+		resultMap.put("like", like);
 		
 		
 		return resultMap;
