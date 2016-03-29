@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import bitcamp.java77.domain.Comment;
+import bitcamp.java77.domain.Join;
 import bitcamp.java77.domain.Wish;
 
 public interface MainDao
@@ -44,4 +45,6 @@ public interface MainDao
 	public List<Comment> selectComentList(int no);
 
 	public List<Wish> selectSearchList(HashMap<String, Object> paramMap);
+
+	public Join selectSessionUserInfo(int uno);
 }
