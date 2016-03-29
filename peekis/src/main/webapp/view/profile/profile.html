@@ -1,19 +1,53 @@
-		<div class="user-profile">
-		  
-		 <div style="width: 100px; height: 100px;"><img alt="" id="profile" src="../header/img/people.png"></div>
-		
-	  	 <div style="width: 450px; height: 50px; text-align: center;"><h2 id="userName">gomgom</h2></div>
-	  	 
-		 <div class="userInfo" style="width: 450px; height: 100px;">
-		  <a href="/peekis/view/category/category.html"><div><i class="fa fa-folder-open-o"></i><br>카테고리<br>000</div></a>
-		  <a><div id="wishList"><i class="fa fa-picture-o"></i><br>게시물<br><span id="wishCnt">000<span></div></a>
-		  <a><div id="likeList"><i class="fa fa-heart-o"></i><br>좋아요<br><span id="likeCnt">000<span></div></a>
-		  <a href="#"><div><i class="fa fa-user"></i><br>팔로워<br>000</div></a>
-		  <a href="#"><div><i class="glyphicon glyphicon-sunglasses"></i><br>팔로우<br>000</div></a>	  
-		 </div>
-		  
-
+<div class="user-profile">
+  
+	<div style="width: 100px; height: 100px;"><img alt="" id="profile" src="../header/img/people.png"></div>
+	
+	<div style="width: 450px; height: 50px; text-align: center;"><h2 id="userName">gomgom</h2></div>
+	 	 
+	<div id="profileUser" style="display: none;">2</div>
+	<div class="userInfo" style="width: 450px; height: 100px;">
+	  <a href="/peekis/view/category/category.html"><div><i class="fa fa-folder-open-o"></i><br>카테고리<br>000</div></a>
+	  <a><div id="wishList"><i class="fa fa-picture-o"></i><br>게시물<br><span id="wishCnt">000<span></div></a>
+	  <a><div id="likeList"><i class="fa fa-heart-o"></i><br>좋아요<br><span id="likeCnt">000<span></div></a>
+	  <a data-toggle="modal" data-target="#followerModal"><div id="followerList"><i class="fa fa-user"></i><br>팔로워<br><span id="fCnt">000</span></div></a>
+	  <a data-toggle="modal" data-target="#followModal"><div id="followList"><i class="glyphicon glyphicon-sunglasses"></i><br>팔로우<br><span id="fCnt2">000</span></div></a>	  
+	</div>
+  
+	<!-- followModal -->
+	<div class="portfolio-modal modal fade" id="followModal" role="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-content">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr"><div class="rl"></div></div>
+			</div>
+			<div class="modal-body">
+			</div>
 		</div>
+	</div>
+	
+	<!-- followerModal -->
+	<div class="portfolio-modal modal fade" id="followerModal" role="dialog" aria-hidden="true" style="display: none;">
+		<div class="modal-content">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr"><div class="rl"></div></div>
+			</div>
+			<div class="modal-body">
+			</div>
+		</div>
+	</div>
+	
+	<!-- 팔로우 기본폼 -->
+	<div class="clonefollow" style="display: none;">
+		<div class="fInfo">
+			<div class="f-UserNo" style="display: none;">0</div>
+			<img class="userImage" src="../header/img/people.png"/>
+			<span class="userId">userID</span>
+			<span class="unfollow"><button class="detail btn btn-orange follow-btn">팔로잉</button></span>
+		</div>
+	</div>	
+
+</div>
+		
+		
 		
 <script>
 	var getParameter = function(url) {
@@ -30,25 +64,31 @@
 	if(document.location.href.indexOf("fNo") > 0){
 		friendNo = getParameter(document.location.href).fNo;
 	}
-
+	
+	/* 유저정보 가져오기 */
 	$.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) {
 		console.log(resultObj);
 		$("#wishCnt").text(resultObj.wishCnt);
 		$("#likeCnt").text(resultObj.likeCnt);
+		$("#fCnt").text(resultObj.fCnt);
+		$("#fCnt2").text(resultObj.fCnt2);
 		$("#userName").text(resultObj.loginUser.name);
 		$("#dropdown-color").text(resultObj.loginUser.name);
+		$("#profileUser").text(resultObj.loginUser.uno);
 		if(resultObj.loginUser.pho != null){
 			$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
 			$("#profile").attr("src", filePath + resultObj.loginUser.pho);
 		}
 		if(resultObj.user != null){
 			$("#userName").text(resultObj.user.name);
+			$("#profileUser").text(resultObj.user.uno);
 			if(resultObj.user.pho != null){
 				$("#profile").attr("src", filePath + resultObj.user.pho);
 			}
 		}
 	  });
 	
+	/* 게시물 탭으로 이동 */
 	$(document).on('click', '#wishList', function (){    	
 		if(document.location.href.indexOf("fNo") > 0){
         	location.href = contextRoot + "/view/user/user.html?fNo=" + getParameter(document.location.href).fNo;
@@ -56,11 +96,80 @@
 	       	location.href = contextRoot + "/view/myList/myList2.html";
     	}
     });	
+	
+	/* 좋아요 탭으로 이동 */
 	$(document).on('click', '#likeList', function (){    	
 		if(document.location.href.indexOf("fNo") > 0){
         	location.href = contextRoot + "/view/like/like.html?fNo=" + getParameter(document.location.href).fNo;
     	}else{
 	       	location.href = contextRoot + "/view/like/like.html";
     	}
-    });	
+    });
+	
+	/* 팔로우탭 클릭시 모달 띄우기 */
+	$(document).on('click', '#followList', function (){
+		var uno = $("#profileUser").text();
+		$.getJSON('/peekis/wish/ajax/followList.do',{uno : uno}, function(resultObj) {
+			console.log(resultObj);
+			for (var user of resultObj.ajaxResult.data){
+				var cloneContent = $(".clonefollow > div").clone();
+				cloneContent.addClass(user.uNo+"");
+				if(user.pho != null){
+					cloneContent.find('.userImage').attr("src", filePath + user.pho);
+				}
+				cloneContent.find('.userId').text(user.name);
+				cloneContent.find('.f-UserNo').text(user.uNo);
+				$('.modal-body').append(cloneContent);
+			}
+		});
+    });
+	
+	/* 팔로우 된 친구 언팔하기 */
+	$(document).on('click', '.follow-btn', function (){
+		var uno = $("#profileUser").text();
+		var fno = $(this).closest('.fInfo').find('.f-UserNo').text();
+		$.getJSON('/peekis/wish/ajax/followDelete.do',{uno : uno, fno : fno}, function(resultObj) {
+			if(resultObj.ajaxResult.status == 'success'){
+				console.log(resultObj);
+				$('.'+ fno).remove();
+			}
+		});
+    });
+	
+	/* 모달창 닫으면 모달바디 리셋시키기*/
+	$('#followModal').on('hidden.bs.modal', function (e) {
+		 $('.modal-body .fInfo').remove();
+	});
+	$('#followerModal').on('hidden.bs.modal', function (e) {
+		 $('.modal-body .fInfo').remove();
+	});
+	
+	/* 팔로우 버튼에 이벤트추가 */
+	$(document).on('mouseenter', '.follow-btn', function (){
+		$(this).text('언팔로잉');
+    });
+	
+	$(document).on('mouseleave', '.follow-btn', function (){
+		$(this).text('팔로잉');
+    });
+	
+	
+	
+	/* 팔로워탭 클릭시 모달 띄우기 */
+	$(document).on('click', '#followerList', function (){
+		var uno = $("#profileUser").text();
+		$.getJSON('/peekis/wish/ajax/followerList.do',{uno : uno}, function(resultObj) {
+			console.log(resultObj);
+			for (var user of resultObj.ajaxResult.data){
+				var cloneContent = $(".clonefollow > div").clone();
+				cloneContent.addClass(user.uNo+"");
+				if(user.pho != null){
+					cloneContent.find('.userImage').attr("src", filePath + user.pho);
+				}
+				cloneContent.find('.userId').text(user.name);
+				cloneContent.find('.f-UserNo').text(user.uNo);
+				$('.modal-body').append(cloneContent);
+			}
+		});
+    });
 </script>

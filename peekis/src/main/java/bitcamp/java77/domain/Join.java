@@ -10,9 +10,9 @@ public class Join implements Serializable {
 	protected String name;
 	protected String pwd;
 	protected String email;
-	protected String tPho;  // 유저 썸네일 포토
-	protected String pho;   // 유저  포토
-	protected String newPwd;  // 변경할 패스워드
+	protected String tPho;  	// 유저 썸네일 포토
+	protected String pho;   	// 유저  포토
+	protected String newPwd;	// 변경할 패스워드
 	
 	// loginuser
 	protected int loginCheckCnt;
@@ -25,7 +25,7 @@ public class Join implements Serializable {
 	protected int tNo;
 	
 	
-	//헤더에서 로그인 체큽막스
+	//헤더에서 로그인 체크박스
 	protected String ckBox;
 	
 	
@@ -53,6 +53,21 @@ public class Join implements Serializable {
 	//====================================================
 
 	
+	//====================================================
+	// 팔로우 유무 'Y'or'N'
+	protected char fSts;	
+	
+	public char getfSts() {
+		return fSts;
+	}
+	
+	public void setfSts(char fSts) {
+		this.fSts = fSts;
+	}
+	//====================================================
+
+
+
 	// 생성자
 	public Join() {	}
 

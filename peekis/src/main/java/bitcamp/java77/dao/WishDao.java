@@ -24,7 +24,15 @@ public interface WishDao {
   
   int selectLikeCnt(int uno);
   
+  int selectFollowerCnt(int uno);
+  
+  int selectFollowCnt(int uno);
+  
   Join selectUserInfo(int fNo);
+  
+  List<Join> selectFollowList(int uno);
+  
+  List<Join> selectFollowerList(int uno);
   
   // Delete
   int delete(int no);
@@ -33,12 +41,16 @@ public interface WishDao {
   
   int deleteSend(int no);
 
+  int followDelete(HashMap<String, Integer> paramMap);
+  
   // Update
   int update(Wish wish);
   
   Wish selectOne(int no);
 
   int updateBuy(Wish wish);
+
+
 
 
 

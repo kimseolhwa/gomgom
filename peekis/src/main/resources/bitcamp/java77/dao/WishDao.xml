@@ -11,7 +11,6 @@
 		<result column="CONT" 	property="content"/>
 	</resultMap>
 	
-	
    	<!-- 게시글 등록하기 -->
 	<insert id="insert" parameterType="wish">
 		insert into wish(fpath, title, cont, price, url, tag, cno, uno) 
@@ -57,12 +56,38 @@
 	<select id="selectLikeCnt" resultType="int">
 		select COUNT(*) from `like` where uno=#{uno}
 	</select>
+	
+	<!-- 유저별 팔로워 총 개수 불러오기  -->
+	<select id="selectFollowerCnt" resultType="int">
+		select COUNT(*) from follower where uno=#{uno}
+	</select>
+	
+	<!-- 유저별 팔로우 총 개수 불러오기  -->
+	<select id="selectFollowCnt" resultType="int">
+		select COUNT(*) from follower where uno2=#{uno}
+	</select>
 		
-	<!-- 유저별 좋아요 총 개수 불러오기  -->
+	<!-- 유저정보 불러오기  -->
 	<select id="selectUserInfo" resultType="join">
 		select uno, name, pwd, email, pho 
 		  from user
 		 where uno=#{fNo}
+	</select>
+	
+	<!-- 유저의 팔로우 리스트 불러오기  -->
+	<select id="selectFollowList" resultType="join" parameterType="int">
+		select u.*
+		from follower f, user u
+		where f.uno=#{uno} and u.uno=f.uno2
+		order by u.uno desc
+	</select>
+	
+	<!-- 유저의 팔로워 리스트 불러오기  -->
+	<select id="selectFollowerList" resultType="join" parameterType="int">
+		select u.*
+		from follower f, user u
+		where f.uno2=#{uno} and u.uno=f.uno
+		order by u.uno desc
 	</select>
 	
 	
@@ -82,7 +107,12 @@
 		delete from send where wno=#{no}
 	</delete>
   
-  
+  	<!-- 팔로우 삭제하기 -->
+	<delete id="followDelete">
+		delete from follower where uno=#{uno} and uno2=#{fno}
+	</delete>
+	
+	
   
   	<!-- 게시글 수정하기 -->
 	<update id="update" parameterType="wish">
