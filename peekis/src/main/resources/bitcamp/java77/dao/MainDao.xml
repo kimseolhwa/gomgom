@@ -171,6 +171,13 @@
 		 order by cono desc
 	</select>
 	
+	<!--  상세페이지에서 세션 유저 정보 조회 -->
+	<select id="selectSessionUserInfo"  parameterType="int" resultType="join">
+		select *
+		  from user
+		 where uno=#{uno}
+	</select>
+	
 	
 	
 	
