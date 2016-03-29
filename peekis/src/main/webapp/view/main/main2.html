@@ -297,7 +297,6 @@
 					var wishNo = $(this).closest('.item').find('.no').val();
 					var uNo = Number($('#UserNo').text());
 					
-					
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo} , 
 						function( resultObj ) {
 							var wish = resultObj.data;
@@ -341,6 +340,9 @@
 							 
 							}
 							
+							//댓글 개수
+							$("#commentLength").text(cList.length);
+							
 							$("#detailmodal-no").html( wish.no );
 							$("#detailmodal-uno").html( wish.uno );
 							var path = wish.path;
@@ -359,6 +361,8 @@
 							}else{
 								$(".comInputUserPho").attr('src', filePath + resultObj.sessionUser.pho);
 							}
+							
+							
 							
 							$(".modal-user_id").html(wish.userName);	
 							$(".modal-user_wish").html(wish.categoryName);	
@@ -383,11 +387,6 @@
 				$container2.on( 'click', '.detail', function() {
 					var wishNo = $(this).closest('.modal-item').find('.modalNo').val();
 					var uNo = Number($('#UserNo').text());
-					
-					
-					
-					
-					
 					
 					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo} , 
 						function( resultObj ) {
@@ -644,7 +643,7 @@
 								<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
 									<div class="btn-group" role="group">
 										<button id="comment" class="btn btn-orange" href="#tab1" data-toggle="tab">
-											<div class="hidden-xs">댓글 0</div>
+											<div class="hidden-xs">댓글&nbsp;<span id="commentLength">0</span></div>
 										</button>
 									</div>
 									<div class="btn-group" role="group">
