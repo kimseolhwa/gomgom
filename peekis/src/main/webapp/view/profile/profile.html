@@ -117,6 +117,7 @@
 				if(user.pho != null){
 					cloneContent.find('.userImage').attr("src", filePath + user.pho);
 				}
+				cloneContent.find('.follow-btn').addClass('follow');
 				cloneContent.find('.userId').text(user.name);
 				cloneContent.find('.f-UserNo').text(user.uNo);
 				$('.modal-body').append(cloneContent);
@@ -124,15 +125,15 @@
 		});
     });
 	
-	/* 팔로우 된 친구 언팔하기 */
-	$(document).on('click', '.follow-btn', function (){
+	/* 팔로우 목록에서 - 팔로우 된 친구 언팔하기 */
+	$(document).on('click', '.follow', function (){
 		var uno = $("#profileUser").text();
 		var fno = $(this).closest('.fInfo').find('.f-UserNo').text();
 		$.getJSON('/peekis/wish/ajax/followDelete.do',{uno : uno, fno : fno}, function(resultObj) {
 			if(resultObj.ajaxResult.status == 'success'){
 				console.log(resultObj);
-				$('.'+ fno).remove();
 				$("#fCnt2").text(Number($("#fCnt2").text())-1);
+				$('.'+ fno).remove();
 			}
 		});
     });
@@ -172,9 +173,26 @@
 				if(user.fSts == 0){
 					cloneContent.find('.follow-btn').text('언팔로잉');
 				}
+				cloneContent.find('.follow-btn').addClass('follower');
 				cloneContent.find('.userId').text(user.name);
 				cloneContent.find('.f-UserNo').text(user.uNo);
 				$('.modal-body').append(cloneContent);
+			}
+		});
+    });
+	
+	/* 팔로워 목록에서 - 친구 언팔하기 */
+	$(document).on('click', '.follower', function (){
+		var uno = $("#profileUser").text();
+		var fno = $(this).closest('.fInfo').find('.f-UserNo').text();
+		alert("dddddd");
+		alert(uno);
+		alert(fno);
+		$.getJSON('/peekis/wish/ajax/followDelete.do',{uno : uno, fno : fno}, function(resultObj) {
+			if(resultObj.ajaxResult.status == 'success'){
+				console.log(resultObj);
+				$("#fCnt2").text(Number($("#fCnt2").text())-1);
+				$('.'+ fno).find('.follow-btn').text('언팔로잉');
 			}
 		});
     });
