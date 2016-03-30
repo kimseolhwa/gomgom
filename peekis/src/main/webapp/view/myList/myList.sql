@@ -23,7 +23,7 @@ select * from follower;
 
 select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=f.uno) as sts
 from follower f, user u
-where f.uno2='2' and u.uno=f.uno
+where f.uno2='4' and u.uno=f.uno
 order by u.uno desc
 		
 select u.uno, u.name, u.pho
@@ -33,6 +33,28 @@ inner join follower as f
 	where f.uno='2'
 		order by u.uno asc
 
+
+select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=u.uno) as fSts
+from follower f, user u
+where f.uno='3' and u.uno=f.uno2
+order by u.uno desc		
+
+select user.*, 
+	  (select COUNT(*) from wish where uno='2') wishCnt,
+	  (select COUNT(*) from `like` where uno='2') likeCnt,
+	  (select COUNT(*) from follower where uno2='2') fCnt,
+	  (select COUNT(*) from follower where uno='2') fCnt2
+from user
+where uno='2'
+
+
+select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=f.uno) as fSts
+		from follower f, user u
+		where f.uno='3' and u.uno=f.uno2
+		order by u.uno desc
+		
+		
+		
 
 
 select w.*, u.name as userName, u.pho as userPho, c.name as categoryName

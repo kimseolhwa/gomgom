@@ -65,7 +65,59 @@ public class Join implements Serializable {
 		this.fSts = fSts;
 	}
 	//====================================================
-
+	
+	
+	
+	//====================================================
+	// 유저 프로필정보
+	protected int caCnt;
+	protected int wishCnt;
+	protected int likeCnt;
+	protected int fCnt;
+	protected int fCnt2;
+	
+	public int getCaCnt() {
+		return caCnt;
+	}
+	
+	public void setCaCnt(int caCnt) {
+		this.caCnt = caCnt;
+	}
+	
+	public int getWishCnt() {
+		return wishCnt;
+	}
+	
+	public void setWishCnt(int wishCnt) {
+		this.wishCnt = wishCnt;
+	}
+	
+	public int getLikeCnt() {
+		return likeCnt;
+	}
+	
+	public void setLikeCnt(int likeCnt) {
+		this.likeCnt = likeCnt;
+	}
+	
+	public int getfCnt() {
+		return fCnt;
+	}
+	
+	public void setfCnt(int fCnt) {
+		this.fCnt = fCnt;
+	}
+	
+	public int getfCnt2() {
+		return fCnt2;
+	}
+	
+	public void setfCnt2(int fCnt2) {
+		this.fCnt2 = fCnt2;
+	}
+	
+	//====================================================
+	
 
 
 	// 생성자
