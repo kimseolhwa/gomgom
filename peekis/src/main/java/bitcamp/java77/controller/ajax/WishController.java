@@ -176,7 +176,7 @@ public class WishController {
   }
   
   @RequestMapping("followList")
-  public Object followList(int uno, int fno) throws Exception {
+  public AjaxResult followList(int uno, int fno) throws Exception {
 	  //[select] toUser = fno
 	  HashMap<String,Integer> paramMap = new HashMap<>();
 	  paramMap.put("uno", uno);
@@ -188,7 +188,7 @@ public class WishController {
   
   @RequestMapping("followDelete")
   public Object followDelete(int uno, int fno) throws Exception {
-	  //[delete] toUser = fno 	  
+	  //[delete] toUser = fno
 	  HashMap<String,Integer> paramMap = new HashMap<>();
 	  paramMap.put("uno", uno);
 	  paramMap.put("fno", fno);
@@ -199,12 +199,28 @@ public class WishController {
 	   return new AjaxResult("success", null);
   }
   
+  @RequestMapping("followInsert")
+  public Object followInsert(int uno, int fno) throws Exception {
+	  //[delete] toUser = fno
+	  HashMap<String,Integer> paramMap = new HashMap<>();
+	  paramMap.put("uno", uno);
+	  paramMap.put("fno", fno);
+	  
+	  if (wishDao.followInsert(paramMap) <= 0) {
+		  return new AjaxResult("failure", null);
+	  }
+	  return new AjaxResult("success", null);
+  }
+  
 
   @RequestMapping("followerList")
-  public Object followerList(int uno) throws Exception {
+  public AjaxResult followerList(int uno, int fno) throws Exception {
 	  //[select] fromUser = uno 
-	  List<Join> fList =  wishDao.selectFollowerList(uno);
-	  HashMap<String,Object> resultMap = new HashMap<>();
+	  HashMap<String,Integer> paramMap = new HashMap<>();
+	  paramMap.put("uno", uno);
+	  paramMap.put("fno", fno);
+	  
+	  List<Join> fList =  wishDao.selectFollowerList(paramMap);
 	  return new AjaxResult("data", fList);
   }
   

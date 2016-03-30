@@ -17,6 +17,12 @@
 		values(#{path}, #{title}, #{content}, #{price}, #{url}, #{tag}, #{cno}, #{uno})
 	</insert>
 	
+	<!-- 팔로우 추가하기 -->
+	<insert id="followInsert">
+		insert into follower(uno, uno2) 
+		values(#{uno}, #{fno})
+	</insert>
+	
 	<!-- 유저의 디폴트카테고리 번호 반환 -->
 	<select id="selectcNo" resultType="int">
 		select min(cno) from category where uno=#{uno}
@@ -71,7 +77,7 @@
 	<select id="selectFollowerList" resultType="join" parameterType="map">
 		select u.*, (select count(*) from follower f2 where f2.uno=#{uno} and f2.uno2=f.uno) as fSts
 		from follower f, user u
-		where f.uno2=#{uno} and u.uno=f.uno
+		where f.uno2=#{fno} and u.uno=f.uno
 		order by u.uno desc
 	</select>
 	

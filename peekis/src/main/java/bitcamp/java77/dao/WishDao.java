@@ -11,6 +11,8 @@ public interface WishDao {
   // Create
   int insert(Wish wish);
   
+  int followInsert(HashMap<String, Integer> paramMap);
+  
   int selectNo();
   
   int selectcNo(int uno);
@@ -24,7 +26,7 @@ public interface WishDao {
   
   List<Join> selectFollowList(HashMap<String,Integer> paramMap);
   
-  List<Join> selectFollowerList(int uno);
+  List<Join> selectFollowerList(HashMap<String,Integer> paramMap);
   
   // Delete
   int delete(int no);

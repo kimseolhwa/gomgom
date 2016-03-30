@@ -104,7 +104,7 @@ a, a:HOVER{
 }
 .portfolio-modal .userId {
 	font-size: 25px;
-	width: 160px;
+	width: 150px;
 	left: 120px;
 	position: absolute;
 	margin: auto;
@@ -114,7 +114,7 @@ a, a:HOVER{
 }
 .portfolio-modal .unfollow {
 	width: 150px;
-	left: 280px;
+	left: 270px;
 	position: absolute;
 	margin: auto;
 	line-height: 90px;

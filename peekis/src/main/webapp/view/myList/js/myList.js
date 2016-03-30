@@ -2,7 +2,7 @@
  * 
  */
 
-  $(document).ready(function() {
+
 	  
 	  var $draggable = $('.draggable').draggabilly();
 	  
@@ -59,8 +59,8 @@
 		  });
 		
 		 $.getJSON('/peekis/category/ajax/categoryList.do', function(resultObj) {
-			 $("#UserNo").text(resultObj.loginUser.uNo);
-				 console.log(resultObj)
+			 $("#profileUser").text(resultObj.loginUser.uNo);
+			 console.log(resultObj)
 			 for (var category of resultObj.data){
 				 var cloneContent = $(".cloneCategory > div").clone();
 					cloneContent.addClass(category.cNo+"").attr('data-filter', ".cNo"+category.cNo);
@@ -183,8 +183,9 @@
     });
       
     function nextPage(pageNo){
-    	 $.getJSON('/peekis/wish/ajax/list.do',{pageNo : pageNo},function(resultObj) {
-    		 $("#UserNo").text(resultObj.loginUser.uNo);
+    	var uno = $("#loginUser-no").text();
+    	 $.getJSON('/peekis/wish/ajax/list.do',{pageNo : pageNo, uno: uno},function(resultObj) {
+    		 //$("#UserNo").text(resultObj.loginUser.uNo);
     		 for (var wish of resultObj.data){
 				$('#pageNo').text(pageNo);
 				var cloneContent = $(".cloneMainContents > div").clone();
@@ -307,7 +308,7 @@
 		});
 	});
 	
-  });
+  
 
 	  
 	  

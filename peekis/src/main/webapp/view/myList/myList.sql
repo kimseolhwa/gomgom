@@ -23,7 +23,7 @@ select * from follower;
 
 select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=f.uno) as sts
 from follower f, user u
-where f.uno2='4' and u.uno=f.uno
+where f.uno2='3' and u.uno=f.uno
 order by u.uno desc
 		
 select u.uno, u.name, u.pho

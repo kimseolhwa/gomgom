@@ -387,18 +387,18 @@
 		        	var wishUserNo = $(this).closest('.modal-content').find('.uno').text();
 		        	var uNo = $('#UserNo').text();
 		        	if($(".follow").text() == "팔로우"){
-						$.getJSON('/peekis/main/ajax/follower.do', {wishUserNo : wishUserNo, uno : uNo}, 
-							function( resultObj ) {
-								swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
-								$(".follow").text("언팔로우");
-								console.log(resultObj);
-						});
+						$.getJSON('/peekis/wish/ajax/followInsert.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
+								if(resultObj.ajaxResult.status == 'success'){
+									swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
+									$(".follow").text("언팔로우");
+								}
+							});
 		        	}else if($(".follow").text() == "언팔로우"){
-						$.getJSON('/peekis/main/ajax/unfollower.do', {wishUserNo : wishUserNo, uno : uNo}, 
-							function( resultObj ) {
+						$.getJSON('/peekis/wish/ajax/followDelete.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
+							if(resultObj.ajaxResult.status == 'success'){
 								swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
 								$(".follow").text("팔로우");
-								console.log(resultObj);
+							}
 						});
 		        	}
 		        });
