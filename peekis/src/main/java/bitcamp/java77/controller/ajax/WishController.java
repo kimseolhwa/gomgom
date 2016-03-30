@@ -161,47 +161,34 @@ public class WishController {
    
   @RequestMapping("userInfo")
   public Object userInfo(int fNo, HttpServletRequest req) throws Exception {
-	  System.out.println("userInfo 컨트롤러 친구번호: " + fNo);
 	  Join loginUser = (Join)req.getSession().getAttribute("loginUser");
+	  System.out.println("userInfo 컨트롤러 친구번호: " + fNo);
 	  System.out.println("userInfo 컨트롤러 로그인유저번호: " + loginUser.getuNo());
 	  
 	  HashMap<String,Object> resultMap = new HashMap<>();
-	  int wishCnt = 0;
-	  int likeCnt = 0;
-	  int fCnt = 0;
-	  int fCnt2 = 0;
 	  if(fNo == 0){
-		  wishCnt = wishDao.selectWishCnt(loginUser.getuNo());
-		  likeCnt = wishDao.selectLikeCnt(loginUser.getuNo());
-		  fCnt = wishDao.selectFollowerCnt(loginUser.getuNo());
-		  fCnt2 = wishDao.selectFollowCnt(loginUser.getuNo());
-	  }else{
-		  wishCnt = wishDao.selectWishCnt(fNo);
-		  likeCnt = wishDao.selectLikeCnt(fNo);
-		  fCnt = wishDao.selectFollowerCnt(fNo);
-		  fCnt2 = wishDao.selectFollowCnt(fNo);
-		  Join user = wishDao.selectUserInfo(fNo);
-		  resultMap.put("user", user);
+		  fNo = loginUser.getuNo();
 	  }
-	  resultMap.put("wishCnt", wishCnt);
-	  resultMap.put("likeCnt", likeCnt);
-	  resultMap.put("fCnt", fCnt);
-	  resultMap.put("fCnt2", fCnt2);
-	  resultMap.put("loginUser", loginUser);
+
+	  Join user = wishDao.selectUserInfo(fNo);
+	  resultMap.put("user", user);
 	  return resultMap;
   }
   
   @RequestMapping("followList")
-  public Object followList(int uno) throws Exception {
-	  //[select] toUser = uno 
-	  List<Join> fList =  wishDao.selectFollowList(uno);
-	  HashMap<String,Object> resultMap = new HashMap<>();
+  public Object followList(int uno, int fno) throws Exception {
+	  //[select] toUser = fno
+	  HashMap<String,Integer> paramMap = new HashMap<>();
+	  paramMap.put("uno", uno);
+	  paramMap.put("fno", fno);
+	  
+	  List<Join> fList =  wishDao.selectFollowList(paramMap);
 	  return new AjaxResult("data", fList);
   }
   
   @RequestMapping("followDelete")
   public Object followDelete(int uno, int fno) throws Exception {
-	  //[delete] toUser = uno 	  
+	  //[delete] toUser = fno 	  
 	  HashMap<String,Integer> paramMap = new HashMap<>();
 	  paramMap.put("uno", uno);
 	  paramMap.put("fno", fno);
@@ -220,6 +207,6 @@ public class WishController {
 	  HashMap<String,Object> resultMap = new HashMap<>();
 	  return new AjaxResult("data", fList);
   }
-
+  
   
 }
