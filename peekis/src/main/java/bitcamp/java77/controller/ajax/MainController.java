@@ -29,6 +29,12 @@ public class MainController
 	@Autowired
 	ServletContext servletContext;
 
+	@RequestMapping("loginCheck")
+	public AjaxResult loginCheck(HttpServletRequest req) throws Exception {
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		return new AjaxResult("success", join);
+	}
+	
 	@RequestMapping("list")
 	public Object list(@RequestParam(defaultValue="1") int pageNo, HttpServletRequest req) throws Exception {
 		Join join = (Join) req.getSession().getAttribute("loginUser");
@@ -73,6 +79,7 @@ public class MainController
 		resultMap.put("send", sendList);
 		return resultMap;
 	}
+	
 	/*
 	@RequestMapping("selectUserList")
 	public Object selectUserList(@RequestParam(defaultValue="1") int modalPageNo, HttpServletRequest req, int uno) throws Exception {
@@ -95,6 +102,7 @@ public class MainController
 		return resultMap;
 	}
 	*/
+	
 	@RequestMapping("detail")
 	public Object detail(int no, int uno) throws Exception
 	{	
@@ -125,7 +133,6 @@ public class MainController
 		resultMap.put("like", like);
 		resultMap.put("likeList", likeList);
 		resultMap.put("sendList", sendList);
-		
 		
 		return resultMap;
 	}
