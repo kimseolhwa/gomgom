@@ -107,12 +107,15 @@
 		<div class="cloneCategory" style="display: none;">
 			<div class="category">
 				<div class="categoryName">이름은 여기 표시</div>
-				<input type="hidden" class="no" value="00">
-				<input type="hidden" class="data-filter">
+				<input type="hidden" class="cno" value="00">
 				<div class="categoryImg">
-					<img src="../../image/no_image(450X450).png" class="img-rounded path1"> <img src="../../image/no_image(450X450).png" class="img-rounded path2"> <img src="../../image/no_image(450X450).png" class="img-rounded path3"> <img src="../../image/no_image(450X450).png" class="img-rounded path4">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path1">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path2">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path3">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path4">
 				</div>
-				<button class="btn btn-orange">수정</button>
+				<i class="fa fa-pencil categoryUpdate"></i>
+				<i class="fa fa-trash-o categoryDel"></i>
 			</div>
 		</div>
 
@@ -188,7 +191,8 @@
 				<div class="modal-body">
 					<form id="preview">
 						<div class="row">
-							<input type="text" id="url" name="url" class="text" size=40;> <input type="submit" class="btn btn-orange" data-toggle="modal" data-target="#registModal" value="물건추가">
+							<input type="text" id="url" name="url" class="text" size=40;>
+							<input type="submit" class="btn btn-orange" data-toggle="modal" data-target="#registModal" value="물건추가">
 						</div>
 					</form>
 				</div>
@@ -341,6 +345,11 @@
 							cloneContent.find('.categoryName').html(resultObj.category.name);
 							$items = $(cloneContent);
 		   					$container2.append( $items ).flickity( 'append', $items );	
+		   					
+		   					// 드랍 추가
+		   					$items.droppable({
+								drop : dropCategory
+							});
 				  	 	  }
 						})
 					});
@@ -353,49 +362,59 @@
 					 var cloneContent = $(".cloneCategory > div").clone();
 						cloneContent.addClass(category.cNo+"").attr('data-filter', ".cNo"+category.cNo);
 						cloneContent.find('.categoryName').html(category.name);
+						cloneContent.find('.cno').val(category.cNo);
 						cloneContent.find('.path1').attr('src', category.path1);
 						cloneContent.find('.path2').attr('src', category.path2);
 						cloneContent.find('.path3').attr('src', category.path3);
 						cloneContent.find('.path4').attr('src', category.path4);
 						
 						$items = $(cloneContent);
-						$container2.append( $items ).flickity( 'append', $items );			
+						$container2.append( $items ).flickity( 'append', $items );	
+						
+						// 드랍 추가
+						$items.droppable({
+							drop : dropCategory
+						});
 				  	}
 				});
 		  
+
+				var dropCategory = function(event, ui) {
+					var dropItem = ui.draggable;
+					var regExp = /cNo[1-9]+/;
+					var dropCls = dropItem.attr("class").match(regExp)[0];
+					
+					console.dir($(this).attr("data-filter"));
+					dropItem.removeClass(dropCls);
+					dropItem.addClass($(this).attr("data-filter").replace(".", ""));
+				};
+				
+				/* 카테고리 삭제하기  */
+				$container2.on( 'click', '.categoryDel', function() {
+					var cNo = $(this).closest(".category").find('.cno').val();
+					console.log(cNo);
+					$.getJSON('/peekis/category/ajax/deleteCategory.do', {cno : cNo} , function( resultObj ) {
+						var ajaxResult = resultObj.ajaxResult;
+						if (ajaxResult.status == "success") {
+							$container2.flickity( 'remove', $("." + cNo) ).flickity();
+						}
+					});
+				})
+				
+				
 		  
-		  
-// 		  var $container = $('.item_container');
-//           $container.isotope({
-//              itemSelector : '.item',
-//              percentPosition : true
-//           });
-          
-//           var sort = function(){
-//         	  $container.imagesLoaded(function() {
-//         	  	$container.isotope();
-//         	  });
-//           }
-          
 		  var $container = $('.item_container');
-          $container.packery({
+          $container.isotope({
              itemSelector : '.item',
              percentPosition : true
           });
           
-          $container.find('.item').each( makeEachDraggable);
-
-          function makeEachDraggable( i, itemElem ) {
-            var draggie = new Draggabilly( itemElem );
-            $container.packery( 'bindDraggabillyEvents', draggie );
-          }
-          
           var sort = function(){
         	  $container.imagesLoaded(function() {
-        	  	$container.packery();
+        	  	$container.isotope();
         	  });
           }
-			
+          
           /* 구매여부 토글 */
           $(document).on("click", ".buy", function(){
         	var wishNo = $(this).closest(".item").find('.no').val();
@@ -443,10 +462,14 @@
    					}
    					cloneContent.find('img:first').attr("src", path);
    					$items = $(cloneContent);
-   					$container.append( $items ).packery( 'appended', $items );	
-   					$items.each( makeEachDraggable );
+   					$container.append( $items ).isotope( 'appended', $items );
+   					$items.draggable({
+   						revert : true
+   					});
+   					//$items.each( makeEachDraggable );
    			  	}
         		 sort();
+        		 
    			});
         	
         }
@@ -476,14 +499,14 @@
 					}
 					cloneContent.find('img:first').attr("src", path);
 					$items = $(cloneContent);
-					$container.prepend( $items ).packery( 'prepended', $items );
+					$container.prepend( $items ).isotope( 'prepended', $items );
 					
 					var addText = '<div class="item add-item">';
 					addText += $('.add-item').html();
 					addText += '</div>';
 					$items = $(addText);
-					$container.prepend( $items ).packery( 'prepended', $items );
-					$container.packery( 'remove', $('.add-item:last') ).packery();
+					$container.prepend( $items ).isotope( 'prepended', $items );
+					$container.isotope( 'remove', $('.add-item:last') ).isotope();
 					$("#wishCnt").text( Number($('#wishCnt').text()) +1);
 			    },
 			    complete: resetModal()
@@ -492,12 +515,12 @@
 
 		
 		/* 위시리스트 삭제하기  */
-		$container.on( 'click', '.fa-trash-o', function() {
+		$container.on( 'click', '.wish-menu .fa-trash-o', function() {
 			var wishNo = $(this).closest(".item").find('.no').val();
 			$.getJSON('/peekis/wish/ajax/delete.do', {no : wishNo} , function( resultObj ) {
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
-					$container.packery( 'remove', $("." + wishNo) ).packery();
+					$container.isotope( 'remove', $("." + wishNo) ).isotope();
 					$("#wishCnt").text( Number($('#wishCnt').text()) -1);
 				}
 			});
@@ -721,6 +744,8 @@ $('#preview').bind('submit', function(e) {
 			
 			$('#results').prepend(text).hide().fadeIn();
 		}
+
+	
 </script>
 </body>
 </html>

@@ -220,6 +220,6 @@ public class WishController {
 	  HashMap<String,Object> resultMap = new HashMap<>();
 	  return new AjaxResult("data", fList);
   }
-  
+
   
 }

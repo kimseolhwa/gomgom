@@ -35,4 +35,19 @@
 	 group by category.cno
 </select>
 
+	<!-- 카테고리 수정하기 -->
+	<update id="updateCategory" parameterType="category">
+		update category 
+		   set name=#{name}
+	     where cno=#{cno}
+	</update>
+	
+	<!-- 카테고리 삭제하기 -->
+	<delete id="deleteCategory">
+		delete
+		  from category
+		 where cno=#{cno}
+	</delete>
+
+
 </mapper>

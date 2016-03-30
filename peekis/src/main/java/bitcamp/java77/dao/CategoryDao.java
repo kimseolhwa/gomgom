@@ -13,4 +13,9 @@ public interface CategoryDao
 	public List<Wish> categoryList(HashMap<String,Object> paramMap);
 	
 	public List<Wish> categoryWishList(HashMap<String,Object> paramMap);
+	
+	public int deleteCategory(int cno);
+
+	public Category updateCategory(int cno);
+
 }

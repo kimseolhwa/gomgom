@@ -42,6 +42,7 @@ public interface WishDao {
   int deleteSend(int no);
 
   int followDelete(HashMap<String, Integer> paramMap);
+
   
   // Update
   int update(Wish wish);
@@ -49,6 +50,8 @@ public interface WishDao {
   Wish selectOne(int no);
 
   int updateBuy(Wish wish);
+
+
 
 
 

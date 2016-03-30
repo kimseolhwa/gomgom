@@ -133,16 +133,18 @@
 	    where wno=#{no}
 	</update>
 	
-	
 	<!-- 카테고리 등록하기 -->
-	<insert id="insertCategory" parameterType="String">
-		insert into category(cno, name, uno) 
-		values(#{cno}, #{name}, #{uno})
-	</insert>
+<!-- 	<insert id="insertCategory" parameterType="String"> -->
+<!-- 		insert into category(cno, name, uno)  -->
+<!-- 		values(#{cno}, #{name}, #{uno}) -->
+<!-- 	</insert> -->
 	
-	<!-- 카테고리 삭제하기 -->
-	
-	<!-- 카테고리 수정하기 -->
+	<!-- 게시물 카테고리 수정하기 -->
+	<update id="updateWishCategory" parameterType="wish">
+		update wish 
+		set cno=#{cno} 
+	    where wno=#{no}
+	</update>
   
 </mapper>
 
