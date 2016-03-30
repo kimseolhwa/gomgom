@@ -399,7 +399,38 @@
 							$container2.flickity( 'remove', $("." + cNo) ).flickity();
 						}
 					});
-				})
+				});
+				
+				$container2.on( 'click', '.categoryUpdate',function () {
+					var cNo = $(this).closest(".category").find('.cno').val();
+					swal({title: "카테고리 수정",
+						   text: "카테고리를 수정해 주세요:",
+						   type: "input",
+						   showCancelButton: true,
+						   closeOnConfirm: false,
+						   animation: "slide-from-top",
+						   inputPlaceholder: "카테고리 명을 적어주세요" },
+						   function(inputValue){
+							   if (inputValue === false) return false;
+							   if (inputValue === "")
+							   {swal.showInputError("제대로 입력해 주세요!");
+							   return false}
+							   swal("카테고리 수정!", "수정한 카테고리: " + inputValue, "success") 
+							   
+							  $.ajax({
+							  type: "POST",
+					  		  dataType:"JSON",
+					  	 	  url : '/peekis/category/ajax/updateCategory.do',
+					  	 	  data:{
+					  	 		  name: inputValue,
+					  	 		  cno:cNo
+					  	 		  },
+					  	 	  success: function(resultObj){
+								console.log(resultObj)
+					  	 	  }
+							})
+						});
+				  });
 				
 				
 		  
