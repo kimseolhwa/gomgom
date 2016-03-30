@@ -4,6 +4,142 @@
 
   $(document).ready(function() {
 	  
+	  var $draggable = $('.draggable').draggabilly();
+	  
+		var $container2 = $('.c_container');
+	    $container2.flickity({
+	       cellAlign: 'left',
+	       contain: true
+	    });
+	    
+	    $('#filters').on('click', '.category', function() {
+			var filterValue = $(this).attr('data-filter');
+			$container.isotope({
+				filter : filterValue
+			});
+		});
+		
+		$('.add-category').click(function () {
+			swal({title: "폴더 만들기",
+				   text: "위시리스트를 담을 폴더를 만들어 주세요:",
+				   type: "input",
+				   showCancelButton: true,
+				   closeOnConfirm: false,
+				   animation: "slide-from-top",
+				   inputPlaceholder: "폴더 명을 적어주세요" },
+				   function(inputValue){
+					   if (inputValue === false) return false;
+					   if (inputValue === "")
+					   {swal.showInputError("제대로 입력해 주세요!");
+					   return false}
+					   swal("폴더 생성!", "만드신 폴더: " + inputValue, "success") 
+					   
+					  $.ajax({
+					  type: "POST",
+			  		  dataType:"JSON",
+			  	 	  url : '/peekis/category/ajax/addCategory.do',
+			  	 	  data:{'name': inputValue},
+			  	 	  success: function(resultObj){
+						console.log(resultObj)
+		  	 			var category = resultObj.category;
+						console.log(resultObj.category.name)
+						var cloneContent = $(".cloneCategory > div").clone();
+						cloneContent.addClass(category.cNo+"");
+						cloneContent.find('.categoryName').html(resultObj.category.name);
+						$items = $(cloneContent);
+	   					$container2.append( $items ).flickity( 'append', $items );	
+	   					
+	   					// 드랍 추가
+	   					$items.droppable({
+							drop : dropCategory
+						});
+			  	 	  }
+					})
+				});
+		  });
+		
+		 $.getJSON('/peekis/category/ajax/categoryList.do', function(resultObj) {
+			 $("#UserNo").text(resultObj.loginUser.uNo);
+				 console.log(resultObj)
+			 for (var category of resultObj.data){
+				 var cloneContent = $(".cloneCategory > div").clone();
+					cloneContent.addClass(category.cNo+"").attr('data-filter', ".cNo"+category.cNo);
+					cloneContent.find('.categoryName').html(category.name);
+					cloneContent.find('.cno').val(category.cNo);
+					cloneContent.find('.path1').attr('src', category.path1);
+					cloneContent.find('.path2').attr('src', category.path2);
+					cloneContent.find('.path3').attr('src', category.path3);
+					cloneContent.find('.path4').attr('src', category.path4);
+					
+					$items = $(cloneContent);
+					$container2.append( $items ).flickity( 'append', $items );	
+					
+					// 드랍 추가
+					$items.droppable({
+						drop : dropCategory
+					});
+			  	}
+			});
+	  
+
+			var dropCategory = function(event, ui) {
+				var dropItem = ui.draggable;
+				var regExp = /cNo[1-9]+/;
+				var dropCls = dropItem.attr("class").match(regExp)[0];
+				
+				console.dir($(this).attr("data-filter"));
+				dropItem.removeClass(dropCls);
+				dropItem.addClass($(this).attr("data-filter").replace(".", ""));
+			};
+			
+			/* 카테고리 삭제하기  */
+			$container2.on( 'click', '.categoryDel', function() {
+				var cNo = $(this).closest(".category").find('.cno').val();
+				console.log(cNo);
+				$.getJSON('/peekis/category/ajax/deleteCategory.do', {cno : cNo} , function( resultObj ) {
+					var ajaxResult = resultObj.ajaxResult;
+					if (ajaxResult.status == "success") {
+						$container2.flickity( 'remove', $("." + cNo) ).flickity();
+					}
+				});
+			});
+			
+			$container2.on( 'click', '.categoryUpdate',function () {
+				var cNo = $(this).closest(".category").find('.cno').val();
+				swal({title: "카테고리 수정",
+					   text: "카테고리를 수정해 주세요:",
+					   type: "input",
+					   showCancelButton: true,
+					   closeOnConfirm: false,
+					   animation: "slide-from-top",
+					   inputPlaceholder: "카테고리 명을 적어주세요" },
+					   function(inputValue){
+						   if (inputValue === false) return false;
+						   if (inputValue === "")
+						   {swal.showInputError("제대로 입력해 주세요!");
+						   return false}
+						   swal("카테고리 수정!", "수정한 카테고리: " + inputValue, "success") 
+						   
+						  $.ajax({
+						  type: "POST",
+				  		  dataType:"JSON",
+				  	 	  url : '/peekis/category/ajax/updateCategory.do',
+				  	 	  data:{
+				  	 		  name: inputValue,
+				  	 		  cno:cNo
+				  	 		  },
+				  	 	  success: function(resultObj){
+							console.log(resultObj)
+				  	 	  }
+						})
+					});
+			  });
+			
+			
+	  
+	  
+	  
+	  
 	  var $container = $('.item_container');
       $container.isotope({
          itemSelector : '.item',
@@ -63,7 +199,11 @@
 				}
 				cloneContent.find('img:first').attr("src", path);
 				$items = $(cloneContent);
-				$container.append( $items ).isotope( 'appended', $items );			
+				$container.append( $items ).isotope( 'appended', $items );
+				$items.draggable({
+						revert : true
+					});
+				//$items.each( makeEachDraggable );
 		  	}
     		 sort();
 		});
@@ -87,7 +227,7 @@
 		    	console.log(resultObj);
 				var wish = resultObj.wish;
 				var cloneContent = $(".cloneMainContents > div").clone();
-				cloneContent.addClass(wish.no+"");
+				cloneContent.addClass(wish.no+("  cNo"+wish.cno));
 				cloneContent.find('.no').val(wish.no);
 				var path = wish.path;
 				if(path.startsWith('http://') == false){
@@ -111,7 +251,7 @@
 
 	
 	/* 위시리스트 삭제하기  */
-	$container.on( 'click', '.fa-trash-o', function() {
+	$container.on( 'click', '.wish-menu .fa-trash-o', function() {
 		var wishNo = $(this).closest(".item").find('.no').val();
 		$.getJSON('/peekis/wish/ajax/delete.do', {no : wishNo} , function( resultObj ) {
 			var ajaxResult = resultObj.ajaxResult;
