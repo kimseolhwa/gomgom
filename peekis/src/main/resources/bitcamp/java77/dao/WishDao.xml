@@ -47,43 +47,28 @@
 		limit #{startIndex}, #{length}
 	</select> 
 	
-	<!-- 유저별 게시글 총 개수 불러오기  -->
-	<select id="selectWishCnt" resultType="int">
-		select COUNT(*) from wish where uno=#{uno}
-	</select>
-	
-	<!-- 유저별 좋아요 총 개수 불러오기  -->
-	<select id="selectLikeCnt" resultType="int">
-		select COUNT(*) from `like` where uno=#{uno}
-	</select>
-	
-	<!-- 유저별 팔로워 총 개수 불러오기  -->
-	<select id="selectFollowerCnt" resultType="int">
-		select COUNT(*) from follower where uno2=#{uno}
-	</select>
-	
-	<!-- 유저별 팔로우 총 개수 불러오기  -->
-	<select id="selectFollowCnt" resultType="int">
-		select COUNT(*) from follower where uno=#{uno}
-	</select>
-		
 	<!-- 유저정보 불러오기  -->
 	<select id="selectUserInfo" resultType="join">
-		select uno, name, pwd, email, pho 
-		  from user
-		 where uno=#{fNo}
+		select user.*, 
+			  (select COUNT(*) from category where uno=#{uno}) caCnt,
+			  (select COUNT(*) from wish where uno=#{uno}) wishCnt,
+			  (select COUNT(*) from `like` where uno=#{uno}) likeCnt,
+			  (select COUNT(*) from follower where uno2=#{uno}) fCnt,
+			  (select COUNT(*) from follower where uno=#{uno}) fCnt2
+		from user
+		where uno=#{uno}
 	</select>
 	
 	<!-- 유저의 팔로우 리스트 불러오기  -->
-	<select id="selectFollowList" resultType="join" parameterType="int">
-		select u.*
+	<select id="selectFollowList" resultType="join" parameterType="map">
+		select u.*, (select count(*) from follower f2 where f2.uno=#{uno} and f2.uno2=u.uno) as fSts
 		from follower f, user u
-		where f.uno=#{uno} and u.uno=f.uno2
+		where f.uno=#{fno} and u.uno=f.uno2
 		order by u.uno desc
 	</select>
 	
 	<!-- 유저의 팔로워 리스트 불러오기  -->
-	<select id="selectFollowerList" resultType="join" parameterType="int">
+	<select id="selectFollowerList" resultType="join" parameterType="map">
 		select u.*, (select count(*) from follower f2 where f2.uno=#{uno} and f2.uno2=f.uno) as fSts
 		from follower f, user u
 		where f.uno2=#{uno} and u.uno=f.uno
