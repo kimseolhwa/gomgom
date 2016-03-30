@@ -1,4 +1,3 @@
-
 <!-- contextRoot -->
 <script type="text/javascript" src="../../js/common.js"></script>
 
@@ -111,8 +110,6 @@ searchBarResize();
      if(document.body.clientWidth > 768) {
          $("#searchBar").css("margin-left", 20);
          $("#rightBar").css("margin-right", -30);
-         $("#searchText[type=text]").before().css("width", document.body.clientWidth - 440); 
-         $("#searchText[type=text]").removeAttr("style");
          $(".navbar-brand").css({"width": 100, "color":"white", "font-size":18, "text-align":"center", "margin-left":-16, "margin-top":-1});
      } else {
          $("#searchBar").removeAttr("style");
@@ -123,24 +120,16 @@ searchBarResize();
  }
  $(window).resize(searchBarResize);
  
- $("#searchText[type=text]").before().focus(function() {
-    if(document.body.clientWidth > 768) {
-       $("#searchText[type=text]").before().css("width", document.body.clientWidth - 440); 
-    }
- });
- $("#searchText[type=text]").before().focusout(function() {
-    if(document.body.clientWidth > 768) {
-       $("#searchText[type=text]").removeAttr("style");
-    }
- });
 
 // 헤더 위시추가버튼
 $(window).scroll(function() {
 	var scTop = $(window).scrollTop();
-	if(scTop > 50) {
-		$(".wishAddBox").css("display", "block");
+	if(scTop > 30) {
+		$(".wishAddBox").css("display", "inline");
+		 $(".wishAddBox2").css("display", "inline"); 
 	}else {
 		$(".wishAddBox").css("display", "none");
+		 $(".wishAddBox2").css("display", "none"); 
 	}
 });
 
@@ -186,7 +175,7 @@ div#viewLoading {
           </button>
        	<div class="header-logoBox ">
 			<a class="navbar-brand" href="../main/main2.html" style="color: white;" title="" >
-				<img id="logoJpg" src="../header/img/peekis.jpg" width="100px" height="98%"/></a>
+				<img id="logoJpg" src="../header/img/peekis.jpg" width="100px" height="100%"/></a>
 		</div>
         </div>
 
@@ -207,8 +196,8 @@ div#viewLoading {
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                  style="background-color: rgba(224, 224, 224, 0.71); text-align:right">
-                 <img id="pImg" src="../header/img/people.png" width="18px" height="18px"/>
-                 <b id="dropdown-color" style="color: white;" >&nbsp;&nbsp;</b>
+                 <img id="pImg" src="../header/img/people.png" width="21px" height="21px"/>
+                 <b id="dropdown-color" style="color: #3c3c3c;" >&nbsp;&nbsp;</b>
                  <span class="caret"></span>
               </a>
               <ul id="logout-dp" class="dropdown-menu">
@@ -244,9 +233,10 @@ div#viewLoading {
       </div>
     </nav>
    	<!-- 헤더 위시추가 버튼 -->
-	<div class="wishAddBox">
-		<button id="wishAddBtn"><img  src="../header/img/shapes.png" width="25px" height="25px"/>
-	</div>
+	<span class="wishAddBox">
+		<a href="#"><span id="wishAddBtn"><img  src="../header/img/shapes.png" width="23px" height="23px"/></span></a>
+		<a href="#"><span id="wishAddBtn2"><img  src="../header/img/folder.png" width="23px" height="23px"/></span></a> 
+	</span>
   </div>
   
 
