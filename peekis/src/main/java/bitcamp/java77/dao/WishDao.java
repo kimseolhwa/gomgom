@@ -20,17 +20,9 @@ public interface WishDao {
   
   List<Wish> selectLikeList(HashMap<String, Object> paramMap);
   
-  int selectWishCnt(int uno);
-  
-  int selectLikeCnt(int uno);
-  
-  int selectFollowerCnt(int uno);
-  
-  int selectFollowCnt(int uno);
-  
   Join selectUserInfo(int fNo);
   
-  List<Join> selectFollowList(int uno);
+  List<Join> selectFollowList(HashMap<String,Integer> paramMap);
   
   List<Join> selectFollowerList(int uno);
   
@@ -42,7 +34,6 @@ public interface WishDao {
   int deleteSend(int no);
 
   int followDelete(HashMap<String, Integer> paramMap);
-
   
   // Update
   int update(Wish wish);
@@ -50,8 +41,6 @@ public interface WishDao {
   Wish selectOne(int no);
 
   int updateBuy(Wish wish);
-
-
 
 
 
