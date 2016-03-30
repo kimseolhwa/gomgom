@@ -161,14 +161,8 @@
 						$container.isotope();
 		        	});
 		        }
-				var $container2 = $('.modal-item_container');
-		          $container2.imagesLoaded( function() {
-		        	  $container2.isotope({
-		        	      itemSelector: '.modal-item',
-		        	      masonry: { columnWidth: 1, isFitWidth: true }
-		        	      });
-		        	});
-		          
+
+		        
 		        /* 리스트 불러오기 */
 				nextPage(1);
 
@@ -212,6 +206,7 @@
 			   					//라이크 개수
 			   					cloneContent.find('#likeAmount').text(wish.numOflNo);
 			   					
+			   					
 			   					$items = $(cloneContent);
 			   					$container.append( $items ).isotope( 'appended', $items );			
 
@@ -236,63 +231,7 @@
 		   			});
 		        }
 		        
-		        /* 개인 리스트 가져오기*/
-		        //modalNextPage(1);
-		        
-				        $('#proModal').scroll(function(){
-				        	var scrollHeight = $('#proModal').scrollTop() + $('#proModal').height();
-				        	var documentHeight = $(document).height();
-				        	if(scrollHeight >= documentHeight -100){
-				        		console.log('스크롤 이벤트 발생');
-				        		var modalPageNo = Number($('#modalPageNo').text()) +1;
-				        		modalNextPage(modalPageNo);
-				        		console.log(modalPageNo);
-				        	}
-				        });
-				        
-				        function modalNextPage(modalPageNo){
-				        	$(document).on('click', '.user_id', function (){
-				        		var userName=$(this).text();
-				        		var userNo = $(this).closest('.item').find('.uno').val();
-// 				        	console.log("내가찍은거이름 :"+$(this).text());
-// 				        	console.log("내가찍은거번호 :"+$(this).closest('.item').find('.uno').val());
-				        	 $.getJSON('/peekis/main/ajax/selectUserList.do',{uno:userNo, modalPageNo : modalPageNo}, function(resultObj) {
-				        		  console.log(resultObj);
-				        		  
-				        		  $('#proModal').modal();
-					   			  for (var wish of resultObj.data){
-					   				  $('#modalPageNo').text(modalPageNo);
-					   				  var cloneContent = $('.cloneModalContents').find(".modal-item").clone();
-					   					cloneContent.addClass(wish.no+'');
-					   					cloneContent.find('.modalNo').val(wish.no);
-					   					cloneContent.find('.uno').val(wish.uno);
-					   					var path = wish.path;
-					   					if(path.startsWith('http://') == false){
-					   						path = filePath + path;
-					   					}
-					   					cloneContent.find('img:first').attr('src', path);
-					   					$items2 = $(cloneContent);
-					   					$container2.append( $items2 ).imagesLoaded(function(){
-					   						$container2.isotope( 'appended', $items2, true );
-					   				  	});
-
-				   			  	}
-					   			for (var like of resultObj.like){
-					   				$('.' + like).find('.undoheart').css('display','block');
-					   				$('.' + like).find('.heart').css('display','none');
-					   			}
-				   			});
-				        });
-		         };
-		         
-		         $(document).on('click', '.close-modal', function () {
-// 		        	 $('.modal-item').remove();
-// 					$container2.isotope( 'remove', $(".modal-item") ).isotope();
-		        	 var $allAtoms = $container2.data('isotope').$allAtoms;
-		        	    $container2.isotope( 'remove', $allAtoms );
-		         });
-		        
-		        /* 상세정보 가져오기 */
+		       /* 상세정보 가져오기 */
 				$container.on( 'click', '.detail', function() {
 					var wishNo = $(this).closest('.item').find('.no').val();
 					var uNo = Number($('#UserNo').text());
@@ -426,70 +365,6 @@
 						});
 				});
 		        
-				$container2.on( 'click', '.detail', function() {
-					var wishNo = $(this).closest('.modal-item').find('.modalNo').val();
-					var uNo = Number($('#UserNo').text());
-					
-					$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo} , 
-						function( resultObj ) {
-							var wish = resultObj.data;
-							var cList = resultObj.commentList;
-// 							console.log(wish);
-							if(cList.length>0){
-// 							console.log("cList : ", cList);    
-							var html=""
-							for(var i=0; i<cList.length;i++){
-							    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-							    html += "<a>"+ cList[i].userName +"</a>"
-							    html += "<span>"+ cList[i].cont +"</span></br>"
-							}
-							
-							$("#tab1").html(html)
-							 
-							}
-							
-							if(cList.length>0){
-								
-// 							console.log("cList : ", cList);    
-							
-							var html=""
-							for(var i=0; i<cList.length;i++){
-							    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-							    html += "<a>"+ cList[i].userName +"</a>"
-							    html += "<span>"+ cList[i].cont +"</span></br>"
-							}
-							
-							$("#tab1").html(html)
-							 
-							}
-							
-							$("#detailmodal-no").html( wish.no );
-							$("#detailmodal-uno").html( wish.uno );
-							var path = wish.path;
-							if(path.startsWith('http://') == false){
-								path = filePath + path;
-							}							
-							$("#detailmodal-pro").attr('src', filePath + wish.userPho);
-							$(".modal-user_id").html(wish.userName);	
-							$(".modal-user_wish").html(wish.categoryName);	
-							
-							$("#detailmodal-image").attr("src", path );
-							$("#detailmodal-title").html( wish.title );			
-							$("#detailmodal-content").html( wish.content );
-							$("#detailmodal-price").html('&#8361;&nbsp;' + $.number(wish.price));
-							$("#detailmodal-url").attr("onclick", "window.open('" + wish.url + "')");
-							$("#detailmodal-tag").html("");
-							$('#detailmodal').modal();
-							$(".follow").css("display","block");
-							if(resultObj.followerCheck == 1 ){
-								$(".follow").text("언팔로우");
-							}
-							if($("#detailmodal-uno").text() == $('#UserNo').text()){
-								$(".follow").css("display","none");
-							}
-						});
-				});
-		        
 		        /* 게시글 담아가기 */
 		        $(document).on("click", ".plus", function(){
 		        	var wishNo = $(this).closest('.item').find('.no').val();
@@ -549,6 +424,7 @@
 				});
 
 				$(".btn-pref .btn").click(
+						
 						function() {
 							$(".btn-pref .btn").removeClass("btn-orange")
 									.addClass("btn-default");
@@ -641,6 +517,8 @@
 			</div>
 		</div>
 
+
+
 		<!-- DetailModal -->
 		<div class="item-modal modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
@@ -664,7 +542,7 @@
 						</div>
 
 						<div class="item-content">
-							<div class="item-title" id="detailmodal-title">titel:</div>
+							<div class="item-title" id="detailmodal-title">title:</div>
 							<br />
 							<div class="item-subtitle" id="detailmodal-content">content:</div>
 							<div class="item-costi-box">
@@ -726,48 +604,6 @@
 			</div>
 		</div>
 
-
-		<!-- proModal -->
-		<div class="portfolio-modal modal fade" id="proModal" role="dialog" aria-hidden="true" style="display: none;">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<div class="lr">
-						<div class="rl"></div>
-					</div>
-				</div>
-				<div class="modal-body">
-					<h2>프로필e</h2>
-					<hr class="star-primary">
-					<img src="../../image/pro1.jpg" class="img-rounded" alt="">
-
-					<div class="modal-item_container">
-						<div id="modalPageNo" style="display: none;">1</div>
-						<div id="UserNo" style="display: none;">0</div>
-					</div>
-
-					<div class="cloneModalContents" style="display: none;">
-						<div class="modal-item">
-							<div class="modal-product">
-								<img src="../../image/1111.jpg" /> <input type="hidden" class="modalNo" value="00"> <input type="hidden" class="uno" value="00">
-							</div>
-							<div class="modal-item-content">
-								<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
-								<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어 임블리에서만 만나보실 수 있는 사랑스러움을:</div>
-								<hr class="star-primary">
-								<div class="modal-icon">
-									<button class="detail btn btn-orange">상세보기</button>
-									<button class="btn btn-orange plus">
-										<span class="glyphicon glyphicon-plus"></span>
-									</button>
-									<div class="heart"></div>
-									<div class="undoheart"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 
 
