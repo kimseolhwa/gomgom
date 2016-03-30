@@ -1,8 +1,5 @@
-<!-- contextRoot -->
-<script type="text/javascript" src="../../js/common.js"></script>
 
 <script type="text/javascript">
-
 // 정보수정 클릭하면 사용자 정보를 가져와서 폼으로 불러들인다.
 $("#mypage").on("click",function(){
 	$.getJSON('/peekis/auth/ajax/userInfo.do', function(resultObj) {
@@ -107,11 +104,11 @@ $("#searchBtn").on("click",function(){
 //헤더, 로그아웃 박스 
 searchBarResize();
  function searchBarResize() {
-     if(document.body.clientWidth > 768) {
+	 if(document.body.clientWidth > 768) {
          $("#searchBar").css("margin-left", 20);
          $("#rightBar").css("margin-right", -30);
          $(".navbar-brand").css({"width": 100, "color":"white", "font-size":18, "text-align":"center", "margin-left":-16, "margin-top":-1});
-     } else {
+      } else {
          $("#searchBar").removeAttr("style");
          $("#rightBar").removeAttr("style");
          $(".navbar-brand").removeAttr("style");
@@ -198,6 +195,7 @@ div#viewLoading {
                  style="background-color: rgba(224, 224, 224, 0.71); text-align:right">
                  <img id="pImg" src="../header/img/people.png" width="21px" height="21px"/>
                  <b id="dropdown-color" style="color: #3c3c3c;" >&nbsp;&nbsp;</b>
+                 <div id="loginUser-no" style="display: none;"></div>
                  <span class="caret"></span>
               </a>
               <ul id="logout-dp" class="dropdown-menu">
