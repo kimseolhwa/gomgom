@@ -18,6 +18,10 @@
 <!-- Isotope -->
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
 
+<!-- Packery -->
+<script src="https://npmcdn.com/packery@2.0.0/dist/packery.pkgd.min.js"></script>
+<script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.js"></script>
+
 <!-- imagesLoaded -->
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 
@@ -51,7 +55,8 @@
 		<div id="user-profile"></div>
 
 		<div class="c_container carousel" id="filters">
-			<div class="addCategory">
+			<div class="addCategory category 0 is-selected"  data-filter="*">
+			<input type="hidden" class="no" value="00">
 				<div class="add-category">
 					<div style="padding: 30px 0 20px 0;">
 						<i class="fa fa-plus-circle fa-3x"></i>
@@ -59,6 +64,7 @@
 					<h4 style="margin: 0;">카테고리 추가</h4>
 				</div>
 			</div>
+			
 		</div>
 
 		<div class="main">
@@ -77,11 +83,11 @@
 			<div id="results"></div>
 
 			<div class="item_container">
-				<div id="pageNo" style="display: none;">1</div>
-				<div id="UserNo" style="display: none;">0</div>
+				
 
 				<div class="item add-item">
 					<a data-toggle="modal" data-target="#addModal">
+					
 						<div class="addItem">
 							<div style="padding: 30px 0 20px 0;">
 								<i class="fa fa-plus-circle fa-3x"></i>
@@ -92,6 +98,8 @@
 				</div>
 
 			</div>
+			<div id="pageNo" style="display: none;">1</div>
+				<div id="UserNo" style="display: none;">0</div>
 		</div>
 
 
@@ -289,6 +297,8 @@
 	(function($) {
 	  $(document).ready(function() {
 		  
+		  var $draggable = $('.draggable').draggabilly();
+		  
 			var $container2 = $('.c_container');
 		    $container2.flickity({
 		       cellAlign: 'left',
@@ -355,15 +365,34 @@
 		  
 		  
 		  
+// 		  var $container = $('.item_container');
+//           $container.isotope({
+//              itemSelector : '.item',
+//              percentPosition : true
+//           });
+          
+//           var sort = function(){
+//         	  $container.imagesLoaded(function() {
+//         	  	$container.isotope();
+//         	  });
+//           }
+          
 		  var $container = $('.item_container');
-          $container.isotope({
+          $container.packery({
              itemSelector : '.item',
              percentPosition : true
           });
           
+          $container.find('.item').each( makeEachDraggable);
+
+          function makeEachDraggable( i, itemElem ) {
+            var draggie = new Draggabilly( itemElem );
+            $container.packery( 'bindDraggabillyEvents', draggie );
+          }
+          
           var sort = function(){
         	  $container.imagesLoaded(function() {
-        	  	$container.isotope();
+        	  	$container.packery();
         	  });
           }
 			
@@ -414,7 +443,8 @@
    					}
    					cloneContent.find('img:first').attr("src", path);
    					$items = $(cloneContent);
-   					$container.append( $items ).isotope( 'appended', $items );			
+   					$container.append( $items ).packery( 'appended', $items );	
+   					$items.each( makeEachDraggable );
    			  	}
         		 sort();
    			});
@@ -438,7 +468,7 @@
 			    	console.log(resultObj);
 					var wish = resultObj.wish;
 					var cloneContent = $(".cloneMainContents > div").clone();
-					cloneContent.addClass(wish.no+"");
+					cloneContent.addClass(wish.no+("  cNo"+wish.cno));
 					cloneContent.find('.no').val(wish.no);
 					var path = wish.path;
 					if(path.startsWith('http://') == false){
@@ -446,14 +476,14 @@
 					}
 					cloneContent.find('img:first').attr("src", path);
 					$items = $(cloneContent);
-					$container.prepend( $items ).isotope( 'prepended', $items );
+					$container.prepend( $items ).packery( 'prepended', $items );
 					
 					var addText = '<div class="item add-item">';
 					addText += $('.add-item').html();
 					addText += '</div>';
 					$items = $(addText);
-					$container.prepend( $items ).isotope( 'prepended', $items );
-					$container.isotope( 'remove', $('.add-item:last') ).isotope();
+					$container.prepend( $items ).packery( 'prepended', $items );
+					$container.packery( 'remove', $('.add-item:last') ).packery();
 					$("#wishCnt").text( Number($('#wishCnt').text()) +1);
 			    },
 			    complete: resetModal()
@@ -467,7 +497,7 @@
 			$.getJSON('/peekis/wish/ajax/delete.do', {no : wishNo} , function( resultObj ) {
 				var ajaxResult = resultObj.ajaxResult;
 				if (ajaxResult.status == "success") {
-					$container.isotope( 'remove', $("." + wishNo) ).isotope();
+					$container.packery( 'remove', $("." + wishNo) ).packery();
 					$("#wishCnt").text( Number($('#wishCnt').text()) -1);
 				}
 			});
@@ -517,7 +547,6 @@
 			    }
 			});
 		});
-		
 	  });
 	})(jQuery)
 		

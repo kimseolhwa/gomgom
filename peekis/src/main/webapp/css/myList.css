@@ -236,12 +236,12 @@ a, a:HOVER{
 	box-shadow:inset 0 1px 1px 0 #828282;
 	
 }
-.flickity-viewport {
-	margin-left: 30px;
-}
-.flickity-prev-next-button previous {
-	left: 20px;
-}
+/* .flickity-viewport { */
+/* 	margin-left: 30px; */
+/* } */
+/* .flickity-prev-next-button previous { */
+/* 	left: 20px; */
+/* } */
 
 .category {
 	width: 235px;
@@ -283,13 +283,18 @@ a, a:HOVER{
 .user-profile {
 	margin: 0px;
 	height: 320px;
-
 }
 
+.item.is-pointer-down {
+	background: #09F;
+}
 
+.item.is-dragging {
+	opacity: 0.7;
+}
 
-
-@keyframes rotate-left {
+@
+keyframes rotate-left {
   to {
     transform: rotate(30deg);
   }
