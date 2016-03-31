@@ -168,7 +168,9 @@ public class MainController
 		paramMap.put("uno", uno);
 		MainDao.send(paramMap);
 		MainDao.copyItem(paramMap);
-		return new AjaxResult("success", null);
+		//세션 유저 정보 조회 
+		Join join = MainDao.selectSessionUserInfo(uno);
+		return new AjaxResult("success", join);
 	}
 	
 	//팔로우

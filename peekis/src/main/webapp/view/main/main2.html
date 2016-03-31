@@ -385,8 +385,9 @@
 							});
 		        	}
 		        });
-		        
-		      $(document).on("click", "#detailSendBtn", function(){
+		      
+		        /* 상세페이지- 담아가기 버튼 */  
+		            $(document).on("click", "#detailSendBtn", function(){
 		    	    var wishNo  = Number($('#detailmodal-no').text());
 		        	var uNo = $('#UserNo').text();
 		        	var detailSendBtn = $(this);
@@ -399,11 +400,28 @@
 							function( resultObj ) {
 							    detailSendBtn.attr('status',true);
 								swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
-								console.log(resultObj);
+								var sendLength  = Number($("#sendLength").text());
+								$("#sendLength").text(sendLength+1)
+								console.log("resultObj : " , resultObj.ajaxResult.data)
+								var html=''
+									if(resultObj.ajaxResult.data.pho==null){
+										html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "&nbsp;<a>"+ resultObj.ajaxResult.data.name +"</a>"
+									    html += "<input type='hidden' value="+ resultObj.ajaxResult.data.uNo + " id='commentNum'/></div>" 
+									}else{
+									    html += "<div id='comdelsel'><img src="+ resultObj.ajaxResult.data.pho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
+									    html += "&nbsp;<a>"+ resultObj.ajaxResult.data.name +"</a>"
+									    html += "<input type='hidden' value="+ resultObj.ajaxResult.data.uNo + " id='commentNum'/></div>" 
+									}
+								$("#tab2").prepend(html)
+								
 							});
 		        	}
 		      })
 		        
+		      	
+		      
+		      
 		        
 		        /* 팔로우 하기 */
 		         $(document).on("click", ".follow", function(){
