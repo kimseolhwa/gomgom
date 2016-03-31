@@ -89,6 +89,7 @@ public class WishController {
 	  HashMap<String,Object> paramMap = new HashMap<>();
 	  paramMap.put("startIndex", (pageNo - 1) * pageSize);
 	  paramMap.put("length", pageSize);
+	  paramMap.put("loginUser", join.getuNo());
 	  if(fNo == 0){
 		  paramMap.put("uno", join.getuNo());		  
 	  }else{
@@ -224,11 +225,9 @@ public class WishController {
 	  return new AjaxResult("data", fList);
   }
   
-	@RequestMapping("updateWishCategory")
-	public AjaxResult updateWishCategory(Wish wish) throws Exception
-	{
-		wishDao.updateWishCategory(wish);
-		return new AjaxResult("success", wish);
-	}
-  
+  @RequestMapping("updateWishCategory")
+  public AjaxResult updateWishCategory(Wish wish) throws Exception{
+	  wishDao.updateWishCategory(wish);
+	  return new AjaxResult("success", wish);
+  }
 }
