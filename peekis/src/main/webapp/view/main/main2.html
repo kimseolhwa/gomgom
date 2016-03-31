@@ -371,7 +371,7 @@
 				});
 		        
 		        /* 게시글 담아가기 */
-		        $(document).on("click", ".plus", function(){
+		            $(document).on("click", ".plus", function(){
 		        	var wishNo = $(this).closest('.item').find('.no').val();
 		        	var uNo = $('#UserNo').text();
 		        	if($(this).attr('status') == 'true'){
@@ -385,6 +385,24 @@
 							});
 		        	}
 		        });
+		        
+		      $(document).on("click", "#detailSendBtn", function(){
+		    	    var wishNo  = Number($('#detailmodal-no').text());
+		        	var uNo = $('#UserNo').text();
+		        	var detailSendBtn = $(this);
+		        	var mainSendBtn = $('.' + wishNo).find('.plus');
+		        	
+		        	if($(this).attr('status') == 'true' || mainSendBtn.attr('status') == 'true'){
+		        		swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
+		        	}else{
+						$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
+							function( resultObj ) {
+							    detailSendBtn.attr('status',true);
+								swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
+								console.log(resultObj);
+							});
+		        	}
+		      })
 		        
 		        
 		        /* 팔로우 하기 */
@@ -559,7 +577,7 @@
 								<button class="btn btn-default" id="detailmodal-url">
 									<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
 								</button>
-								<a href="#capymodal" data-toggle="modal"><button class="btn btn-default">담아가기</button></a>
+								<a href="#capymodal" data-toggle="modal"><button class="btn btn-default" id="detailSendBtn">담아가기</button></a>
 								<button class="btn btn-default">좋아요</button>
 							</div>
 							<br />
