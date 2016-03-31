@@ -67,33 +67,10 @@ public class CategoryController
 	}
 	
 	@RequestMapping("updateCategory")
-	public AjaxResult updateCategory(int cno) throws Exception
+	public AjaxResult updateCategory(Category category) throws Exception
 	{
-		Category category = CategoryDao.updateCategory(cno);
+		CategoryDao.updateCategory(category);
 		return new AjaxResult("success", category);
 	}
 	
-	
-	
-//	@RequestMapping("categoryWishList")
-//	public Object list(@RequestParam(defaultValue = "1") int pageNo, HttpServletRequest req) throws Exception
-//	{
-//		Join join = (Join) req.getSession().getAttribute("loginUser");
-//		System.out.println("loginUser : " + join.getuNo());
-//
-//		int pageSize = 10;
-//		HashMap<String, Object> paramMap = new HashMap<>();
-//		paramMap.put("startIndex", (pageNo - 1) * pageSize);
-//		paramMap.put("length", pageSize);
-//		paramMap.put("uno", join.getuNo());
-//		System.out.println("pageNo : " + pageNo);
-//		List<Wish> wishs = CategoryDao.categoryWishList(paramMap);
-//
-//		HashMap<String, Object> resultMap = new HashMap<>();
-//		resultMap.put("status", "success");
-//		resultMap.put("data", wishs);
-//		resultMap.put("loginUser", join);
-//
-//		return resultMap;
-//	}
 }

@@ -224,7 +224,6 @@ public class WishController {
 	  return new AjaxResult("data", fList);
   }
   
-  
 	@RequestMapping("updateWishCategory")
 	public AjaxResult updateWishCategory(Wish wish) throws Exception
 	{

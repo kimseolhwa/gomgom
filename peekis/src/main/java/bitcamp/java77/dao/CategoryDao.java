@@ -16,6 +16,6 @@ public interface CategoryDao
 	
 	public int deleteCategory(int cno);
 
-	public Category updateCategory(int cno);
+	public int updateCategory(Category category);
 
 }

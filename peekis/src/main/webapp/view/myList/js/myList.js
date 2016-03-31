@@ -122,6 +122,7 @@
 			
 			$container2.on( 'click', '.categoryUpdate',function () {
 				var cNo = $(this).closest(".category").find('.cno').val();
+				console.log(cNo)
 				swal({title: "카테고리 수정",
 					   text: "카테고리를 수정해 주세요:",
 					   type: "input",
@@ -134,20 +135,29 @@
 						   if (inputValue === "")
 						   {swal.showInputError("제대로 입력해 주세요!");
 						   return false}
-						   swal("카테고리 수정!", "수정한 카테고리: " + inputValue, "success") 
+						   $.getJSON('/peekis/category/ajax/updateCategory.do', {name : inputValue, cNo : cNo}, function(resultObj) {
+							   var ajaxResult = resultObj.ajaxResult;
+								if (ajaxResult.status == "success") {
+									console.log(ajaxResult.data.cNo)
+									swal("카테고리 수정!", "수정한 카테고리: " + inputValue, "success")
+									$("." + ajaxResult.data.cNo + ".category ").find(".categoryName").text(inputValue)
+								}
+								else {
+									swal("수정 실패 !", "카테고리 수정에 실패", "error") 
+							    }
+							});
 						   
-						  $.ajax({
-						  type: "POST",
-				  		  dataType:"JSON",
-				  	 	  url : '/peekis/category/ajax/updateCategory.do',
-				  	 	  data:{
-				  	 		  name: inputValue,
-				  	 		  cno:cNo
-				  	 		  },
-				  	 	  success: function(resultObj){
-							console.log(resultObj)
-				  	 	  }
-						})
+						        
+//						  $.ajax({
+//						  type: "POST",
+//				  		  dataType:"JSON",
+//				  	 	  url : '/peekis/category/ajax/updateCategory.do',
+//				  	 	  data:{ name : inputValue, cNo : cNo },
+//				  	 	  success: function(resultObj){
+//				  	 		swal("카테고리 수정!", "수정한 카테고리: " + inputValue, "success")
+//				  	 		
+//				  	 	  }
+//						})
 					});
 			  });
 			

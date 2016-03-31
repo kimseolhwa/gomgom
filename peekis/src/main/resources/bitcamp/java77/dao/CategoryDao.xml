@@ -39,14 +39,14 @@
 	<update id="updateCategory" parameterType="category">
 		update category 
 		   set name=#{name}
-	     where cno=#{cno}
+	     where cno=#{cNo}
 	</update>
 	
 	<!-- 카테고리 삭제하기 -->
 	<delete id="deleteCategory">
 		delete
 		  from category
-		 where cno=#{cno}
+		 where cno=#{cNo}
 	</delete>
 
 
