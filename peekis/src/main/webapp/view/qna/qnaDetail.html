@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <title>PeeKiS qnaDetail</title>
 	
-	<!-- header.css -->
-	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
-	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
-	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
+	<!-- favicon -->
+	<link rel="shortcut icon" href="/peekis/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/peekis/favicon.ico" type="image/x-icon">
+	
 	
 	<!-- jQuery -->
 	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
@@ -17,6 +17,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<!-- header.css -->
+	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
 	
 	
 <style type="text/css">
@@ -203,7 +208,15 @@
 				} 
 			},'json');
 		});	     
-	 });
+	 
+	
+     
+     loginCheck();
+	});
+	
+	
+	
+	
 	/*문의유형 한글로 보여주기*/
 	var typeToText = function(typeNum) {
 		 var typeText = "";
@@ -215,6 +228,19 @@
 
 		 return typeText;
 	 };
+	 
+	 var loginCheck = function() {
+			$.getJSON("/peekis/auth/qna/ajax/qnaLogin.do", function(resultObj) {
+				var result = resultObj.ajaxResult;
+				console.dir(result.data);
+				if(result.data) {
+					$("#dropdown-color").text(result.data.name);
+					if(result.data.pho != null){
+						$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
+					}
+				}
+			});
+		};
 	
 </script>
 </head>

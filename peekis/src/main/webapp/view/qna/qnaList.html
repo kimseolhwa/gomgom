@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <title>PeeKiS qnaList</title>
 	
-	<!-- header.css -->
-	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
-	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
-	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
+	<!-- favicon -->
+	<link rel="shortcut icon" href="/peekis/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/peekis/favicon.ico" type="image/x-icon">
 	
 	<!-- jQuery -->
 	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
@@ -16,8 +15,14 @@
 	<!-- 부트스트랩 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
+	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	
+	<!-- header.css -->
+	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/footer.css" />
+	<link rel="stylesheet" style="text/css" href="../../css/global.css"/><!-- 헤더푸터 위치 페이지 사이즈  조절 -->
 	
 <style type="text/css">
 	*{
@@ -120,8 +125,9 @@
 		function qnaList(){
 		 /*글번호bno, 상담유형type, 등록시간date, 상태(미답변, 답변완료)??? 리스트에 가져오기*/
 			$.getJSON("/peekis/auth/qna/ajax/qnaList.do",function(resultObj){ /*서버에서 보내줄때*/
-				var data = resultObj.ajaxResult.data;
-				console.dir(data);
+				console.dir(resultObj);
+				var data = resultObj.success;
+				console.dir(resultObj);
 				
 				var table = $("#listTable");
 				$("tbody").html("");
@@ -136,6 +142,10 @@
 							+ "<td>" + 	(data[i].ansFlag=='n'?'미답변' : '답변완료') + "</td>")
 							.appendTo(table);
 				}
+				 $("#dropdown-color").text(resultObj.loginUser.name);
+					if(resultObj.loginUser.pho != null){
+						$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
+					}
 				
 			});
 		}
@@ -152,6 +162,7 @@
 
 		 return typeText;
 	 };
+	
 	 
 	 
 	 

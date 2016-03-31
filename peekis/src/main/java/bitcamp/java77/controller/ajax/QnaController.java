@@ -53,15 +53,25 @@ public class QnaController {
 	public Object qnaList(HttpServletRequest req){
 		Join loginUser = (Join)req.getSession().getAttribute("loginUser"); //로그인한 유저번호 가져오기
 		
+		//해시맵 만들고
+		HashMap<String,Object> resultMap = new HashMap<>();
+		// 유저정보 put 
+		resultMap.put("loginUser", loginUser);
+		
 		if(loginUser.getEmail().equals("admin@aaa")) {
 			System.out.println("관리자임");
 			loginUser.setuNo(0);
 			List<Qna> qnaList = service.listQna(loginUser);
-			return new AjaxResult("success", qnaList);
+			// qnaLIst put
+			resultMap.put("success", qnaList);
+			
 		}else {
 			List<Qna> qnaList = service.listQna(loginUser);
-			return new AjaxResult("success", qnaList);
+			// qua
+			resultMap.put("success", qnaList);
 		}
+		
+		return resultMap;
 	}
 	//QNA 상세
 	@RequestMapping(value="/qnaDetail", method=RequestMethod.GET)
@@ -110,6 +120,14 @@ public class QnaController {
 		Qna com = service.ComDetail(qna);
 		
 		return new AjaxResult("success", com);
+	}
+	
+	//LOGIN USER 정보만 가져오기
+	@RequestMapping("/qnaLogin")
+	public Object qnaLoginCheck(HttpServletRequest req) {
+		Join join = (Join) req.getSession().getAttribute("loginUser");
+		
+		return new AjaxResult("success", join);
 	}
 	
 }
