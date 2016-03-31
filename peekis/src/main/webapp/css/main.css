@@ -556,6 +556,15 @@ footer {
 	margin-left: 40%;
 }
 
+
+/* 상세페이지 태그 캡션 */
+#tagCaption{
+	position: absolute;
+	margin-top: 20%;
+	margin-left: 5%;
+}
+
+
 @media only screen and ( max-width: 2099px ) {
 	.item_container {
 		width: 1840px;

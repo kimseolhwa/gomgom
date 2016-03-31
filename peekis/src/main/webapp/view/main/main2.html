@@ -302,6 +302,11 @@
 								$("#tab2").html(html)
 							}
 							
+							// 태그 이름 
+							if(wish.tag!=null){
+								$("#tagCaptionText a").text(wish.tag)
+							}							
+							
 							
 							//좋아요한 사람 리스트 							
 							if(likeList.length>0){
@@ -539,6 +544,7 @@
 						<input type="hidden" class="uno" id="detailmodal-uno">
 						<div class="item-image">
 							<img src="../../image/no_image(450X450).png" alt="" id="detailmodal-image">
+							<figure id="tagCaption"><figcaption id="tagCaptionText"><a></a></figcaption></figure>
 						</div>
 
 						<div class="item-content">
