@@ -225,4 +225,11 @@ public class WishController {
   }
   
   
+	@RequestMapping("updateWishCategory")
+	public AjaxResult updateWishCategory(Wish wish) throws Exception
+	{
+		wishDao.updateWishCategory(wish);
+		return new AjaxResult("success", wish);
+	}
+  
 }

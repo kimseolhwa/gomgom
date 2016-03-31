@@ -44,6 +44,8 @@ public interface WishDao {
 
   int updateBuy(Wish wish);
 
+  int updateWishCategory(Wish wish);
+
 
 
 

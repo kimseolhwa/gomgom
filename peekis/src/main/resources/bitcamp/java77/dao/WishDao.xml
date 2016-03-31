@@ -133,7 +133,7 @@
 	<!-- 게시물 카테고리 수정하기 -->
 	<update id="updateWishCategory" parameterType="wish">
 		update wish 
-		set cno=#{cno} 
+		set cno=#{cno}
 	    where wno=#{no}
 	</update>
   

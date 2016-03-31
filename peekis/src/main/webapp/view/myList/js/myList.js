@@ -80,16 +80,32 @@
 					});
 			  	}
 			});
-	  
 
 			var dropCategory = function(event, ui) {
 				var dropItem = ui.draggable;
 				var regExp = /cNo[1-9]+/;
 				var dropCls = dropItem.attr("class").match(regExp)[0];
+				var regExp2 = /item [1-9]+/;
+				var dropCls2 = dropItem.attr("class").match(regExp2)[0].replace("item ", "");
 				
 				console.dir($(this).attr("data-filter"));
 				dropItem.removeClass(dropCls);
 				dropItem.addClass($(this).attr("data-filter").replace(".", ""));
+				
+				var updateCNo = $(this).attr("data-filter").replace(".cNo", "");
+				console.log("cno",updateCNo)
+				console.log("no",dropCls2)
+				
+		    	$.getJSON('/peekis/wish/ajax/updateWishCategory.do', {cno : updateCNo, no : dropCls2}, function(resultObj) {
+		    		var result = resultObj.ajaxResult;
+		    		console.log(result);
+					if(result.status == 'success'){
+		        		console.log(this);
+					}else{
+						swal('카테고리 변경 실패하였습니다.');
+					}
+				});
+				
 			};
 			
 			/* 카테고리 삭제하기  */
@@ -189,7 +205,7 @@
     		 for (var wish of resultObj.data){
 				$('#pageNo').text(pageNo);
 				var cloneContent = $(".cloneMainContents > div").clone();
-				cloneContent.addClass(wish.no+"");
+				cloneContent.addClass(wish.no+""+("  cNo"+wish.cno));
 				cloneContent.find('.no').val(wish.no);
 				var path = wish.path;
 				if(path.startsWith('http://') == false){
