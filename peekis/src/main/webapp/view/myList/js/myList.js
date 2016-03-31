@@ -12,6 +12,12 @@
 	       contain: true
 	    });
 	    
+	    var sort2 = function(){
+	    	  $container2.imagesLoaded(function() {
+	    	  	$container2.flickity();
+	    	  });
+	      }
+	    
 	    $('#filters').on('click', '.category', function() {
 			var filterValue = $(this).attr('data-filter');
 			$container.isotope({
@@ -79,6 +85,7 @@
 						drop : dropCategory
 					});
 			  	}
+			 sort2();
 			});
 
 			var dropCategory = function(event, ui) {
@@ -146,18 +153,6 @@
 									swal("수정 실패 !", "카테고리 수정에 실패", "error") 
 							    }
 							});
-						   
-						        
-//						  $.ajax({
-//						  type: "POST",
-//				  		  dataType:"JSON",
-//				  	 	  url : '/peekis/category/ajax/updateCategory.do',
-//				  	 	  data:{ name : inputValue, cNo : cNo },
-//				  	 	  success: function(resultObj){
-//				  	 		swal("카테고리 수정!", "수정한 카테고리: " + inputValue, "success")
-//				  	 		
-//				  	 	  }
-//						})
 					});
 			  });
 			
