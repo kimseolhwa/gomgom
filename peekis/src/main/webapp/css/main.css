@@ -559,8 +559,8 @@ footer {
 
 /* 상세페이지 태그 캡션 */
 #tagCaption{
-	position: absolute;
-	margin-top: 20%;
+/* 	position: absolute; */
+	margin-top: 30%;
 	margin-left: 5%;
 }
 
