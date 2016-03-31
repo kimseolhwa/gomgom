@@ -57,8 +57,6 @@
 		<div class="main">
 				<div class="item_container">
 					<div id="pageNo" style="display: none;">1</div>
-					<div id="UserNo" style="display: none;">0</div>
-					<div id="friendNo" style="display: none;">0</div>
 				</div>
 		</div>
 		
@@ -98,51 +96,10 @@
 		
 	<footer id="footer"></footer>
 
+	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?" style="display: none;"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
 
-
-<!-- 푸터 관련 스트립트 -->
-<script>
-var didScroll;
-var lastScrollTop = 0;
-var delta = 5;
-var navbarHeight = $('footer').outerHeight();
-
-$(window).scroll(function(event){
-    didScroll = true;
-});
-
-setInterval(function() {
-    if (didScroll) {
-        hasScrolled();
-        didScroll = false;
-    }
-}, 250);
-
-function hasScrolled() {
-    var st = $(this).scrollTop();
-    
-    if(Math.abs(lastScrollTop - st) <= delta)
-        return;
-    
-    if (st > lastScrollTop && st > navbarHeight){
-        $('footer').removeClass('nav-down').addClass('nav-up');
-        $('#demoTop').show();
-        
-    } else {
-        if(st + $(window).height() < $(document).height()) {
-            $('footer').removeClass('nav-up').addClass('nav-down');
-        }
-    }
-    lastScrollTop = st;
-}
-</script>
-<script>
-	$("#header").load("../header/header.html");
-	$("#footer").load("../footer/footer.html");
-	$("#user-profile").load("../profile/profile.html");
-</script>
-<script type="text/javascript" src="../profile/js/profile.js"></script>
 <script type="text/javascript" src="js/user.js"></script>
+<script type="text/javascript" src="../profile/js/profile.js"></script>
 </body>
 </html>

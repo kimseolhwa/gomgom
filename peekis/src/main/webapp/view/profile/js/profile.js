@@ -1,3 +1,4 @@
+	
 	var getParameter = function(url) {
 		var paramText = url.split("?")[1];
 		var params = paramText.split("&");
@@ -12,39 +13,7 @@
 	if(document.location.href.indexOf("fNo") > 0){
 		friendNo = getParameter(document.location.href).fNo;
 		$('#profileUser').text(friendNo);
-	}
-
-		/* 로그인 체크 */
-		$.getJSON('/peekis/main/ajax/loginCheck.do', function(resultObj) {
-			console.log(resultObj);
-			if(resultObj.ajaxResult.data != null){
-				var loginUser = resultObj.ajaxResult.data
-				$("#dropdown-color").text(loginUser.name);
-				$("#loginUser-no").text(loginUser.uNo);		
-				if(loginUser.pho != null){
-					$("#pImg").attr("src", filePath + loginUser.pho);
-				}
-			}else{
-				location.href = contextRoot + "/auth/joinForm.html"
-			}
-		});	
-	/* 유저정보 가져오기 */
-	$.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) {
-		console.log(resultObj);		
-		$("#caCnt").text(resultObj.user.caCnt);
-		$("#wishCnt").text(resultObj.user.wishCnt);
-		$("#likeCnt").text(resultObj.user.likeCnt);
-		$("#fCnt").text(resultObj.user.fCnt);
-		$("#fCnt2").text(resultObj.user.fCnt2)
-		$("#userName").text(resultObj.user.name);
-		$("#profileUser").text(resultObj.user.uNo);
-		if(resultObj.user.pho != null){
-			$("#profile").attr("src", filePath + resultObj.user.pho);
-		}else{
-			$("#profile").attr("src", "../header/img/people.png");
-		}	
-	});
-	
+	}	
 	
 	/* 게시물 탭으로 이동 */
 	$(document).on('click', '#wishList', function (){    	
@@ -81,7 +50,7 @@
 					cloneContent.find('.userImage').attr("src", filePath + user.pho);
 				}
 				if(user.fSts == 0){
-					cloneContent.find('.follow').html('<i class="fa fa-plus">　언팔로잉</i>');
+					cloneContent.find('.follow').html('<i class="fa fa-plus">　팔로우</i>');
 				}
 				if(user.uNo == uno){
 					cloneContent.find('.follow').css('display', 'none');
@@ -99,7 +68,7 @@
 		if($(this).html().indexOf('fa-check') > 0 ){
 			$.getJSON('/peekis/wish/ajax/followDelete.do', {uno : uno, fno : fno}, function(resultObj) {
 				if(resultObj.ajaxResult.status == 'success'){
-					$('.'+ fno).find('.follow').html('<i class="fa fa-plus">　언팔로잉</i>');
+					$('.'+ fno).find('.follow').html('<i class="fa fa-plus">　팔로우</i>');
 					swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
 					if(uno == $("#profileUser").text()){
 						$("#fCnt2").text(Number($("#fCnt2").text())-1);
@@ -121,13 +90,11 @@
     });
 	
 	/* 모달창 닫으면 모달바디 리셋시키기*/
-	$('#followModal').on('hidden.bs.modal', function (e) {
-		alert('dd');
-		 $(this).remove('.fInfo');
+	$(document).on('hidden.bs.modal', '#followModal', function (e) {
+		 $("#followModal .fInfo").remove();
 	});
-	$('#followerModal').on('hidden.bs.modal', function (e) {
-		alert('dddd');
-		$(this).remove('.fInfo');
+	$(document).on('hidden.bs.modal', "#followerModal", function (e) {
+		$("#followerModal .fInfo").remove();
 	});	
 	
 	/* 팔로워탭 클릭시 모달 띄우기 */
@@ -147,7 +114,7 @@
 					cloneContent.find('.userImage').attr("src", filePath + user.pho);
 				}
 				if(user.fSts == 0){
-					cloneContent.find('.follower').html('<i class="fa fa-plus">　언팔로잉</i>');
+					cloneContent.find('.follower').html('<i class="fa fa-plus">　팔로우</i>');
 				}
 				if(user.uNo == uno){
 					cloneContent.find('.follower').css('display', 'none');
@@ -165,7 +132,7 @@
 		if($(this).html().indexOf('fa-check') > 0){
 			$.getJSON('/peekis/wish/ajax/followDelete.do', {uno : uno, fno : fno}, function(resultObj) {
 				if(resultObj.ajaxResult.status == 'success'){
-					$('.'+ fno).find('.follow').html('<i class="fa fa-plus">　언팔로잉</i>');
+					$('.'+ fno).find('.follow').html('<i class="fa fa-plus">　팔로우</i>');
 					swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
 					if(uno == $("#profileUser").text()){
 						$("#fCnt2").text(Number($("#fCnt2").text())-1);

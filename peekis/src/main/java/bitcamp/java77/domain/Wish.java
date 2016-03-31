@@ -22,13 +22,9 @@ public class Wish implements Serializable
 	protected String userPho;
 	protected String categoryName;
 
-	
+	//////////////////////////////////////////////
 	//좋아요 
 	protected int numOflNo; // 좋아요개수
-	
-	public Wish()
-	{
-	}
 
 	public int getNumOflNo() {
 		return numOflNo;
@@ -36,6 +32,33 @@ public class Wish implements Serializable
 
 	public void setNumOflNo(int numOflNo) {
 		this.numOflNo = numOflNo;
+	}
+	//////////////////////////////////////////////
+	// 좋아요 여부
+	protected int likeSts;
+	// 담아가기 여부
+	protected int sendSts;
+	
+	public int getLikeSts() {
+		return likeSts;
+	}
+	
+	public void setLikeSts(int likeSts) {
+		this.likeSts = likeSts;
+	}
+	
+	public int getSendSts() {
+		return sendSts;
+	}
+	
+	public void setSendSts(int sendSts) {
+		this.sendSts = sendSts;
+	}
+	//////////////////////////////////////////////
+	
+
+	public Wish()
+	{
 	}
 
 	public String getUserName()

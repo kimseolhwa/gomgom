@@ -48,6 +48,20 @@ from user
 where uno='2'
 
 
+select w.*, 
+	  u.name as userName,
+	  u.pho as userPho, 
+	  c.name as categoryName,
+	  (select count(*) from `like` l2 where l.wno=l2.wno) as numOflNo,
+	  (select count(*) from send s where w.wno=s.wno and s.uno='2') as sendSts
+  from wish w, `like` l, user u, category c
+  where  w.wno=l.wno and l.uno='3' and u.uno=w.uno=c.uno
+order by w.wno desc
+
+
+
+
+
 select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=f.uno) as fSts
 		from follower f, user u
 		where f.uno='3' and u.uno=f.uno2
