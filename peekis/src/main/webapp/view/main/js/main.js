@@ -266,6 +266,7 @@ $("#insertComment").on("click",function(){
 							var sendList = resultObj.sendList;
 							console.log("resultObj.sendList : " ,resultObj.sendList);
 
+							$("#tab1").html("");
 							//코멘트 리스트
 							if(cList.length>0){
 							
@@ -303,6 +304,10 @@ $("#insertComment").on("click",function(){
 							$("#tab1").html(html)
 							 
 							}
+
+							$("#tab2").html("")
+							
+							$("#sendLength").text(sendList.length);
 							
 							//담아가기한 사람 리스트 
 							if(sendList.length>0){
@@ -329,7 +334,7 @@ $("#insertComment").on("click",function(){
 								$("#tagCaptionText a").text(wish.tag)
 							}							
 							
-							
+							$("#tab3").html("")
 							//좋아요한 사람 리스트 							
 							if(likeList.length>0){
 								var html=""
