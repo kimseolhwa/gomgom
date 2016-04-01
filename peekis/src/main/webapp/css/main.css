@@ -76,6 +76,7 @@ body {
 	left: 14px;
 	font-weight:bold;
 	color: rgb(95, 95, 95);
+	cursor: pointer;
 }
 
 .pro > span {
