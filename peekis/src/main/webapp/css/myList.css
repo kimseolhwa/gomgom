@@ -105,13 +105,13 @@ a, a:HOVER{
 }
 
 /* 모달 css*/
-.modal {
+.bs-example-modal-sm {
 	text-align: center;
 }
 .modal [type=file]{
 	display: none;
 }
-.modal-body img {
+.modal-body .sr-only {
 	margin: 0 auto;
 }
 
