@@ -107,7 +107,7 @@ function nextPage(pageNo){
 				}
 				if(wish.sendSts == 1){
 					cloneContent.find('.plus').attr('status','true')
-				}
+				}				
 				cloneContent.find('img:first').attr('src', path);
 				cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
 				cloneContent.find('.user_id').html(wish.userName);

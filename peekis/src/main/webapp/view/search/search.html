@@ -61,14 +61,11 @@
 		<div class="cloneMainContents" style="display: none;">
 			<div class="item">
 				<div class="product">
-					<img src="../../image/005.jpg" />
+					<img src="../../image/no_image(235x400).png" />
 					<input type="hidden" class="no" value="00">
 					<input type="hidden" class="uno" value="00">
 					<div class="mask">
 						<div class="icon">
-							<button class="btn btn-orange">
-								<span class="glyphicon glyphicon-send"></span>
-							</button>
 							<button class="btn btn-orange plus">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
@@ -81,8 +78,12 @@
 						<div class="user_id">아이디는여덟자임</div>
 					<span class="glyphicon glyphicon-folder-open"></span>
 					<div class="user_wish">폴더이름여덟자임</div>
-					<div class="heart"></div>
-					<div class="undoheart"></div>
+					<div class="heart">
+						<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
+					</div>
+					<div class="undoheart">
+						<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -172,78 +173,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
-	
 
-	<!-- proModal -->
-	<div class="portfolio-modal modal fade" id="proModal" role="dialog" aria-hidden="true" style="display: none;">
-		<div class="modal-content">
-			<div class="close-modal" data-dismiss="modal">
-				<div class="lr">
-					<div class="rl"></div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<h2>프로필e</h2>
-				<hr class="star-primary">
-				<img src="../../image/pro1.jpg" class="img-rounded" alt="">
-
-				<div class="modal-item_container">
-					<div id="modalPageNo" style="display: none;">1</div>
-					<div id="UserNo" style="display: none;">0</div>
-					<div class="modal-item">
-						<div class="modal-product">
-							<img src="../../image/1111.jpg" /> <input type="hidden" class="no" value="00"> <input type="hidden" class="uno" value="00">
-						</div>
-						<div class="modal-item-content">
-							<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
-							<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어 임블리에서만 만나보실 수 있는 사랑스러움을:</div>
-							<hr class="star-primary">
-							<div class="modal-icon">
-								<a href="#Modal1" data-toggle="modal">
-									<button class="detail btn btn-orange">상세보기</button>
-								</a>
-								<button class="btn btn-orange plus">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-								<div class="heart"></div>
-								<div class="undoheart"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="cloneModalContents" style="display: none;">
-					<div class="modal-item">
-						<div class="modal-product">
-							<img src="../../image/1111.jpg" />
-							<input type="hidden" class="no" value="00">
-							<input type="hidden" class="uno" value="00">
-						</div>
-						<div class="modal-item-content">
-							<div class="modal-item-title" id="">아이엠블리단가라, t[3co]</div>
-							<div class="modal-item-content" id="">MD COMMENT 남자친구,친구,가족들과 함께 입으시기 너무 좋은 단가라 티셔츠인데요 실용성 있고 탄탄한 면100% 소재감에 'I M'스마일 하트와펜을 넣어 임블리에서만 만나보실 수 있는 사랑스러움을:</div>
-							<hr class="star-primary">
-							<div class="modal-icon">
-								<button class="detail btn btn-orange">상세보기</button>
-								<button class="btn btn-orange plus">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-								<div class="heart">
-								<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
-								</div>
-								<div class="undoheart">
-								<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
 
 	<footer class="nav-down" id="footer"></footer>
 
@@ -254,6 +184,12 @@
 	$("#footer").load("../footer/footer.html");
 </script>
 <script>
+/* 파라미터값 꺼내기 */
+var getParameter = function(url) {
+	var paramText = decodeURI(url).split("?")[1];
+		return paramText;
+};
+var pageParam = getParameter(document.location.href);
 
 /* 로그인 체크 */
 $.getJSON('/peekis/main/ajax/loginCheck.do')
@@ -267,6 +203,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 			if(loginUser.pho != null){
 				$("#pImg").attr("src", filePath + loginUser.pho);
 			}
+			nextPage(1, pageParam);
 		}else{
 			location.href = contextRoot + "/auth/joinForm.html"
 		}
@@ -275,14 +212,6 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 		location.href = contextRoot + "/auth/joinForm.html"
 	});
 
-/* 파라미터값 꺼내기 */
-var getParameter = function(url) {
-	var paramText = decodeURI(url).split("?")[1];
-		return paramText;
-};
-var pageParam = getParameter(document.location.href);
-
-$(window).load(function() {
 	/* 이미지 정렬 */
 	var $container = $('.item_container');
 		$container.isotope({
@@ -312,184 +241,135 @@ $(window).load(function() {
 	       
 	
 	function nextPage(pageNo, pageParam){
-		$.getJSON('/peekis/main/ajax/searchList.do',{pageNo : pageNo, tag : pageParam}, function(resultObj) {
+		var uno = $("#loginUser-no").text();
+		
+		$.getJSON('/peekis/main/ajax/searchList.do',{pageNo : pageNo, tag : pageParam, uno: uno}, function(resultObj) {
 			$("#UserNo").text(resultObj.loginUser.uNo);
-			console.log(resultObj);
+			console.log('리스트 불러오기');
+		 	console.log(resultObj);
 			for (var wish of resultObj.data){
-				$('#pageNo').text(pageNo);
-				var cloneContent = $('.cloneMainContents > div').clone();
-			   	cloneContent.addClass(wish.no+'');
-			   	cloneContent.find('.no').val(wish.no);
-			   	cloneContent.find('.uno').val(wish.uno);
-			   	var path = wish.path;
-			   	if(path.startsWith('http://') == false)	   	path = filePath + path;
-			   	if(wish.buy == 'Y')		   					cloneContent.find('.buy').addClass('buy-check');
-			   	cloneContent.find('img:first').attr('src', path);
-			    
-			   	if(wish.userPho==null){
-					cloneContent.find('.userPho').attr('src', '../header/img/profileAvatar.jpg');
-				}else{
-					cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
-				} 
-			   	cloneContent.find('#likeAmount').text(wish.numOflNo);
-			   	cloneContent.find('.user_id').html(wish.userName);
-			   	cloneContent.find('.user_wish').html(wish.categoryName);
-			   	$items = $(cloneContent);
-			   	$container.append( $items ).isotope( 'appended', $items );			
-		   	}
+				  $('#pageNo').text(pageNo);
+				  var cloneContent = $('.cloneMainContents > div').clone();
+					cloneContent.addClass(wish.no+'');
+					cloneContent.find('.no').val(wish.no);
+					cloneContent.find('.uno').val(wish.uno);
+					var path = wish.path;
+					if(path.startsWith('http://') == false){
+						path = filePath + path;
+					}
+					cloneContent.find('img:first').attr('src', path);
+					if (wish.likeSts == 1){
+						cloneContent.find('.undoheart').css('display','block');
+						cloneContent.find('.heart').css('display','none');
+					}
+					if (wish.sendSts == 1){
+						cloneContent.find('.plus').attr('status',true);
+					}
+					if (wish.uno == uno){
+						cloneContent.find('.plus').css('opacity',0);
+					}
+					if(wish.userPho==null){
+						cloneContent.find('.userPho').attr('src', '../header/img/profileAvatar.jpg');
+					}else{
+						cloneContent.find('.userPho').attr('src', filePath + wish.userPho);
+					} 
+					cloneContent.find('.user_id').html(wish.userName);
+					cloneContent.find('.user_wish').html(wish.categoryName);
+					//라이크 개수
+					cloneContent.find('#likeAmount').text(wish.numOflNo);
+					
+					$items = $(cloneContent);
+					$container.append( $items ).isotope( 'appended', $items );			
+		  	}
 			sort();
-			for (var like of resultObj.like){
-				$('.' + like).find('.undoheart').css('display','block');
-			   	$('.' + like).find('.heart').css('display','none');
-			}
-			for (var send of resultObj.send){
-				$('.' + send).find('.plus').attr('status',true);
-			}
-			
-			if(pageNo == 1){
-		    	console.log(resultObj);
-		    	$("#searchText").val(pageParam);
-		        $("#dropdown-color").text(resultObj.loginUser.name);
-		        if(resultObj.loginUser.pho != null){
-		        	$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
-		        }
-		    }
 		});
 	   }
-	        
-	/* 댓글 삭제 - ajax로 가져온 html을 click이벤트 */
-	$('body').on('click', "#commentDelBtn", function(){
-		
-		var coNo = $(this).next("#commentNum").val();
-		console.log("coNo : " , coNo)
-		var commentLength = $("#commentLength").text();
-		
-		$.ajax({
-			 type: "POST",
-	  		 dataType:"JSON",
-	  	 	 url : contextRoot + "/main/ajax/delComment.do",
-	  	 	 data:{'coNo': coNo}
-		})
-		// 댓글삭제 UI
-		$(this).parent("#comdelsel").remove()
-		$("#commentLength").text(Number(commentLength)-1)
-		
-	});
-					
-	/* 댓글 입력 */
-	$("#insertComment").on("click",function(){
-		var wNo = $("#detailmodal-no").text();
-		var comment = $("#commentText").val();
-		$("#commentText").val(""); 
-		console.log("wNo: " , wNo)
-		var commentLength = $("#commentLength").text();
-		
-		console.log("commentLength : " ,commentLength)
-		$.ajax({
-			 type: "POST",
-	  		  dataType:"JSON",
-	  	 	  url : contextRoot + "/main/ajax/addComment.do",
-	  	 	  data:{'cont': comment, 'wNo' : wNo}
-		}).done(function(resultObj) {
-			console.log(resultObj.ajaxResult.data.join.name)	
-			console.log(resultObj.ajaxResult.data.comment.cont)
-			console.log(resultObj.ajaxResult.data.comment.coNo)
-					
-			if(resultObj.ajaxResult.data.join.pho==null){
-		  $("#tab1").prepend("<div id='comdelsel'><img src=../header/img/profileAvatar.jpg class='img-circle'>" +
-	       "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-	       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>" +
-	        "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" );
-			}else{
-		  $("#tab1").prepend("<div id='comdelsel'><img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
-	       "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-	       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"+
-	       "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" ); 
-			}
-			
-			$("#commentLength").text(Number(commentLength)+1)
-		})
-		
-	})
-			
-	/* 좋아요 토글 이벤트 */
+     
+	
+	
+	/* 좋아요 추가 이벤트 */
 	$(document).on('click', '.heart', function(){
-		console.log('좋아요 이벤트 발생');
-		var wishNo = $(this).closest('.item').find('.no').val();
-		var uNo = $('#UserNo').text();
-		$.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
-			var result = resultObj.ajaxResult;
-			console.log(result);
-			if(result.status == 'success'){
-				$('.' + wishNo).find('.heart').toggleClass('toggle').show().fadeToggle(1000),
-				setTimeout(function(){
-				        		$('.' + wishNo).find('.heart').toggleClass('toggle');  
-							},1000), 
-				$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
-			}else{	
-				swal('좋아요 추가에 실패하였습니다.');
-			}
-		});
+			console.log('좋아요 이벤트 발생');
+			var wishNo = $(this).closest('.item').find('.no').val();
+			var uNo = $('#loginUser-no').text();
+		    var	numOfLikeval =	$(this).find("#likeAmount").text();
+		    var numOfLike = $(this).next("div").find("#likeAmount");
+		    
+		    
+	    	$.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
+	    		var result = resultObj.ajaxResult;
+				if(result.status == 'success'){
+	        		$('.' + wishNo).find('.heart').toggleClass('toggle').show().fadeToggle(1000),
+	        		setTimeout(function(){
+	        			$('.' + wishNo).find('.heart').toggleClass('toggle');  
+					   },1000), 
+	        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
+	        		
+	        		numOfLike.text(Number(numOfLikeval)+1);
+	        		
+				}else{
+					swal('좋아요 추가에 실패하였습니다.');
+				}
+			});
 	});
 
+	/* 좋아요 삭제 이벤트 */
 	$(document).on('click', '.undoheart', function(){
 		console.log('좋아요 취소이벤트 발생');
 		var wishNo = $(this).closest('.item').find('.no').val();
-		var uNo = $('#UserNo').text();
+		var uNo = $('#loginUser-no').text();
+		var numOfLikeval = $(this).find("#likeAmount").text();
+		var numOfLike = $(this).prev("div").find("#likeAmount");
+		
 		$.getJSON('/peekis/main/ajax/deleteLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
 			var result = resultObj.ajaxResult;
-			console.log(result);
 			if(result.status == 'success'){
-				$('.' + wishNo).find('.undoheart').toggleClass('toggle').show().fadeToggle(1000),
-				setTimeout(function(){
-				        		$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
-							},1000), 
-				$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
+	    		$('.' + wishNo).find('.undoheart').toggleClass('toggle').show().fadeToggle(1000),
+	    		setTimeout(function(){
+	    			$('.' + wishNo).find('.undoheart').toggleClass('toggle');  
+				   },1000), 
+	    		$('.' + wishNo).find('.heart').hide().fadeToggle(1000);
+	    		
+	    		numOfLike.text(Number(numOfLikeval)-1);
+	    		
 			}else{
 				swal('좋아요 삭제에 실패하였습니다.');
 			}
 		});
 	});
-	         
-	        
+
+
 	/* 게시글 담아가기 */
-    $(document).on("click", ".plus", function(){
-	    var wishNo = $(this).closest('.item').find('.no').val();
-	    var uNo = $('#UserNo').text();
-	    if($(this).attr('status') == 'true'){
-	       swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
-	    }else{
-			$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
-					function( resultObj ) {
-						$('.' + wishNo).find('.plus').attr('status',true);
-						swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
-						console.log(resultObj);
-					});
-	       	}
-    });
-       
-       
-	/* 팔로우 하기 */
-    $(document).on("click", ".follow", function(){
-      	var wishUserNo = $(this).closest('.modal-content').find('.uno').text();
-      	var uNo = $('#UserNo').text();
-      	if($(".follow").text() == "팔로우"){
-			$.getJSON('/peekis/main/ajax/follower.do', {wishUserNo : wishUserNo, uno : uNo}, 
-				function( resultObj ) {
-					swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
-					$(".follow").text("언팔로우");
-					console.log(resultObj);
+	$(document).on("click", ".plus", function(){
+	var wishNo = $(this).closest('.item').find('.no').val();
+	var uNo = $('#loginUser-no').text();
+	if($(this).attr('status') == 'true'){
+		swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
+	}else{
+		$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
+			function( resultObj ) {
+				$('.' + wishNo).find('.plus').attr('status',true);
+				swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
+				console.log(resultObj);
 			});
-      	}else if($(".follow").text() == "언팔로우"){
-			$.getJSON('/peekis/main/ajax/unfollower.do', {wishUserNo : wishUserNo, uno : uNo}, 
-				function( resultObj ) {
-					swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
-					$(".follow").text("팔로우");
-					console.log(resultObj);
-			});
-      	}
-      });
-       
+	}
+	});
+
+
+	/* 친구페이지로 넘어가기 */
+	$(document).on('click', '.user_id', function (){
+		var userNo = $(this).closest('.item').find('.uno').val();
+		var loginUser = $('#loginUser-no').text();
+		if(userNo == loginUser){
+	    	location.href = contextRoot + "/view/myList/myList2.html";
+		}else{
+	    	location.href = contextRoot + "/view/user/user.html?fNo=" + userNo;
+		}
+	});
+	
+	
+	
+	
 	$('#filters').on('click', 'button', function() {
 		var filterValue = $(this).attr('data-filter');
 		$container.isotope({
@@ -535,7 +415,7 @@ $(window).load(function() {
 	    }
 	    lastScrollTop = st;
 	}
-});
+
 
 </script>
 <!-- js -->

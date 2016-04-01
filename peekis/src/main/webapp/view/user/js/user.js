@@ -178,72 +178,6 @@ function nextPage(pageNo, friendNo){
 }
 
 
-/* 상세정보 가져오기 */
-$container.on( 'click', '.detail', function() {
-	var wishNo = $(this).closest('.item').find('.no').val();
-	var uNo = Number($('#loginUser-no').text());
-			
-	$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo}, function( resultObj ) {
-		var wish = resultObj.data;
-		var cList = resultObj.commentList;
-		console.log(wish);				
-		if(cList.length>0){					
-			console.log("cList : ", cList);				
-			var html=""
-			for(var i=0; i<cList.length;i++){			
-				if(uNo==cList[i].uNo){
-					if(cList[i].userPho==null){
-						html += "<img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span></br>"
-					}else{
-					    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'> &times; </span></br>"
-					}
-				}
-				else{
-					if(cList[i].userPho==null){
-						html += "<img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span></br>"
-					}else{
-					    html += "<img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span></br>"
-					}
-				}
-			}				
-			$("#tab1").html(html);				
-		}
-			
-		$("#detailmodal-no").html( wish.no );
-		$("#detailmodal-uno").html( wish.uno );
-		var path = wish.path;
-		if(path.startsWith('http://') == false){
-			path = filePath + path;
-		}							
-		$("#detailmodal-pro").attr('src', filePath + wish.userPho);
-		$(".modal-user_id").html(wish.userName);	
-		$(".modal-user_wish").html(wish.categoryName);	
-		$("#detailmodal-image").attr("src", path );
-		$("#detailmodal-title").html( wish.title );			
-		$("#detailmodal-content").html( wish.content );
-		$("#detailmodal-price").html('&#8361;&nbsp;' + $.number(wish.price));
-		$("#detailmodal-url").attr("onclick", "window.open('" + wish.url + "')");
-		$("#detailmodal-tag").html("");
-		$('#detailmodal').modal();
-		$(".follow").css("display","block");
-		if(resultObj.followerCheck == 1 ){
-			$(".follow").text("언팔로우");
-		}
-		if($("#detailmodal-uno").text() == $('#UserNo').text()){
-			$(".follow").css("display","none");
-		}
-	});
-});
-
-
 	
 /* 좋아요 토글 이벤트 */
 $(document).on('click', '.heart', function(){
@@ -289,6 +223,22 @@ $(document).on('click', '.undoheart', function(){
     });
 });
 
+
+/* 게시글 담아가기 */
+$(document).on("click", ".plus", function(){
+var wishNo = $(this).closest('.item').find('.no').val();
+var uNo = $('#loginUser-no').text();
+if($(this).attr('status') == 'true'){
+	swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
+}else{
+	$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
+		function( resultObj ) {
+			$('.' + wishNo).find('.plus').attr('status',true);
+			swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
+			console.log(resultObj);
+		});
+}
+});
 
 
 

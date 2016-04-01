@@ -98,7 +98,10 @@ function checkPasswordMatch(){
 // 검색
 $("#searchBtn").on("click",function(){
 	event.preventDefault();
-	location.href = contextRoot + "/view/search/search.html?" + $("#searchText").val();
+	console.log($("#searchText").val());
+	if($("#searchText").val() != null){
+		location.href = contextRoot + "/view/search/search.html?" + $("#searchText").val();
+	}
 })
 
 //헤더, 로그아웃 박스 

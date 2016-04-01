@@ -65,6 +65,9 @@ function nextPage(pageNo){
 					if (wish.sendSts == 1){
 						cloneContent.find('.plus').attr('status',true);
 					}
+					if(wish.uno == $("#loginUser-no").text()){
+						cloneContent.find('.plus').css('opacity', '0');
+					}
 					if(wish.userPho==null){
 						cloneContent.find('.userPho').attr('src', '../header/img/profileAvatar.jpg');
 					}else{
@@ -174,129 +177,6 @@ $(document).on('click', '.user_id', function (){
 //상세보기 모달 관련 스크립트
 //*********************************************************************
 
-
-
-/* 댓글 삭제 - ajax로 가져온 html을 click이벤트 */
-$('body').on('click', "#commentDelBtn", function(){
-	
-	var coNo = $(this).next("#commentNum").val();
-	console.log("coNo : " , coNo)
-	var commentLength = $("#commentLength").text();
-	
-	$.ajax({
-		 type: "POST",
-  		 dataType:"JSON",
-  	 	 url : contextRoot + "/main/ajax/delComment.do",
-  	 	 data:{'coNo': coNo}
-	})
-	// 댓글삭제 UI
-	$(this).parent("#comdelsel").remove()
-	$("#commentLength").text(Number(commentLength)-1)
-	
-});
-				
-/* 댓글 입력 */
-$("#insertComment").on("click",function(){
-	var wNo = $("#detailmodal-no").text();
-	var comment = $("#commentText").val();
-	$("#commentText").val(""); 
-	console.log("wNo: " , wNo)
-	var commentLength = $("#commentLength").text();
-	
-	console.log("commentLength : " ,commentLength)
-	$.ajax({
-		 type: "POST",
-  		  dataType:"JSON",
-  	 	  url : contextRoot + "/main/ajax/addComment.do",
-  	 	  data:{'cont': comment, 'wNo' : wNo}
-	}).done(function(resultObj) {
-		console.log(resultObj.ajaxResult.data.join.name)	
-		console.log(resultObj.ajaxResult.data.comment.cont)
-		console.log(resultObj.ajaxResult.data.comment.coNo)
-				
-		if(resultObj.ajaxResult.data.join.pho==null){
-	  $("#tab1").prepend("<div id='comdelsel'><img src=../header/img/profileAvatar.jpg class='img-circle'>" +
-       "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>" +
-        "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" );
-		}else{
-	  $("#tab1").prepend("<div id='comdelsel'><img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
-       "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-       "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"+
-       "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" ); 
-		}
-		
-		$("#commentLength").text(Number(commentLength)+1)
-	})
-	
-})
-
-				
-				
-
-		        
-
-
-		      
-		        /* 상세페이지- 담아가기 버튼 */  
-		            $(document).on("click", "#detailSendBtn", function(){
-		    	    var wishNo  = Number($('#detailmodal-no').text());
-		        	var uNo = $('#loginUser-no').text();
-		        	var detailSendBtn = $(this);
-		        	var mainSendBtn = $('.' + wishNo).find('.plus');
-		        	
-		        	if($(this).attr('status') == 'true' || mainSendBtn.attr('status') == 'true'){
-		        		swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
-		        	}else{
-						$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
-							function( resultObj ) {
-							    detailSendBtn.attr('status',true);
-								swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
-								var sendLength  = Number($("#sendLength").text());
-								$("#sendLength").text(sendLength+1)
-								console.log("resultObj : " , resultObj.ajaxResult.data)
-								var html=''
-									if(resultObj.ajaxResult.data.pho==null){
-										html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-									    html += "&nbsp;<a>"+ resultObj.ajaxResult.data.name +"</a>"
-									    html += "<input type='hidden' value="+ resultObj.ajaxResult.data.uNo + " id='commentNum'/></div>" 
-									}else{
-									    html += "<div id='comdelsel'><img src="+ resultObj.ajaxResult.data.pho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-									    html += "&nbsp;<a>"+ resultObj.ajaxResult.data.name +"</a>"
-									    html += "<input type='hidden' value="+ resultObj.ajaxResult.data.uNo + " id='commentNum'/></div>" 
-									}
-								$("#tab2").prepend(html)
-								
-							});
-		        	}
-		      })
-		        
-		      	
-		      
-		      
-		        
-		        /* 팔로우 하기 */
-		         $(document).on("click", ".follow", function(){
-		        	var wishUserNo = $(this).closest('.modal-content').find('.uno').text();
-		        	var uNo = $('#loginUser-no').text();
-		        	if($(".follow").text() == "팔로우"){
-						$.getJSON('/peekis/wish/ajax/followInsert.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
-								if(resultObj.ajaxResult.status == 'success'){
-									swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
-									$(".follow").text("언팔로우");
-								}
-							});
-		        	}else if($(".follow").text() == "언팔로우"){
-						$.getJSON('/peekis/wish/ajax/followDelete.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
-							if(resultObj.ajaxResult.status == 'success'){
-								swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
-								$(".follow").text("팔로우");
-							}
-						});
-		        	}
-		        });
-		        
-		        
 
 
 		        
