@@ -235,12 +235,31 @@ a, a:HOVER{
    	-webkit-box-shadow:inset 0 1px 1px 0 #828282;
 	box-shadow:inset 0 1px 1px 0 #828282;
 }
-.flickity-viewport { 
- 	margin: 0 60px; 
-}
+/* .flickity-viewport {  */
+/*  	margin: 0 60px;  */
+/* } */
 /* .flickity-prev-next-button previous { */
 /* 	left: 20px; */
 /* } */
+
+.flickity-prev-next-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  background: #333;
+}
+.flickity-prev-next-button:hover {
+  background: #F90;
+}
+/* arrow color */
+.flickity-prev-next-button .arrow {
+  fill: white;
+}
+.flickity-prev-next-button.no-svg {
+  color: white;
+}
+
+
 
 .category {
 	width: 235px;
