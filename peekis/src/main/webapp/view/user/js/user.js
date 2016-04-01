@@ -55,7 +55,8 @@ $.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) 
 		$("#profile").attr("src", filePath + resultObj.user.pho);
 	}else{
 		$("#profile").attr("src", "../header/img/people.png");
-	}	
+	}
+	nextPage(1, friendNo);
 });
 	
 	
@@ -124,8 +125,7 @@ var sort = function(){
 
 
 /* 위시리스트 목록 불러오기  */		
-nextPage(1, friendNo);
-      
+     
 $(window).scroll(function(){
 	var scrollHeight = $(window).scrollTop() + $(window).height();
 	var documentHeight = $(document).height();

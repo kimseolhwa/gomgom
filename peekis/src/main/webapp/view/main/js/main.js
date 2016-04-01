@@ -1,8 +1,6 @@
 /**
  * 
  */
-$(document).ready(function(){
-	
 
 $("#header").load("../header/header.html");
 $("#footer").load("../footer/footer.html");
@@ -20,6 +18,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 			if(loginUser.pho != null){
 				$("#pImg").attr("src", filePath + loginUser.pho);
 			}
+			nextPage(1);
 		}else{
 			location.href = contextRoot + "/auth/joinForm.html"
 		}
@@ -30,11 +29,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 
 
 
-
-
 /* 리스트 불러오기 */
-nextPage(1);
-
 $(window).scroll(function(){
 	var scrollHeight = $(window).scrollTop() + $(window).height();
 	var documentHeight = $(document).height();
@@ -49,7 +44,6 @@ $(window).scroll(function(){
 
 function nextPage(pageNo){
 	 var uno = $("#loginUser-no").text();
-	 uno=2;
 	 $.getJSON('/peekis/main/ajax/list.do',{pageNo : pageNo, uno: uno}, function(resultObj) {
 		 	  console.log('리스트 불러오기');
 		 	  console.log(resultObj);
@@ -348,4 +342,3 @@ function hasScrolled() {
     }
     lastScrollTop = st;
 }
-})

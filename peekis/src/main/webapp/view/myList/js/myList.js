@@ -18,6 +18,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 			if(loginUser.pho != null){
 				$("#pImg").attr("src", filePath + loginUser.pho);
 			}
+			nextPage(1);
 		}else{
 			location.href = contextRoot + "/auth/joinForm.html"
 		}
@@ -240,8 +241,7 @@ $(document).on("click", ".buy", function(){
       
       
 /* 위시리스트 목록 불러오기  */		
-nextPage(1);
-  
+ 
 $(window).scroll(function(){
 	var scrollHeight = $(window).scrollTop() + $(window).height();
 	var documentHeight = $(document).height();
