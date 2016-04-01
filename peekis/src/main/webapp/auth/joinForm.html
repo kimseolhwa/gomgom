@@ -9,13 +9,35 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
+
 <title>login-registration</title>
+
+<!-- favicon -->
+<link rel="shortcut icon" href="/peekis/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/peekis/favicon.ico" type="image/x-icon">
 
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 <!-- 제이쿼리 -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<!-- 페이지 슬라이드  -->
+<link rel="stylesheet" type="text/css" href="../joinCss/fullPage/jquery.fullPage.css" />
+<script type="text/javascript" src="../joinCss/fullPage/jquery.fullpage.js"></script>
+
+<!-- 인덱스  -->
+<!-- <script src="../../js/jquery.rollingCounter.js"></script> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="../js/typed.js"></script>
+<script src="../js/snap.svg-min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<!-- 인덱스 css -->
+	<link rel="stylesheet" href="../css/index.css">
+	<link rel="stylesheet" href="../css/animate.css">
 
 <!-- 벨리데이션 체크 -->
 <link rel="stylesheet" href="../dist/css/formValidation.css"/>
@@ -57,7 +79,7 @@ color: gray;
 
 footer {
 	position: fixed;
-	height: 60px;
+	height: 50px;
 	bottom: 0;
 }
 
@@ -160,10 +182,74 @@ footer {
 	color : white;
 }
 
+/*-----------------------------가입페이지 슬라이드css------------------------------*/
+	/* Style for our header texts
+	* --------------------------------------- */
+	h1{
+		font-size: 5em;
+		font-family: arial,helvetica;
+		color: #fff;
+		margin:0;
+	}
+	.intro p{
+		color: #fff;
+	}
+
+	/* Centered texts in each section
+	* --------------------------------------- */
+	.section{
+		text-align:center;
+	}
+
+	/* Overwriting styles for control arrows for slides
+	* --------------------------------------- */
+	.controlArrow.prev {
+		left: 50px;
+	}
+	.controlArrow.next{
+		right: 50px;
+	}
+
+
+	/* Bottom menu
+	* --------------------------------------- */
+	#infoMenu li a {
+		color: #fff;
+	}
+	
+	.form-box {
+		background-color : white;
+		border-radius : 9px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		/*box-shadow : 3px 3px 3px white;
+		 stroke-width: 7px;
+		stroke: blue; 
+		fill: none;
+		stroke: #fff;
+		stroke-width: 4px;
+		stroke-linecap: round;
+		*/
+	}
+	.fp-tableCell{
+		padding-bottom: 120px;
+	}
+	.button-wrap{
+		margin-top: 50px;
+	}
+	.main{
+		padding-top: 80px;
+	}
+	.container{
+		padding-top: 100px;
+	}
+
 </style>
 <script>
-
+	
+	
 	$(document).ready(function() {
+	
 	     var nameVal = $('#name').val();
 		 var emailVal = $('#email').val();
 		 var pwdVal = $('#password').val();
@@ -296,7 +382,50 @@ footer {
 				  }
 		});
     
+		/*join폼 슬라이드*/
+		$('#fullpage').fullpage({
+			anchors: ['firstPage', '3rdPage'],
+			sectionsColor: ['rgb(242,132,53)', '#dedede'],
+			navigation: true,
+			navigationPosition: 'right',
+			navigationTooltips: ['Hello PeeKiS', 'Sign-Up']
+		});
+		
+		var fWidth = parseInt($(".form-box").css("width"));
+		$(".form-box").css("margin-left", ($(window).width()/2)-(fWidth/2));
+	
+		$(window).resize(function() {
+			var fWidth = parseInt($(".form-box").css("width"));
+			$(".form-box").css("margin-left", ($(window).width()/2)-(fWidth/2));			
+		});
+		
+		/*인덱스 */
+		var subElementArray = $.map($('.sub-element'), function(el) { return $(el).text(); });    
+		    $(".element").typed({
+		        strings: subElementArray,
+		        typeSpeed: 30,
+		        contentType: 'html',
+		        showCursor: false,
+		        loop: true,
+		        loopCount: true,
+		    });
+		    
+			
+			$.getJSON(
+					"/peekis/main/ajax/selectAllCnt.do",
+					function(data){
+						$('#all').attr("data-count", data.allCnt.totalCnt);
+						$('#today').attr("data-count", data.todayCnt.todayCnt);
+						$('#goal').attr("data-count", data.goalCnt.goalCnt);
+//		 				$('#all').html(data.allCnt.totalCnt);
+//		 				$('#today').html(data.todayCnt.todayCnt);
+//		 				$('#clear').html(data.goalCnt.goalCnt);
+					}
+			);
 	}); 
+	
+	
+
 </script>
 </head>
 <body>
@@ -305,195 +434,251 @@ footer {
 	<header id="header"></header>
 
 	<!-- body content -->
-<section style="background-color: #e9e9e9;">
+	<section style="background-color: #e9e9e9;">
 
-<br>
-<br>
-<br>
-
-	<div class="top-content">
-		<div class="inner-bg">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-7 text">
-						<h1 style="text-shadow: 1px 1px 1px;">
-							<strong>PEEKIS</strong> 지금 <span style="color: red;">피키즈</span>에
-							가입하세요.
-						</h1>
-						<div class="description">
-							<h5> &nbsp; PEEKIS에서 전 세계에 있는 친구, 가족, 지인들의 WISH LIST를 확인하실 수 있습니다.</h5>
-							<br> 
-							&nbsp;<img src="img/gifts_generic.gif" width="80%"
-								style="padding-left: 20px;">
+		<div id="fullpage">
+			<div class="section " id="section0">
+				<div class="intro">
+					<div class="main">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-12">
+									<h1><!-- class="animated infinite tada" -->
+										PeeK<small>iS</small>
+									</h1>
+									<h2 class="element">
+										<span class="sub-element">여러분의 가지고 싶은 것을 채워 넣으세요!</span>
+										<span class="sub-element">당신의 욕망을 채워주는 이곳!</span>
+										<span class="sub-element">피 키 스</span>
+									</h2>
+				
+									<ul class="countdown">
+										<li><span class="counter" id="all">1185</span>
+											<h3>총 욕망</h3></li>
+										<li><span class="counter" id="today">83</span>
+											<h3>오늘의 욕망</h3></li>
+										<li><span class="counter" id="goal">1268</span>
+											<h3>욕망 달성</h3></li>
+									</ul>
+									<br/>
+									<div class="button-wrap animated infinite bounce">
+										<button data-anijs="if:click, do: hinge animated, to: #main" class="button button--line button--effect-1" onclick="location.href='../auth/joinForm.html#3rdPage'";>
+											<span class="morph-shape" data-morph-active="M287,95.25c0,11.046-5.954,19.75-17,19.75c0,0-90-4-120-4s-120,4-120,4c-11.046,0-17.25-9.5-17.25-20.5c0-8.715,0.25-10.75,0.25-34s-0.681-26.257-1-33.75C11.5,15,18.954,10,30,10c0,0,90,3,120,3s120-3,120-3c11.046,0,17.75,6.5,17,20c-0.402,7.239,0,6.75,0,30.5C287,83.5,287,84.75,287,95.25z">
+												<svg width="100%" height="100%" viewBox="0 0 300 125" preserveAspectRatio="none">
+													<path d="M290,95c0,11.046-8.954,20-20,20c0,0-90,0-120,0s-120,0-120,0c-11.046,0-20-9-20-20c0-8.715,0-25.875,0-34.5c0-7.625,0-22.774,0-30.5c0-11.625,8.954-20,20-20c0,0,90,0,120,0s120,0,120,0c11.046,0,20,8.954,20,20c0,7.25,0,22.875,0,30.5C290,69.125,290,84.5,290,95z"/>
+												</svg>
+											</span>
+											<span class="button__text">Sign-Up</span>
+										</button>
+									</div>
+									<button id="btn" style="display: none;"></button>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div class="col-sm-5 form-box">
+					<br /> <br /> <br />
+					
+				</div>
+			</div>
+
+			<div class="section" id="section2">
+				<div class="intro">
+					<div class="col-sm-4 form-box">
 						<div class="form-top">
-							<div class="form-top-left">
-								<h3 style="text-shadow: 1px 1px 1px;">가입하기</h3>
-								<h5>Fill in the form below to get instant access:</h5>
+							<div class="form-top-left" align="left">
+								<h2 style="text-shadow: 1px 1px 1px;">SignUp</h2>
 							</div>
-							<div class="form-top-right" align="right">
-								<i class="fa fa-pencil"></i>
-							</div>
+							<br />
+							<br />
+							<div class="form-top-right" align="right"></div>
 						</div>
-						<div class="form-bottom">
-							<form role="form"  method="post" id="defaultForm" 
-								class="registration-form" >
+
+						<div class="form-bottom" >
+							<form role="form" method="post" id="defaultForm" class="registration-form">
 								<div class="form-group">
 									<label class="sr-only" for="form-first-name">User name</label>
-									<input type="text" name="name"
-										placeholder="User name..."
+									<input type="text" name="name" placeholder="User name"
 										class="form-first-name form-control" id="name" required>
 								</div>
 								<div class="form-group">
-									<label class="sr-only" for="form-email">Email</label> <input
-										type="text" name="email" placeholder="Email..."
-										class="form-email form-control" id="email" required>
+									<label class="sr-only" for="form-email">Email</label> 
+										<input type="text" name="email" placeholder="E-mail" class="form-email form-control" id="email" required>
 								</div>
 								<div class="form-group">
-									<label class="sr-only" for="form-password">password</label> <input
-										type="password" name="password" placeholder="password..."
-										class="form-password form-control" id="password">
+									<label class="sr-only" for="form-password">password</label> 
+										<input type="password" name="password" placeholder="Password" class="form-password form-control" id="password">
 								</div>
-								<div class="form-group">
-									<label class="sr-only" for="form-about-yourself">About
-										yourself</label>
-									<textarea name="aboutYourself"
-										placeholder="About yourself..."
-										class="form-about-yourself form-control"
-										id="aboutYourself"></textarea>
-								</div>
+								<br> 
 								<button type="submit" class="btn btn-orange" id="registIn"
-									data-toggle="modal" >가입하기</button> <!-- data-target="#myModal" -->
-									<span class="dupEmailCk" style="color: #E84343; padding-left: 10px;text-decoration: underline; " ></span>
-									<br>
-									<br>
-									<p style="color: gray;font-size:x-small;">가입과 동시에 귀하는 <a href="#">쿠키 사용</a>을 포함해 <a href="#">이용약관</a>과 <a href="#">개인정보 취급방침</a>에 동의하는 것입니다. 다른 사람들이 내가 입력한 이메일 또는 이름으로 나를 찾을 수 있습니다.</p>
+									data-toggle="modal">SignUp</button>
+								<span class="dupEmailCk"
+									style="color: #E84343; padding-left: 10px; text-decoration: underline;"></span>
+								<br> <br> <br>
+								<p style="color: gray; font-size: x-small;">
+									가입과 동시에 귀하는 <a href="#">쿠키 사용</a>을 포함해 <a href="#">이용약관</a>과 <a
+										href="#">개인정보 취급방침</a>에 동의하는 것입니다. 다른 사람들이 내가 입력한 이메일 또는 이름으로
+									나를 찾을 수 있습니다.
+								</p>
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
-	</div>
-<br>
-<div style="border: 0px solid black;" id="jonFormBottom">
-<h4 align="center" style="font-size: small; color:#DCE5E8; "> <a class="upfo" href="#">PEEKIS소개</a> &nbsp;&nbsp;&nbsp; <a class="upfo" href="#">블로그</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">관련기사</a>&nbsp;&nbsp;&nbsp; <a class="upfo" href="#">사업체</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">서비스약관 및 개인보호 보호정책</a>&nbsp;&nbsp;&nbsp; <a  class="upfo" href="#">도움말</a> </h4>
-</div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">자신이 원하는 주제를 팔로우 하세요. <span style="font-size:small; color: tomato;">(5개 이상 선택)</span></h4> <span class="asd"></span>
-				</div>
 
-				<!-- 모달 바디 -->
-				<div class="modal-body">
-				<div class="row"  >
-				
-					<!--선택이미지  -->
-					<div class="col-md-3" >
-						<input type="hidden" value="1">
-						<div>여성</div>
-						<a class="tooltips" href="#" >
-						<img src="img/woman.jpg" alt="..." class="img-thumbnail img-check"  title="여성" ></a>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							자신이 원하는 주제를 팔로우 하세요. <span
+								style="font-size: small; color: tomato;">(5개 이상 선택)</span>
+						</h4>
+						<span class="asd"></span>
 					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="2">
-						<div>남성</div>
-						<a href="#"><img src="img/man.jpg" alt="..." class="img-thumbnail img-check"></a><!-- <span class="imgn" title="남성"></span> -->
+
+					<!-- 모달 바디 -->
+					<div class="modal-body">
+						<div class="row">
+
+							<!--선택이미지  -->
+							<div class="col-md-3">
+								<input type="hidden" value="1">
+								<div>여성</div>
+								<a class="tooltips" href="#"> <img src="img/woman.jpg"
+									alt="..." class="img-thumbnail img-check" title="여성"></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="2">
+								<div>남성</div>
+								<a href="#"><img src="img/man.jpg" alt="..."
+									class="img-thumbnail img-check"></a>
+								<!-- <span class="imgn" title="남성"></span> -->
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="3">
+								<div>유·아동</div>
+								<a class="tooltips" href="#"><img src="img/kids.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>kids</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="4">
+								<div>여행</div>
+								<a class="tooltips" href="#"><img src="img/trip.png"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>baby</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="5">
+								<div>동물</div>
+								<a class="tooltips" href="#"><img src="img/animal.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>animal</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="6">
+								<div>악세서리</div>
+								<a class="tooltips" href="#"><img
+									src="img/Accessory-Designer-Intro.jpg" alt="..."
+									class="img-thumbnail img-check">
+								<!-- <span>Accessory</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="7">
+								<div>IT</div>
+								<a class="tooltips" href="#"><img src="img/it.jpg" alt="..."
+									class="img-thumbnail img-check">
+								<!-- <span>IT</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="8">
+								<div>스포츠</div>
+								<a class="tooltips" href="#"><img src="img/sports.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>sports</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="9">
+								<div>코스메틱</div>
+								<a class="tooltips" href="#"><img src="img/cosmetic.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>cosmetic</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="10">
+								<div>악기</div>
+								<a class="tooltips" href="#"><img src="img/instruments.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>instrument</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="11">
+								<div>자동차</div>
+								<a class="tooltips" href="#"><img src="img/car.JPG"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>car</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="12">
+								<div>음식</div>
+								<a class="tooltips" href="#"><img src="img/food.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>watch</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="13">
+								<div>가방</div>
+								<a class="tooltips" href="#"><img src="img/bag.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>bag</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="14">
+								<div>신발</div>
+								<a class="tooltips" href="#"><img src="img/shoes.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>shoes</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="15">
+								<div>책</div>
+								<a class="tooltips" href="#"><img src="img/book.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>book</span> --></a>
+							</div>
+							<div class="col-md-3">
+								<input type="hidden" value="16">
+								<div>가구</div>
+								<a class="tooltips" href="#"><img src="img/furniture.jpg"
+									alt="..." class="img-thumbnail img-check">
+								<!-- <span>furniture</span> --></a>
+							</div>
+						</div>
+						<!-- div row -->
 					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="3">
-						<div>유·아동</div>
-						<a class="tooltips" href="#"><img src="img/kids.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>kids</span> --></a>
+
+					<!--  모달 푸터 -->
+					<div class="modal-footer">
+						<div class="container-fluid">
+							<button class="btn btn-lg btn-orange" id="followbtn">
+								<strong>주제를 팔로우 하세요</strong>
+							</button>
+							<span id="selTest"></span>
+						</div>
 					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="4">
-						<div>여행</div>
-						<a class="tooltips" href="#"><img src="img/trip.png" alt="..." class="img-thumbnail img-check"><!-- <span>baby</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="5">
-						<div>동물</div>
-						<a class="tooltips" href="#"><img src="img/animal.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>animal</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="6">
-						<div>악세서리</div>
-						<a class="tooltips" href="#"><img src="img/Accessory-Designer-Intro.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>Accessory</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="7">
-						<div>IT</div>
-						<a class="tooltips" href="#"><img src="img/it.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>IT</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="8">
-						<div>스포츠</div>
-						<a class="tooltips" href="#"><img src="img/sports.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>sports</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="9">
-						<div>코스메틱</div>
-						<a class="tooltips" href="#"><img src="img/cosmetic.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>cosmetic</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="10">
-						<div>악기</div>
-						<a class="tooltips" href="#"><img src="img/instruments.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>instrument</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="11">
-						<div>자동차</div>
-						<a class="tooltips" href="#"><img src="img/car.JPG" alt="..." class="img-thumbnail img-check"><!-- <span>car</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="12">
-						<div>음식</div>
-						<a class="tooltips" href="#"><img src="img/food.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>watch</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="13">
-						<div>가방</div>
-						<a class="tooltips" href="#"><img src="img/bag.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>bag</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="14">
-						<div>신발</div>
-						<a class="tooltips" href="#"><img src="img/shoes.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>shoes</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="15">
-						<div>책</div>
-						<a class="tooltips" href="#"><img src="img/book.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>book</span> --></a>
-					</div>
-					<div class="col-md-3">
-						<input type="hidden" value="16">
-						<div>가구</div>
-						<a class="tooltips" href="#"><img src="img/furniture.jpg" alt="..." class="img-thumbnail img-check"><!-- <span>furniture</span> --></a>
-					</div>
-				   </div><!-- div row -->
-				</div>
-				
-				<!--  모달 푸터 -->
-				<div class="modal-footer">
-						 <div class="container-fluid">
-	 						<button  class="btn btn-lg btn-orange" id="followbtn" ><strong>주제를 팔로우 하세요</strong></button><span id="selTest"></span>	
-						 </div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
 
 	<!-- Footer -->
 	<footer id="footer"></footer>
@@ -502,7 +687,89 @@ footer {
 		$("#header").load("header/loginHeader.html");
 		$("#footer").load("footer/footer.html");
 </script>	
-	
+<!-- 인덱스  -->
+<script src="../js/classie.js"></script>
+<!-- <script type="text/javascript">
+	    
+		$(".counter").rollingCounter({
+		    animate : true,
+		    attrCount : 'data-count',
+		    delayTime : 20 ,
+		    waitTime : 1 ,
+		    easing : 'easeOutBounce',
+		    duration : 1000
+		});
+		
+		
+		</script> -->
+		<script>
+			(function() {
+
+				function extend( a, b ) {
+					for( var key in b ) { 
+						if( b.hasOwnProperty( key ) ) {
+							a[key] = b[key];
+						}
+					}
+					return a;
+				}
+				
+				function SVGButton( el, options ) {
+					this.el = el;
+					this.options = extend( {}, this.options );
+					extend( this.options, options );
+					this.init();
+				}
+
+				SVGButton.prototype.options = {
+					speed : { reset : 800, active : 150 },
+					easing : { reset : mina.elastic, active : mina.easein }
+				};
+
+				SVGButton.prototype.init = function() {
+					this.shapeEl = this.el.querySelector( 'span.morph-shape' );
+
+					var s = Snap( this.shapeEl.querySelector( 'svg' ) );
+					this.pathEl = s.select( 'path' );
+					this.paths = {
+						reset : this.pathEl.attr( 'd' ),
+						active : this.shapeEl.getAttribute( 'data-morph-active' )
+					};
+
+					this.initEvents();
+				};
+
+				SVGButton.prototype.initEvents = function() {
+					this.el.addEventListener( 'mousedown', this.down.bind(this) );
+					this.el.addEventListener( 'touchstart', this.down.bind(this) );
+
+					this.el.addEventListener( 'mouseup', this.up.bind(this) );
+					this.el.addEventListener( 'touchend', this.up.bind(this) );
+
+					this.el.addEventListener( 'mouseout', this.up.bind(this) );
+				};
+
+				SVGButton.prototype.down = function() {
+					this.pathEl.stop().animate( { 'path' : this.paths.active }, this.options.speed.active, this.options.easing.active );
+				};
+
+				SVGButton.prototype.up = function() {
+					this.pathEl.stop().animate( { 'path' : this.paths.reset }, this.options.speed.reset, this.options.easing.reset );
+				};
+
+				[].slice.call( document.querySelectorAll( 'button.button--effect-1' ) ).forEach( function( el ) {
+					new SVGButton( el );
+				} );
+
+				[].slice.call( document.querySelectorAll( 'button.button--effect-2' ) ).forEach( function( el ) {
+					new SVGButton( el, {
+						speed : { reset : 650, active : 650 },
+						easing : { reset : mina.elastic, active : mina.elastic }
+					} );
+				} );
+
+			})();			
+		</script>	
 </body>
 
 </html>
