@@ -10,7 +10,7 @@ public interface CategoryDao
 {
 	public int addCategory(Category category);
 	
-	public List<Wish> categoryList(HashMap<String,Object> paramMap);
+	public List<Wish> categoryList(int uno);
 	
 	public List<Wish> categoryWishList(HashMap<String,Object> paramMap);
 	

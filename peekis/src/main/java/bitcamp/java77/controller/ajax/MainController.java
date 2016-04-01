@@ -36,24 +36,18 @@ public class MainController
 	}
 	
 	@RequestMapping("list")
-	public Object list(@RequestParam(defaultValue="1") int pageNo, HttpServletRequest req) throws Exception {
-		Join join = (Join) req.getSession().getAttribute("loginUser");
-		
+	public Object list(@RequestParam(defaultValue="1") int pageNo, int uno) throws Exception {
 		int pageSize = 10;
 		HashMap<String,Object> paramMap = new HashMap<>();
 	    paramMap.put("startIndex", (pageNo - 1) * pageSize);
 	    paramMap.put("length", pageSize);
+	    paramMap.put("uno", uno);
 	    System.out.println("pageNo : " + pageNo);
 	    List<Wish> wishs = MainDao.selectList(paramMap);
-	    List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
-	    List<Integer> sendList = MainDao.selectsendList(join.getuNo());
 	    
 	    HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("data", wishs);
-		resultMap.put("loginUser", join);
-		resultMap.put("like", likeList);
-		resultMap.put("send", sendList);
 		return resultMap;
 	}
 	
@@ -66,17 +60,13 @@ public class MainController
 		paramMap.put("startIndex", (pageNo - 1) * pageSize);
 		paramMap.put("length", pageSize);
 		paramMap.put("fNo", fNo);
+		paramMap.put("uno", join.getuNo());
 		System.out.println("pageNo : " + pageNo);
 		List<Wish> wishs = MainDao.selectFriendList(paramMap);
-		List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
-		List<Integer> sendList = MainDao.selectsendList(join.getuNo());
-		
+
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("data", wishs);
-		resultMap.put("loginUser", join);
-		resultMap.put("like", likeList);
-		resultMap.put("send", sendList);
 		return resultMap;
 	}
 	

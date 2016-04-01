@@ -41,19 +41,16 @@ public class CategoryController
 	}
 	
 	@RequestMapping("categoryList")
-	public Object categoryList(HttpServletRequest req) throws Exception
-	{
-		Join join = (Join) req.getSession().getAttribute("loginUser");
-		System.out.println("loginUser : " + join.getuNo());
-
-		HashMap<String, Object> paramMap = new HashMap<>();
-		paramMap.put("uno", join.getuNo());
-		List<Wish> categorys = CategoryDao.categoryList(paramMap);
+	public Object categoryList(int uno, HttpSession session) throws Exception{
+		if(uno == 0){
+			Join join = (Join)session.getAttribute("loginUser");
+			uno = join.getuNo();
+		}
+		List<Wish> categorys = CategoryDao.categoryList(uno);
 
 		HashMap<String, Object> resultMap = new HashMap<>();
 		resultMap.put("status", "success");
 		resultMap.put("data", categorys);
-		resultMap.put("loginUser", join);
 
 		return resultMap;
 	}

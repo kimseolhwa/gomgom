@@ -21,15 +21,18 @@
 
 <!-- Packery -->
 <script src="https://npmcdn.com/packery@2.0.0/dist/packery.pkgd.min.js"></script>
+<script src="https://npmcdn.com/draggabilly@2.1/dist/draggabilly.pkgd.js"></script>
 
 <!-- imagesLoaded -->
 <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 
-<!-- sweetalert -->
+<!-- flickity -->
+<link rel="stylesheet" href="https://npmcdn.com/flickity@1.2/dist/flickity.css" media="screen">
+<script src="https://npmcdn.com/flickity@1.2/dist/flickity.pkgd.js"></script>
+
+<!-- alert -->
 <script src="../../js/sweetalert-dev.js"></script>
 <link rel="stylesheet" style="text/css" href="../../css/sweetalert.css" />
-
-<script type="text/javascript" src="../../js/common.js"></script>
 
 <!-- 헤더푸터 위치 페이지 사이즈  조절 -->
 <link rel="stylesheet" style="text/css" href="../../css/global.css"/>
@@ -54,10 +57,28 @@
 	
 		<div id="user-profile"></div>
 		
+		<div class="c_container carousel collapse in" id="filters"></div>
+		
+		
 		<div class="main">
 				<div class="item_container">
 					<div id="pageNo" style="display: none;">1</div>
 				</div>
+		</div>
+		
+		
+		<!-- 카테고리 기본폼 -->
+		<div class="cloneCategory" style="display: none;">
+			<div class="category">
+				<div class="categoryName">이름은 여기 표시</div>
+				<input type="hidden" class="cno" value="00">
+				<div class="categoryImg">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path1">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path2">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path3">
+					<img src="../../image/no_image(450X450).png" class="img-rounded path4">
+				</div>
+			</div>
 		</div>
 		
 		
@@ -85,8 +106,12 @@
 						<div class="user_id">아이디는여덟자임</div>
 					<span class="glyphicon glyphicon-folder-open"></span>
 					<div class="user_wish">폴더이름여덟자임</div>
-					<div class="heart"></div>
-					<div class="undoheart"></div>
+					<div class="heart">
+						<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
+					</div>
+					<div class="undoheart">
+						<figure id="likeAmountLoc"><figcaption id="likeAmount"></figcaption></figure>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -98,7 +123,7 @@
 
 	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?" style="display: none;"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
-
+<script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript" src="js/user.js"></script>
 <script type="text/javascript" src="../profile/js/profile.js"></script>
 </body>

@@ -13,34 +13,33 @@
 	
 	<!-- 위시부분 -->
 	<select id="selectList" resultMap="wishMap" parameterType="map">
-<!-- 		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno -->
-<!-- 		  from wish -->
-		select DISTINCT wish.*, user.name as userName, user.pho as userPho, category.name as categoryName,
-						(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo
+		select DISTINCT wish.*, 
+				user.name as userName, 
+				user.pho as userPho, 
+				category.name as categoryName,
+				(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo,
+				(select count(*) from `like` where wish.wno=`like`.wno and `like`.uno=#{uno}) as likeSts,
+				(select count(*) from send s where wish.wno=s.wno and s.uno=#{uno}) as sendSts
 		  from wish, user, category, `like`
 		 where wish.uno=user.uno=category.uno
 		 group by wish.wno
-		 order by
-		<choose>
-			<when test="keyword == 'title'">title </when>
-			<when test="keyword == 'price'">price </when>
-			<otherwise>wno desc</otherwise>
-		</choose>
+		 order by wno desc
 		limit #{startIndex}, #{length}
 	</select>
 	
 	<!-- 친구페이지 리스트불러오기 -->
 	<select id="selectFriendList" resultMap="wishMap" parameterType="map">
-		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
+		select DISTINCT wish.*, 
+			 	user.name as userName, 
+			 	user.pho as userPho, 
+			 	category.name as categoryName,
+			 	(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo,
+				(select count(*) from `like` where wish.wno=`like`.wno and `like`.uno=#{uno}) as likeSts,
+				(select count(*) from send s where wish.wno=s.wno and s.uno=#{uno}) as sendSts
 		  from wish, user, category
 		 where wish.uno=user.uno=category.uno and wish.uno=#{fNo}
 		 group by wish.wno
-		 order by
-		<choose>
-			<when test="keyword == 'title'">title </when>
-			<when test="keyword == 'price'">price </when>
-			<otherwise>wno desc</otherwise>
-		</choose>
+		 order by wno desc
 		limit #{startIndex}, #{length}
 	</select>
 	
