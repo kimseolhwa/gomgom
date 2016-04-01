@@ -26,7 +26,7 @@ var sort = function(){
 							var cList = resultObj.commentList;
 							var likeList = resultObj.likeList;
 							var sendList = resultObj.sendList;
-							console.log("resultObj.sendList : " ,resultObj.sendList);
+//							console.log("resultObj.sendList : " ,resultObj.sendList);
 
 							$("#tab1").html("");
 							//코멘트 리스트
