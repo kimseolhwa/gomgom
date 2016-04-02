@@ -45,7 +45,7 @@ public interface MainDao
 
 	public List<Comment> selectComentList(int no);
 
-	public List<Wish> selectSearchList(HashMap<String, Object> paramMap);
+	public List<Wish> selectSearchList(HashMap<String,Object> paramMap);
 
 	public Join selectSessionUserInfo(int uno);
 

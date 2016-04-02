@@ -203,16 +203,24 @@
 	
 	<!-- 검색 게시글 불러오기(페이징) -->
 	<select id="selectSearchList" resultMap="wishMap" parameterType="map">
-		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
+		select wish.*,
+				user.name as userName, 
+				user.pho as userPho, 
+				category.name as categoryName,
+				(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo,
+				(select count(*) from `like` where wish.wno=`like`.wno and `like`.uno=#{uno}) as likeSts,
+				(select count(*) from send s where wish.wno=s.wno and s.uno=#{uno}) as sendSts
 		  from wish, user, category
-		 where wish.uno=user.uno=category.uno and wish.tag like #{tag}
+		 <where>
+		 	wish.uno=user.uno=category.uno 
+		 	and
+		 	wish.tag like
+               <foreach collection="tags" item="result" separator="and wish.tag like" >
+               CONCAT('%#', '${result}' , '%') 
+            </foreach> 
+         </where>
 		 group by wish.wno
-         order by
-		<choose>
-			<when test="keyword == 'title'">title </when>
-			<when test="keyword == 'price'">price </when>
-			<otherwise>wno desc</otherwise>
-		</choose>
+         order by wno desc
 	</select>
 	
 </mapper>

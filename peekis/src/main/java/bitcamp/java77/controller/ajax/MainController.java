@@ -225,58 +225,16 @@ public class MainController
 	
 	// 태그검색
 	@RequestMapping("searchList")
-	public Object searchList(@RequestParam(defaultValue="1") int pageNo, String tag, HttpServletRequest req) throws Exception {
-		tag = "#"+ tag;
-		String tags[] = tag.replaceAll(" ", "@#").split("@");
-		/*for(String str : tags){
-			System.out.println(str);
-		}*/
-		Join join = (Join) req.getSession().getAttribute("loginUser");
-		HashMap<String,Object> paramMap = new HashMap<>();
-	    paramMap.put("tag", "%" + tags[0] + "%");
-		List<Wish> wishs = MainDao.selectSearchList(paramMap);
-		List<Wish> list = new ArrayList<>();
+	public Object searchList(@RequestParam(defaultValue="1") int pageNo, String tag, int uno) throws Exception {
+		  String[] tags = tag.split(" ");
+		  HashMap<String,Object> paramMap = new HashMap<>();
+	      paramMap.put("tags", tags);
+	      paramMap.put("uno", uno);
+		  List<Wish> wishs = MainDao.selectSearchList(paramMap);
 		
-		
-		// 두번째 ,세번째...태그 필터
-		for(int i = 1; i < tags.length; i++){
-			if(i%2 == 1){
-				for(Wish wish : wishs){
-					if(wish.getTag().contains(tags[i]))		list.add(wish);
-				}
-				wishs.clear();
-			}
-			else if(i%2 == 0){
-				for(Wish wish : list){
-					if(wish.getTag().contains(tags[i]))		wishs.add(wish);
-				}
-				list.clear();
-			}
-		}
-		  
-		  List<Integer> likeList = MainDao.selectlikeList(join.getuNo());
-		  List<Integer> sendList = MainDao.selectsendList(join.getuNo());
 		  HashMap<String,Object> resultMap = new HashMap<>();
 		  resultMap.put("status", "success");
-		  resultMap.put("data", searchPage(pageNo, tags.length % 2 == 0 ? list : wishs));
-		  resultMap.put("loginUser", join);
-		  resultMap.put("like", likeList);
-		  resultMap.put("send", sendList);
-		  
+		  resultMap.put("data", wishs);
 		  return resultMap;
 	  }
-	  
-	// 태그검색 페이징
-	private List<Wish> searchPage(int pageNo, List<Wish> list){
-		int startIndex = (pageNo - 1) * 10;
-		int endIndex = startIndex + 10;
-		endIndex = (list.size() <= endIndex  ? list.size() : endIndex);
-		System.out.println("[list size] : " + list.size());
-		System.out.println("[pageNo = " + pageNo + "][startIndex = " + startIndex + "][endIndex = " + endIndex + "]");
-		List<Wish> wishs = new ArrayList<>();
-		for(int i=startIndex; i < endIndex; i++){
-			wishs.add(list.get(i));
-		}
-		return wishs;
-	}
 }
