@@ -26,16 +26,24 @@
 		)
 	</insert>
 	
-	<select id="listQna" resultMap="qnaMap" parameterType="join">
+	<select id="listQna" resultMap="qnaMap" parameterType="hashMap">
 		select 
 			    bno, title, ans_flag, type,
 			    date_format(date, "%Y %b %e") date, u.name
 		  from board b, user u
 		  where b.uno=u.uno 
-		  <if test="uNo != 0">
-		 and b.uno=#{uNo}
+		  <if test="user.uNo != 0">
+		 and b.uno=#{user.uNo}
 		  </if>
 		order by bno DESC
+		limit #{start}, 10
+	</select>
+	
+	<select id="selectQnaCount" resultType="int" parameterType="join">
+		select
+			   count(*)
+		  from board
+		 where uno = #{uNo}
 	</select>
 	
 	<select id="detailQna" resultMap="qnaMap" parameterType="qna">

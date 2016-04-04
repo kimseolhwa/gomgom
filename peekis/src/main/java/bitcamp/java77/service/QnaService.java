@@ -1,5 +1,6 @@
 package bitcamp.java77.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import bitcamp.java77.domain.Join;
@@ -8,7 +9,7 @@ import bitcamp.java77.domain.Qna;
 public interface QnaService {
 	void qnaRegist(Qna qna); //regist니까 void
 
-	List<Qna> listQna(Join user);
+	HashMap<String, Object> listQna(Join user, int page);
 
 	Qna qnaDetail(Qna qna);
 

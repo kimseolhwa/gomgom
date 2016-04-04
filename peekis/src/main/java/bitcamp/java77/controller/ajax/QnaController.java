@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java77.dao.QnaDao;
 import bitcamp.java77.domain.AjaxResult;
@@ -50,28 +51,19 @@ public class QnaController {
 	}
 	//QNA 목록
 	@RequestMapping(value="/qnaList", method=RequestMethod.GET)
-	public Object qnaList(HttpServletRequest req){
+	public Object qnaList(HttpServletRequest req, @RequestParam(defaultValue="1") int page){
 		Join loginUser = (Join)req.getSession().getAttribute("loginUser"); //로그인한 유저번호 가져오기
 		
-		//해시맵 만들고
-		HashMap<String,Object> resultMap = new HashMap<>();
-		// 유저정보 put 
-		resultMap.put("loginUser", loginUser);
-		
+		HashMap<String, Object> result = null;
 		if(loginUser.getEmail().equals("admin@aaa")) {
 			System.out.println("관리자임");
 			loginUser.setuNo(0);
-			List<Qna> qnaList = service.listQna(loginUser);
-			// qnaLIst put
-			resultMap.put("success", qnaList);
-			
+			result = service.listQna(loginUser, page);
 		}else {
-			List<Qna> qnaList = service.listQna(loginUser);
-			// qua
-			resultMap.put("success", qnaList);
+			result = service.listQna(loginUser, page);
 		}
 		
-		return resultMap;
+		return new AjaxResult("success", result);
 	}
 	//QNA 상세
 	@RequestMapping(value="/qnaDetail", method=RequestMethod.GET)

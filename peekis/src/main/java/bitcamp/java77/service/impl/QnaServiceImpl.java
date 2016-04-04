@@ -1,5 +1,6 @@
 package bitcamp.java77.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,21 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public List<Qna> listQna(Join user) {
+	public HashMap<String, Object> listQna(Join user, int page) {
 		// TODO Auto-generated method stub
-		return dao.listQna(user);
+		
+		int maxCnt = dao.selectQnaCount(user);
+		
+		HashMap<String, Object> option = new HashMap<String, Object>();
+		option.put("user", user);
+		option.put("start", (page-1)*10);
+		List<Qna> qnaList = dao.listQna(option);
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		result.put("currentPage", page);
+		result.put("maxCnt", maxCnt);
+		result.put("qnaList", qnaList);
+		return result;
 	}
 	
 	@Override
