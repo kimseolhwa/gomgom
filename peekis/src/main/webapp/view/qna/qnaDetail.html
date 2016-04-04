@@ -13,10 +13,17 @@
 	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
+	<!-- 로그아웃 -->
+	<script type="text/javascript" src="../../js/common.js"></script>
+	
 	<!-- 부트스트랩 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<!-- alert -->
+	<script src="../../js/sweetalert.min.js"></script>
+	<link rel="stylesheet" style="text/css" href="../../css/sweetalert.css" />
 	
 	<!-- header.css -->
 	<link rel="stylesheet" style="text/css" href="../../css/header.css" />
@@ -182,15 +189,38 @@
 	
 	 <!-- 삭제 -->
      $( "#delBtn" ).click(function( event ) {
+		
     	 var pageParam = getParameter(document.location.href);
-    	 alert("삭제할래요??");
 	         $.get("/peekis/auth/qna/ajax/qnaDelete.do"
 	         	,{ bno: pageParam.n}
 	         	,function() {
 	         		console.log('test');
-	         		location.href="/peekis/view/qna/qnaList.html";
 	         	},'json');
+    	 swal({   title: "게시글을 삭제하시겠습니까?", 
+    			  text: "You will not be able to recover this imaginary file!", 
+    			  type: "warning",  
+    			  showCancelButton: true,  
+    			  confirmButtonColor: "rgb(242,132,53)",   
+    			  confirmButtonText: "Yes!",   
+    			  cancelButtonText: "No!",   
+    			  closeOnConfirm: false,  
+    			  closeOnCancel: false 
+    			  }, 
+    			  function(isConfirm){  
+    				  if (isConfirm) {     
+    					  swal({
+    						  title : "삭제되었습니다!", 
+    						  text : "Your imaginary file has been deleted.", 
+    						  type : "success",
+    						  showConfirmButton: false});   
+	         				setTimeout(function() {location.href="/peekis/view/qna/qnaList.html";},800);
+    					  }else {    
+    						  swal("Cancelled", "Your imaginary file is safe :)", "error");   
+    				 	  }	 
+    			}); 
 	     });
+     
+     
      <!-- 답변(댓글) -->
      $("#co-Btn").click(function(event){
 			alert("답글 달아주시겠어요?");
@@ -213,8 +243,6 @@
      
      loginCheck();
 	});
-	
-	
 	
 	
 	/*문의유형 한글로 보여주기*/

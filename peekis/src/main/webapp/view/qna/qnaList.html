@@ -12,6 +12,9 @@
 	<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	
+	<!-- 로그아웃 -->
+	<script type="text/javascript" src="../../js/common.js"></script>
+	
 	<!-- 부트스트랩 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -120,37 +123,72 @@
 			/* alert("등록페이지로가자"); */
 			document.location.href="/peekis/view/qna/qnaRegist.html"; /*페이지 이동*/
 		 });
-	
-		qnaList();		 
-		function qnaList(){
-		 /*글번호bno, 상담유형type, 등록시간date, 상태(미답변, 답변완료)??? 리스트에 가져오기*/
-			$.getJSON("/peekis/auth/qna/ajax/qnaList.do",function(resultObj){ /*서버에서 보내줄때*/
-				console.dir(resultObj);
-				var data = resultObj.success;
-				console.dir(resultObj);
-				
-				var table = $("#listTable");
-				$("tbody").html("");
-				for(var i=0; i<data.length; i++){
-					
-					$("<tr class='colSize'>")
-					.html("<td>" + (data.length-i) + "</td>"
-							+ "<td>" + typeToText(data[i].type) + "</td>"
-							+ "<td>" + data[i].name + "</td>"
-							+ "<td><a href='/peekis/view/qna/qnaDetail.html?n="+data[i].bno+"'>" + data[i].title + "</a></td>"
-							+ "<td>" + 	data[i].date + "</td>"
-							+ "<td>" + 	(data[i].ansFlag=='n'?'미답변' : '답변완료') + "</td>")
-							.appendTo(table);
-				}
-				 $("#dropdown-color").text(resultObj.loginUser.name);
-					if(resultObj.loginUser.pho != null){
-						$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
-					}
-				
-			});
-		}
+		
+		qnaList(1);		 
+		loginCheck();
 				 
 	 });
+	 
+	function qnaList(page){
+	 /*글번호bno, 상담유형type, 등록시간date, 상태(미답변, 답변완료)??? 리스트에 가져오기*/
+		$.getJSON("/peekis/auth/qna/ajax/qnaList.do",{
+			page : page
+		},function(resultObj){ /*서버에서 보내줄때*/
+			var data = resultObj.ajaxResult.data.qnaList;
+			var table = $("#listTable");
+			console.dir(data);
+			qnaPageNumDraw(resultObj.ajaxResult.data.currentPage, resultObj.ajaxResult.data.maxCnt);
+			
+			$("tbody").html("");
+			for(var i=0; i<data.length; i++){
+				
+				$("<tr class='colSize'>")
+				.html("<td>" + typeToText(data[i].type) + "</td>"
+						+ "<td>" + data[i].name + "</td>"
+						+ "<td><a href='/peekis/view/qna/qnaDetail.html?n="+data[i].bno+"'>" + data[i].title + "</a></td>"
+						+ "<td>" + 	data[i].date + "</td>"
+						+ "<td>" + 	(data[i].ansFlag=='n'?'미답변' : '답변완료') + "</td>")
+						.appendTo(table);
+			}
+		});
+	}
+	
+	var qnaPageNumDraw = function(currPage, maxCnt) {
+		console.log(currPage, maxCnt);
+		var maxPage = Math.floor((maxCnt-1)/10) + 1;
+		var currMinPage = Math.floor((currPage-1)/10)*10+1;
+		var currMaxPage = Math.floor((currPage-1)/10)*10+10;
+		
+		console.log(currPage, maxPage, currMinPage, currMaxPage);
+		
+		if(currMaxPage > maxPage) {
+			currMaxPage = maxPage;
+		}
+		
+		$(".pagination").empty();
+		if(currMinPage>1) {
+			var doubleLeftArrow = $("<a>").attr("onclick", "qnaList("+1+")").text("<<");
+			$("<li>").append(doubleLeftArrow).appendTo(".pagination");
+			var leftArrow = $("<a>").attr("onclick", "qnaList("+(currMinPage-1)+")").text("<");
+			$("<li>").append(leftArrow).appendTo(".pagination");
+		}
+		var i;
+		for(i=currMinPage; i<=currMaxPage; i++) {
+			var pageNumAnchor = $("<a>").attr("onclick", "qnaList("+i+")").text(i);
+			if(i==currPage)
+				pageNumAnchor.addClass("active");
+			$("<li>").append(pageNumAnchor).appendTo(".pagination");
+		}
+		
+		
+		if(currMaxPage > maxPage) {
+			var rightArrow = $("<a>").attr("onclick", "qnaList("+(currMaxPage+1)+")").text(">");
+			$("<li>").append(rightArrow).appendTo(".pagination");
+			var doubleRightArrow = $("<a>").attr("onclick", "qnaList("+maxPage+")").text(">>");
+			$("<li>").append(doubleRightArrow).appendTo(".pagination");
+		}
+		
+	};
 	 
 	 var typeToText = function(typeNum) {
 		 var typeText = "";
@@ -162,10 +200,20 @@
 
 		 return typeText;
 	 };
+	 
+	 var loginCheck = function() {
+			$.getJSON("/peekis/auth/qna/ajax/qnaLogin.do", function(resultObj) {
+				var result = resultObj.ajaxResult;
+				console.dir(result.data);
+				if(result.data) {
+					$("#dropdown-color").text(result.data.name);
+					if(result.data.pho != null){
+						$("#pImg").attr("src", filePath + resultObj.loginUser.pho);
+					}
+				}
+			});
+		};
 	
-	 
-	 
-	 
 	 /*페이징*/
 </script>
 </head>
@@ -193,7 +241,6 @@
 			<table id="listTable">
 			<thead>
 				  <tr>
-				    <th colspan="1">번호</th>
 				    <th colspan="1">삼당유형</th>
 				    <th colspan="1">작성자</th>
 				    <th colspan="1">제목</th>
