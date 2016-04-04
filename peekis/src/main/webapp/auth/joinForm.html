@@ -218,7 +218,8 @@ footer {
 	}
 	
 	.form-box {
-		background-color : white;
+		background-color : #454545;
+		opacity: 0.7;
 		border-radius : 9px;
 		padding-top: 40px;
 		padding-bottom: 40px;
@@ -243,10 +244,44 @@ footer {
 	.container{
 		padding-top: 100px;
 	}
+	#section0{
+		padding-top: 4px;
+	}
+	.section_back {
+		width : 100%;
+		height : 100%;
+		top : 0px;
+		left : 0px;
+		overflow : hidden;
+		position : absolute;
+	}
+	
+	.section_back_inner {
+		position : relative;
+		height : 100%;
+		width : 400%;
+	}
+	
+	.section_back_photo {
+		background-size : 100% 100%;
+		width : 25%;
+		height : 100%;
+		float : left;
+	}
+	
+	.section_back_opacity {
+		position : absolute;
+		width : 100%;
+		height : 100%;
+		background-color : rgba(255,255,255,0.5);
+	}
+	.form-top-left{
+		color: white;
+	}
 
 </style>
 <script>
-	
+	var ival = null;
 	
 	$(document).ready(function() {
 	
@@ -381,11 +416,12 @@ footer {
 					 $("#followbtn").html( "<strong>주제를 팔로우 하세요</strong>");
 				  }
 		});
-    
+	
+		
 		/*join폼 슬라이드*/
 		$('#fullpage').fullpage({
 			anchors: ['firstPage', '3rdPage'],
-			sectionsColor: ['rgb(242,132,53)', '#dedede'],
+			sectionsColor: ['rgb(242,132,53)', 'gradient(top,  rgba(242,132,53,1) 0%, rgba(241,85,38,1) 100%'],
 			navigation: true,
 			navigationPosition: 'right',
 			navigationTooltips: ['Hello PeeKiS', 'Sign-Up']
@@ -422,6 +458,24 @@ footer {
 //		 				$('#clear').html(data.goalCnt.goalCnt);
 					}
 			);
+			
+			
+			// 백그라운드 이미지 슬라이드
+			ival = setInterval((function(curr) {
+				var left = curr;
+
+				return function() {
+					console.log(ival);
+					left+=100;
+					$(".section_back_inner").animate({
+					left : -left+"%"
+				}, 800);
+					
+					if(left == 300) {
+						clearInterval(ival);
+					}
+				};
+			}(0)), 5000);
 	}); 
 	
 	
@@ -453,11 +507,11 @@ footer {
 									</h2>
 				
 									<ul class="countdown">
-										<li><span class="counter" id="all">1185</span>
+										<li><span class="counter" id="all">1268</span>
 											<h3>총 욕망</h3></li>
 										<li><span class="counter" id="today">83</span>
 											<h3>오늘의 욕망</h3></li>
-										<li><span class="counter" id="goal">1268</span>
+										<li><span class="counter" id="goal">1185</span>
 											<h3>욕망 달성</h3></li>
 									</ul>
 									<br/>
@@ -480,13 +534,30 @@ footer {
 					
 				</div>
 			</div>
-
+			
 			<div class="section" id="section2">
+				<div class="section_back">
+					<div class="section_back_inner">
+						<div class="section_back_opacity"></div>
+						<div class="section_back_photo" style="background-image : url('/peekis/auth/img/jfphoto/1.jpg');">
+							1
+						</div>
+						<div class="section_back_photo" style="background-image : url('/peekis/auth/img/jfphoto/2.jpg');">
+							2
+						</div>
+						<div class="section_back_photo" style="background-image : url('/peekis/auth/img/jfphoto/3.jpg');">
+							3
+						</div>
+						<div class="section_back_photo" style="background-image : url('/peekis/auth/img/jfphoto/4.jpg');">
+							4
+						</div>
+					</div>
+				</div>
 				<div class="intro">
 					<div class="col-sm-4 form-box">
 						<div class="form-top">
 							<div class="form-top-left" align="left">
-								<h2 style="text-shadow: 1px 1px 1px;">SignUp</h2>
+								<h2 style="text-shadow: 1px 1px 1px;" color=white;>SignUp</h2>
 							</div>
 							<br />
 							<br />
@@ -523,6 +594,9 @@ footer {
 						</div>
 					</div>
 				</div>
+			
+			
+			
 			</div>
 
 		</div>
