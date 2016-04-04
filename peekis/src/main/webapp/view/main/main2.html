@@ -5,8 +5,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>메인 화면</title>
-
+<title>PeeKiS</title>
+<!-- favicon -->
+<link rel="shortcut icon" href="/peekis/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/peekis/favicon.ico" type="image/x-icon">
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -15,6 +17,7 @@
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <!-- Isotope -->
@@ -92,7 +95,7 @@
 							<div class="modal-user_id">아이디는여덟자임</div>
 							<span class="glyphicon glyphicon-folder-open"></span>
 							<div class="modal-user_wish">폴더이름여덟자임</div>
-						    <button class="btn btn-orange follow" id="detailFollowBtn">팔로우</button>
+						    <button class="btn btn-orange follow" id="detailFollowBtn"><i class="fa fa-plus">　팔로우</i></button>
 						</div>
 						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
 					</div>
@@ -117,7 +120,7 @@
 									<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
 								</button>
 								<a href="#capymodal" data-toggle="modal"><button class="btn btn-default" id="detailSendBtn">담아가기</button></a>
-								<button class="btn btn-default">좋아요</button>
+								<button class="btn btn-default" id="detailLikeBtn">좋아요</button>
 							</div>
 							<br />
 							<div>
@@ -174,7 +177,39 @@
 
 	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?" style="display: none;"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
-
+	<!-- 상세보기 모달 댓글 기본폼 -->
+	<div class='commentDiv'>
+		<div id='comdelsel'>
+		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
+		<a class="comUserID"></a>&nbsp;
+		<span class="comCont"></span>
+		<span id='commentDelBtn'>&times;</span>
+		<input type='hidden' id='commentNum'/>
+		</div>
+	</div>
+	
+	<!-- 상세보기 모달 담아가기한 유저 기본폼 -->
+	<div class='sendDiv'>
+		<span id='sendUser'>
+		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
+		<a class="sendUserID"></a>
+		</span>&nbsp;&nbsp;
+		<input type='hidden' id='sendUserNo'/>
+	</div>
+	
+	<!-- 상세보기 모달 좋아요한 유저 기본폼 -->
+	<div class='likeDiv'>
+		<span id='likeUser'>
+		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
+		<a class="likeUserID"></a>
+		</span>&nbsp;&nbsp;
+		<input type='hidden' id='likeUserNo'/>
+	</div>
+	
+	<!-- 상세보기 모달 태그 기본폼 -->
+	<div class='tagDiv'>
+		<a href="#"></a>
+	</div>
 
 <script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript" src="js/main.js"></script>

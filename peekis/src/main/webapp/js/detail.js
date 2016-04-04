@@ -21,109 +21,72 @@ $container.on('click', '.detail', function() {
 	
 	$.getJSON('/peekis/main/ajax/detail.do', {no : wishNo, uno: uNo} , 
 		function( resultObj ) {
+			console.log('상세정보 불러오기');
+			console.log(resultObj);
 			var wish = resultObj.data;
 			var cList = resultObj.commentList;
 			var likeList = resultObj.likeList;
 			var sendList = resultObj.sendList;
-
-			$("#tab1").html("");
-			//코멘트 리스트
-			if(cList.length>0){
-			
-			var html=""
-			for(var i=0; i<cList.length;i++){
-			
-				if(uNo==cList[i].uNo){
-					if(cList[i].userPho==null){
-						html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"
-					    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
-					}else{
-					    html += "<div id='comdelsel'><img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"
-					    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
-					}
-				}
-				else{
-					if(cList[i].userPho==null){
-						html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span>"
-					    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
-					}else{
-					    html += "<div id='comdelsel'><img src="+ filePath + cList[i].userPho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ cList[i].userName +"</a>"
-					    html += "&nbsp;<span>"+ cList[i].cont +"</span>"
-					    html += "<input type='hidden' value="+ cList[i].coNo + " id='commentNum'/></div>" 
-					}
-				}
-			}
-			
-			$("#tab1").html(html)
-			 
-			}
-
-			$("#tab2").html("")
-			
-			$("#sendLength").text(sendList.length);
-			
-			//담아가기한 사람 리스트 
-			if(sendList.length>0){
-				
-				$("#sendLength").text(sendList.length);
-				
-				var html="";
-				for(var i=0; i<sendList.length;i++){
-				  if(sendList[i].pho==null){
-					html += "<span id='likeUser'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-				    html += "&nbsp;<a>"+ sendList[i].name +"</a></span>&nbsp;&nbsp;"
-				    html += "<input type='hidden' value="+ sendList[i].uNo + " id='likeUserNo'/>"
-				  }else{
-					html += "<span id='likeUser'><img src="+ filePath + sendList[i].pho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-				    html += "&nbsp;<a>"+ sendList[i].name +"</a></span>&nbsp;&nbsp;"
-				    html += "<input type='hidden' value="+ sendList[i].uNo + " id='likeUserNo'/>"
-					}
-				}
-				$("#tab2").html(html)
-			}
+			var tags = resultObj.tags;
 			
 			// 태그 이름 
-			if(wish.tag!=null){
-				$("#tagCaptionText a").text(wish.tag)
-			}							
-			
-			$("#tab3").html("")
-			//좋아요한 사람 리스트 							
-			if(likeList.length>0){
-				var html=""
-				for(var i=0; i<likeList.length;i++){
-				  if(likeList[i].pho==null){
-					html += "<span id='likeUser'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-				    html += "&nbsp;<a>"+ likeList[i].name +"</a></span>&nbsp;&nbsp;"
-				    html += "<input type='hidden' value="+ likeList[i].uNo + " id='likeUserNo'/>"
-				  }else{
-					html += "<span id='likeUser'><img src="+ filePath + likeList[i].pho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-				    html += "&nbsp;<a>"+ likeList[i].name +"</a></span>&nbsp;&nbsp;"
-				    html += "<input type='hidden' value="+ likeList[i].uNo + " id='likeUserNo'/>"
+			if(tags != null){
+				for(var i=0; i<tags.length; i++){
+					var tagClone = $(".tagDiv a").clone();
+					tagClone.text("#" + tags[i]);
+					tagClone.attr('href', contextRoot + "/view/search/search.html?" + tags[i]);
+					$("#tagCaptionText").append(tagClone);
 				}
 			}
-				$("#tab3").html(html)
-		}
 			
-			//댓글 개수
+			//댓글 탭
 			$("#commentLength").text(cList.length);
+			for(var i=0; i<cList.length;i++){
+				var comClone = $('.commentDiv>div').clone();
+				if(uNo==cList[i].uNo){
+					$('#commentDelBtn').css('display','none');
+				}
+				if(cList[i].userPho==null){
+					comClone.find('.img-circle').attr('src',filePath + cList[i].userPho);
+				}else{
+					comClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
+				}
+				comClone.find('.comUserID').text(cList[i].userName);
+				comClone.find('.comCont').text(cList[i].cont);
+				comClone.find('#commentNum').val(cList[i].coNo);
+				$("#tab1").append(comClone);
+			}
 			
-			//좋아요 개수 
-			$("#likeLength").text(resultObj.like.numOfLno);
+			//담아가기 탭
+			$("#sendLength").text(sendList.length);
+			for(var i=0; i<sendList.length;i++){
+				var sendClone = $('.sendDiv>span').clone();
+				if(sendList[i].pho==null){
+					sendClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
+				}else{
+					sendClone.find('.img-circle').attr('src',filePath + sendList[i].pho);
+				}
+				sendClone.find('.sendUserID').text(sendList[i].name);
+				sendClone.find('#sendUserNo').val(sendList[i].uNo);
+				$("#tab2").append(sendClone);
+			}
+			
+			//좋아요 탭
+			$("#likeLength").text(likeList.length);
+			for(var i=0; i<likeList.length;i++){
+				var likeClone = $('.likeDiv>span').clone();
+				if(likeList[i].pho==null){
+					likeClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
+				}else{
+					likeClone.find('.img-circle').attr('src',filePath + likeList[i].pho);
+				}
+				likeClone.find('.likeUserID').text(likeList[i].name);
+				likeClone.find('#likeUserNo').val(likeList[i].uNo);
+				$("#tab3").append(likeClone);
+			}
 			
 			$("#detailmodal-no").html( wish.no );
 			$("#detailmodal-uno").html( wish.uno );
-			var path = wish.path;
-			if(path.startsWith('http://') == false){
-				path = filePath + path;
-			}
 			
 			if(wish.userPho==null){
 				$(".detailmodal-pro").attr('src','../header/img/profileAvatar.jpg');
@@ -131,6 +94,7 @@ $container.on('click', '.detail', function() {
 				$(".detailmodal-pro").attr('src', filePath + wish.userPho);
 			}
 			
+			// 댓글입력 폼 사용자사진
 			if(resultObj.sessionUser.pho==null){
 				$(".comInputUserPho").attr('src','../header/img/profileAvatar.jpg');
 			}else{
@@ -140,6 +104,10 @@ $container.on('click', '.detail', function() {
 			$(".modal-user_id").html(wish.userName);	
 			$(".modal-user_wish").html(wish.categoryName);	
 			
+			var path = wish.path;
+			if(path.startsWith('http://') == false){
+				path = filePath + path;
+			}
 			$("#detailmodal-image").attr("src", path );
 			$("#detailmodal-title").html( wish.title );			
 			$("#detailmodal-content").html( wish.content );
@@ -149,17 +117,13 @@ $container.on('click', '.detail', function() {
 			$('#detailmodal').modal();
 			$(".follow").css("display","block");
 			if(resultObj.followerCheck == 1 ){
-				$(".follow").text("언팔로우");
+				$(".follow").html('<i class="fa fa-check"></i>　팔로잉');
 			}
 			if($("#detailmodal-uno").text() == $('#loginUser-no').text()){
 				$(".follow").css("display","none");
 			}
 		});
 });
-		        
-		        
-				
-
 
 
 /* 댓글 삭제 - ajax로 가져온 html을 click이벤트 */
@@ -175,51 +139,38 @@ $('body').on('click', "#commentDelBtn", function(){
 	 data:{'coNo': coNo}
 	})
 	// 댓글삭제 UI
-	$(this).parent("#comdelsel").remove()
+	$(this).parent("#comdelsel").remove();
 	$("#commentLength").text(Number(commentLength)-1)
 	
 });
 				
-/* 댓글 입력 */
+/* 상세페이지 - 댓글 입력 */
 $("#insertComment").on("click",function(){
 	var wNo = $("#detailmodal-no").text();
 	var comment = $("#commentText").val();
 	$("#commentText").val(""); 
-	console.log("wNo: " , wNo)
-	var commentLength = $("#commentLength").text();
-	console.log("commentLength : " ,commentLength)
+	console.log("wNo: " , wNo);
 	$.ajax({
 		 type: "POST",
-	  dataType:"JSON",
-	  url : contextRoot + "/main/ajax/addComment.do",
-	  data:{'cont': comment, 'wNo' : wNo}
+		 dataType:"JSON",
+		 url : contextRoot + "/main/ajax/addComment.do",
+		 data:{'cont': comment, 'wNo' : wNo}
 	}).done(function(resultObj) {
-		console.log(resultObj.ajaxResult.data.join.name)	
-		console.log(resultObj.ajaxResult.data.comment.cont)
-		console.log(resultObj.ajaxResult.data.comment.coNo)
-				
-		if(resultObj.ajaxResult.data.join.pho==null){
-	  $("#tab1").prepend("<div id='comdelsel'><img src=../header/img/profileAvatar.jpg class='img-circle'>" +
-	   "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-	   "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>" +
-	"<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" );
+		var data = resultObj.ajaxResult.data;
+		var comClone = $('.commentDiv>div').clone();
+		if(data.join.pho==null){
+			comClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
 		}else{
-	  $("#tab1").prepend("<div id='comdelsel'><img src=" + filePath + resultObj.ajaxResult.data.join.pho + " class='img-circle'>" +
-	   "&nbsp;<a>"+ resultObj.ajaxResult.data.join.name +"</a>"+
-	   "&nbsp;<span>"+ resultObj.ajaxResult.data.comment.cont +"</span>&nbsp;<span id='commentDelBtn'>&times;</span>"+
-	   "<input type='hidden' value="+ resultObj.ajaxResult.data.comment.coNo + " id='commentNum'/></div>" ); 
-	}
-
-		$("#commentLength").text(Number(commentLength)+1)
+			comClone.find('.img-circle').attr('src', filePath + data.join.pho);
+		}
+		comClone.find('.comUserID').text(data.join.name);
+		comClone.find('.comCont').text(data.comment.cont);
+		comClone.find('#commentNum').val(data.comment.coNo);
+		$("#tab1").prepend(comClone);
+		$("#commentLength").text(Number($("#commentLength").text())+1);
 	})
 	
 })
-
-				
-				
-
-		        
-
 
 		      
 /* 상세페이지- 담아가기 버튼 */  
@@ -234,28 +185,61 @@ $(document).on("click", "#detailSendBtn", function(){
 	}else{
 		$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
 			function( resultObj ) {
+				console.log(resultObj);
 			    detailSendBtn.attr('status',true);
 				swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
-				var sendLength  = Number($("#sendLength").text());
-				$("#sendLength").text(sendLength+1)
-				console.log("resultObj : " , resultObj.ajaxResult.data)
-				var html=''
-					if(resultObj.ajaxResult.data.pho==null){
-						html += "<div id='comdelsel'><img src='../header/img/profileAvatar.jpg' class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ resultObj.ajaxResult.data.name +"</a>"
-					    html += "<input type='hidden' value="+ resultObj.ajaxResult.data.uNo + " id='commentNum'/></div>" 
-					}else{
-					    html += "<div id='comdelsel'><img src="+ resultObj.ajaxResult.data.pho +" class='img-circle' style='height: 30px; width: 30px;'></img>"
-					    html += "&nbsp;<a>"+ resultObj.ajaxResult.data.name +"</a>"
-					    html += "<input type='hidden' value="+ resultObj.ajaxResult.data.uNo + " id='commentNum'/></div>" 
-					}
-				$("#tab2").prepend(html)
+				var data = resultObj.ajaxResult.data;
+				var sendClone = $('.sendDiv>span').clone();
+				if(data.pho==null){
+					sendClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
+				}else{
+					sendClone.find('.img-circle').attr('src', filePath + data.pho);
+				}
+				sendClone.find('.sendUserID').text(data.name);
+				sendClone.find('#sendUserNo').val(data.uNo);
+				$("#tab2").prepend(sendClone);
 				
+				$("#commentLength").text(Number(commentLength)+1);				
 			});
 	    	}
   })
-    
   	
+  
+/* 상세페이지- 좋아요 버튼 */  
+$(document).on("click", "#detailLikeBtn", function(){
+	  var wishNo  = Number($('#detailmodal-no').text());
+	  var uNo = $('#loginUser-no').text();
+	  
+	  if($(this).attr('status') == 'true'){
+		  swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
+	  }else{
+		  $.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
+			  var result = resultObj.ajaxResult;
+				if(result.status == 'success'){
+	        		$('.' + wishNo).find('.heart').toggleClass('toggle').show().fadeToggle(1000),
+	        		setTimeout(function(){
+	        			$('.' + wishNo).find('.heart').toggleClass('toggle');  
+					   },1000), 
+	        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
+	        		
+	        		$("#likeLength").text(Number($("#likeLength").text()) +1);
+	        		var numOfLikeval = $('.'+wishNo).find("#likeAmount").text();
+	        		$('.'+wishNo).find("#likeAmount").text(Number(numOfLikeval)+1);
+	    			
+    				var likeClone = $('.likeDiv>span').clone();
+    				
+    				likeClone.find('.img-circle').attr('src', $("#pImg").attr("src"));
+    				likeClone.find('.likeUserID').text($("#dropdown-color").text());
+    				likeClone.find('#likeUserNo').val($("#loginUser-no").text());
+    				$("#tab3").append(likeClone);      		
+				}else{
+					swal('좋아요 추가에 실패하였습니다.');
+				}
+			});
+	  }
+})
+  
+  
   
   
     
@@ -267,17 +251,25 @@ $(document).on("click", "#detailSendBtn", function(){
 			$.getJSON('/peekis/wish/ajax/followInsert.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
 					if(resultObj.ajaxResult.status == 'success'){
 						swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
-						$(".follow").text("언팔로우");
+						$(".follow").html('<i class="fa fa-check"></i>　팔로잉');
 					}
 				});
-    	}else if($(".follow").text() == "언팔로우"){
+    	}else if($(".follow").text() == "팔로잉"){
 			$.getJSON('/peekis/wish/ajax/followDelete.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
 				if(resultObj.ajaxResult.status == 'success'){
 					swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
-					$(".follow").text("팔로우");
+					$(".follow").html('<i class="fa fa-plus">　팔로우</i>');
 				}
 			});
     	}
     });
     
+
+
+$('#detailmodal').on('hidden.bs.modal', function (e) {
+	$("#tab1").remove();
+	$("#tab2").remove();
+	$("#tab3").remove();
+	$("#tagCaptionText a").remove();
+})
 						        

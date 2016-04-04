@@ -108,7 +108,9 @@ public class MainController
 		List<Like> likeList = MainDao.selectLikeList(no);
 		// 담아가기 한 유저 리스트 
 		List<Like> sendList = MainDao.selectSendList(no);
-		
+		// 태그
+		String tag = wish.getTag().replaceFirst("#", "");
+		String[] tags = tag.split("#");
 		HashMap<String,Object> paramMap = new HashMap<>();
 		paramMap.put("uno", uno);
 		paramMap.put("wishUserNo", wish.getUno());
@@ -123,6 +125,7 @@ public class MainController
 		resultMap.put("like", like);
 		resultMap.put("likeList", likeList);
 		resultMap.put("sendList", sendList);
+		resultMap.put("tags", tags);
 		
 		return resultMap;
 	}

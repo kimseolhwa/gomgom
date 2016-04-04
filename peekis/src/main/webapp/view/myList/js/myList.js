@@ -110,8 +110,8 @@ $('.add-category').click(function () {
 			})
 		});
   });
-		
-$.getJSON('/peekis/category/ajax/categoryList.do', {uno : 0}, function(resultObj) {
+var uno = $("#loginUser-no").text();		
+$.getJSON('/peekis/category/ajax/categoryList.do', {uno : uno}, function(resultObj) {
 	console.log(resultObj)
 	for (var category of resultObj.data){
 		var cloneContent = $(".cloneCategory > div").clone();

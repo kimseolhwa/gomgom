@@ -101,6 +101,7 @@ $(document).on('click', '.heart', function(){
 	    
     	$.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
     		var result = resultObj.ajaxResult;
+    		console.log(resultObj);
 			if(result.status == 'success'){
         		$('.' + wishNo).find('.heart').toggleClass('toggle').show().fadeToggle(1000),
         		setTimeout(function(){
