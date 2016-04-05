@@ -145,7 +145,7 @@
 	</section>
 
 	<footer id="footer"></footer>
-
+	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?" style="display: none;"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
 	<!-- addModal -->
 	<div class="modal fade  bs-example-modal-sm" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -214,7 +214,7 @@
 				</div>
 				<div class="modal-body">
 					<form action="add.do" method="post" id="cForm">
-						<div class="form-group">
+						<div class="form-group registModal-IMG">
 							<label class="sr-only" for="modal-image">image:</label> <img style="max-width: 200px; max-height: 150px; width: auto; height: auto;" id="modal-image" name="path" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png" /> <input type="file" name="file" id="modal-File" accept="image/*" /> <input type="hidden" name="path" id="modal-src" value="" />
 						</div>
 						<div class="form-group">
@@ -292,7 +292,7 @@
 		</div>
 	</div>
 	
-	
+
 			<!-- DetailModal -->
 		<div class="item-modal modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog">
@@ -328,7 +328,7 @@
 									<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
 								</button>
 								<a href="#capymodal" data-toggle="modal"><button class="btn btn-default" id="detailSendBtn">담아가기</button></a>
-								<button class="btn btn-default">좋아요</button>
+								<button class="btn btn-default" id="detailLikeBtn">좋아요</button>
 							</div>
 							<br />
 							<div>
@@ -377,7 +377,43 @@
 				</div>
 			</div>
 		</div>
+
+
+
+
+	<!-- 상세보기 모달 댓글 기본폼 -->
+	<div class='commentDiv' style="display: none">
+		<div id='comdelsel'>
+		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
+		<a class="comUserID"></a>&nbsp;
+		<span class="comCont"></span>
+		<span id='commentDelBtn'>&times;</span>
+		<input type='hidden' id='commentNum'/>
+		</div>
+	</div>
 	
+	<!-- 상세보기 모달 담아가기한 유저 기본폼 -->
+	<div class='sendDiv' style="display: none">
+		<span id='sendUser'>
+		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
+		<a class="sendUserID"></a>
+		</span>&nbsp;&nbsp;
+		<input type='hidden' id='sendUserNo'/>
+	</div>
+	
+	<!-- 상세보기 모달 좋아요한 유저 기본폼 -->
+	<div class='likeDiv' style="display: none">
+		<span id='likeUser'>
+		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
+		<a class="likeUserID"></a>
+		</span>&nbsp;&nbsp;
+		<input type='hidden' id='likeUserNo'/>
+	</div>
+	
+	<!-- 상세보기 모달 태그 기본폼 -->
+	<div class='tagDiv' style="display: none">
+		<a href="#"></a>
+	</div>
 
 
 <script type="text/javascript" src="../../js/common.js"></script>
