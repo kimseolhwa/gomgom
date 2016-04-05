@@ -49,7 +49,7 @@
 		select w.*, 
 			  u.name as userName,
 			  u.pho as userPho, 
-			  c.name as categoryName,
+			  (select name from category ca where ca.cno=w.cno) as categoryName,
 			  (select count(*) from `like` l2 where l.wno=l2.wno) as numOflNo,
 			  (select count(*) from send s where w.wno=s.wno and s.uno=#{loginUser}) as sendSts
 		  from wish w, `like` l, user u, category c

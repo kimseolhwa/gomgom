@@ -76,8 +76,6 @@ $.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) 
 });
 	
 /* 리스트 불러오기 */
-nextPage(1);
-
 $(window).scroll(function(){
 	var scrollHeight = $(window).scrollTop() + $(window).height();
 	var documentHeight = $(document).height();

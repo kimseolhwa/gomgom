@@ -44,7 +44,7 @@ $(window).scroll(function(){
 
 function nextPage(pageNo){
 	 var uno = $("#loginUser-no").text();
-	 $.getJSON('/peekis/main/ajax/list.do',{pageNo : pageNo, uno: uno}, function(resultObj) {
+	 $.getJSON('/peekis/main/ajax/listByFollow.do',{pageNo : pageNo, uno: uno}, function(resultObj) {
 		 	  console.log('리스트 불러오기');
 		 	  console.log(resultObj);
 			  for (var wish of resultObj.data){

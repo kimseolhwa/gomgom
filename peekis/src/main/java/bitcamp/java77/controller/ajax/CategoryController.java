@@ -42,6 +42,7 @@ public class CategoryController
 	
 	@RequestMapping("categoryList")
 	public Object categoryList(int uno, HttpSession session) throws Exception{
+		System.out.println(uno);
 		if(uno == 0){
 			Join join = (Join)session.getAttribute("loginUser");
 			uno = join.getuNo();

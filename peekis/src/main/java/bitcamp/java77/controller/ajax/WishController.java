@@ -53,7 +53,8 @@ public class WishController {
 			mFile.transferTo(new File(saveFullFileName));
 			wish.setPath(sdfPath+realFileName);
 		}
-		wish.setTag(wish.getTag().replaceAll(",", "#"));
+		
+		wish.setTag(wish.getTag().trim());
 		wish.setCno(wishDao.selectcNo(wish.getUno()));
 		wishDao.insert(wish);
 		wish.setNo(wishDao.selectNo());
@@ -66,7 +67,7 @@ public class WishController {
 	Join join = (Join) req.getSession().getAttribute("loginUser");
 	System.out.println("loginUser : " + join.getuNo());
 	
-	int pageSize = 10;
+	int pageSize = 20;
 	HashMap<String,Object> paramMap = new HashMap<>();
     paramMap.put("startIndex", (pageNo - 1) * pageSize);
     paramMap.put("length", pageSize);
@@ -85,7 +86,7 @@ public class WishController {
   @RequestMapping("likeList")
   public Object likeList(int pageNo, int fNo, HttpServletRequest req) throws Exception {
 	  Join join = (Join)req.getSession().getAttribute("loginUser");
-	  int pageSize = 10;
+	  int pageSize = 20;
 	  HashMap<String,Object> paramMap = new HashMap<>();
 	  paramMap.put("startIndex", (pageNo - 1) * pageSize);
 	  paramMap.put("length", pageSize);
@@ -117,6 +118,7 @@ public class WishController {
   @RequestMapping(value="update", method=RequestMethod.GET)
   public AjaxResult updateForm(int no) throws Exception {
 	Wish wish =  wishDao.selectOne(no);
+	System.out.println(wish.getTag());
     return new AjaxResult("success", wish);
   }
   

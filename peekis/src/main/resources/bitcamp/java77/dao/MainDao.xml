@@ -16,7 +16,7 @@
 		select DISTINCT wish.*, 
 				user.name as userName, 
 				user.pho as userPho, 
-				category.name as categoryName,
+				(select name from category ca where ca.cno=wish.cno) as categoryName,
 				(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo,
 				(select count(*) from `like` where wish.wno=`like`.wno and `like`.uno=#{uno}) as likeSts,
 				(select count(*) from send s where wish.wno=s.wno and s.uno=#{uno}) as sendSts
@@ -27,12 +27,41 @@
 		limit #{startIndex}, #{length}
 	</select>
 	
+	<!-- 사용자의 팔로우 주제번호 불러오기  -->
+	<select id="selectUserTag" parameterType="int" resultType="string">
+		select t.name from user_tag ut, tag t where uno=#{uno} and ut.tno=t.tno;
+	</select>
+	
+	<!--사용자 팔로우 주제 기준으로 리스트 불러오기 -->
+	<select id="selectListByFollow" resultMap="wishMap" parameterType="map">
+		select  w.*,
+				u.name as userName, 
+				u.pho as userPho, 
+				(select name from category ca where ca.cno=w.cno) as categoryName,
+				(select count(*) from `like` where `like`.wno = w.wno ) as numOflNo,
+				(select count(*) from `like` where `like`.wno = w.wno and `like`.uno=#{uno}) as likeSts,
+				(select count(*) from send s where s.wno = w.wno and s.uno=#{uno}) as sendSts
+		  from  wish w, user u, category c
+		 <where>
+		 	w.uno=u.uno=c.uno
+		 	and
+		 	(w.tag like
+               <foreach collection="tagList" item="result" separator="or w.tag like" >
+               CONCAT('%#', '${result}' , '%') 
+            </foreach>
+            ) 
+         </where>
+		 group by w.wno
+		 limit #{startIndex}, #{length}
+	</select>
+	
+	
 	<!-- 친구페이지 리스트불러오기 -->
 	<select id="selectFriendList" resultMap="wishMap" parameterType="map">
 		select DISTINCT wish.*, 
 			 	user.name as userName, 
 			 	user.pho as userPho, 
-			 	category.name as categoryName,
+			 	(select name from category ca where ca.cno=wish.cno) as categoryName,
 			 	(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo,
 				(select count(*) from `like` where wish.wno=`like`.wno and `like`.uno=#{uno}) as likeSts,
 				(select count(*) from send s where wish.wno=s.wno and s.uno=#{uno}) as sendSts
@@ -43,46 +72,58 @@
 		limit #{startIndex}, #{length}
 	</select>
 	
-	<select id="selectUserList" resultMap="wishMap" parameterType="map">
-		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
-		from wish
-		where uno=#{uno}
-		order by wno desc
-		limit #{startIndex}, #{length}
-		
-<!-- 		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName -->
-<!-- 		  from wish, user, category -->
-<!-- 		 where wish.uno=user.uno=category.uno=#{uno} -->
-<!-- 		 order by wno desc -->
 	
-	
-<!-- 		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName -->
-<!-- 		  from wish, user, category -->
-<!-- 		 where wish.uno=user.uno=category.uno=#{uno} -->
-<!-- 		 where wish.uno=user.uno=category.uno -->
-<!--          order by -->
-<!-- 		<choose> -->
-<!-- 			<when test="keyword == 'title'">title </when> -->
-<!-- 			<when test="keyword == 'price'">price </when> -->
-<!-- 			<otherwise>wno desc</otherwise> -->
-<!-- 		</choose> -->
-<!-- 		limit #{startIndex}, #{length} -->
-	</select>
-
-	<select id="selectNo" resultType="int">
-		select max(wno) from wish
-	</select>
-
 	<select id="selectOne" resultMap="wishMap" parameterType="int">
-<!-- 		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno -->
-<!-- 		  from wish -->
-<!-- 		 where wno=#{no} -->
-<!-- 		   and wish.uno=user.uno=category.uno -->
 		select wish.*, user.name as userName, user.pho as userPho, category.name as categoryName
 		  from wish, user, category
 		 where wno=#{no}
            and wish.uno=user.uno=category.uno
          group by wish.wno
+	</select>
+	
+	<!--  코멘트 리스트 -->
+	<select id="selectComentList"  parameterType="int" resultType="comment">
+		select cono,comment.wno,comment.uno,cont, user.pho as userPho, user.name as userName
+		  from comment, user
+		 where comment.wno=#{wNo} and comment.uno=user.uno
+		 order by cono desc
+	</select>
+	
+	<!--  상세페이지에서 세션 유저 정보 조회 -->
+	<select id="selectSessionUserInfo"  parameterType="int" resultType="join">
+		select *
+		  from user
+		 where uno=#{uno}
+	</select>
+	
+	<!-- 좋아요 숫자 카운트 조회 -->
+	<select id="selectLikeOne" resultType="Like" parameterType="int">
+		select count(*) as numOfLno
+		  from `like`
+		 where wno=#{no}
+	</select>
+	
+	<!--  상세페이지 - 좋아요 설정한 유저 정보 조회-->
+	<select id="selectLikeList"  parameterType="int" resultType="like">
+		select user.pho,user.name
+		  from `like`,user
+		 where wno=#{no} 
+		   and `like`.uno=user.uno
+	</select>
+	
+	<!--  상세페이지 - 담아가기 설정한 유저 정보 조회-->
+	<select id="selectSendList"  parameterType="int" resultType="like">
+		select user.pho,user.name
+		  from `SEND`,user
+		 where wno=#{no} 
+		   and `SEND`.uno=user.uno
+	</select>
+	
+	<!-- 팔로워 여부 체크  -->
+	<select id="followerCheck" resultType="int" parameterType="map">
+		select count(*)
+		  from follower
+		 where uno=#{uno} and uno2=#{wishUserNo}
 	</select>
 	
 	<!-- 좋아요 -->
@@ -94,18 +135,12 @@
 	    </selectKey>
 	</insert>
 	
+	<!-- 좋아요 취소  -->
 	<delete id="deleteLike" parameterType="map">
 		delete
 		  from `like`
 		 where wno=#{wno} and uno=#{uno}
 	</delete>
-
-	<select id="selectlikeList" resultType="int" parameterType="int">
-		select wno
-		  from `like`
-		 where uno=#{uno}
-	</select>
-	
 	
 	<!-- 담아가기 -->
 	<insert id="send" parameterType="map">
@@ -123,60 +158,29 @@
 		 where wno=#{wno}
 	</insert>
 	
-	<select id="selectsendList" resultType="int" parameterType="int">
-		select wno
-		  from `SEND`
-		 where uno=#{uno}
-	</select>
-	
-
-	<!-- 좋아요 숫자 카운트 조회 -->
-	<select id="selectLikeOne" resultType="Like" parameterType="int">
-		select count(*) as numOfLno
-		  from `like`
-		 where wno=#{no}
-	</select>
-	
-	<!--  상세페이지 - 좋아요 설정한 유저 정보 조회-->
-	<select id="selectLikeList"  parameterType="int" resultType="like">
-		select user.pho,user.name
-		  from `like`,user
-		 where wno=#{no} 
-		   and `like`.uno=user.uno
-	</select>
-
-	<!--  상세페이지 - 담아가기 설정한 유저 정보 조회-->
-	<select id="selectSendList"  parameterType="int" resultType="like">
-		select user.pho,user.name
-		  from `SEND`,user
-		 where wno=#{no} 
-		   and `SEND`.uno=user.uno
-	</select>
-	
 	<!-- 팔로워 -->
 	<insert id="follower" parameterType="map">
 		insert into follower(uno, uno2) 
 		values(#{toUser}, #{fromUser})
 	</insert>
 
-	<select id="followerCheck" resultType="int" parameterType="map">
-		select count(*)
-		  from follower
-		 where uno=#{uno} and uno2=#{wishUserNo}
-	</select>
-	
 	<delete id="unfollower" parameterType="map">
 		delete
 		  from follower
 		 where uno=#{toUser} and uno2=#{fromUser}
 	</delete>
 	
-	
 	<!-- 코멘트 등록 -->
 	<insert id="insertComment" parameterType="comment">
 		insert into comment (wno, uno,cont) 
 		values(#{wNo}, #{uNo},#{cont})
 	</insert>
+	
+	<!-- 등록한 댓글 번호 반환 -->
+	<select id="selectCoNo" resultType="int" >
+		select max(cono)
+		  from comment
+	</select>
 	
 	<!-- 코멘트 삭제 -->
 	<delete id="delComment" parameterType="comment">
@@ -185,28 +189,12 @@
 		where cono = #{coNo}
 	</delete>
 	
-	<!--  코멘트 리스트 -->
-	<select id="selectComentList"  parameterType="int" resultType="comment">
-		select cono,comment.wno,comment.uno,cont, user.pho as userPho, user.name as userName
-		  from comment, user
-		 where comment.wno=#{wNo} and comment.uno=user.uno
-		 order by cono desc
-	</select>
-	
-	<!--  상세페이지에서 세션 유저 정보 조회 -->
-	<select id="selectSessionUserInfo"  parameterType="int" resultType="join">
-		select *
-		  from user
-		 where uno=#{uno}
-	</select>
-	
-	
 	<!-- 검색 게시글 불러오기(페이징) -->
 	<select id="selectSearchList" resultMap="wishMap" parameterType="map">
 		select wish.*,
 				user.name as userName, 
 				user.pho as userPho, 
-				category.name as categoryName,
+				(select name from category ca where ca.cno=wish.cno) as categoryName,
 				(select count(*) from `like` where `like`.wno = wish.wno ) as numOflNo,
 				(select count(*) from `like` where wish.wno=`like`.wno and `like`.uno=#{uno}) as likeSts,
 				(select count(*) from send s where wish.wno=s.wno and s.uno=#{uno}) as sendSts
@@ -222,5 +210,50 @@
 		 group by wish.wno
          order by wno desc
 	</select>
+	
+	
+	
+	
+	
+	<!-- 
+	<select id="selectNo" resultType="int">
+		select max(wno) from wish
+	</select>
+	
+	<select id="selectUserList" resultMap="wishMap" parameterType="map">
+		select wno, fpath, title, cont, price, url, buy, tag, date, cno, uno
+		from wish
+		where uno=#{uno}
+		order by wno desc
+		limit #{startIndex}, #{length}
+	</select>
+	
+	<select id="selectlikeList" resultType="int" parameterType="int">
+		select wno
+		  from `like`
+		 where uno=#{uno}
+	</select>
+	
+	<select id="selectsendList" resultType="int" parameterType="int">
+		select wno
+		  from `SEND`
+		 where uno=#{uno}
+	</select>
+	 -->
+	
+
+
+	
+
+
+	
+	
+	
+	
+
+	
+	
+	
+	
 	
 </mapper>

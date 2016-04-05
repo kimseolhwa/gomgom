@@ -32,7 +32,7 @@ $container.on('click', '.detail', function() {
 			// 태그 이름 
 			if(tags != null){
 				for(var i=0; i<tags.length; i++){
-					var tagClone = $(".tagDiv a").clone();
+					var tagClone = $(".tagDiv a:first").clone();
 					tagClone.text("#" + tags[i]);
 					tagClone.attr('href', contextRoot + "/view/search/search.html?" + tags[i]);
 					$("#tagCaptionText").append(tagClone);
@@ -44,7 +44,9 @@ $container.on('click', '.detail', function() {
 			for(var i=0; i<cList.length;i++){
 				var comClone = $('.commentDiv>div').clone();
 				if(uNo!=cList[i].uNo){
-					$('#commentDelBtn').css('display','none');
+					comClone.find('#commentDelBtn').css('display','none');
+				}else{
+					comClone.find('#commentDelBtn').css('display','inline');
 				}
 				if(cList[i].userPho==null){
 					comClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
@@ -131,12 +133,11 @@ $('body').on('click', "#commentDelBtn", function(){
 	var coNo = $(this).next("#commentNum").val();
 	console.log("coNo : " , coNo)
 	var commentLength = $("#commentLength").text();
-
 	$.ajax({
 		 type: "POST",
-	 dataType:"JSON",
-	 url : contextRoot + "/main/ajax/delComment.do",
-	 data:{'coNo': coNo}
+		 dataType:"JSON",
+		 url : contextRoot + "/main/ajax/delComment.do",
+		 data:{'coNo': coNo}
 	})
 	// 댓글삭제 UI
 	$(this).parent("#comdelsel").remove();
@@ -156,6 +157,7 @@ $("#insertComment").on("click",function(){
 		 url : contextRoot + "/main/ajax/addComment.do",
 		 data:{'cont': comment, 'wNo' : wNo}
 	}).done(function(resultObj) {
+		console.log(resultObj);
 		var data = resultObj.ajaxResult.data;
 		var comClone = $('.commentDiv>div').clone();
 		if(data.join.pho==null){
@@ -247,14 +249,15 @@ $(document).on("click", "#detailLikeBtn", function(){
      $(document).on("click", ".follow", function(){
     	var wishUserNo = $(this).closest('.modal-content').find('.uno').text();
     	var uNo = $('#loginUser-no').text();
-    	if($(".follow").text() == "팔로우"){
+    	console.log($(".follow").text());
+    	if($(".follow").text().indexOf("팔로우")>0){
 			$.getJSON('/peekis/wish/ajax/followInsert.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
 					if(resultObj.ajaxResult.status == 'success'){
 						swal("팔로우 성공!", "유저와 친구가 되었습니다!", "success");
 						$(".follow").html('<i class="fa fa-check"></i>　팔로잉');
 					}
 				});
-    	}else if($(".follow").text() == "팔로잉"){
+    	}else{
 			$.getJSON('/peekis/wish/ajax/followDelete.do', {fno : wishUserNo, uno : uNo}, function( resultObj ) {
 				if(resultObj.ajaxResult.status == 'success'){
 					swal("팔로우 삭제!", "친구가 삭제되었습니다!", "error");
@@ -271,5 +274,11 @@ $('#detailmodal').on('hidden.bs.modal', function (e) {
 	$("#tab2 span").remove();
 	$("#tab3 span").remove();
 	$("#tagCaptionText a").remove();
+	$("#tab1").addClass('active');
+	$("#tab1").addClass('in');
+	$("#tab2").removeClass('active');
+	$("#tab2").removeClass('in');
+	$("#tab3").removeClass('active');
+	$("#tab3").removeClass('in');
 })
 						        

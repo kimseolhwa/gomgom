@@ -32,6 +32,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 			if(loginUser.pho != null){
 				$("#pImg").attr("src", filePath + loginUser.pho);
 			}
+			userProfile();
 		}else{
 			location.href = contextRoot + "/auth/joinForm.html"
 		}
@@ -39,25 +40,29 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 	.fail(function(){
 		location.href = contextRoot + "/auth/joinForm.html"
 	});
-
+var uno = 0;
 /* 유저정보 가져오기 */
-$.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) {
-	console.log('유저정보 가져오기');
-	console.log(resultObj);		
-	$("#caCnt").text(resultObj.user.caCnt);
-	$("#wishCnt").text(resultObj.user.wishCnt);
-	$("#likeCnt").text(resultObj.user.likeCnt);
-	$("#fCnt").text(resultObj.user.fCnt);
-	$("#fCnt2").text(resultObj.user.fCnt2)
-	$("#userName").text(resultObj.user.name);
-	$("#profileUser").text(resultObj.user.uNo);
-	if(resultObj.user.pho != null){
-		$("#profile").attr("src", filePath + resultObj.user.pho);
-	}else{
-		$("#profile").attr("src", "../header/img/people.png");
-	}
-	nextPage(1, friendNo);
-});
+function userProfile(){
+	$.getJSON('/peekis/wish/ajax/userInfo.do', {fNo: friendNo}, function(resultObj) {
+		console.log('유저정보 가져오기');
+		console.log(resultObj);		
+		$("#caCnt").text(resultObj.user.caCnt);
+		$("#wishCnt").text(resultObj.user.wishCnt);
+		$("#likeCnt").text(resultObj.user.likeCnt);
+		$("#fCnt").text(resultObj.user.fCnt);
+		$("#fCnt2").text(resultObj.user.fCnt2)
+		$("#userName").text(resultObj.user.name);
+		$("#profileUser").text(resultObj.user.uNo);
+		if(resultObj.user.pho != null){
+			$("#profile").attr("src", filePath + resultObj.user.pho);
+		}else{
+			$("#profile").attr("src", "../header/img/people.png");
+		}
+		categoryList();
+		nextPage(1, friendNo);
+		
+	});
+}
 	
 	
 	
@@ -83,26 +88,34 @@ $('#filters').on('click', '.category', function() {
 		filter : filterValue
 	});
 });
-
-var uno = $("#profileUser").text();
-uno=2;
-$.getJSON('/peekis/category/ajax/categoryList.do', {uno : uno}, function(resultObj) {
-	console.log(resultObj)
-	for (var category of resultObj.data){
-		var cloneContent = $(".cloneCategory > div").clone();
-			cloneContent.addClass(category.cNo+"").attr('data-filter', ".cNo"+category.cNo);
-			cloneContent.find('.categoryName').html(category.name);
-			cloneContent.find('.cno').val(category.cNo);
-			cloneContent.find('.path1').attr('src', category.path1);
-			cloneContent.find('.path2').attr('src', category.path2);
-			cloneContent.find('.path3').attr('src', category.path3);
-			cloneContent.find('.path4').attr('src', category.path4);
-			
-			$items = $(cloneContent);
-			$container2.append( $items ).flickity( 'append', $items );	
-	  	}
-	 sort2();
-});
+function categoryList() {
+	$.getJSON('/peekis/category/ajax/categoryList.do', {uno : friendNo}, function(resultObj) {
+		console.log('카테고리 정보 불러오기');
+		console.log(resultObj);
+		for (var category of resultObj.data){
+			var cloneContent = $(".cloneCategory > div").clone();
+				cloneContent.addClass(category.cNo+"").attr('data-filter', ".cNo"+category.cNo);
+				cloneContent.find('.categoryName').html(category.name);
+				cloneContent.find('.cno').val(category.cNo);
+				if(category.path1 != null){
+					var path = category.path1;
+					if(path.startsWith('http://') == false){
+						path = filePath + path;
+					}
+					cloneContent.find('.path1').attr('src', path);
+					var path = category.path2;
+					if(path.startsWith('http://') == false){
+						path = filePath + path;
+					}
+					cloneContent.find('.path2').attr('src', path);
+				}
+				
+				$items = $(cloneContent);
+				$container2.append( $items ).flickity( 'append', $items );	
+		  	}
+		 sort2();
+	});
+}
 
 
 
@@ -124,8 +137,7 @@ var sort = function(){
 }
 
 
-/* 위시리스트 목록 불러오기  */		
-     
+/* 위시리스트 목록 불러오기  */		     
 $(window).scroll(function(){
 	var scrollHeight = $(window).scrollTop() + $(window).height();
 	var documentHeight = $(document).height();

@@ -113,17 +113,25 @@ $('.add-category').click(function () {
   });
 	
 $.getJSON('/peekis/category/ajax/categoryList.do', {uno : uno}, function(resultObj) {
-	console.log(resultObj)
+	console.log('카테고리 정보 불러오기');
+	console.log(resultObj);
 	for (var category of resultObj.data){
 		var cloneContent = $(".cloneCategory > div").clone();
 			cloneContent.addClass(category.cNo+"").attr('data-filter', ".cNo"+category.cNo);
 			cloneContent.find('.categoryName').html(category.name);
 			cloneContent.find('.cno').val(category.cNo);
-			cloneContent.find('.path1').attr('src', category.path1);
-			cloneContent.find('.path2').attr('src', category.path2);
-			cloneContent.find('.path3').attr('src', category.path3);
-			cloneContent.find('.path4').attr('src', category.path4);
-			
+			if(category.path1 != null){
+				var path = category.path1;
+				if(path.startsWith('http://') == false){
+					path = filePath + path;
+				}
+				cloneContent.find('.path1').attr('src', path);
+				var path = category.path2;
+				if(path.startsWith('http://') == false){
+					path = filePath + path;
+				}
+				cloneContent.find('.path2').attr('src', path);
+			}
 			$items = $(cloneContent);
 			$container2.append( $items ).flickity( 'append', $items );	
 			
@@ -156,6 +164,7 @@ var dropCategory = function(event, ui) {
 		console.log(result);
 		if(result.status == 'success'){
     		console.log(this);
+    		$('.'+result.data.no).css('display','none');
 		}else{
 			swal('카테고리 변경 실패하였습니다.');
 		}
@@ -344,6 +353,7 @@ $container.on( 'click', '.fa-pencil', function() {
 			console.log(wish);
 			$("#editmodal-no").val( wish.no );
 			$("#editmodal-image").attr("src", item.find('img').attr('src') );
+			$("#editmodal-src").val(item.find('img').attr('src'));
 			$("#editmodal-title").val( wish.title );			
 			$("#editmodal-content").val( wish.content );
 			$("#editmodal-price").val( wish.price );
@@ -371,7 +381,12 @@ $('#editModal .update-btn').click(function () {
 	    	var ajaxResult = resultObj.ajaxResult;
 	    	console.log(resultObj);
 			if (ajaxResult.status == "success") {
-		        $("." + ajaxResult.data.no + " .product").find("img").attr("src",  filePath +  ajaxResult.data.path);
+				var path = ajaxResult.data.path;
+				if(ajaxResult.data.path.startsWith('http://') == false){
+					path = filePath + path;
+				}
+				console.log(path);
+		        $("." + ajaxResult.data.no + " .product").find("img").attr("src", path);
 		        alert("게시물 수정에  성공했습니다.");
 		    } else {
 		        alert("게시물 수정에 실패했습니다.");

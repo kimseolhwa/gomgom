@@ -139,7 +139,7 @@ a, a:HOVER{
 #addModal .modal-body div:HOVER{
 	background-color: white;
 }
-.registModal-IMG{
+.registModal-IMG, .editModal-IMG{
 	text-align: center;
 }
 
@@ -234,7 +234,8 @@ a, a:HOVER{
 
 .c_container  {
 	width: 100%;
-	height: 300px;
+	height: 230px;
+	padding: 20px;
     border: 1px solid blak;
     background-color: #d8d8d8;
    	-webkit-box-shadow:inset 0 1px 1px 0 #828282;
@@ -246,7 +247,11 @@ a, a:HOVER{
 /* .flickity-prev-next-button previous { */
 /* 	left: 20px; */
 /* } */
-
+.c_container .fa{
+	font-size: 23px;
+	margin: 0 7px;
+	cursor: pointer;
+}
 .flickity-prev-next-button {
   width: 30px;
   height: 30px;

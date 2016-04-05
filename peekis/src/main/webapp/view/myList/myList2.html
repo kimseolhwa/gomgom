@@ -11,6 +11,7 @@
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="../../js/jquery.number.js"></script>
 
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -44,6 +45,7 @@
 <link rel="stylesheet" style="text/css" href="../../css/footer.css" />
 <link rel="stylesheet" style="text/css" href="../../css/btn-orange.css" />
 <link rel="stylesheet" style="text/css" href="../../css/profile.css" />
+<link rel="stylesheet" style="text/css" href="../../css/main.css" />
 <link rel="stylesheet" style="text/css" href="../../css/myList.css" />
 
 </head>
@@ -112,8 +114,6 @@
 				<div class="categoryImg">
 					<img src="../../image/no_image(450X450).png" class="img-rounded path1">
 					<img src="../../image/no_image(450X450).png" class="img-rounded path2">
-<!-- 					<img src="../../image/no_image(450X450).png" class="img-rounded path3"> -->
-<!-- 					<img src="../../image/no_image(450X450).png" class="img-rounded path4"> -->
 				</div>
 				<i class="fa fa-pencil categoryUpdate"></i>
 				<i class="fa fa-trash-o categoryDel"></i>
@@ -215,7 +215,9 @@
 				<div class="modal-body">
 					<form action="add.do" method="post" id="cForm">
 						<div class="form-group registModal-IMG">
-							<label class="sr-only" for="modal-image">image:</label> <img style="max-width: 200px; max-height: 150px; width: auto; height: auto;" id="modal-image" name="path" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png" /> <input type="file" name="file" id="modal-File" accept="image/*" /> <input type="hidden" name="path" id="modal-src" value="" />
+							<label class="sr-only" for="modal-image">image:</label> <img style="max-width: 200px; max-height: 150px; width: auto; height: auto;" id="modal-image" name="path" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png" /> 
+							<input type="file" name="file" id="modal-File" accept="image/*" /> 
+							<input type="hidden" name="path" id="modal-src" value="" />
 						</div>
 						<div class="form-group">
 							<label for="modal-title" class="sr-only">title:</label> <input type="text" class="form-control" id="modal-title" name="title" placeholder="제목">
@@ -259,8 +261,10 @@
 				<div class="modal-body">
 					<form method="post" id="eForm" enctype="multipart/form-data">
 						<input type="hidden" class="no" id="editmodal-no">
-						<div class="form-group">
-							<label class="sr-only" for="modal-image">image:</label> <img style="max-width: 200px; max-height: 150px; width: auto; height: auto;" id="editmodal-image" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png" /> <input type="file" name="file" id="editmodal-File" accept="image/*" style="display: none;" />
+						<div class="form-group editModal-IMG">
+							<label class="sr-only" for="modal-image">image:</label> <img style="max-width: 200px; max-height: 150px; width: auto; height: auto;" id="editmodal-image" src="http://www.randomlengthsnews.com/wp-content/themes/gonzo/images/no-image-blog-one.png" /> 
+							<input type="file" name="file" id="editmodal-File" accept="image/*" style="display: none;" />
+							<input type="hidden" name="path" id="editmodal-src" value="" />
 						</div>
 						<div class="form-group">
 							<label for="modal-title" class="sr-only">title:</label> <input type="text" class="form-control" id="editmodal-title" name="title" placeholder="제목">
@@ -277,7 +281,7 @@
 							<label for="modal-url" class="sr-only control-label">url:</label> <input type="text" class="form-control" id="editmodal-url" name="url" placeholder="URL">
 						</div>
 						<div class="form-group">
-							<label for="modal-tag" class="sr-only control-label">tag:</label> <input type="text" class="form-control" id="editmodal-tag" placeholder="#태그입력">
+							<label for="modal-tag" class="sr-only control-label">tag:</label> <input type="text" class="form-control" id="editmodal-tag" name="tag" placeholder="#태그입력">
 						</div>
 
 					</form>
@@ -418,7 +422,7 @@
 
 <script type="text/javascript" src="../../js/common.js"></script>
 <script type="text/javascript" src="js/myList.js"></script>
-<script type="text/javascript" src="../../js/detail.js"></script>
 <script type="text/javascript" src="../profile/js/profile.js"></script>
+<script type="text/javascript" src="../../js/detail.js"></script>
 </body>
 </html>

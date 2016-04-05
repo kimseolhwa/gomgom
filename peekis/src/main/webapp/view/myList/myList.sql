@@ -14,12 +14,48 @@ CREATE TABLE `WISH` (
 )
 insert into wish(fpath,title,cont,price,url,buy,tag,cno,uno) select w1.fpath, w1.title, w1.cont, w1.price, w1.url, w1.buy, w1.tag, w1.cno, w1.uno from wish w1;
 insert into category (name, uno) values ('(default)', 4); 
-select * from wish;
+select * from wish where uno='7';
 select * from category;
 select * from user;
 select * from `LIKE` where uno='2';
 select * from SEND;
 select * from follower;
+select * from comment;
+select * from tag;
+select ut.tno, t.name from user_tag ut, tag t where uno='7' and ut.tno=t.tno;
+
+
+select DISTINCT wish.*, 
+			 	user.name as userName, 
+			 	user.pho as userPho, 
+			 	(select name from category c where c.cno=wish.cno) as categoryName
+		  from wish, user, category
+		 where wish.uno=user.uno=category.uno and wish.uno='7'
+
+
+select name from category c where c.cno=wish.cno
+
+
+select w.*,
+		u.name as userName, 
+		u.pho as userPho, 
+		c.name as categoryName,
+		(select count(*) from `like` where `like`.wno = w.wno ) as numOflNo,
+		(select count(*) from `like` where `like`.wno = w.wno and `like`.uno='7') as likeSts,
+		(select count(*) from send s where s.wno = w.wno and s.uno='7') as sendSts
+  from wish w, user u, category c
+ where
+ 	w.uno=u.uno=c.uno 
+ 	and
+ 	(w.tag like '%#여행%' or w.tag like '%#IT%' or w.tag like '%#여성%' or w.tag like '%#남성%')
+ group by w.wno
+ limit #{startIndex}, #{length}
+
+
+
+
+
+
 
 select u.*, (select count(*) from follower f2 where f2.uno='2' and f2.uno2=f.uno) as sts
 from follower f, user u
