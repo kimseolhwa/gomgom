@@ -108,6 +108,9 @@ a, a:HOVER{
 .bs-example-modal-sm {
 	text-align: center;
 }
+.modal-header, #urlModal .row {
+	text-align: center;
+}
 .modal [type=file]{
 	display: none;
 }
@@ -136,7 +139,9 @@ a, a:HOVER{
 #addModal .modal-body div:HOVER{
 	background-color: white;
 }
-
+.registModal-IMG{
+	text-align: center;
+}
 
 /* 로딩이미지 */
 .wrap-loading{ /*화면 전체를 어둡게 합니다.*/
@@ -229,7 +234,7 @@ a, a:HOVER{
 
 .c_container  {
 	width: 100%;
-	height: 180px;
+	height: 300px;
     border: 1px solid blak;
     background-color: #d8d8d8;
    	-webkit-box-shadow:inset 0 1px 1px 0 #828282;
