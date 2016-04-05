@@ -5,7 +5,7 @@ $("#header").load("../header/header.html");
 $("#footer").load("../footer/footer.html");
 $("#user-profile").load("../profile/profile.html");
 
-
+var uno=0;
 /* 로그인 체크 */
 $.getJSON('/peekis/main/ajax/loginCheck.do')
 	.done( function(resultObj) {
@@ -19,6 +19,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 				$("#pImg").attr("src", filePath + loginUser.pho);
 			}
 			nextPage(1);
+			uno = $("#loginUser-no").text();
 		}else{
 			location.href = contextRoot + "/auth/joinForm.html"
 		}
@@ -110,7 +111,7 @@ $('.add-category').click(function () {
 			})
 		});
   });
-var uno = $("#loginUser-no").text();		
+	
 $.getJSON('/peekis/category/ajax/categoryList.do', {uno : uno}, function(resultObj) {
 	console.log(resultObj)
 	for (var category of resultObj.data){

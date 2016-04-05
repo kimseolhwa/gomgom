@@ -43,13 +43,13 @@ $container.on('click', '.detail', function() {
 			$("#commentLength").text(cList.length);
 			for(var i=0; i<cList.length;i++){
 				var comClone = $('.commentDiv>div').clone();
-				if(uNo==cList[i].uNo){
+				if(uNo!=cList[i].uNo){
 					$('#commentDelBtn').css('display','none');
 				}
 				if(cList[i].userPho==null){
-					comClone.find('.img-circle').attr('src',filePath + cList[i].userPho);
-				}else{
 					comClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
+				}else{
+					comClone.find('.img-circle').attr('src',filePath + cList[i].userPho);
 				}
 				comClone.find('.comUserID').text(cList[i].userName);
 				comClone.find('.comCont').text(cList[i].cont);
@@ -185,10 +185,10 @@ $(document).on("click", "#detailSendBtn", function(){
 	}else{
 		$.getJSON('/peekis/main/ajax/send.do', {wno : wishNo, uno : uNo}, 
 			function( resultObj ) {
-				console.log(resultObj);
 			    detailSendBtn.attr('status',true);
 				swal("담아가기 성공!", "해당 아이템을 담았습니다!", "success");
 				var data = resultObj.ajaxResult.data;
+				console.log(data);
 				var sendClone = $('.sendDiv>span').clone();
 				if(data.pho==null){
 					sendClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
@@ -199,7 +199,7 @@ $(document).on("click", "#detailSendBtn", function(){
 				sendClone.find('#sendUserNo').val(data.uNo);
 				$("#tab2").prepend(sendClone);
 				
-				$("#commentLength").text(Number(commentLength)+1);				
+				$("#commentLength").text(Number($("#commentLength").text())+1);				
 			});
 	    	}
   })
@@ -210,8 +210,8 @@ $(document).on("click", "#detailLikeBtn", function(){
 	  var wishNo  = Number($('#detailmodal-no').text());
 	  var uNo = $('#loginUser-no').text();
 	  
-	  if($(this).attr('status') == 'true'){
-		  swal("이미 담아가기 한 위시리스트입니다!", "한번만 담아기가 가능합니다", "error");
+	  if($('.' + wishNo).find('.undoheart').css('display') == 'block'){
+		  swal("이미 좋아요 한 위시리스트입니다!", "한번만 좋아요가 가능합니다", "error");
 	  }else{
 		  $.getJSON('/peekis/main/ajax/addLike.do', {wno : wishNo, uno : uNo}, function(resultObj) {
 			  var result = resultObj.ajaxResult;
@@ -267,9 +267,9 @@ $(document).on("click", "#detailLikeBtn", function(){
 
 
 $('#detailmodal').on('hidden.bs.modal', function (e) {
-	$("#tab1").remove();
-	$("#tab2").remove();
-	$("#tab3").remove();
+	$("#tab1 div").remove();
+	$("#tab2 span").remove();
+	$("#tab3 span").remove();
 	$("#tagCaptionText a").remove();
 })
 						        
