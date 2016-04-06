@@ -150,7 +150,7 @@ $(window).scroll(function(){
       
 function nextPage(pageNo, friendNo){
 	$.getJSON('/peekis/main/ajax/friendList.do',{pageNo : pageNo, fNo : friendNo}, function(resultObj) {
-		console.log('페이지 불러오기');
+		console.log( pageNo + ' 페이지 불러오기');
 		console.log(resultObj);
 		for (var wish of resultObj.data){
 			$('#pageNo').text(pageNo);

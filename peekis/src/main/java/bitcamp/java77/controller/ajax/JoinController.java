@@ -62,7 +62,7 @@ public class JoinController {
 			joinDao.registTag(join);
 		}
 		// 디폴트 카테고리 생성
-		join.setcName("(default)");
+		join.setcName("기본폴더");
 		joinDao.addCategory(join);
 
 		// 등록된 유저를 세션에 등록

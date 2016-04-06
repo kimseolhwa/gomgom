@@ -46,6 +46,7 @@
 <link rel="stylesheet" style="text/css" href="../../css/btn-orange.css" />
 <link rel="stylesheet" style="text/css" href="../../css/profile.css" />
 <link rel="stylesheet" style="text/css" href="../../css/main.css" />
+<link rel="stylesheet" style="text/css" href="../../css/profile.css" />
 <link rel="stylesheet" style="text/css" href="../../css/myList.css" />
 
 </head>
@@ -144,7 +145,7 @@
 
 	</section>
 
-	<footer id="footer"></footer>
+	<footer class="nav-down" id="footer"></footer>
 	<span data-toggle="tooltip" data-placement="top" title="" id="demoTop" data-original-title="Going Up?" style="display: none;"><a href="#" style="display: block; padding: 5px;">Δ</a></span>
 
 	<!-- addModal -->
@@ -297,81 +298,84 @@
 	</div>
 	
 
-			<!-- DetailModal -->
-		<div class="item-modal modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<div class="modal-pro">
-							<img src="../../image/pro1.jpg" class="img-circle detailmodal-pro">
-							<div class="modal-user_id">아이디는여덟자임</div>
-							<span class="glyphicon glyphicon-folder-open"></span>
-							<div class="modal-user_wish">폴더이름여덟자임</div>
-						    <button class="btn btn-orange follow" id="detailFollowBtn"><i class="fa fa-plus">　팔로우</i></button>
-						</div>
-						<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
+	<!-- DetailModal -->
+	<div class="item-modal modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="modal-pro">
+						<img src="../../image/pro1.jpg" class="img-circle detailmodal-pro">
+						<div class="modal-user_id">아이디는여덟자임</div>
+						<span class="glyphicon glyphicon-folder-open"></span>
+						<div class="modal-user_wish">폴더이름여덟자임</div>
+					    <button class="btn btn-orange follow" id="detailFollowBtn"><i class="fa fa-plus">　팔로우</i></button>
 					</div>
-					<div class="modal-body">
-						<input type="hidden" class="no" id="detailmodal-no">
-						<input type="hidden" class="uno" id="detailmodal-uno">
-						<div class="item-image">
-							<img src="../../image/no_image(450X450).png" alt="" id="detailmodal-image">
-							<figure id="tagCaption"><figcaption id="tagCaptionText"><a></a></figcaption></figure>
-						</div>
+					<button type="button" class="btn btn-orange" data-dismiss="modal">닫기</button>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" class="no" id="detailmodal-no">
+					<input type="hidden" class="uno" id="detailmodal-uno">
+					<div class="item-image">
+						<img src="../../image/no_image(450X450).png" alt="" id="detailmodal-image">
+						<figure id="tagCaption"><figcaption id="tagCaptionText"><a></a></figcaption></figure>
+					</div>
 
-						<div class="item-content">
-							<div class="item-title" id="detailmodal-title">title:</div>
-							<br />
-							<div class="item-subtitle" id="detailmodal-content">content:</div>
-							<div class="item-costi-box">
-								<div class="price" id="detailmodal-price">&#8361; price:</div>
+					<div class="item-content">
+						<div class="item-title" id="detailmodal-title">title:</div>
+						<br />
+						<div class="item-subtitle" id="detailmodal-content">content:</div>
+						<div class="item-costi-box">
+							<div class="price" id="detailmodal-price">&#8361; price:</div>
+						</div>
+						<br />
+						<div class="item-button-box">
+							<button class="btn btn-default" id="detailmodal-url">
+								<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
+							</button>
+							<a href="#capymodal" data-toggle="modal"><button class="btn btn-default" id="detailSendBtn">담아가기</button></a>
+							<button class="btn btn-default" id="detailLikeBtn">좋아요</button>
+						</div>
+						<br />
+						<div>
+							<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+								<div class="btn-group" role="group">
+									<button id="comment" class="btn btn-orange" href="#tab1" data-toggle="tab">
+										<div class="hidden-xs">댓글&nbsp;<span id="commentLength">0</span></div>
+									</button>
+								</div>
+								<div class="btn-group" role="group">
+									<button id="send" class="btn btn-default" href="#tab2" data-toggle="tab">
+										<div class="hidden-xs">담아가기&nbsp;<span id="sendLength">0</span></div>
+									</button>
+								</div>
+								<div class="btn-group" role="group">
+									<button id="like" class="btn btn-default" href="#tab3" data-toggle="tab">
+										<div class="hidden-xs">좋아요&nbsp;<span id="likeLength">0</span></div>
+									</button>
+								</div>
 							</div>
-							<br />
-							<div class="item-button-box">
-								<button class="btn btn-default" id="detailmodal-url">
-									<span class="glyphicon glyphicon-credit-card"> </span>구매하러 가기
-								</button>
-								<a href="#capymodal" data-toggle="modal"><button class="btn btn-default" id="detailSendBtn">담아가기</button></a>
-								<button class="btn btn-default" id="detailLikeBtn">좋아요</button>
-							</div>
-							<br />
-							<div>
-								<div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
-									<div class="btn-group" role="group">
-										<button id="comment" class="btn btn-orange" href="#tab1" data-toggle="tab">
-											<div class="hidden-xs">댓글&nbsp;<span id="commentLength">0</span></div>
-										</button>
+							<div class="well">
+								<div class="tab-content">
+									<div class="tab-pane fade in active" id="tab1" style="overflow: auto;">
 									</div>
-									<div class="btn-group" role="group">
-										<button id="send" class="btn btn-default" href="#tab2" data-toggle="tab">
-											<div class="hidden-xs">담아가기&nbsp;<span id="sendLength">0</span></div>
-										</button>
+									<div class="tab-pane fade in" id="tab2" style="overflow: auto;">
+										<div id="sendTab-1"></div>
+										<div id="sendTab-2"></div>
 									</div>
-									<div class="btn-group" role="group">
-										<button id="like" class="btn btn-default" href="#tab3" data-toggle="tab">
-											<div class="hidden-xs">좋아요&nbsp;<span id="likeLength">0</span></div>
-										</button>
+									<div class="tab-pane fade in" id="tab3" style="overflow: auto;">
+										<div id="likeTab-1"></div>
+										<div id="likeTab-2"></div>
 									</div>
 								</div>
-								<div class="well">
-									<div class="tab-content">
-										<div class="tab-pane fade in active" id="tab1" style="overflow: auto;">
-										</div>
-										<div class="tab-pane fade in" id="tab2">
-										</div>
-										<div class="tab-pane fade in" id="tab3" style="overflow: auto;">
-										</div>
-									</div>
-								</div>
-								<div class="comment">
-									<div class="comment_pro">
-										<img src="../../image/pro1.jpg" class="img-circle comInputUserPho">
-										<div class="col-lg-10">
-											<div class="input-group">
-												<input type="text" class="form-control" placeholder="댓글을 입력해주세요" id="commentText"> <span class="input-group-btn">
-													<button class="btn btn-default" type="button" id="insertComment">입력</button>
-												</span>
-											</div>
+							</div>
+							<div class="comment">
+								<div class="comment_pro">
+									<img src="../../image/pro1.jpg" class="img-circle comInputUserPho">
+									<div class="col-lg-10">
+										<div class="input-group">
+											<input type="text" class="form-control" placeholder="댓글을 입력해주세요" id="commentText"> <span class="input-group-btn">
+												<button class="btn btn-default" type="button" id="insertComment">입력</button>
+											</span>
 										</div>
 									</div>
 								</div>
@@ -381,6 +385,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 
 
 
@@ -398,20 +403,20 @@
 	
 	<!-- 상세보기 모달 담아가기한 유저 기본폼 -->
 	<div class='sendDiv' style="display: none">
-		<span id='sendUser'>
+		<div id='sendUser' style="margin: 3px 0;">
 		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
 		<a class="sendUserID"></a>
-		</span>&nbsp;&nbsp;
 		<input type='hidden' id='sendUserNo'/>
+		</div>
 	</div>
 	
 	<!-- 상세보기 모달 좋아요한 유저 기본폼 -->
 	<div class='likeDiv' style="display: none">
-		<span id='likeUser'>
+		<div id='likeUser' style="margin: 3px 0;">
 		<img class='img-circle' style='height: 30px; width: 30px;'></img>&nbsp;
 		<a class="likeUserID"></a>
-		</span>&nbsp;&nbsp;
 		<input type='hidden' id='likeUserNo'/>
+		</div>
 	</div>
 	
 	<!-- 상세보기 모달 태그 기본폼 -->

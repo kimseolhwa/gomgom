@@ -51,9 +51,12 @@ select w.*,
  group by w.wno
  limit #{startIndex}, #{length}
 
+ ----------------------------------------------------------
+update category 
+	set name='기본폴더'
+where name='(default)'
 
-
-
+-----------------------------------------------------------
 
 
 

@@ -62,7 +62,7 @@ $container.on('click', '.detail', function() {
 			//담아가기 탭
 			$("#sendLength").text(sendList.length);
 			for(var i=0; i<sendList.length;i++){
-				var sendClone = $('.sendDiv>span').clone();
+				var sendClone = $('.sendDiv>div').clone();
 				if(sendList[i].pho==null){
 					sendClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
 				}else{
@@ -70,13 +70,17 @@ $container.on('click', '.detail', function() {
 				}
 				sendClone.find('.sendUserID').text(sendList[i].name);
 				sendClone.find('#sendUserNo').val(sendList[i].uNo);
-				$("#tab2").append(sendClone);
+				if(i%2 == 0){
+					$("#sendTab-1").append(sendClone);
+				}else if(i%2 == 1){
+					$("#sendTab-2").append(sendClone);
+				}
 			}
 			
 			//좋아요 탭
 			$("#likeLength").text(likeList.length);
 			for(var i=0; i<likeList.length;i++){
-				var likeClone = $('.likeDiv>span').clone();
+				var likeClone = $('.likeDiv>div').clone();
 				if(likeList[i].pho==null){
 					likeClone.find('.img-circle').attr('src', '../header/img/profileAvatar.jpg');
 				}else{
@@ -84,7 +88,12 @@ $container.on('click', '.detail', function() {
 				}
 				likeClone.find('.likeUserID').text(likeList[i].name);
 				likeClone.find('#likeUserNo').val(likeList[i].uNo);
-				$("#tab3").append(likeClone);
+				if(i%2 == 0){
+					$("#likeTab-1").append(likeClone);
+				}else if(i%2 == 1){
+					$("#likeTab-2").append(likeClone);
+				}
+
 			}
 			
 			$("#detailmodal-no").html( wish.no );
@@ -271,8 +280,8 @@ $(document).on("click", "#detailLikeBtn", function(){
 
 $('#detailmodal').on('hidden.bs.modal', function (e) {
 	$("#tab1 div").remove();
-	$("#tab2 span").remove();
-	$("#tab3 span").remove();
+	$("#tab2>div div").remove();
+	$("#tab3>div div").remove();
 	$("#tagCaptionText a").remove();
 	$("#tab1").addClass('active');
 	$("#tab1").addClass('in');
