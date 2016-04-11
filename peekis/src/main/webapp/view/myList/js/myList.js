@@ -107,6 +107,8 @@ $('.add-category').click(function () {
 				$items.droppable({
 					drop : dropCategory
 				});
+				
+				$("#caCnt").text( Number($("#caCnt").text())+1 );
 	  	 	  }
 			})
 		});
@@ -180,6 +182,7 @@ $container2.on( 'click', '.categoryDel', function() {
 		var ajaxResult = resultObj.ajaxResult;
 		if (ajaxResult.status == "success") {
 			$container2.flickity( 'remove', $("." + cNo) ).flickity();
+			$("#caCnt").text( Number($("#caCnt").text())-1 );
 		}
 	});
 });
@@ -495,7 +498,7 @@ $('.modal-body').find('[type=file]').change(function() {
  }
 
  
- //*****************************************************
+//*****************************************************
 // URL 정보파싱
 //*****************************************************
 $('#preview').bind('submit', function(e) {

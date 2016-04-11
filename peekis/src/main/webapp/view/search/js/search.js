@@ -26,6 +26,7 @@ $.getJSON('/peekis/main/ajax/loginCheck.do')
 				$("#pImg").attr("src", filePath + loginUser.pho);
 			}
 			nextPage(1, pageParam);
+			$("#searchText").val(pageParam);
 		}else{
 			location.href = contextRoot + "/auth/joinForm.html"
 		}

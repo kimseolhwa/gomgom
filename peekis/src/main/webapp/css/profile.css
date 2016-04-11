@@ -62,9 +62,9 @@ a, a:HOVER{
 .portfolio-modal .close-modal {
 	position: absolute;
 	top: 10px;
-	right: 20px;
-	width: 60px;
-	height: 60px;
+	right: 18px;
+	width: 50px;
+	height: 50px;
 	background-color: transparent;
 	cursor: pointer;
 }
@@ -76,8 +76,8 @@ a, a:HOVER{
 .portfolio-modal .close-modal .lr {
 	z-index: 1051;
 	width: 1px;
-	height: 50px;
-	margin-left: 50px;
+	height: 40px;
+	margin-left: 40px;
 	background-color: #2c3e50;
 	transform: rotate(45deg);
 }
@@ -85,7 +85,7 @@ a, a:HOVER{
 .portfolio-modal .close-modal .lr .rl {
 	z-index: 1052;
 	width: 1px;
-	height: 50px;
+	height: 40px;
 	background-color: #2c3e50;
 	transform: rotate(90deg);
 }

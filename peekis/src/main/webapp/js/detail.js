@@ -232,12 +232,12 @@ $(document).on("click", "#detailLikeBtn", function(){
 	        			$('.' + wishNo).find('.heart').toggleClass('toggle');  
 					   },1000), 
 	        		$('.' + wishNo).find('.undoheart').hide().fadeToggle(1000);
-	        		
 	        		$("#likeLength").text(Number($("#likeLength").text()) +1);
 	        		var numOfLikeval = $('.'+wishNo).find("#likeAmount").text();
 	        		$('.'+wishNo).find("#likeAmount").text(Number(numOfLikeval)+1);
 	    			
     				var likeClone = $('.likeDiv>span').clone();
+    				
     				
     				likeClone.find('.img-circle').attr('src', $("#pImg").attr("src"));
     				likeClone.find('.likeUserID').text($("#dropdown-color").text());
@@ -283,11 +283,16 @@ $('#detailmodal').on('hidden.bs.modal', function (e) {
 	$("#tab2>div div").remove();
 	$("#tab3>div div").remove();
 	$("#tagCaptionText a").remove();
-	$("#tab1").addClass('active');
-	$("#tab1").addClass('in');
-	$("#tab2").removeClass('active');
-	$("#tab2").removeClass('in');
-	$("#tab3").removeClass('active');
-	$("#tab3").removeClass('in');
+	
+	$("#tab1").addClass('active in');
+	$("#tab2").removeClass('active in');
+	$("#tab3").removeClass('active in');
+	
+	$("#comment").addClass('btn-orange');
+	$("#comment").removeClass('btn-default');
+	$("#send").addClass('btn-default');
+	$("#send").removeClass('btn-orange');
+	$("#like").addClass('btn-default');
+	$("#like").removeClass('btn-orange');
 })
 						        
