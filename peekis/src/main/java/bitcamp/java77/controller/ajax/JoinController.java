@@ -31,6 +31,46 @@ public class JoinController {
 	JoinDao joinDao;
 	@Autowired
 	ServletContext servletContext;
+	
+	
+//	// 시작페이지 
+//	@RequestMapping(value = "join", method = RequestMethod.POST)
+//	public AjaxResult d(Join join, HttpSession session) throws Exception {
+//
+//			System.out.println("컨트롤러 호출 : " + join.getSelList());
+//
+//			// user table 에 등록
+//			joinDao.memberJoin(join);
+//
+//			// 등록된 유저의 번호를 가져옴
+//			int joinUserNo = joinDao.selectNo();
+//			join.setuNo(joinUserNo);
+//			System.out.println("등록된 유저의 유저번호  : " + joinUserNo);
+//
+//			// Join.getSelList를 # 구분자로 파싱해서 유저엔태그 테이블에 등록된 유저번호와 함께 등록하
+//			String tagStr = join.getSelList().replaceFirst("#", "");
+//			tagStr = tagStr.trim();
+//			String[] tagList = tagStr.split("#");
+//
+//			// 넘어온 태그번호 확인
+//			for (int i = 0; i < tagList.length; i++) {
+//				System.out.print((i + 1) + " 번째 태그번호 : " + tagList[i] + "\n");
+//			}
+//
+//			join.setUtNo(joinUserNo);
+//			for (int i = 0; i < tagList.length; i++) {
+//				join.settNo(Integer.parseInt(tagList[i]));
+//				joinDao.registTag(join);
+//			}
+//			// 디폴트 카테고리 생성
+//			join.setcName("기본폴더");
+//			joinDao.addCategory(join);
+//
+//			// 등록된 유저를 세션에 등록
+//			session.setAttribute("loginUser", join);
+//			System.out.println(join.toString());
+//			return new AjaxResult("success", null);
+//	}
 
 	// 회원가입
 	@RequestMapping(value = "join", method = RequestMethod.POST)
