@@ -7,13 +7,13 @@
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
 <title>욕망을 채워주는 PeeKiS</title>
 <!-- favicon -->
-<link rel="shortcut icon" href="/peekis/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/peekis/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+<link rel="icon" href="../../favicon.ico" type="image/x-icon">
 
 <!-- jQuery -->
 <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="../../js/jquery.rollingCounter.js"></script>
+<!-- <script src="../../js/jquery.rollingCounter.js"></script> -->
 
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -42,7 +42,7 @@ $(function(){
     
 	
 	$.getJSON(
-			"/peekis/main/ajax/selectAllCnt.do",
+			"selectAllCnt.do",
 			function(data){
 				$('#all').attr("data-count", data.allCnt.totalCnt);
 				$('#today').attr("data-count", data.todayCnt.todayCnt);
@@ -102,14 +102,14 @@ $(function(){
 		<script src="../../js/classie.js"></script>
 		<script type="text/javascript">
 	    
-		$(".counter").rollingCounter({
+		/* $(".counter").rollingCounter({
 		    animate : true,
 		    attrCount : 'data-count',
 		    delayTime : 20 ,
 		    waitTime : 1 ,
 		    easing : 'easeOutBounce',
 		    duration : 1000
-		});
+		}); */
 		
 		
 		</script>

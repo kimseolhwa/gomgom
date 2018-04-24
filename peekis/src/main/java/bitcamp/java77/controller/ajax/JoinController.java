@@ -71,6 +71,8 @@ public class JoinController {
 //			System.out.println(join.toString());
 //			return new AjaxResult("success", null);
 //	}
+	
+	
 
 	// 회원가입
 	@RequestMapping(value = "join", method = RequestMethod.POST)
